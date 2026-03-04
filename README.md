@@ -1,106 +1,41 @@
-# New Nx Repository
+# Non-Tech UI PoC Workshop
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+비개발 직군을 위한 UI PoC 워크숍 모노레포입니다. AI 도구(MCP 서버)를 활용하여 PRD 작성부터 에셋 생성, 웹 프로토타이핑까지의 워크플로우를 제공합니다.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 📦 패키지 개요
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-## Finish your Nx platform setup
+- **`packages/web`** – Nuxt 4 기반 웹 애플리케이션. UI PoC의 프론트엔드를 담당합니다. 주요 스택: TypeScript, Vue 3.
+- **`packages/prd-writer`** – MCP(Model Context Protocol) 서버로, 템플릿 기반 PRD 문서 작성 도구를 제공합니다. Claude Code, Kiro, Cursor 등 MCP 호환 클라이언트에서 사용할 수 있습니다. 주요 스택: Python 3.13+, uv.
+- **`packages/asset-generator`** – MCP 서버로, 에셋 생성 도구를 제공합니다. MCP 호환 클라이언트에서 사용할 수 있습니다. 주요 스택: Python 3.13+, uv.
+- **`packages/workshop`** – 워크숍 진행에 필요한 문서와 자료를 포함합니다.
 
-🚀 [Finish setting up your workspace](https://cloud.nx.app/connect/zPjw0FVFl3) to get faster builds with remote caching, distributed task execution, and self-healing CI. [Learn more about Nx Cloud](https://nx.dev/ci/intro/why-nx-cloud).
-## Generate a library
+## 🚀 빠른 시작
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+```bash
+pnpm install
+
+# 웹 앱 개발 서버
+npx nx dev web
+
+# Python MCP 서버 의존성 설치
+npx nx run prd-writer:install
+npx nx run asset-generator:install
+
+# 린트 / 타입체크
+npx nx lint prd-writer
+npx nx typecheck prd-writer
+
+# 의존 관계 그래프 확인
+npx nx graph
 ```
 
-## Run tasks
+개별 패키지 명령은 `npx nx run <project>:<target>` 형식으로도 실행할 수 있습니다. Nuxt 프로젝트는 `dev`, `build`, `generate`, `preview` 타겟을, Python MCP 서버는 `install`, `run`, `lint`, `typecheck` 타겟을 제공합니다.
 
-To build the library use:
+## 📚 문서
 
-```sh
-npx nx build pkg1
-```
+- **패키지별 AGENTS**: 각 패키지의 AGENTS.md에서 세부 지침 확인 (예: [packages/prd-writer/AGENTS.md](./packages/prd-writer/AGENTS.md))
 
-To run any task with Nx use:
+## 🧭 참고
 
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-## Nx Cloud
-
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Set up CI (non-Github Actions CI)
-
-**Note:** This is only required if your CI provider is not GitHub Actions.
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- 패키지/기능을 수정할 때는 관련 ADR을 먼저 검토하고, 변경 사항이 설계에 영향을 주면 새로운 ADR을 작성하거나 기존 문서를 갱신합니다.
+- MCP 서버 패키지는 Controller-Service-Repository 패턴과 DIContainer를 사용합니다.
