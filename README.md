@@ -13,18 +13,55 @@
 
 ```bash
 pnpm install
+```
 
-# 웹 앱 개발 서버
+### 웹 앱 (packages/web)
+
+```bash
+# 개발 서버
 npx nx dev web
 
-# Python MCP 서버 의존성 설치
+# 빌드
+npx nx build web
+
+# 정적 사이트 생성
+npx nx generate web
+
+# 빌드 결과 미리보기
+npx nx preview web
+```
+
+### PRD Writer MCP 서버 (packages/prd-writer)
+
+```bash
+# 의존성 설치
 npx nx run prd-writer:install
-npx nx run asset-generator:install
+
+# MCP 서버 실행
+npx nx run prd-writer:run
 
 # 린트 / 타입체크
 npx nx lint prd-writer
 npx nx typecheck prd-writer
+```
 
+### Asset Generator MCP 서버 (packages/asset-generator)
+
+```bash
+# 의존성 설치
+npx nx run asset-generator:install
+
+# MCP 서버 실행
+npx nx run asset-generator:run
+
+# 린트 / 타입체크
+npx nx lint asset-generator
+npx nx typecheck asset-generator
+```
+
+### 기타
+
+```bash
 # 의존 관계 그래프 확인
 npx nx graph
 ```
