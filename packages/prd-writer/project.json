@@ -5,7 +5,7 @@
   "tags": ["type:app", "lang:typescript"],
   "targets": {
     "build": {
-      "command": "tsc",
+      "command": "tsc && cp -r src/templates src/guides dist/",
       "options": {
         "cwd": "packages/prd-writer"
       },
