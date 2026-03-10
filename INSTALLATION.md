@@ -131,7 +131,9 @@ npx nx dev web
 
 ## 6. Claude Code에 PRD Writer MCP 연결하기
 
-PRD 작성을 도와주는 AI 도구(prd-writer)를 Claude Code에 연결합니다.
+PRD 작성을 도와주는 AI 도구([PRD Writer](https://github.com/haandol/prd-writer))를 Claude Code에 연결합니다.
+
+> **사전 조건**: PRD Writer는 내부적으로 pnpm을 사용합니다. 4단계에서 pnpm이 설치되어 있어야 합니다.
 
 **Step 1.** VS Code 터미널에서 Claude Code를 실행합니다.
 
@@ -142,7 +144,7 @@ claude
 **Step 2.** Claude Code 안에서 아래 명령어를 입력하여 MCP 서버를 등록합니다.
 
 ```
-/mcp add prd-writer npx @non-tech-ui-poc-workshop/prd-writer
+/mcp add prd-writer npx -y github:haandol/prd-writer
 ```
 
 **Step 3.** 등록이 되었는지 확인합니다.
