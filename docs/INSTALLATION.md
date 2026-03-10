@@ -82,7 +82,7 @@ pnpm --version
 claude --version
 ```
 
-> **참고**: Claude Code 사용을 위해 Anthropic API 키가 필요합니다. 워크숍에서 안내되는 방법을 따라주세요.
+> **참고**: Claude Code 사용을 위해 API 인증이 필요합니다. [Claude Code Bedrock 설정 가이드](./CLAUDE_CODE_SETUP.md)를 따라주세요.
 
 ---
 

@@ -42,6 +42,7 @@
 ## 2. 개발 환경 설정하기 (12:10 ~ 12:50)
 
 [INSTALLATION.md](./INSTALLATION.md)를 따라 순서대로 설치합니다.
+Claude Code의 Bedrock 연동은 [CLAUDE_CODE_SETUP.md](./CLAUDE_CODE_SETUP.md)를 참고하세요.
 
 설치 항목 요약:
 
@@ -49,8 +50,9 @@
 2. Node.js 설치
 3. VS Code 설치
 4. pnpm 및 Claude Code 설치
-5. 프로젝트 클론 및 의존성 설치
-6. Claude Code에 PRD Writer MCP 연결
+5. Claude Code Bedrock 설정 → [별도 가이드](./CLAUDE_CODE_SETUP.md)
+6. 프로젝트 클론 및 의존성 설치
+7. Claude Code에 PRD Writer MCP 연결
 
 > **Tip**: `pnpm install`이 진행되는 동안 다음 섹션의 PRD Writer 설정 가이드를 미리 읽어두면 시간을 절약할 수 있습니다.
 
