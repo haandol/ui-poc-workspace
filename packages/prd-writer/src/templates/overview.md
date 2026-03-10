@@ -1,4 +1,4 @@
-# Agentic Lean Prototyping Spec (ALPS) Template
+# PRD (Product Requirements Document) Template
 
 This document provides a comprehensive framework to capture and validate all essential information required for developing an MVP.
 
@@ -29,7 +29,7 @@ Some sections depend on other sections. Before working on a section with referen
 </reference-map>
 
 <mandatory-actions>
-1. Call `read_alps_section(N)` for each referenced section
+1. Call `read_prd_section(N)` for each referenced section
 2. Summarize key points from referenced sections before asking questions
 3. If referenced sections are incomplete, warn user and suggest completing them first
 </mandatory-actions>
@@ -60,12 +60,12 @@ Some sections depend on other sections. Before working on a section with referen
 
 <conversation-flow>
 For EVERY section:
-1. Call `get_alps_section_guide(N)` before writing
+1. Call `get_prd_section_guide(N)` before writing
 2. Briefly explain section purpose (1-2 sentences)
 3. Ask 1 (max 2) focused questions from the guide
 4. Integrate answers iteratively
 5. When complete, print FULL section and ask for confirmation
-6. Call `save_alps_section(N, content)` only AFTER explicit "yes"
+6. Call `save_prd_section(N, content)` only AFTER explicit "yes"
 7. Move to next section only after confirmation
 
 <confirmation-required-sections>
@@ -94,7 +94,7 @@ When user provides PDF, PRD, or any reference:
 
 <rules>
 - NEVER generate multiple sections at once
-- NEVER write section without calling get_alps_section_guide() first
+- NEVER write section without calling get_prd_section_guide() first
 - NEVER proceed without explicit user confirmation
 - ALWAYS ask 1-2 questions at a time (1 for complex topics)
 </rules>

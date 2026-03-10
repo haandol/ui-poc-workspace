@@ -6,11 +6,11 @@ export function registerDocumentTools(server: McpServer, container: DIContainer)
   const service = container.documentService
 
   server.tool(
-    'init_alps_document',
-    'Initialize a new ALPS document file. Creates an XML-based document for reliable section parsing.',
+    'init_prd_document',
+    'Initialize a new PRD document file. Creates an XML-based document for reliable section parsing.',
     {
       project_name: z.string().describe('Name of the project'),
-      output_path: z.string().describe('File path for the document (e.g., ~/Documents/my-project.alps.xml)'),
+      output_path: z.string().describe('File path for the document (e.g., ~/Documents/my-project.prd.xml)'),
     },
     (args) => {
       const result = service.initDocument(args.project_name, args.output_path)
@@ -19,18 +19,18 @@ export function registerDocumentTools(server: McpServer, container: DIContainer)
   )
 
   server.tool(
-    'load_alps_document',
-    `Load an existing ALPS document to resume editing.
+    'load_prd_document',
+    `Load an existing PRD document to resume editing.
 
 CRITICAL: After loading, you MUST follow the conversation guide:
-1. Call get_alps_section_guide(N) for the section you want to work on
+1. Call get_prd_section_guide(N) for the section you want to work on
 2. Ask 1-2 focused questions at a time - DO NOT auto-generate content
 3. Wait for user response before proceeding
 4. Get explicit confirmation before saving each section
 
 NEVER auto-fill sections based on existing content without user Q&A.`,
     {
-      doc_path: z.string().describe('Path to the .alps.xml file'),
+      doc_path: z.string().describe('Path to the .prd.xml file'),
     },
     (args) => {
       const result = service.loadDocument(args.doc_path)
@@ -39,8 +39,8 @@ NEVER auto-fill sections based on existing content without user Q&A.`,
   )
 
   server.tool(
-    'save_alps_section',
-    `Save content to a subsection in the ALPS document.
+    'save_prd_section',
+    `Save content to a subsection in the PRD document.
 
 BEFORE CALLING THIS TOOL:
 1. Show completed content to the user first
@@ -61,7 +61,7 @@ BEFORE CALLING THIS TOOL:
   )
 
   server.tool(
-    'read_alps_section',
+    'read_prd_section',
     'Read the current content of a section or subsection.',
     {
       section: z.number().int().min(1).max(9).describe('Section number (1-9)'),
@@ -77,7 +77,7 @@ BEFORE CALLING THIS TOOL:
   )
 
   server.tool(
-    'get_alps_document_status',
+    'get_prd_document_status',
     'Get the status of all sections in the current document.',
     () => {
       const result = service.getStatus()
@@ -86,8 +86,8 @@ BEFORE CALLING THIS TOOL:
   )
 
   server.tool(
-    'export_alps_markdown',
-    'Export the ALPS document as clean markdown (without XML tags).',
+    'export_prd_markdown',
+    'Export the PRD document as clean markdown (without XML tags).',
     {
       output_path: z
         .string()
