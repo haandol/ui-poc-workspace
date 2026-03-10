@@ -1,0 +1,22 @@
+{
+  "name": "@non-tech-ui-poc-workshop/asset-generator",
+  "version": "0.1.0",
+  "description": "MCP server for asset generation",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "asset-generator": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "typescript": "~5.9.2"
+  }
+}

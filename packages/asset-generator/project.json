@@ -2,40 +2,29 @@
   "name": "asset-generator",
   "projectType": "application",
   "sourceRoot": "packages/asset-generator/src",
-  "tags": ["type:app", "lang:python"],
+  "tags": ["type:app", "lang:typescript"],
   "targets": {
-    "run": {
-      "command": "uv run python -m asset-generator.main",
+    "build": {
+      "command": "tsc",
       "options": {
-        "cwd": "packages/asset-generator/src"
+        "cwd": "packages/asset-generator"
+      },
+      "cache": true,
+      "inputs": ["default"],
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "dev": {
+      "command": "tsx src/index.ts",
+      "options": {
+        "cwd": "packages/asset-generator"
       }
     },
-    "install": {
-      "command": "uv sync",
+    "start": {
+      "command": "node dist/index.js",
       "options": {
         "cwd": "packages/asset-generator"
       },
-      "cache": true,
-      "inputs": ["{projectRoot}/pyproject.toml", "{projectRoot}/uv.lock"],
-      "outputs": ["{projectRoot}/.venv"]
-    },
-    "lint": {
-      "command": "uv run ruff check src/",
-      "options": {
-        "cwd": "packages/asset-generator"
-      },
-      "cache": true,
-      "inputs": ["default"],
-      "dependsOn": ["install"]
-    },
-    "typecheck": {
-      "command": "uv run pyright src/",
-      "options": {
-        "cwd": "packages/asset-generator"
-      },
-      "cache": true,
-      "inputs": ["default"],
-      "dependsOn": ["install"]
+      "dependsOn": ["build"]
     }
   }
 }

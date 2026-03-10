@@ -9,49 +9,60 @@ Compatible with MCP-enabled clients such as Claude Code, Kiro, and Cursor.
 
 ```
 packages/prd-writer/
-├── src/prd_writer/
-│   ├── server.py              # MCP server entry point + tool registration
+├── src/
+│   ├── index.ts                  # Entry point
+│   ├── server.ts                 # MCP server setup + tool registration
 │   ├── di/
-│   │   └── container.py       # Dependency injection container
+│   │   └── container.ts          # Dependency injection container
 │   ├── tools/
-│   │   ├── templates/         # Template tools
-│   │   │   ├── controller.py  # MCP interface
-│   │   │   ├── service.py     # Business logic
-│   │   │   └── repository.py  # External environment integration
-│   │   └── documents/         # Document management tools
-│   │       ├── controller.py
-│   │       ├── service.py
-│   │       └── repository.py
+│   │   ├── templates/            # Template tools
+│   │   │   ├── controller.ts     # MCP interface
+│   │   │   ├── service.ts        # Business logic
+│   │   │   └── repository.ts     # External environment integration
+│   │   └── documents/            # Document management tools
+│   │       ├── controller.ts
+│   │       ├── service.ts
+│   │       └── repository.ts
 │   ├── interfaces/
-│   │   └── constants.py       # Constants definition
-│   ├── guides/                # Section guides (01.md ~ 09.md)
+│   │   └── constants.ts          # Constants definition
+│   ├── guides/                   # Section guides (01.md ~ 09.md)
 │   └── templates/
 │       ├── overview.md
 │       └── chapters/
-└── tests/
+├── package.json
+├── tsconfig.json
+└── project.json
 ```
 
 ## Technology Stack
 
 - **Protocol**: Model Context Protocol (MCP)
-- **Language**: Python 3.13+
-- **Package Manager**: uv
+- **Language**: TypeScript
+- **Runtime**: Node.js
+- **MCP SDK**: @modelcontextprotocol/sdk
+- **Package Manager**: pnpm
 
 ## Development Commands
 
 ```bash
 # Install dependencies
-uv sync
+pnpm install
 
-# Run tests
-uv run pytest
+# Run in development mode
+pnpm dev
+
+# Build
+pnpm build
+
+# Run built server
+pnpm start
 ```
 
 ## Architecture
 
 Uses the Controller-Service-Repository pattern:
 
-- **Controller**: MCP tool interface (includes docstrings)
+- **Controller**: MCP tool interface (registers tools on McpServer)
 - **Service**: Business logic
 - **Repository**: External environment integration
 - **DIContainer**: Loose coupling through dependency injection
