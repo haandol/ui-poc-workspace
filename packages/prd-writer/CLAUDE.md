@@ -1,0 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this package.
+
+Refer to AGENTS.md for project structure, tech stack, architecture, code style, and development commands.
+
+- [AGENTS.md](./AGENTS.md) - Project overview, architecture, commands, conventions
