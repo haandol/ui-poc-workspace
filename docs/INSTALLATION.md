@@ -101,8 +101,8 @@ cd ~/Desktop
 **Step 2.** 프로젝트를 클론합니다.
 
 ```bash
-git clone <이 레포지토리 URL>
-cd non-tech-ui-poc-workshop
+git clone https://github.com/haandol/ui-poc-workspace
+cd ui-poc-workspace
 ```
 
 **Step 3.** VS Code에서 프로젝트 폴더를 엽니다.
@@ -121,7 +121,7 @@ pnpm install
 **Step 5.** 웹 개발 서버가 정상 동작하는지 확인합니다.
 
 ```bash
-npx nx dev web
+pnpm dev:web
 ```
 
 - 브라우저에서 `http://localhost:3000` 에 접속하여 기본 페이지가 보이면 성공
@@ -129,34 +129,31 @@ npx nx dev web
 
 ---
 
-## 6. Claude Code에 PRD Writer MCP 연결하기
+## 6. MCP 서버 설정하기
 
-PRD 작성을 도와주는 AI 도구([PRD Writer](https://github.com/haandol/prd-writer))를 Claude Code에 연결합니다.
+AI 도구가 PDF 읽기, PRD 작성, 브라우저 디버깅을 할 수 있도록 MCP 서버를 등록합니다.
 
-> **사전 조건**: PRD Writer는 내부적으로 pnpm을 사용합니다. 4단계에서 pnpm이 설치되어 있어야 합니다.
+VS Code 터미널에서 아래 명령어를 **한 줄씩** 실행합니다:
 
-**Step 1.** VS Code 터미널에서 Claude Code를 실행합니다.
+**PDF Reader MCP** — 리서치 PDF를 읽어주는 도구 ([github](https://github.com/SylphxAI/pdf-reader-mcp)):
 
 ```bash
-claude
+kiro-cli mcp add --name pdf-reader --command npx --args "-y" --args "@sylphx/pdf-reader-mcp" --scope global
 ```
 
-**Step 2.** Claude Code 안에서 아래 명령어를 입력하여 MCP 서버를 등록합니다.
+**ALPS Writer MCP** — PRD(ALPS) 문서를 작성해주는 도구 ([github](https://github.com/haandol/alps-writer-mcp)):
 
-```
-/mcp add prd-writer npx -y github:haandol/prd-writer
-```
-
-**Step 3.** 등록이 되었는지 확인합니다.
-
-```
-/mcp
+```bash
+kiro-cli mcp add --name alps-writer --command npx --args "-y" --args "alps-writer" --scope global --env ALPS_OUTPUT_DIR="$PWD/prd"
 ```
 
-- `prd-writer` 항목이 목록에 보이면 성공
-- 이후 Claude Code에서 PRD 작성 관련 도구를 바로 사용할 수 있습니다
+**Chrome DevTools MCP** — 브라우저 화면을 AI가 직접 확인하고 디버깅할 수 있게 해주는 도구:
 
-> **참고**: MCP 등록은 한 번만 하면 됩니다. 다음에 Claude Code를 다시 실행해도 자동으로 연결됩니다.
+```bash
+kiro-cli mcp add --name chrome-devtools --command npx --args "-y" --args "chrome-devtools-mcp@latest" --scope global
+```
+
+> **참고**: MCP 등록은 한 번만 하면 됩니다. 다음에 Kiro를 다시 실행해도 자동으로 연결됩니다.
 
 ---
 
@@ -177,7 +174,7 @@ pnpm install
 
 ```bash
 # 포트 3000이 이미 사용 중인 경우
-npx nx dev web -- --port 3001
+pnpm dev:web -- --port 3001
 ```
 
 ### Claude Code가 동작하지 않을 때
@@ -193,4 +190,4 @@ npm install -g @anthropic-ai/claude-code
 ### 브라우저에 변경사항이 반영되지 않을 때
 
 - 브라우저 캐시 강제 새로고침: `Ctrl + Shift + R` (Mac: `Cmd + Shift + R`)
-- 개발 서버 재시작: `Ctrl + C` 후 `npx nx dev web`
+- 개발 서버 재시작: `Ctrl + C` 후 `pnpm dev:web`

@@ -22,7 +22,7 @@ pnpm install
 ### 웹 앱
 
 ```bash
-npx nx dev web          # 개발 서버
+pnpm dev:web             # 개발 서버
 npx nx build web        # 빌드
 npx nx generate web     # 정적 사이트 생성
 npx nx preview web      # 빌드 결과 미리보기
