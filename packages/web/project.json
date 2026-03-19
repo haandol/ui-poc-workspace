@@ -1,0 +1,38 @@
+{
+  "name": "web",
+  "projectType": "application",
+  "sourceRoot": "packages/web/app",
+  "tags": ["type:app", "lang:typescript"],
+  "targets": {
+    "dev": {
+      "command": "nuxt dev",
+      "options": {
+        "cwd": "packages/web"
+      }
+    },
+    "build": {
+      "command": "nuxt build",
+      "options": {
+        "cwd": "packages/web"
+      },
+      "cache": true,
+      "inputs": ["production", "^production"],
+      "outputs": ["{projectRoot}/.output"]
+    },
+    "generate": {
+      "command": "nuxt generate",
+      "options": {
+        "cwd": "packages/web"
+      },
+      "cache": true,
+      "outputs": ["{projectRoot}/.output"]
+    },
+    "preview": {
+      "command": "nuxt preview",
+      "options": {
+        "cwd": "packages/web"
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}
