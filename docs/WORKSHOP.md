@@ -47,7 +47,7 @@
 
 ### 2-1. 딥리서치로 아이디어 조사하기
 
-**Step 1.** Amazon QuickSight 를 열고 Quick Flow를 생성합니다.
+**Step 1.** Amazon QuickSuite 를 열고 Quick Flow를 생성합니다.
 
 아래 내용으로 Quick Flow를 만듭니다:
 
