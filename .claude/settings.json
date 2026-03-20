@@ -1,4 +1,19 @@
 {
+  "permissions": {
+    "allow": []
+  },
+  "enabledMcpjsonServers": [
+    "pdf-reader",
+    "alps-writer"
+  ],
+  "enabledPlugins": {
+    "nx@nx-claude-plugins": true,
+    "frontend-design": true,
+    "typescript-lsp": true,
+    "context7": true,
+    "chrome-devtools-mcp": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
   "extraKnownMarketplaces": {
     "nx-claude-plugins": {
       "source": {
@@ -6,8 +21,5 @@
         "repo": "nrwl/nx-ai-agents-config"
       }
     }
-  },
-  "enabledPlugins": {
-    "nx@nx-claude-plugins": true
   }
 }

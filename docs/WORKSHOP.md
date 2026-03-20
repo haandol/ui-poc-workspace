@@ -24,7 +24,7 @@
 ## 사전 준비물
 
 - Amazon QuickSuite 설정
-- Kiro CLI 설정
+- Claude Code 설정
 - 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
 - 개인 노트북
 
@@ -40,7 +40,7 @@
 
 1. 딥리서치로 아이디어 조사 (+ 동시에 개발 환경 설정)
 2. PRD 문서 작성
-3. Kiro로 UI PoC 개발
+3. Claude Code로 UI PoC 개발
 4. 결과물 데모 및 피드백
 
 > **Tip**: 작업 중 막히거나 궁금한 점이 있으면 언제든 AI에게 질문하세요.
@@ -75,9 +75,9 @@
 
 [INSTALLATION.md](./INSTALLATION.md)를 따라 순서대로 진행합니다.
 
-1. Git, Node.js, VS Code, pnpm, Kiro CLI 설치 (1~4단계)
+1. Ghostty, Git, Node.js, pnpm, Claude Code 설치 (1~4단계)
 2. **프로젝트 클론 및 설정** (5단계) — `pnpm install` 까지 완료
-3. MCP 서버 확인 (6단계) — `.mcp.json`에 이미 설정되어 있음
+3. MCP 서버 및 플러그인 확인 (6단계) — 이미 설정되어 있음
 
 딥리서치가 완료되면, 다운받은 리서치 PDF를 `docs/` 폴더에 복사합니다.
 
@@ -93,30 +93,23 @@
 리서치 PDF를 기반으로 PRD를 작성합니다.
 
 ```
-작업 폴더: ui-poc-workspace/  (프로젝트 루트에서 Kiro 실행)
+작업 폴더: ui-poc-workspace/  (프로젝트 루트에서 Claude Code 실행)
 ├── docs/research.pdf     <- 리서치 PDF (입력)
 └── prd/                  <- ALPS 문서가 여기에 저장됨 (출력)
 ```
 
-**Step 1.** VSCode 터미널에서 Kiro를 실행합니다.
-
-VS Code를 실행하고, 내장 터미널을 엽니다.
-
-- **Windows**: 상단 메뉴 `Terminal > New Terminal` (또는 `` Ctrl + ` ``)
-- **Mac**: 상단 메뉴 `Terminal > New Terminal` (또는 `` Ctrl + ` ``)
-
-터미널에서 Kiro CLI 를 실행합니다.
+**Step 1.** Ghostty 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
 
 ```
-kiro-cli
+claude
 ```
 
-**Step 2.** Kiro에서 PRD 작성을 요청합니다.
+**Step 2.** Claude Code에서 PRD 작성을 요청합니다.
 
 프롬프트 예시:
 
 ```
-@docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
+docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ```
 
 > **Tip**: 아이디어를 구체적으로 작성할수록 좋은 PRD가 만들어집니다.
@@ -135,20 +128,16 @@ kiro-cli
 
 ```
 작업 폴더: ui-poc-workspace/  (프로젝트 루트에서 모든 작업)
-├── prd/XYZ.alps.md            <- PRD 문서 (AI가 참조)
-└── packages/web/              <- 웹 소스 코드 (AI가 자동 수정)
-    └── app/
-        ├── app.vue            <- 메인 컴포넌트
-        ├── pages/             <- 페이지 파일들
-        ├── components/        <- 재사용 컴포넌트
-        └── layouts/           <- 레이아웃
+└── prd/XYZ.alps.md            <- PRD 문서 (AI가 참조)
 ```
+
+> **참고**: 소스 코드는 AI가 알아서 찾아서 수정합니다. 파일 위치를 몰라도 괜찮습니다.
 
 ### 4-1. 개발 서버 먼저 실행하기
 
 개발하는 동안 **별도의 터미널 탭**에서 개발 서버를 실행해둡니다.
 
-VS Code에서 터미널 탭을 추가하려면: 터미널 우측 상단의 `+` 버튼 클릭
+Ghostty에서 새 탭을 추가하려면: `Ctrl + Shift + T` (Mac: `Cmd + T`)
 
 ```bash
 # 터미널 탭 1: 개발 서버 (항상 켜두기)
@@ -158,8 +147,8 @@ pnpm dev:web
 브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
 
 ```bash
-# 터미널 탭 2: Kiro CLI (AI 작업용)
-kiro-cli
+# 터미널 탭 2: Claude Code (AI 작업용)
+claude
 ```
 
 ### 4-2. PRD를 통해 UI 개발 시작
@@ -263,4 +252,4 @@ PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
 
 ## 트러블슈팅
 
-문제가 발생하면 [INSTALLATION.md](./INSTALLATION.md#트러블슈팅)의 트러블슈팅 섹션을 참고하세요.
+문제가 발생하면 각 OS별 설치 가이드의 트러블슈팅 섹션을 참고하세요: [Windows](./INSTALLATION_WIN.md#트러블슈팅) | [Mac](./INSTALLATION_MAC.md#트러블슈팅)

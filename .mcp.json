@@ -10,10 +10,6 @@
       "env": {
         "ALPS_OUTPUT_DIR": "./prd"
       }
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
     }
   }
 }

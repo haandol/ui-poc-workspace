@@ -8,7 +8,7 @@ Claude Code를 Amazon Bedrock을 통해 사용하도록 설정합니다.
 
 ## 사전 조건
 
-- [INSTALLATION.md](./INSTALLATION.md)의 1~4단계가 완료되어 있어야 합니다 (Git, Node.js, VS Code, pnpm, Claude Code 설치)
+- [INSTALLATION.md](./INSTALLATION.md)의 1~4단계가 완료되어 있어야 합니다 (Git, Node.js, VS Code, pnpm, Claude Code 설치됨)
 - AWS 계정에 Bedrock 접근이 활성화되어 있어야 합니다
 - Bedrock에서 사용할 Claude 모델(예: Claude Sonnet 4.6)에 대한 접근 권한이 필요합니다
 - 적절한 IAM 권한이 설정되어 있어야 합니다
