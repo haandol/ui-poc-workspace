@@ -58,7 +58,7 @@ node --version
 
 ---
 
-## 4. pnpm 및 Claude Code 설치
+## 4. pnpm, Claude Code, Kiro CLI 설치
 
 VS Code를 실행하고, 내장 터미널을 엽니다.
 
@@ -75,11 +75,16 @@ npm install -g pnpm
 npm install -g @anthropic-ai/claude-code
 ```
 
+```bash
+npm install -g @anthropic-ai/kiro-cli
+```
+
 **설치 확인:**
 
 ```bash
 pnpm --version
 claude --version
+kiro-cli --version
 ```
 
 > **참고**: Claude Code 사용을 위해 API 인증이 필요합니다. [Claude Code Bedrock 설정 가이드](./CLAUDE_CODE_SETUP.md)를 따라주세요.
@@ -107,8 +112,11 @@ cd ui-poc-workspace
 
 **Step 3.** VS Code에서 프로젝트 폴더를 엽니다.
 
-- `File > Open Folder`에서 바탕화면의 `non-tech-ui-poc-workshop` 폴더를 선택합니다.
+- `File > Open Folder`에서 바탕화면의 `ui-poc-workspace` 폴더를 선택합니다.
 - 새 VS Code 창이 열리면, 다시 터미널을 엽니다 (`` Ctrl + ` ``)
+
+> **중요**: 이후의 모든 명령어는 **프로젝트 루트 폴더** (`ui-poc-workspace`) 에서 실행해야 합니다.
+> VS Code에서 프로젝트 폴더를 열었다면 터미널이 자동으로 프로젝트 루트에 위치합니다.
 
 **Step 4.** 의존성을 설치합니다.
 
@@ -133,7 +141,11 @@ pnpm dev:web
 
 AI 도구가 PDF 읽기, PRD 작성, 브라우저 디버깅을 할 수 있도록 MCP 서버를 등록합니다.
 
-VS Code 터미널에서 아래 명령어를 **한 줄씩** 실행합니다:
+> **중요**: 아래 명령어는 **프로젝트 루트 폴더** (`ui-poc-workspace`)에서 실행해야 합니다.
+> `alps-writer` MCP 설정에서 `$PWD`(현재 디렉터리)를 사용하므로, 다른 폴더에서 실행하면 경로가 잘못 설정됩니다.
+
+VS Code에서 프로젝트 폴더를 연 상태라면 터미널이 자동으로 프로젝트 루트에 위치합니다.
+아래 명령어를 **한 줄씩** 실행합니다:
 
 **PDF Reader MCP** — 리서치 PDF를 읽어주는 도구 ([github](https://github.com/SylphxAI/pdf-reader-mcp)):
 
