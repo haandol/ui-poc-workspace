@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "pdf-reader": {
+      "command": "npx",
+      "args": ["-y", "@sylphx/pdf-reader-mcp"]
+    },
+    "alps-writer": {
+      "command": "npx",
+      "args": ["-y", "alps-writer"],
+      "env": {
+        "ALPS_OUTPUT_DIR": "./prd"
+      }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    }
+  }
+}

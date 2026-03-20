@@ -33,6 +33,26 @@
         "cwd": "packages/web"
       },
       "dependsOn": ["build"]
+    },
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "packages/web"
+      },
+      "cache": true
+    },
+    "format": {
+      "command": "prettier . --write",
+      "options": {
+        "cwd": "packages/web"
+      }
+    },
+    "format:check": {
+      "command": "prettier . --check",
+      "options": {
+        "cwd": "packages/web"
+      },
+      "cache": true
     }
   }
 }

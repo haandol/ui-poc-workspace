@@ -16,7 +16,10 @@ You are the **Web sub-agent** for the UI PoC Workshop monorepo. Your scope is li
 ### Verification (run before reporting back)
 
 ```bash
-npx nx build web     # verify build
+cd packages/web
+npx eslint --fix <changed-files>     # lint + auto-fix
+npx prettier --write <changed-files> # format
+pnpm build                           # verify build
 ```
 
 ### Constraints
@@ -25,6 +28,7 @@ npx nx build web     # verify build
 - Follow the design system strictly — see `docs/design-system.md`.
 - Use `dark:` directive for dark mode. Never use `[data-theme="dark"]` or `:global(.dark)`.
 - Do not apply MCP server conventions to this package.
+- Always run lint and format on changed files before committing.
 
 ---
 
