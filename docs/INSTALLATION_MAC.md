@@ -76,7 +76,7 @@ claude --version
 
 ## 5. 프로젝트 클론 및 설정 (중요)
 
-> **이 단계가 핵심입니다.** 프로젝트를 클론하고 의존성을 설치해야 워크숍을 진행할 수 있습니다.
+> **이 단계가 핵심입니다.** 프로젝트를 다운로드하고 필요한 패키지를 설치해야 워크숍을 진행할 수 있습니다.
 
 **Step 1.** Ghostty 터미널에서 바탕화면으로 이동합니다.
 
@@ -91,7 +91,7 @@ git clone https://github.com/haandol/ui-poc-workspace
 cd ui-poc-workspace
 ```
 
-**Step 3.** 의존성을 설치합니다.
+**Step 3.** 프로젝트에 필요한 패키지를 설치합니다.
 
 ```bash
 pnpm install
@@ -133,14 +133,16 @@ Claude Code 실행 후:
 | ----------------------- | -------------------------------------------------- |
 | **pdf-reader**          | 리서치 PDF를 읽어주는 도구                         |
 | **alps-writer**         | PRD(ALPS) 문서를 작성해주는 도구                   |
-| **chrome-devtools-mcp** | 브라우저 화면을 AI가 직접 확인하고 디버깅하는 도구 |
-| **context7**            | 라이브러리 최신 문서를 조회하는 도구               |
-| **frontend-design**     | 프론트엔드 디자인 품질을 높여주는 도구             |
-| **typescript-lsp**      | TypeScript 코드 분석 도구                          |
+| **chrome-devtools-mcp** | 브라우저 화면을 AI가 직접 보고 문제를 찾아주는 도구 |
+| **context7**            | 최신 기술 문서를 자동으로 찾아주는 도구             |
+| **frontend-design**     | 화면 디자인 품질을 높여주는 도구                    |
+| **typescript-lsp**      | 코드 오류를 자동으로 찾아주는 도구                  |
 
 ---
 
 ## (선택) glow — 터미널 마크다운 뷰어
+
+터미널에서 마크다운 문서를 보기 좋게 렌더링해주는 도구입니다.
 
 사용 예시:
 
@@ -156,12 +158,12 @@ glow docs/WORKSHOP.md
 
 | 작업                       | 폴더 위치                        | 비고                       |
 | -------------------------- | -------------------------------- | -------------------------- |
-| 프로젝트 설정, 의존성 설치 | `ui-poc-workspace/` (루트)       | `pnpm install` 등          |
+| 프로젝트 설정, 패키지 설치 | `ui-poc-workspace/` (루트)       | `pnpm install` 등          |
 | 리서치 PDF 저장            | `ui-poc-workspace/docs/`         | 딥리서치 PDF를 여기에 복사 |
 | PRD(ALPS) 문서             | `ui-poc-workspace/prd/`          | AI가 자동으로 저장         |
 | Claude Code 실행           | `ui-poc-workspace/` (루트)       | 항상 루트에서 실행         |
 | 웹 개발 서버 실행          | `ui-poc-workspace/` (루트)       | `pnpm dev:web`             |
-| 웹 소스 코드               | `ui-poc-workspace/packages/web/` | AI가 자동으로 수정         |
+| 웹 소스 코드               | `ui-poc-workspace/packages/web/` | AI가 알아서 수정 (직접 열 필요 없음) |
 
 ---
 
