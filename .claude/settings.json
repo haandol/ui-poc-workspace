@@ -8,7 +8,7 @@
   ],
   "enabledPlugins": {
     "nx@nx-claude-plugins": true,
-    "frontend-design": true,
+    "frontend-design": false,
     "typescript-lsp": true,
     "context7": true,
     "chrome-devtools-mcp": true,
