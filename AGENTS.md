@@ -78,6 +78,27 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 2. **Update README index** — Keep the `docs/adr/README.md` ADR list up to date
 3. **Cascade updates** — If changes affect other ADRs, update those as well
 
+#### ALPS PRD Feature → ADR 필수 워크플로우 (MANDATORY)
+
+ALPS PRD 문서에서 정의된 Feature(F1, F2, …)를 구현할 때는 아래 프로토콜을 **반드시** 따라야 합니다.
+
+```
+PRD Feature 확인 → ADR 작성 (Proposed) → 사용자 확인 → 구현 시작 → ADR 동기화 (Accepted)
+```
+
+1. **PRD Feature 확인** — ALPS PRD Section 6 (Requirements Summary)에서 Feature ID와 우선순위를 확인하고, Section 7 (Feature-Level Specification)에서 User Story, User Flow, Technical Description, Acceptance Criteria를 읽는다.
+2. **ADR 작성 (구현 전 필수)**
+   - `docs/adr/` 하위 적절한 카테고리 디렉토리에 ADR 파일을 생성한다.
+   - ADR 제목에 PRD Feature ID를 포함한다 (예: `0001-f1-email-signup.md`).
+   - ADR Context에 PRD Feature 참조(Feature ID, 우선순위)를 명시한다.
+   - ADR Decision에 구현 방향과 기술적 결정을 기록한다.
+   - 상태는 `Proposed`로 시작한다.
+3. **사용자 확인** — ADR 내용을 사용자에게 제시하고, 확인을 받은 후에만 코드 구현을 시작한다.
+4. **구현** — ADR에서 결정한 방향에 따라 코드를 구현한다.
+5. **ADR 동기화** — 구현이 완료되면 ADR 상태를 `Accepted`로 변경하고, 구현과 다른 부분이 있으면 ADR을 업데이트한다. `docs/adr/README.md` 인덱스도 갱신한다.
+
+**규칙 위반 방지**: Feature 코드 구현(컴포넌트 생성, API 엔드포인트 추가, 페이지 작성 등)을 ADR 없이 시작할 수 없다. ADR이 존재하지 않는 Feature의 구현 요청을 받으면, 반드시 ADR 작성을 먼저 제안해야 한다.
+
 #### When ADR is Not Required
 
 The following changes can skip ADR creation/update:
