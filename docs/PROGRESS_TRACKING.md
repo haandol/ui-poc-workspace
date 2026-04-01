@@ -22,7 +22,7 @@ After each triggering action completes successfully, the agent must run `/worksh
 | ALPS Section 1 saved (`save_alps_section`) | `PRD-START` |
 | ALPS Section 6 saved (`save_alps_section`) | `PRD-FEATURES` |
 | ALPS Section 9 saved (`save_alps_section`) | `PRD-DONE` |
-| `/scaffold-ui` completes (`layouts/` dir created) | `SCAFFOLD-DONE` |
+| `layouts/` directory created in `packages/web/app/` | `SCAFFOLD-DONE` |
 | Feature N implementation committed (`git commit`) | `FN-DONE` |
 | All core features implemented + user confirms | `DEMO-READY` |
 

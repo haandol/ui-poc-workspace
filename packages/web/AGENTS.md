@@ -90,7 +90,6 @@ packages/web/
 └── tsconfig.json
 ```
 
-> **Note**: The pages/, components/, and layouts/ directories are created by running the `/scaffold-ui` skill after PRD completion. They may not exist in a fresh clone.
 
 ## Common Mistakes to Avoid
 
