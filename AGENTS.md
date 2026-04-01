@@ -116,7 +116,28 @@ For directory structure, file naming, templates, and writing rules, refer to [`d
 
 ## Workshop Progress Tracking (Mandatory)
 
-This is a workshop repository. The agent **must** automatically report progress to Airtable at every stage transition. See [`docs/PROGRESS_TRACKING.md`](./docs/PROGRESS_TRACKING.md) for trigger rules and milestones. Skip silently if Airtable is not configured.
+This is a workshop repository. The agent **must** automatically report progress to Airtable at every stage transition. Skip silently if Airtable is not configured (no `.workshop-participant` file or no Airtable MCP server).
+
+### Stage Transition Triggers
+
+After each triggering action completes successfully, the agent must run `/workshop-status <MILESTONE_ID>` **automatically without asking the user**.
+
+| Trigger Condition | Milestone ID |
+|---|---|
+| `pnpm install` succeeds + dev server verified | `SETUP-DONE` |
+| PDF file saved to `docs/` | `RESEARCH-DONE` |
+| ALPS Section 1 saved (`save_alps_section`) | `PRD-START` |
+| ALPS Section 6 saved (`save_alps_section`) | `PRD-FEATURES` |
+| ALPS Section 9 saved (`save_alps_section`) | `PRD-DONE` |
+| `layouts/` directory created in `packages/web/app/` | `SCAFFOLD-DONE` |
+| Feature N implementation committed (`git commit`) | `FN-DONE` |
+| All core features implemented + user confirms | `DEMO-READY` |
+
+### Rules
+
+- Report each milestone **once**. Do not re-report a milestone already recorded.
+- Execute the status update **after** the triggering action, not before.
+- On failure (Airtable API error, network issue), log the error but do not retry or block.
 
 ---
 
