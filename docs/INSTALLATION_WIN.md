@@ -6,6 +6,25 @@
 
 ---
 
+## Quick Setup (권장)
+
+프로젝트를 클론한 뒤, PowerShell에서 아래 명령어 하나로 모든 환경설정을 완료할 수 있습니다:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
+```
+
+> 스크립트가 scoop, Git, Node.js, pnpm, Claude Code를 자동 설치합니다.
+> 설치 완료 후 아래 **6. MCP 서버 및 플러그인 확인하기** 로 이동하세요.
+
+---
+
+## 수동 설치 (단계별)
+
+스크립트 대신 직접 설치하려면 아래 단계를 따라하세요.
+
+---
+
 ## 1. Ghostty 설치 (터미널)
 
 이후 모든 설치 및 실행은 터미널에서 진행합니다. Claude Code를 실행할 터미널로 Ghostty를 사용합니다.

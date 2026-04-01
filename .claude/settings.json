@@ -4,7 +4,8 @@
   },
   "enabledMcpjsonServers": [
     "pdf-reader",
-    "alps-writer"
+    "alps-writer",
+    "airtable"
   ],
   "enabledPlugins": {
     "nx@nx-claude-plugins": true,

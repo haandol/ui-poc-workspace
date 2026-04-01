@@ -6,6 +6,31 @@
 
 ---
 
+## Quick Setup (권장)
+
+아래 명령어 하나로 클론 + 모든 환경설정을 완료할 수 있습니다:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/bootstrap.sh | bash
+```
+
+이미 프로젝트를 클론한 경우:
+
+```bash
+bash scripts/setup.sh
+```
+
+> 스크립트가 Homebrew, Git, Node.js, pnpm, Claude Code를 자동 설치합니다.
+> 설치 완료 후 아래 **6. MCP 서버 및 플러그인 확인하기** 로 이동하세요.
+
+---
+
+## 수동 설치 (단계별)
+
+스크립트 대신 직접 설치하려면 아래 단계를 따라하세요.
+
+---
+
 ## 1. Ghostty 설치 (터미널)
 
 이후 모든 설치 및 실행은 터미널에서 진행합니다. Claude Code를 실행할 터미널로 Ghostty를 사용합니다.

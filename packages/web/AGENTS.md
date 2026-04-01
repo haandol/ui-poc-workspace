@@ -62,7 +62,19 @@ npx nx preview web      # Preview production build
 ```
 packages/web/
 ├── app/
-│   └── app.vue              # Root component
+│   ├── app.vue              # Root component (NuxtLayout + NuxtPage)
+│   ├── layouts/
+│   │   └── default.vue      # Sidebar + Header + Content layout
+│   ├── pages/
+│   │   ├── index.vue        # Home / dashboard
+│   │   ├── f1.vue           # Feature 1 page
+│   │   ├── f2.vue           # Feature 2 page
+│   │   └── ...              # Additional feature pages
+│   ├── components/
+│   │   ├── AppSidebar.vue   # Sidebar navigation
+│   │   └── AppHeader.vue    # Top header bar
+│   └── assets/
+│       └── css/main.css     # TailwindCSS + DaisyUI
 ├── docs/           # Design system & coding rules
 │   ├── design-system.md    # Complete design system
 │   ├── design-principle.md # Design philosophy
@@ -77,6 +89,8 @@ packages/web/
 ├── project.json             # Nx target definitions
 └── tsconfig.json
 ```
+
+> **Note**: The pages/, components/, and layouts/ directories are created by running the `/scaffold-ui` skill after PRD completion. They may not exist in a fresh clone.
 
 ## Common Mistakes to Avoid
 

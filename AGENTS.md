@@ -114,6 +114,12 @@ For directory structure, file naming, templates, and writing rules, refer to [`d
 - Keep ADR index (`docs/adr/README.md`) in sync — always update the index table when adding/modifying ADRs
 - Update relevant AGENTS.md when adding major features or changing project structure
 
+## Workshop Progress Tracking (Mandatory)
+
+This is a workshop repository. The agent **must** automatically report progress to Airtable at every stage transition. See [`docs/PROGRESS_TRACKING.md`](./docs/PROGRESS_TRACKING.md) for trigger rules and milestones. Skip silently if Airtable is not configured.
+
+---
+
 ## Nx Workspace
 
 This project uses [Nx](https://nx.dev) for monorepo management with pnpm workspace.

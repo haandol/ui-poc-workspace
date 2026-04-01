@@ -10,6 +10,10 @@
       "env": {
         "ALPS_OUTPUT_DIR": "./prd"
       }
+    },
+    "airtable": {
+      "command": "npx",
+      "args": ["-y", "airtable-mcp-server"]
     }
   }
 }

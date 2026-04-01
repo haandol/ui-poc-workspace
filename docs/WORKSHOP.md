@@ -73,11 +73,28 @@
 
 ### 2-2. 개발 환경 설정하기
 
-[INSTALLATION.md](./INSTALLATION.md)를 따라 순서대로 진행합니다.
+셋업 스크립트를 실행하면 모든 환경설정이 자동으로 완료됩니다.
 
-1. Ghostty, Git, Node.js, pnpm, Claude Code 설치 (1~4단계)
-2. **프로젝트 클론 및 설정** (5단계) — `pnpm install` 까지 완료
-3. MCP 서버 및 플러그인 확인 (6단계) — 이미 설정되어 있음
+**Mac — 원라이너 (클론 + 설치 한번에):**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/bootstrap.sh | bash
+```
+
+**Windows (프로젝트 클론 후 PowerShell에서):**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
+```
+
+> **참고**: 스크립트 실행이 어려운 경우 [수동 설치 가이드](./INSTALLATION.md)를 참고하세요.
+
+설치가 완료되면 Claude Code를 실행하여 MCP 도구가 정상 연결되었는지 확인합니다:
+
+```bash
+claude
+# Claude Code 실행 후 /mcp 입력
+```
 
 딥리서치가 완료되면, 다운받은 리서치 PDF를 `docs/` 폴더에 복사합니다.
 
@@ -132,6 +149,25 @@ docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ```
 
 > **참고**: 소스 코드는 AI가 알아서 찾아서 수정합니다. 파일 위치를 몰라도 괜찮습니다.
+
+### 4-0. UI 뼈대 자동 생성 (권장)
+
+PRD가 완성되면, 바로 UI 뼈대를 생성하여 **첫 화면을 빠르게** 확인할 수 있습니다.
+
+Claude Code에서:
+
+```
+/scaffold-ui
+```
+
+이 명령은 PRD를 읽고 자동으로 생성합니다:
+- 사이드바 + 헤더 레이아웃
+- 각 피쳐별 빈 페이지 (F1, F2, ...)
+- 네비게이션 링크
+
+생성 후 브라우저에서 `http://localhost:3000` 을 확인하면 네비게이션 가능한 UI 뼈대가 보입니다.
+
+> **Tip**: 뼈대가 생성된 상태에서 피쳐를 하나씩 채워가면, 매번 전체를 새로 만들 필요 없이 훨씬 빠르게 결과를 볼 수 있습니다.
 
 ### 4-1. 개발 서버 먼저 실행하기
 
