@@ -1,7 +1,6 @@
 ---
 name: workshop-status
 description: 워크숍 진행 상태를 Airtable에 공유합니다. 초기 설정(키 등록), 단계별 상태 보고, 전체 현황 조회, 진행자용 테이블 생성을 모두 포함합니다.
-user_invocable: true
 ---
 
 # Workshop Status Skill
