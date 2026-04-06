@@ -27,6 +27,7 @@
 - Claude Code 설정
 - 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
 - 개인 노트북
+- 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
 
 ---
 
@@ -80,6 +81,7 @@
 ### 2-2. 개발 환경 설정하기
 
 셋업 스크립트를 실행하면 모든 환경설정이 자동으로 완료됩니다.
+설치 완료 후 작업 폴더는 `바탕화면/ui-poc-workspace/` 에 생성됩니다.
 
 **Mac — 원라이너 (클론 + 설치 한번에):**
 
@@ -87,20 +89,30 @@
 curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/bootstrap.sh | bash
 ```
 
-**Windows (프로젝트 클론 후 PowerShell에서):**
+**Windows — PowerShell에서 아래 두 명령을 순서대로 실행:**
 
 ```powershell
+# 1) 프로젝트 클론
+git clone https://github.com/haandol/ui-poc-workspace "$HOME\Desktop\ui-poc-workspace"
+cd "$HOME\Desktop\ui-poc-workspace"
+
+# 2) 셋업 스크립트 실행
 powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
 ```
 
 > **참고**: 스크립트 실행이 어려운 경우 [수동 설치 가이드](./INSTALLATION.md)를 참고하세요.
 
-설치가 완료되면 Claude Code를 실행하여 MCP 도구가 정상 연결되었는지 확인합니다:
+설치가 완료되면 작업 폴더에서 Claude Code를 실행하여 MCP 도구가 정상 연결되었는지 확인합니다:
 
 ```bash
-claude
-# Claude Code 실행 후 /mcp 입력
+# Mac
+cd ~/Desktop/ui-poc-workspace && claude
+
+# Windows (PowerShell)
+cd "$HOME\Desktop\ui-poc-workspace"; claude
 ```
+
+Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-reader`, `alps-writer` 등 MCP 서버 목록이 표시되면 정상입니다.
 
 <details>
 <summary><b>자동 설치되는 도구 목록</b> (클릭하여 펼치기)</summary>
@@ -135,7 +147,7 @@ claude
 ### 2-3. 진행 상태 추적 설정하기
 
 워크숍 진행 상황을 진행자와 공유하기 위해 Airtable 연동을 설정합니다.
-진행자가 전달한 **Airtable API Key**를 준비한 뒤, Claude Code에서 아래 명령을 실행합니다:
+진행자가 전달한 **Airtable API Key**를 준비한 뒤, Claude Code 프롬프트에 아래 명령을 입력합니다 (터미널이 아니라 Claude Code 대화창에서 입력):
 
 ```
 /workshop-status setup
@@ -151,12 +163,15 @@ Claude가 두 가지를 물어봅니다:
 
 ### 2-4. 리서치 PDF 복사하기
 
-딥리서치가 완료되면, 다운받은 리서치 PDF를 `docs/` 폴더에 복사합니다.
+딥리서치가 완료되면, 다운받은 리서치 PDF를 작업 폴더의 `docs/` 폴더에 복사합니다.
+파일명은 그대로 사용해도 됩니다 (예: `research_report.pdf`). 다음 단계에서 Claude에게 파일명을 알려주면 됩니다.
 
 ```
-작업 폴더: ui-poc-workspace/
+바탕화면/ui-poc-workspace/
 └── docs/          <- 여기에 리서치 PDF 복사
 ```
+
+> **복사 방법**: 다운로드 폴더에서 PDF 파일을 `바탕화면 > ui-poc-workspace > docs` 폴더로 드래그앤드롭하면 됩니다.
 
 ---
 
@@ -165,23 +180,27 @@ Claude가 두 가지를 물어봅니다:
 리서치 PDF를 기반으로 PRD를 작성합니다.
 
 ```
-작업 폴더: ui-poc-workspace/  (프로젝트 루트에서 Claude Code 실행)
-├── docs/research.pdf     <- 리서치 PDF (입력)
-└── prd/                  <- ALPS 문서가 여기에 저장됨 (출력)
+바탕화면/ui-poc-workspace/    (프로젝트 루트에서 Claude Code 실행)
+├── docs/내_리서치.pdf        <- 리서치 PDF (입력, 파일명은 다를 수 있음)
+└── prd/                      <- ALPS 문서가 여기에 저장됨 (출력)
 ```
 
-**Step 1.** Ghostty 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
+**Step 1.** 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
 
-```
-claude
+```bash
+# Mac
+cd ~/Desktop/ui-poc-workspace && claude
+
+# Windows (PowerShell)
+cd "$HOME\Desktop\ui-poc-workspace"; claude
 ```
 
-**Step 2.** Claude Code에서 PRD 작성을 요청합니다.
+**Step 2.** Claude Code 프롬프트에서 PRD 작성을 요청합니다. 파일명은 실제 복사한 PDF 파일명으로 바꿔주세요.
 
 프롬프트 예시:
 
 ```
-docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
+docs/내_리서치.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ```
 
 > **Tip**: 아이디어를 구체적으로 작성할수록 좋은 PRD가 만들어집니다.
@@ -199,8 +218,8 @@ docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ## 4. UI PoC 개발하기 (14:20 ~ 16:00)
 
 ```
-작업 폴더: ui-poc-workspace/  (프로젝트 루트에서 모든 작업)
-└── prd/XYZ.alps.md            <- PRD 문서 (AI가 참조)
+바탕화면/ui-poc-workspace/          (프로젝트 루트에서 모든 작업)
+└── prd/XYZ.alps.md                 <- PRD 문서 (AI가 참조, 실제 파일명은 다를 수 있음)
 ```
 
 > **참고**: 소스 코드는 AI가 알아서 찾아서 수정합니다. 파일 위치를 몰라도 괜찮습니다.
@@ -209,18 +228,26 @@ docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 
 개발하는 동안 **별도의 터미널 탭**에서 개발 서버를 실행해둡니다.
 
-Ghostty에서 새 탭을 추가하려면: `Ctrl + Shift + T` (Mac: `Cmd + T`)
+새 탭 단축키: Mac `Cmd + T` / Windows `Ctrl + Shift + T`
 
 ```bash
 # 터미널 탭 1: 개발 서버 (항상 켜두기)
-pnpm dev:web
+# Mac
+cd ~/Desktop/ui-poc-workspace && pnpm dev:web
+
+# Windows (PowerShell)
+cd "$HOME\Desktop\ui-poc-workspace"; pnpm dev:web
 ```
 
 브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
 
 ```bash
 # 터미널 탭 2: Claude Code (AI 작업용)
-claude
+# Mac
+cd ~/Desktop/ui-poc-workspace && claude
+
+# Windows (PowerShell)
+cd "$HOME\Desktop\ui-poc-workspace"; claude
 ```
 
 ### 4-2. PRD를 통해 UI 개발 시작
@@ -228,8 +255,9 @@ claude
 > **참고**: 앞 단계에서 작성한 ALPS 문서는 `prd/` 디렉토리에 이미 저장되어 있습니다.
 
 PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
+`prd/` 폴더에 저장된 ALPS 파일명을 확인한 뒤, 아래 예시처럼 실제 파일명으로 바꿔서 입력하세요.
 
-프롬프트 예시:
+프롬프트 예시 (`XYZ` 부분을 실제 파일명으로 대체):
 
 ```
 @prd/XYZ.alps.md 를 읽고 F1 구현해줘.
@@ -243,7 +271,7 @@ PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
 
 ```
 1. 피쳐 구현 요청
-   └─ "@prd/XYZ.alps.md 를 읽고 F2 구현해줘."
+   └─ "@prd/XYZ.alps.md 를 읽고 F2 구현해줘."  (XYZ는 실제 파일명으로 대체)
 
 2. 개발 서버에서 결과 확인
    └─ 브라우저에서 http://localhost:3000 확인
