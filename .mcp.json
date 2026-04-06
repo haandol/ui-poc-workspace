@@ -8,12 +8,15 @@
       "command": "npx",
       "args": ["-y", "alps-writer"],
       "env": {
-        "ALPS_OUTPUT_DIR": "./prd"
+        "ALPS_OUTPUT_DIR": "./docs/prd"
       }
     },
     "airtable": {
       "command": "npx",
-      "args": ["-y", "airtable-mcp-server"]
+      "args": ["-y", "airtable-mcp-server"],
+      "env": {
+        "AIRTABLE_API_KEY": "${AIRTABLE_API_KEY}"
+      }
     }
   }
 }
