@@ -12,11 +12,16 @@ set -euo pipefail
 REPO_URL="https://github.com/haandol/ui-poc-workspace"
 DEST="${HOME}/Desktop/ui-poc-workspace"
 
-echo ""
-echo "╔════════════════════════════════════════════╗"
-echo "║  Non-Tech UI PoC Workshop — Bootstrap      ║"
-echo "╚════════════════════════════════════════════╝"
-echo ""
+cat << 'EOF'
+
+  _   _ ___   ____       ____
+ | | | |_ _| |  _ \ ___ / ___|
+ | | | || |  | |_) / _ \ |
+ | |_| || |  |  __/ (_) | |___
+  \___/|___| |_|   \___/ \____|
+   Workshop — Bootstrap
+
+EOF
 
 # Clone if not already cloned
 if [[ -d "${DEST}" ]]; then

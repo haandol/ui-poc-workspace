@@ -14,11 +14,16 @@ ok()   { echo -e "  ${GREEN}✓${NC} $1"; }
 info() { echo -e "  ${YELLOW}▸${NC} $1"; }
 fail() { echo -e "  ${RED}✗${NC} $1"; exit 1; }
 
-echo ""
-echo "╔════════════════════════════════════════════╗"
-echo "║  Non-Tech UI PoC Workshop — Setup (Mac)   ║"
-echo "╚════════════════════════════════════════════╝"
-echo ""
+cat << 'EOF'
+
+  _   _ ___   ____       ____
+ | | | |_ _| |  _ \ ___ / ___|
+ | | | || |  | |_) / _ \ |
+ | |_| || |  |  __/ (_) | |___
+  \___/|___| |_|   \___/ \____|
+   Workshop — Setup (Mac)
+
+EOF
 
 # ── 1. Homebrew ──────────────────────────────
 echo "1/5  Homebrew"
@@ -131,13 +136,18 @@ for i in $(seq 1 15); do
 done
 
 # ── Done ─────────────────────────────────────
-echo ""
-echo "╔════════════════════════════════════════════╗"
-echo "║           Setup complete!                  ║"
-echo "╚════════════════════════════════════════════╝"
-echo ""
-echo "  Next steps:"
-echo "    1. Run the dev server:    pnpm dev:web"
-echo "    2. Open browser:          http://localhost:3000"
-echo "    3. Start Claude Code:     claude"
-echo ""
+cat << 'EOF'
+
+  ____       _                   ____                      _      _       _
+ / ___|  ___| |_ _   _ _ __    / ___|___  _ __ ___  _ __ | | ___| |_ ___| |
+ \___ \ / _ \ __| | | | '_ \  | |   / _ \| '_ ` _ \| '_ \| |/ _ \ __/ _ \ |
+  ___) |  __/ |_| |_| | |_) | | |__| (_) | | | | | | |_) | |  __/ ||  __/_|
+ |____/ \___|\__|\__,_| .__/   \____\___/|_| |_| |_| .__/|_|\___|\__\___(_)
+                       |_|                           |_|
+
+  Next steps:
+    1. Run the dev server:    pnpm dev:web
+    2. Open browser:          http://localhost:3000
+    3. Start Claude Code:     claude
+
+EOF
