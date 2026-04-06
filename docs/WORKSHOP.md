@@ -102,6 +102,36 @@ claude
 # Claude Code 실행 후 /mcp 입력
 ```
 
+<details>
+<summary><b>자동 설치되는 도구 목록</b> (클릭하여 펼치기)</summary>
+
+셋업 스크립트와 프로젝트 설정을 통해 아래 도구들이 자동으로 구성됩니다.
+
+**MCP 서버** (`.mcp.json`):
+
+| MCP 서버 | 패키지 | 용도 |
+| --- | --- | --- |
+| pdf-reader | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기 |
+| alps-writer | `alps-writer` | PRD(ALPS) 문서 작성 |
+| airtable | `airtable-mcp-server` | 워크숍 진행 상태 추적 |
+
+**플러그인** (`.claude/settings.json`):
+
+| 플러그인 | 용도 |
+| --- | --- |
+| context7 | 라이브러리/프레임워크 최신 문서 조회 |
+| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅 |
+| nx | Nx 모노레포 워크스페이스 관리 |
+| typescript-lsp | TypeScript 코드 분석 |
+
+**커스텀 스킬** (`.claude/skills/`):
+
+| 스킬 | 사용법 | 용도 |
+| --- | --- | --- |
+| workshop-status | `/workshop-status` | 워크숍 진행 상태 Airtable 공유 |
+
+</details>
+
 ### 2-3. 진행 상태 추적 설정하기
 
 워크숍 진행 상황을 진행자와 공유하기 위해 Airtable 연동을 설정합니다.
