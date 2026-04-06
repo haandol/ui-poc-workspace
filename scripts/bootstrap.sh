@@ -25,12 +25,12 @@ EOF
 
 # Clone if not already cloned
 if [[ -d "${DEST}" ]]; then
-  echo "  ▸ Project already exists at ${DEST}"
-  echo "  ▸ Pulling latest changes..."
+  echo "  ▸ 프로젝트가 이미 존재합니다: ${DEST}"
+  echo "  ▸ 최신 변경사항을 가져오는 중..."
   cd "${DEST}"
   git pull --ff-only || true
 else
-  echo "  ▸ Cloning project to ${DEST}..."
+  echo "  ▸ 프로젝트를 복제하는 중: ${DEST}..."
   git clone "${REPO_URL}" "${DEST}"
   cd "${DEST}"
 fi
