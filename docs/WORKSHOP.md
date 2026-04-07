@@ -223,7 +223,7 @@ cd "$HOME\Desktop\ui-poc-workspace"; claude
 프롬프트 예시:
 
 ```
-docs/내_리서치.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
+@docs/내_리서치.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ```
 
 > **Tip**: 아이디어를 구체적으로 작성할수록 좋은 PRD가 만들어집니다.
