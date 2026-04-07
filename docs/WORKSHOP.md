@@ -187,7 +187,7 @@ Claude가 두 가지를 물어봅니다:
 ### 2-4. 리서치 PDF 복사하기
 
 딥리서치가 완료되면, 다운받은 리서치 PDF를 작업 폴더의 `docs/` 폴더에 복사합니다.
-파일명은 그대로 사용해도 됩니다 (예: `research_report.pdf`). 다음 단계에서 Claude에게 파일명을 알려주면 됩니다.
+파일명은 **영문으로 변경하는 것을 권장**합니다 (예: `research.pdf`). 한글 파일명이나 공백이 포함된 파일명은 문제가 될 수 있습니다.
 
 ```
 바탕화면/ui-poc-workspace/
@@ -204,11 +204,15 @@ Claude가 두 가지를 물어봅니다:
 
 ```
 바탕화면/ui-poc-workspace/    (프로젝트 루트에서 Claude Code 실행)
-├── docs/내_리서치.pdf        <- 리서치 PDF (입력, 파일명은 다를 수 있음)
+├── docs/research.pdf         <- 리서치 PDF (입력, 파일명은 다를 수 있음)
 └── docs/prd/                 <- ALPS 문서가 여기에 저장됨 (출력)
 ```
 
+> **`@` 문법이란?** Claude Code에서 `@파일경로`를 입력하면 해당 파일을 AI가 직접 읽을 수 있습니다.
+> `@docs/`까지 입력한 뒤 **Tab 키**를 누르면 파일명이 자동완성되므로, 파일명을 정확히 외울 필요가 없습니다.
+
 **Step 1.** 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
+이미 Claude Code가 실행 중이라면 그대로 사용하세요.
 
 ```bash
 # Mac
@@ -218,12 +222,12 @@ cd ~/Desktop/ui-poc-workspace && claude
 cd "$HOME\Desktop\ui-poc-workspace"; claude
 ```
 
-**Step 2.** Claude Code 프롬프트에서 PRD 작성을 요청합니다. 파일명은 실제 복사한 PDF 파일명으로 바꿔주세요.
+**Step 2.** Claude Code 프롬프트에서 PRD 작성을 요청합니다. `@docs/`까지 입력 후 Tab 키를 눌러 PDF 파일을 선택하세요.
 
 프롬프트 예시:
 
 ```
-@docs/내_리서치.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
+@docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
 ```
 
 > **Tip**: 아이디어를 구체적으로 작성할수록 좋은 PRD가 만들어집니다.
@@ -250,12 +254,14 @@ cd "$HOME\Desktop\ui-poc-workspace"; claude
 
 ### 4-1. 개발 서버 먼저 실행하기
 
-개발하는 동안 **별도의 터미널 탭**에서 개발 서버를 실행해둡니다.
+개발하는 동안 터미널 탭을 **2개** 사용합니다. 하나는 개발 서버용, 하나는 Claude Code용입니다.
 
-새 탭 단축키: Mac `Cmd + T` / Windows `Ctrl + Shift + T`
+**Step 1.** 현재 터미널 창에서 새 탭을 엽니다: Mac `Cmd + T` / Windows `Ctrl + Shift + T`
+
+**Step 2.** 새 탭(탭 1)에서 개발 서버를 실행합니다. 이 탭은 닫지 말고 계속 켜둡니다.
 
 ```bash
-# 터미널 탭 1: 개발 서버 (항상 켜두기)
+# 📺 탭 1: 개발 서버 (항상 켜두기)
 # Mac
 cd ~/Desktop/ui-poc-workspace && pnpm dev:web
 
@@ -263,10 +269,13 @@ cd ~/Desktop/ui-poc-workspace && pnpm dev:web
 cd "$HOME\Desktop\ui-poc-workspace"; pnpm dev:web
 ```
 
-브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
+**Step 3.** 브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
+
+**Step 4.** 다시 새 탭을 열어서(Mac `Cmd + T` / Windows `Ctrl + Shift + T`) Claude Code를 실행합니다.
+이미 Claude Code가 실행 중인 탭이 있다면 그 탭을 사용하세요.
 
 ```bash
-# 터미널 탭 2: Claude Code (AI 작업용)
+# 🤖 탭 2: Claude Code (AI 작업용)
 # Mac
 cd ~/Desktop/ui-poc-workspace && claude
 
@@ -279,9 +288,13 @@ cd "$HOME\Desktop\ui-poc-workspace"; claude
 > **참고**: 앞 단계에서 작성한 ALPS 문서는 `docs/prd/` 디렉토리에 이미 저장되어 있습니다.
 
 PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
-`docs/prd/` 폴더에 저장된 ALPS 파일명을 확인한 뒤, 아래 예시처럼 실제 파일명으로 바꿔서 입력하세요.
 
-프롬프트 예시 (`XYZ` 부분을 실제 파일명으로 대체):
+**파일명 확인 방법** (아래 중 편한 방법을 사용하세요):
+- **Finder(Mac) / 파일탐색기(Windows)**: `바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열면 `.alps.md` 파일이 있습니다.
+- **Claude Code에서 직접 확인**: `docs/prd/ 에 있는 파일 목록을 보여줘`라고 물어보세요.
+- **Tab 자동완성**: `@docs/prd/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.
+
+프롬프트 예시 (`@docs/prd/` 입력 후 Tab 키로 파일 선택):
 
 ```
 @docs/prd/XYZ.alps.md 를 읽고 F1 구현해줘.
@@ -295,7 +308,8 @@ PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
 
 ```
 1. 피쳐 구현 요청
-   └─ "@docs/prd/XYZ.alps.md 를 읽고 F2 구현해줘."  (XYZ는 실제 파일명으로 대체)
+   └─ "@docs/prd/XYZ.alps.md 를 읽고 F2 구현해줘."  (Tab 자동완성으로 파일 선택)
+   └─ 같은 대화에서 계속 작업 중이면 "F3 구현해줘"만 입력해도 됩니다.
 
 2. 개발 서버에서 결과 확인
    └─ 브라우저에서 http://localhost:3000 확인
