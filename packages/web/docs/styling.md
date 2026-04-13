@@ -2,6 +2,53 @@
 
 **Note**: For complete design system documentation, refer to `design-system.md`
 
+## TailwindCSS v4 (CSS-First Configuration)
+
+이 프로젝트는 TailwindCSS v4를 사용합니다. v3의 `tailwind.config.js` 대신 **CSS-first** 방식으로 설정합니다.
+
+### 핵심 문법
+
+```css
+/* 1. TailwindCSS import (v3의 @tailwind base/components/utilities 대체) */
+@import 'tailwindcss';
+
+/* 2. 플러그인 등록 (v3의 plugins: [] 대체) */
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
+/* 3. 테마 커스터마이징 (v3의 theme.extend 대체) */
+@theme {
+  --font-sans: 'Inter', 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* 4. 레이어별 커스텀 스타일 */
+@layer base {
+  /* 기본 HTML 요소 스타일 */
+}
+@layer components {
+  /* 재사용 컴포넌트: .btn-gradient 등 */
+}
+```
+
+### v3 → v4 마이그레이션 주의
+
+| v3 방식                               | v4 방식                                         |
+| ------------------------------------- | ----------------------------------------------- |
+| `tailwind.config.js`                  | CSS 파일 내 `@theme`, `@plugin`                 |
+| `@tailwind base/components/utilities` | `@import 'tailwindcss'`                         |
+| `plugins: [require('daisyui')]`       | `@plugin "daisyui" { ... }`                     |
+| `theme.extend.fontFamily`             | `@theme { --font-sans: ... }`                   |
+| `@nuxtjs/tailwindcss` 모듈            | `@tailwindcss/vite` 플러그인 (Vite에 직접 등록) |
+
+### 클래스 사용 규칙
+
+- **Canonical class 우선**: arbitrary value(`min-h-[2.25rem]`) 대신 canonical class(`min-h-9`) 사용
+- **DaisyUI 5 컴포넌트**: `btn`, `card`, `input`, `modal` 등 DaisyUI 컴포넌트 클래스 활용
+- **커스텀 컴포넌트**: `@layer components`에 정의 (예: `main.css`의 `.btn-gradient`)
+
 ## Color System
 
 ### Theme Colors

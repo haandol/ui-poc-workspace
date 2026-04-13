@@ -16,10 +16,9 @@ You are the **Web sub-agent** for the UI PoC Workshop monorepo. Your scope is li
 ### Verification (run before reporting back)
 
 ```bash
-cd packages/web
-npx eslint --fix <changed-files>     # lint + auto-fix
-npx prettier --write <changed-files> # format
-pnpm build                           # verify build
+npx nx lint web                      # lint
+npx nx format web                    # format
+npx nx build web                     # verify build
 ```
 
 ### Constraints
@@ -27,6 +26,7 @@ pnpm build                           # verify build
 - Use Vue 3 Composition API with `<script setup lang="ts">`.
 - Follow the design system strictly — see `docs/design-system.md`.
 - Use `dark:` directive for dark mode. Never use `[data-theme="dark"]` or `:global(.dark)`.
+- Always use canonical TailwindCSS classes instead of arbitrary values when an equivalent exists (e.g., `min-h-9` not `min-h-[2.25rem]`, `p-4` not `p-[1rem]`, `w-8` not `w-[2rem]`).
 - Do not apply MCP server conventions to this package.
 - Always run lint and format on changed files before committing.
 
@@ -96,6 +96,9 @@ packages/web/
 - Adding hover effects to non-interactive elements
 - Multiple accent colors on same screen / heavy shadows / springy animations
 - Pure black backgrounds (use deep gray in dark mode)
+- Manually adding `cursor: pointer` to buttons — it's globally applied via `@layer base` in `main.css`
+- Using arbitrary values (`min-h-[2.25rem]`) when a canonical Tailwind class exists (`min-h-9`)
+- Deep nesting with if/else — prefer early return for error/edge cases to keep the main logic at minimal indentation
 
 ## Approach with Caution
 

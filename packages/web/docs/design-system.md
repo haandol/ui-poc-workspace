@@ -180,12 +180,59 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 - Consistent timing: `duration-200` or `duration-300`
 - Minimize decoration on non-actionable items
 
+### Focus States
+
+키보드 접근성을 위해 모든 인터랙티브 요소에 포커스 표시가 필요합니다.
+
+```html
+<!-- 기본 포커스 링 -->
+<button class="focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2">Action</button>
+
+<!-- 입력 필드 포커스 -->
+<input
+  class="border border-base-300 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none transition-colors duration-200"
+/>
+```
+
+- `focus:ring-2 focus:ring-primary/50` 또는 `focus:border-blue-500` 사용
+- `outline-none`만 단독 사용 금지 — 반드시 대체 포커스 표시 제공
+- Tab 키로 모든 인터랙티브 요소에 접근 가능해야 함
+
 ### Transitions & Animation
 
 - Subtle and fast: 120-200ms duration
 - Standard easing: `ease-out`
 - Avoid bounce/spring: Keep motion understated
 - Prefer opacity/transform over layout changes
+
+### Loading States
+
+```html
+<!-- 스피너 (인라인) -->
+<span class="loading loading-spinner loading-sm"></span>
+
+<!-- 스피너 (페이지/섹션) -->
+<div class="flex items-center justify-center py-12">
+  <span class="loading loading-spinner loading-lg text-primary"></span>
+</div>
+
+<!-- 스켈레톤 (카드 플레이스홀더) -->
+<div class="animate-pulse space-y-4">
+  <div class="h-4 bg-base-300 rounded w-3/4"></div>
+  <div class="h-4 bg-base-300 rounded w-1/2"></div>
+</div>
+
+<!-- 프로그레스 바 -->
+<progress
+  class="progress progress-primary w-full"
+  :value="percent"
+  max="100"
+></progress>
+```
+
+- 데이터 로딩 중에는 항상 로딩 표시 제공
+- 스켈레톤: 레이아웃이 미리 결정된 경우 (카드 목록, 프로필 등)
+- 스피너: 레이아웃을 예측할 수 없는 경우 (검색 결과 등)
 
 ## Dark Mode
 
@@ -257,6 +304,9 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 - Test in both light and dark modes
 - Use semantic HTML, mobile-first approach
 - Keep animations subtle (120-200ms)
+- Provide focus states for all interactive elements
+- Show loading indicators during async operations
+- Use canonical TailwindCSS classes (`p-4`) over arbitrary values (`p-[1rem]`)
 
 **Don't**:
 
@@ -267,3 +317,6 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 - `input-bordered` (causes double border)
 - Hover effects on non-interactive elements
 - Pure black backgrounds in dark mode
+- `outline-none` without alternative focus indicator
+- Manually adding `cursor: pointer` to buttons (globally applied in `main.css`)
+- Layout-triggering animations (`width`, `height`, `top`, `left`) — use `transform`/`opacity` only

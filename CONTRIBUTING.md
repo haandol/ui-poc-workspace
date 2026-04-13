@@ -28,29 +28,32 @@
 
 ### Type (필수)
 
-| Type       | 용도                                          | SemVer 영향 |
-| ---------- | --------------------------------------------- | ------------ |
-| `feat`     | 새로운 기능 추가                              | MINOR        |
-| `fix`      | 버그 수정                                     | PATCH        |
-| `refactor` | 기능 변경 없는 코드 리팩토링                  | -            |
-| `docs`     | 문서 변경                                     | -            |
-| `test`     | 테스트 추가/수정                              | -            |
-| `chore`    | 빌드 설정, 의존성 업데이트 등 유지보수        | -            |
-| `style`    | 코드 포매팅, 세미콜론 등 (로직 변경 없음)     | -            |
-| `perf`     | 성능 개선                                     | -            |
-| `ci`       | CI/CD 설정 변경                               | -            |
-| `build`    | 빌드 시스템, 외부 의존성 변경                 | -            |
+| Type       | 용도                                      | SemVer 영향 |
+| ---------- | ----------------------------------------- | ----------- |
+| `feat`     | 새로운 기능 추가                          | MINOR       |
+| `fix`      | 버그 수정                                 | PATCH       |
+| `refactor` | 기능 변경 없는 코드 리팩토링              | -           |
+| `docs`     | 문서 변경                                 | -           |
+| `test`     | 테스트 추가/수정                          | -           |
+| `chore`    | 빌드 설정, 의존성 업데이트 등 유지보수    | -           |
+| `style`    | 코드 포매팅, 세미콜론 등 (로직 변경 없음) | -           |
+| `perf`     | 성능 개선                                 | -           |
+| `ci`       | CI/CD 설정 변경                           | -           |
+| `build`    | 빌드 시스템, 외부 의존성 변경             | -           |
 
 ### Scope (선택)
 
 변경 대상 모듈을 괄호 안에 명시합니다. 이 프로젝트의 주요 scope:
 
-| Scope      | 대상                                        |
-| ---------- | ------------------------------------------- |
-| `workspace`| 워크스페이스 루트 설정 (`nx.json`, `package.json` 등) |
-| `deps`     | 의존성 관리 (`package.json`, `pnpm-lock.yaml`)      |
-
-> 패키지가 추가되면 패키지명을 scope로 사용합니다 (예: `feat(my-app): add login page`).
+| Scope             | 대상                                                  |
+| ----------------- | ----------------------------------------------------- |
+| `web`             | 웹 프론트엔드 (`packages/web/`)                       |
+| `prd-writer`      | PRD 문서 작성 MCP 서버 (`packages/prd-writer/`)       |
+| `asset-generator` | 에셋 생성 MCP 서버 (`packages/asset-generator/`)      |
+| `workshop`        | 워크숍 자료 및 문서 (`packages/workshop/`)            |
+| `workspace`       | 워크스페이스 루트 설정 (`nx.json`, `package.json` 등) |
+| `deps`            | 의존성 관리 (`package.json`, `pnpm-lock.yaml`)        |
+| `scripts`         | 스크립트 (`scripts/`)                                 |
 
 ### Subject (필수)
 
@@ -144,14 +147,14 @@ feat(my-app): add auth flow, fix header layout, update deps
 <type>/<short-description>
 ```
 
-| 접두사       | 용도             | 예시                             |
-| ------------ | ---------------- | -------------------------------- |
-| `feat/`      | 새 기능 개발     | `feat/user-auth`                 |
-| `fix/`       | 버그 수정        | `fix/login-redirect`             |
-| `refactor/`  | 리팩토링         | `refactor/shared-utils`          |
-| `docs/`      | 문서 작업        | `docs/contributing-guide`        |
-| `chore/`     | 유지보수         | `chore/update-dependencies`      |
-| `test/`      | 테스트 추가/수정 | `test/auth-coverage`             |
+| 접두사      | 용도             | 예시                        |
+| ----------- | ---------------- | --------------------------- |
+| `feat/`     | 새 기능 개발     | `feat/user-auth`            |
+| `fix/`      | 버그 수정        | `fix/login-redirect`        |
+| `refactor/` | 리팩토링         | `refactor/shared-utils`     |
+| `docs/`     | 문서 작업        | `docs/contributing-guide`   |
+| `chore/`    | 유지보수         | `chore/update-dependencies` |
+| `test/`     | 테스트 추가/수정 | `test/auth-coverage`        |
 
 ### 워크플로우
 
@@ -174,7 +177,14 @@ git push -u origin feat/my-feature
 
 ## 코드 스타일
 
-### TypeScript
+### TypeScript (Web)
+
+- **프레임워크**: Nuxt 4 | **스타일링**: TailwindCSS 4 + DaisyUI 5
+- **상태 관리**: Pinia
+- **컴포넌트**: Vue 3 Composition API (`<script setup lang="ts">`)
+- **네이밍**: 컴포넌트 PascalCase, 변수/함수 camelCase
+
+### TypeScript (MCP 서버)
 
 - **TypeScript 버전**: ~5.9 (`tsconfig.base.json` 참조)
 - **Strict 모드**: 활성화 (`"strict": true`)

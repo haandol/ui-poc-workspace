@@ -11,6 +11,8 @@ pnpm install          # Install dependencies
 pnpm build            # Compile TypeScript + copy templates & guides to dist/
 pnpm dev              # Run with tsx (development)
 pnpm start            # Run built version (node dist/index.js)
+npx nx lint prd-writer      # Lint
+npx nx format prd-writer    # Format
 ```
 
 Build runs `tsc && cp -r src/templates src/guides dist/` to copy static assets (XML templates, MD guides) into `dist/`. Required because the server reads them at runtime via `fs.readFileSync`.
@@ -77,8 +79,9 @@ Two domains:
 
 Verify before completing any task:
 
-1. `pnpm build` succeeds (or `npx nx build prd-writer` from root)
-2. Related docs (README.md, AGENTS.md) are up to date
+1. `npx nx lint prd-writer` passes
+2. `pnpm build` succeeds (or `npx nx build prd-writer` from root)
+3. Related docs (README.md, AGENTS.md) are up to date
 
 ## Do-Not Rules
 

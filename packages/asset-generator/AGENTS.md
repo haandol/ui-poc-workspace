@@ -11,6 +11,8 @@ pnpm install          # Install dependencies
 pnpm build            # Compile TypeScript (tsc)
 pnpm dev              # Run with tsx (development)
 pnpm start            # Run built version (node dist/index.js)
+npx nx lint asset-generator      # Lint
+npx nx format asset-generator    # Format
 ```
 
 No test framework configured.
@@ -75,8 +77,9 @@ src/
 
 Verify before completing any task:
 
-1. `pnpm build` succeeds (or `npx nx build asset-generator` from root)
-2. Related docs (README.md, AGENTS.md) are up to date
+1. `npx nx lint asset-generator` passes
+2. `pnpm build` succeeds (or `npx nx build asset-generator` from root)
+3. Related docs (README.md, AGENTS.md) are up to date
 
 ## Do-Not Rules
 

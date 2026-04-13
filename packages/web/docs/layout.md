@@ -29,7 +29,7 @@ Follow Tailwind's responsive breakpoints:
 
 ## Adaptive Components
 
-**Prefer CSS classes for simple responsive behavior:**
+**CSS 클래스로 간단한 반응형 처리:**
 
 ```html
 <!-- Show/hide based on screen size -->
@@ -39,6 +39,45 @@ Follow Tailwind's responsive breakpoints:
 <!-- Different layouts -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
 ```
+
+**JavaScript 반응형 로직이 필요할 때 (`useDevice` composable):**
+
+화면 크기에 따라 다른 데이터를 로드하거나, 컴포넌트를 조건부 렌더링해야 할 때는 `useDevice()` composable을 사용합니다.
+
+```ts
+// composables/useDevice.ts
+export function useDevice() {
+  const isMobile = useMediaQuery('(max-width: 767px)')
+  const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)')
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+
+  return { isMobile, isTablet, isDesktop }
+}
+```
+
+```vue
+<script setup lang="ts">
+const { isMobile, isDesktop } = useDevice()
+</script>
+
+<template>
+  <!-- 모바일: 간소한 카드 / 데스크탑: 상세 테이블 -->
+  <MobileCardList
+    v-if="isMobile"
+    :items="items"
+  />
+  <DesktopTable
+    v-else
+    :items="items"
+  />
+</template>
+```
+
+**규칙:**
+
+- 단순 show/hide → CSS `hidden md:block` 사용 (JS 불필요)
+- 다른 컴포넌트 렌더링 / 다른 데이터 로딩 → `useDevice()` 사용
+- `window.innerWidth` 직접 확인 금지 — 반드시 composable 사용
 
 ## Card Components
 
@@ -78,8 +117,22 @@ Follow Tailwind's responsive breakpoints:
 
 ## Interaction & Motion
 
-- Hover: background lightens slightly, icons appear on hover
-- Focus: 1-2px outline with subtle shadow
-- Transitions: 120-200ms, ease-out; avoid exaggerated scale/spring
-- Don't: strong primary colors, thick borders, deep shadows, springy animations
-- Do: ensure clear focus/state signals within low-contrast UI
+### Timing
+
+| 용도             | 시간       | 적용                           |
+| ---------------- | ---------- | ------------------------------ |
+| Hover/Focus 반응 | 120-200ms  | `duration-150`, `duration-200` |
+| 패널 열기/닫기   | 200-300ms  | `duration-200`, `duration-300` |
+| 페이지 전환      | 300ms 이하 | Nuxt page transition           |
+
+### 규칙
+
+- **Hover**: background lightens slightly, icons appear on hover
+- **Focus**: 1-2px outline with subtle shadow — 키보드 접근성 필수
+- **Easing**: `ease-out` 기본, `ease-in-out` for 열기/닫기
+- **Transform**: `opacity`와 `transform`만 애니메이션 (layout 변경 금지)
+
+### Do / Don't
+
+- **Do**: 명확한 focus/state 시각 신호, 일관된 timing
+- **Don't**: strong primary colors, thick borders, deep shadows, springy/bouncy animations, `scale` on non-interactive elements

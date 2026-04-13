@@ -4,12 +4,12 @@ A monorepo for non-technical UI PoC workshops. Provides a workflow from PRD writ
 
 ## Repository Structure
 
-| Package | Description | Tech |
-|---------|-------------|------|
-| [`packages/web`](./packages/web/AGENTS.md) | Nuxt 4 web application (UI PoC frontend) | TypeScript, Vue 3, Nuxt 4 |
-| [`packages/prd-writer`](./packages/prd-writer/AGENTS.md) | MCP server — template-based PRD document writing tool | TypeScript, MCP SDK |
-| [`packages/asset-generator`](./packages/asset-generator/AGENTS.md) | MCP server — asset generation tool | TypeScript, MCP SDK |
-| [`packages/workshop`](./packages/workshop/) | Workshop materials and documentation | Markdown |
+| Package                                                            | Description                                           | Tech                      |
+| ------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------- |
+| [`packages/web`](./packages/web/AGENTS.md)                         | Nuxt 4 web application (UI PoC frontend)              | TypeScript, Vue 3, Nuxt 4 |
+| [`packages/prd-writer`](./packages/prd-writer/AGENTS.md)           | MCP server — template-based PRD document writing tool | TypeScript, MCP SDK       |
+| [`packages/asset-generator`](./packages/asset-generator/AGENTS.md) | MCP server — asset generation tool                    | TypeScript, MCP SDK       |
+| [`packages/workshop`](./packages/workshop/)                        | Workshop materials and documentation                  | Markdown                  |
 
 ## Quick Start
 
@@ -39,6 +39,7 @@ Per-package dev/build/deploy commands: see each package's AGENTS.md.
 - Code must be buildable at session end
 - Write descriptive commit messages so the next session can understand progress from `git log` alone
 - Update ADRs when architectural decisions change; skip for simple bug fixes or style changes
+- Prefer early return: handle errors and edge cases first, then proceed with the main logic at minimal indentation depth
 
 ### Sub-Agent Delegation
 
@@ -46,11 +47,11 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 
 #### Sub-Agent Definitions
 
-| Sub-Agent | Directory | AGENTS.md | Language | Build/Lint |
-|-----------|-----------|-----------|----------|------------|
-| **Web** | `packages/web/` | [link](./packages/web/AGENTS.md) | TypeScript (Vue/Nuxt) | `npx nx build web` |
-| **PRD Writer** | `packages/prd-writer/` | [link](./packages/prd-writer/AGENTS.md) | TypeScript (MCP) | `npx nx build prd-writer` |
-| **Asset Generator** | `packages/asset-generator/` | [link](./packages/asset-generator/AGENTS.md) | TypeScript (MCP) | `npx nx build asset-generator` |
+| Sub-Agent           | Directory                   | AGENTS.md                                    | Language              | Build/Lint                     |
+| ------------------- | --------------------------- | -------------------------------------------- | --------------------- | ------------------------------ |
+| **Web**             | `packages/web/`             | [link](./packages/web/AGENTS.md)             | TypeScript (Vue/Nuxt) | `npx nx build web`             |
+| **PRD Writer**      | `packages/prd-writer/`      | [link](./packages/prd-writer/AGENTS.md)      | TypeScript (MCP)      | `npx nx build prd-writer`      |
+| **Asset Generator** | `packages/asset-generator/` | [link](./packages/asset-generator/AGENTS.md) | TypeScript (MCP)      | `npx nx build asset-generator` |
 
 #### Orchestrator Responsibilities
 
@@ -74,9 +75,10 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 
 #### After Implementation (Required)
 
-1. **Sync ADR** — If implementation differs from the ADR, update it (change status to `Accepted`)
+1. **Sync ADR** — If the **architectural decision itself** changed, update the ADR (change status to `Accepted`). Do NOT add implementation details (file paths, code snippets, field schemas) to ADRs — ADRs describe decisions and rationale only
 2. **Update README index** — Keep the `docs/adr/README.md` ADR list up to date
 3. **Cascade updates** — If changes affect other ADRs, update those as well
+4. **Add Mermaid diagrams** — When the ADR involves non-trivial flows (state machines, multi-component interactions, event sequences), include a Mermaid diagram to make the flow easy to understand at a glance
 
 #### ALPS PRD Feature → ADR Mandatory Workflow (MANDATORY)
 
@@ -95,13 +97,14 @@ Review PRD Feature → Write ADR (Proposed) → User Confirmation → Start Impl
    - Start with status `Proposed`.
 3. **User Confirmation** — Present the ADR content to the user and only begin code implementation after receiving confirmation.
 4. **Implementation** — Implement code following the direction decided in the ADR.
-5. **Sync ADR** — Once implementation is complete, change the ADR status to `Accepted` and update the ADR if there are any deviations from the implementation. Also update the `docs/adr/README.md` index.
+5. **Sync ADR** — Once implementation is complete, change the ADR status to `Accepted` and update the ADR if the **architectural decision itself** changed. Do NOT add implementation details (file paths, code snippets, field schemas). Also update the `docs/adr/README.md` index.
 
 **Violation Prevention**: Feature code implementation (creating components, adding API endpoints, writing pages, etc.) cannot start without an ADR. If asked to implement a Feature that has no ADR, you must propose writing the ADR first.
 
 #### When ADR is Not Required
 
 The following changes can skip ADR creation/update:
+
 - Simple bug fixes (no architectural change)
 - Style/formatting changes
 - Documentation typo fixes
@@ -122,16 +125,16 @@ This is a workshop repository. The agent **must** automatically report progress 
 
 After each triggering action completes successfully, the agent must run `/workshop-status <MILESTONE_ID>` **automatically without asking the user**.
 
-| Trigger Condition | Milestone ID |
-|---|---|
-| `pnpm install` succeeds + dev server verified | `SETUP-DONE` |
-| PDF file saved to `docs/` | `RESEARCH-DONE` |
-| ALPS Section 1 saved (`save_alps_section`) | `PRD-START` |
-| ALPS Section 6 saved (`save_alps_section`) | `PRD-FEATURES` |
-| ALPS Section 9 saved (`save_alps_section`) | `PRD-DONE` |
+| Trigger Condition                                   | Milestone ID    |
+| --------------------------------------------------- | --------------- |
+| `pnpm install` succeeds + dev server verified       | `SETUP-DONE`    |
+| PDF file saved to `docs/`                           | `RESEARCH-DONE` |
+| ALPS Section 1 saved (`save_alps_section`)          | `PRD-START`     |
+| ALPS Section 6 saved (`save_alps_section`)          | `PRD-FEATURES`  |
+| ALPS Section 9 saved (`save_alps_section`)          | `PRD-DONE`      |
 | `layouts/` directory created in `packages/web/app/` | `SCAFFOLD-DONE` |
-| Feature N implementation committed (`git commit`) | `FN-DONE` |
-| All core features implemented + user confirms | `DEMO-READY` |
+| Feature N implementation committed (`git commit`)   | `FN-DONE`       |
+| All core features implemented + user confirms       | `DEMO-READY`    |
 
 ### Rules
 
@@ -153,6 +156,9 @@ npx nx build web                  # Build web
 npx nx build prd-writer           # Build PRD Writer
 npx nx build asset-generator      # Build Asset Generator
 npx nx run-many -t build          # Build all projects
+npx nx run-many -t lint           # Lint all projects
+npx nx run-many -t format         # Format all projects
+npx nx run-many -t format:check   # Check formatting
 npx nx graph                      # Dependency graph
 npx nx affected -t build          # Build affected projects only
 ```
@@ -165,3 +171,9 @@ Each package has a `project.json` defining its Nx targets. The root `nx.json` se
 - **dev**: Not cached (long-running)
 - **start**: Depends on `build`
 - **lint / typecheck**: Cached
+
+### Linting & Formatting
+
+- **ESLint**: Root `eslint.config.mjs` defines shared TypeScript rules. Each package extends it (packages/web adds Vue rules).
+- **Prettier**: Root `.prettierrc` for shared config. `packages/web/.prettierrc` overrides `singleAttributePerLine: true` for Vue templates.
+- **Pre-commit hook**: husky + lint-staged runs `eslint --fix` and `prettier --write` on staged files automatically.
