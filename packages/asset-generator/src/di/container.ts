@@ -1,21 +1,21 @@
-import { TemplateService } from '../tools/templates/service.js'
-import { TemplateRepository } from '../tools/templates/repository.js'
+import { ImageGenerationService } from '../tools/image-generation/service.js'
+import { ImageGenerationRepository } from '../tools/image-generation/repository.js'
 
 export class DIContainer {
-  private _templateRepository?: TemplateRepository
-  private _templateService?: TemplateService
+  private _imageGenerationRepository?: ImageGenerationRepository
+  private _imageGenerationService?: ImageGenerationService
 
-  get templateRepository(): TemplateRepository {
-    if (!this._templateRepository) {
-      this._templateRepository = new TemplateRepository()
+  get imageGenerationRepository(): ImageGenerationRepository {
+    if (!this._imageGenerationRepository) {
+      this._imageGenerationRepository = new ImageGenerationRepository()
     }
-    return this._templateRepository
+    return this._imageGenerationRepository
   }
 
-  get templateService(): TemplateService {
-    if (!this._templateService) {
-      this._templateService = new TemplateService(this.templateRepository)
+  get imageGenerationService(): ImageGenerationService {
+    if (!this._imageGenerationService) {
+      this._imageGenerationService = new ImageGenerationService(this.imageGenerationRepository)
     }
-    return this._templateService
+    return this._imageGenerationService
   }
 }

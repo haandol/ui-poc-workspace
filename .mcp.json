@@ -1,5 +1,12 @@
 {
   "mcpServers": {
+    "asset-generator": {
+      "command": "npx",
+      "args": ["tsx", "packages/asset-generator/src/index.ts"],
+      "env": {
+        "FAL_KEY": "${FAL_KEY}"
+      }
+    },
     "pdf-reader": {
       "command": "npx",
       "args": ["-y", "@sylphx/pdf-reader-mcp"]
