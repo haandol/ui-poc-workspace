@@ -90,7 +90,6 @@ packages/web/
 └── tsconfig.json
 ```
 
-
 ## Common Mistakes to Avoid
 
 - Using `input-bordered` (causes double borders)

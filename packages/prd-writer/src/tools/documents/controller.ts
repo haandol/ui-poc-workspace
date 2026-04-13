@@ -48,9 +48,7 @@ BEFORE CALLING THIS TOOL:
 3. Only call this tool after user confirms`,
     {
       section: z.number().int().min(1).max(9).describe('Section number (1-9)'),
-      subsection_id: z
-        .string()
-        .describe('Subsection ID within the section (e.g., "1" for X.1, "1.2" for X.1.2)'),
+      subsection_id: z.string().describe('Subsection ID within the section (e.g., "1" for X.1, "1.2" for X.1.2)'),
       title: z.string().describe('Title of the subsection'),
       content: z.string().describe('Content for the subsection (markdown)'),
     },
@@ -76,23 +74,16 @@ BEFORE CALLING THIS TOOL:
     }
   )
 
-  server.tool(
-    'get_prd_document_status',
-    'Get the status of all sections in the current document.',
-    () => {
-      const result = service.getStatus()
-      return { content: [{ type: 'text' as const, text: result }] }
-    }
-  )
+  server.tool('get_prd_document_status', 'Get the status of all sections in the current document.', () => {
+    const result = service.getStatus()
+    return { content: [{ type: 'text' as const, text: result }] }
+  })
 
   server.tool(
     'export_prd_markdown',
     'Export the PRD document as clean markdown (without XML tags).',
     {
-      output_path: z
-        .string()
-        .optional()
-        .describe('Optional output file path. If not provided, returns the content.'),
+      output_path: z.string().optional().describe('Optional output file path. If not provided, returns the content.'),
     },
     (args) => {
       const result = service.exportMarkdown(args.output_path)

@@ -7,32 +7,37 @@ Uses Pinia for global state management. Each domain has its own store module for
 ## Usage
 
 ```typescript
-export const useExampleStore = defineStore('example', () => {
-  // State
-  const items = ref<Item[]>([])
-  const loading = ref(false)
+export const useExampleStore = defineStore(
+  'example',
+  () => {
+    // State
+    const items = ref<Item[]>([])
+    const loading = ref(false)
 
-  // Getters
-  const itemCount = computed(() => items.value.length)
+    // Getters
+    const itemCount = computed(() => items.value.length)
 
-  // Actions
-  const fetchItems = async () => {
-    loading.value = true
-    try {
-      const response = await $fetch('/api/items')
-      items.value = response.data
-    } finally {
-      loading.value = false
+    // Actions
+    const fetchItems = async () => {
+      loading.value = true
+      try {
+        const response = await $fetch('/api/items')
+        items.value = response.data
+      } finally {
+        loading.value = false
+      }
     }
-  }
 
-  return { items, loading, itemCount, fetchItems }
-}, {
-  persist: true // Enable persistence if needed
-})
+    return { items, loading, itemCount, fetchItems }
+  },
+  {
+    persist: true, // Enable persistence if needed
+  }
+)
 ```
 
 **Component usage:**
+
 ```typescript
 const exampleStore = useExampleStore()
 const { items, loading } = storeToRefs(exampleStore)

@@ -5,13 +5,15 @@
 ## Container Structure
 
 ```html
-<div class="container mx-auto py-4 px-4 sm:py-10 sm:px-10">
+<div class="container mx-auto py-4 px-4 sm:py-10 sm:px-10"></div>
 ```
+
 - Ensure content stays within the viewport to prevent horizontal scrolling
 
 ## Responsive Breakpoints
 
 Follow Tailwind's responsive breakpoints:
+
 - `sm`: 640px and above
 - `md`: 768px and above (Mobile/Desktop boundary)
 - `lg`: 1024px and above (Tablet/Desktop boundary)
@@ -20,27 +22,30 @@ Follow Tailwind's responsive breakpoints:
 ## Grid System
 
 ```html
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 ```
+
 - Use a mobile-first approach with responsive variants
 
 ## Adaptive Components
 
 **Prefer CSS classes for simple responsive behavior:**
+
 ```html
 <!-- Show/hide based on screen size -->
 <div class="hidden md:block">Desktop only</div>
 <div class="md:hidden">Mobile only</div>
 
 <!-- Different layouts -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
 ```
 
 ## Card Components
 
 ```html
-<div class="card bg-base-100 dark:bg-base-100 shadow-lg border border-base-200 dark:border-base-200">
+<div class="card bg-base-100 dark:bg-base-100 shadow-lg border border-base-200 dark:border-base-200"></div>
 ```
+
 - Apply consistent transitions: `transition-all duration-300 hover:bg-base-200/50 dark:hover:bg-base-200/30`
 
 ## Mobile Optimization

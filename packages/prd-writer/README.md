@@ -58,38 +58,38 @@ Project scope (`.mcp.json` in project root):
 
 ### Template Tools
 
-| Tool | Description |
-| --- | --- |
-| `get_prd_overview` | Get the PRD template overview with all section descriptions |
-| `list_prd_sections` | List all available PRD template sections |
-| `get_prd_section` | Get a specific PRD template section by number (1-9) |
-| `get_prd_full_template` | Get the complete PRD template with all sections combined |
-| `get_prd_section_guide` | Get conversation guide for writing a specific section |
+| Tool                    | Description                                                 |
+| ----------------------- | ----------------------------------------------------------- |
+| `get_prd_overview`      | Get the PRD template overview with all section descriptions |
+| `list_prd_sections`     | List all available PRD template sections                    |
+| `get_prd_section`       | Get a specific PRD template section by number (1-9)         |
+| `get_prd_full_template` | Get the complete PRD template with all sections combined    |
+| `get_prd_section_guide` | Get conversation guide for writing a specific section       |
 
 ### Document Management Tools
 
-| Tool | Description |
-| --- | --- |
-| `init_prd_document` | Create new PRD document (`.prd.xml` file) |
-| `load_prd_document` | Load existing document to resume editing |
-| `save_prd_section` | Save content to a subsection in the document |
-| `read_prd_section` | Read current content of a section or subsection |
-| `get_prd_document_status` | Get status of all sections |
-| `export_prd_markdown` | Export as clean markdown (without XML tags) |
+| Tool                      | Description                                     |
+| ------------------------- | ----------------------------------------------- |
+| `init_prd_document`       | Create new PRD document (`.prd.xml` file)       |
+| `load_prd_document`       | Load existing document to resume editing        |
+| `save_prd_section`        | Save content to a subsection in the document    |
+| `read_prd_section`        | Read current content of a section or subsection |
+| `get_prd_document_status` | Get status of all sections                      |
+| `export_prd_markdown`     | Export as clean markdown (without XML tags)     |
 
 ## Sections
 
-| # | Title |
-| --- | --- |
-| 1 | Overview |
-| 2 | MVP Goals and Key Metrics |
-| 3 | Demo Scenario |
-| 4 | High-Level Architecture |
-| 5 | Design Specification |
-| 6 | Requirements Summary |
-| 7 | Feature-Level Specification |
-| 8 | MVP Metrics |
-| 9 | Out of Scope |
+| #   | Title                       |
+| --- | --------------------------- |
+| 1   | Overview                    |
+| 2   | MVP Goals and Key Metrics   |
+| 3   | Demo Scenario               |
+| 4   | High-Level Architecture     |
+| 5   | Design Specification        |
+| 6   | Requirements Summary        |
+| 7   | Feature-Level Specification |
+| 8   | MVP Metrics                 |
+| 9   | Out of Scope                |
 
 ## Document Format
 

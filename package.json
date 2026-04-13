@@ -6,8 +6,12 @@
     "setup": "bash scripts/setup.sh",
     "dev:web": "nx run web:dev",
     "build": "nx run-many -t build",
+    "lint": "nx run-many -t lint",
+    "format": "nx run-many -t format",
+    "format:check": "nx run-many -t format:check",
     "graph": "nx graph",
-    "reset": "nx reset"
+    "reset": "nx reset",
+    "prepare": "husky"
   },
   "private": true,
   "pnpm": {
@@ -25,6 +29,12 @@
     "@swc-node/register": "1.11.1",
     "@swc/core": "1.15.24",
     "@swc/helpers": "0.5.21",
+    "@typescript-eslint/eslint-plugin": "^8.58.1",
+    "@typescript-eslint/parser": "^8.58.1",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
     "nx": "22.6.5",
     "prettier": "^3.8.2",
     "tslib": "^2.8.1",
@@ -32,5 +42,9 @@
   },
   "dependencies": {
     "esbuild": "^0.28.0"
+  },
+  "lint-staged": {
+    "*.{ts,mts,vue}": "eslint --fix",
+    "*.{ts,mts,vue,json,md,css}": "prettier --write"
   }
 }

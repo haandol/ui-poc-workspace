@@ -5,17 +5,20 @@
 ### Color System
 
 **Neutral Palette**: Grayscale foundation
+
 - Light mode: `gray-50` to `gray-900`
 - Dark mode: `gray-800` to `gray-50`
 - Use for: Backgrounds, text, borders, surfaces
 
 **Semantic Colors**:
+
 - Info: Blue (`blue-600` / `blue-300` dark)
 - Success: Green (`green-600` / `green-300` dark)
 - Warning: Orange (`orange-600` / `orange-300` dark)
 - Error: Red (`red-600` / `red-300` dark)
 
 **Color Usage Rules**:
+
 - Minimize color usage: Prefer neutral grayscale
 - Reserve gradient for primary actions only
 - Functional color only: Use color to convey meaning or guide action
@@ -24,6 +27,7 @@
 ### Typography
 
 **Scale**:
+
 - `text-xs`: 0.75rem (12px) - Captions, labels
 - `text-sm`: 0.875rem (14px) - Secondary text
 - `text-base`: 1rem (16px) - Body text
@@ -35,11 +39,13 @@
 - `text-6xl`: 3.75rem (60px) - Hero headings (desktop)
 
 **Fluid Typography** (preferred for headings):
+
 ```css
 font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
 ```
 
 **Text Hierarchy**:
+
 - **H1**: `text-4xl lg:text-6xl`, `font-bold`, `text-gray-900 dark:text-white`
 - **H2**: `text-3xl lg:text-4xl`, `font-bold`, `text-gray-900 dark:text-white`
 - **H3**: `text-xl lg:text-2xl`, `font-semibold`, `text-gray-800 dark:text-gray-100`
@@ -49,27 +55,31 @@ font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
 ### Spacing & Layout
 
 **8px Base Unit** (Tailwind default):
+
 - `space-1`: 4px / `space-2`: 8px / `space-3`: 12px / `space-4`: 16px
 - `space-6`: 24px / `space-8`: 32px / `space-12`: 48px / `space-16`: 64px
 
 **Common Patterns**:
+
 - Component padding: `p-4` to `p-6`
 - Section padding: `py-12` to `py-20`
 - Gap between elements: `gap-4` to `gap-6`
 - Container padding: `px-4 sm:px-6 lg:px-8`
 
 **Container**:
+
 ```html
-<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8"></div>
 ```
 
 **Grid**:
+
 ```html
 <!-- Single column → 2 columns → 3 columns -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-<!-- 2-column layout (common pattern) -->
-<div class="grid lg:grid-cols-2 gap-12 items-center">
+  <!-- 2-column layout (common pattern) -->
+  <div class="grid lg:grid-cols-2 gap-12 items-center"></div>
+</div>
 ```
 
 ### Border & Radius
@@ -82,6 +92,7 @@ font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem);
 ### Shadows & Elevation
 
 Minimal shadow approach:
+
 - Level 1: `shadow-sm` - Subtle card elevation
 - Level 2: `shadow-md` - Hover states
 - Level 3: `shadow-lg` - Modals, dropdowns
@@ -93,20 +104,23 @@ Minimal shadow approach:
 ### Buttons
 
 **Primary (Gradient)**:
+
 ```html
-<button class="btn-gradient">
-  Action Text
-</button>
+<button class="btn-gradient">Action Text</button>
 ```
 
 **Secondary (Outline)**:
+
 ```html
-<button class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-8 py-4 rounded-xl font-semibold border-2 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500">
+<button
+  class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-8 py-4 rounded-xl font-semibold border-2 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500"
+>
   Secondary Action
 </button>
 ```
 
 **Ghost (DaisyUI)**:
+
 ```html
 <button class="btn btn-ghost">Cancel</button>
 ```
@@ -160,12 +174,14 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 ## Interactions
 
 ### Hover Effects
+
 - Only on interactive elements: Buttons, links, clickable cards
 - Subtle changes: Avoid dramatic transformations
 - Consistent timing: `duration-200` or `duration-300`
 - Minimize decoration on non-actionable items
 
 ### Transitions & Animation
+
 - Subtle and fast: 120-200ms duration
 - Standard easing: `ease-out`
 - Avoid bounce/spring: Keep motion understated
@@ -174,8 +190,9 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 ## Dark Mode
 
 **ALWAYS use TailwindCSS `dark:` directive**:
+
 ```html
-<div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+<div class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"></div>
 ```
 
 **NEVER use**: `[data-theme="dark"]`, `.dark` class selectors, `:global(.dark)`
@@ -188,15 +205,17 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 ## Responsive Design
 
 **Tailwind breakpoints**:
+
 - `sm`: 640px / `md`: 768px (mobile/desktop boundary) / `lg`: 1024px / `xl`: 1280px
 
 ```html
 <!-- Stack on mobile, side-by-side on desktop -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-<!-- Hide on mobile / Show only on mobile -->
-<div class="hidden md:block">
-<div class="md:hidden">
+  <!-- Hide on mobile / Show only on mobile -->
+  <div class="hidden md:block">
+    <div class="md:hidden"></div>
+  </div>
+</div>
 ```
 
 - Touch targets: Minimum 44x44px
@@ -214,18 +233,24 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 
 ```css
 :root {
-  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
-  --radius: 8px; --radius-lg: 12px;
-  --shadow-1: 0 1px 2px rgba(0,0,0,.04);
-  --shadow-2: 0 6px 24px rgba(0,0,0,.06);
-  --dur-fast: 120ms; --dur-med: 200ms;
-  --ease: cubic-bezier(.2,.7,.2,1);
+  --sp-1: 8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 32px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 6px 24px rgba(0, 0, 0, 0.06);
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 ```
 
 ## Best Practices
 
 **Do**:
+
 - Use gradient for primary CTAs only
 - Maintain generous whitespace
 - Keep color usage minimal and functional
@@ -234,6 +259,7 @@ Interactive hover: `hover:bg-base-200/50 dark:hover:bg-base-200/30 transition-co
 - Keep animations subtle (120-200ms)
 
 **Don't**:
+
 - Multiple accent colors on same screen
 - Thick borders or heavy shadows
 - Springy/bouncy animations

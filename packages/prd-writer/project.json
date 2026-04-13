@@ -25,6 +25,26 @@
         "cwd": "packages/prd-writer"
       },
       "dependsOn": ["build"]
+    },
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "packages/prd-writer"
+      },
+      "cache": true
+    },
+    "format": {
+      "command": "prettier . --write",
+      "options": {
+        "cwd": "packages/prd-writer"
+      }
+    },
+    "format:check": {
+      "command": "prettier . --check",
+      "options": {
+        "cwd": "packages/prd-writer"
+      },
+      "cache": true
     }
   }
 }

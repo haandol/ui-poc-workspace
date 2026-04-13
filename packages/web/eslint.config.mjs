@@ -1,6 +1,6 @@
+import { baseConfigs } from '../../eslint.config.mjs'
 import pluginVue from 'eslint-plugin-vue'
 import vueParser from 'vue-eslint-parser'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import prettierConfig from 'eslint-config-prettier'
 
@@ -9,24 +9,18 @@ const prettierRulesWithoutVue = Object.fromEntries(
 )
 
 export default [
+  ...baseConfigs,
   {
-    ignores: ['.nuxt/**', '.output/**', 'node_modules/**', 'dist/**'],
+    ignores: ['.nuxt/**', '.output/**'],
   },
   {
     files: ['**/*.{ts,vue}'],
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
     languageOptions: {
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-    },
-    rules: {
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   ...pluginVue.configs['flat/recommended'],

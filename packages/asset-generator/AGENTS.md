@@ -17,9 +17,9 @@ No test framework configured.
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `FAL_KEY` | Yes | fal.ai API key for image generation |
+| Variable  | Required | Description                         |
+| --------- | -------- | ----------------------------------- |
+| `FAL_KEY` | Yes      | fal.ai API key for image generation |
 
 ## Repository Structure
 

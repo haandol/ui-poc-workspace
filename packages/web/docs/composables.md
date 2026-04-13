@@ -12,6 +12,7 @@ Composables are reusable logic modules leveraging Vue 3's Composition API. They 
 - **Keep composables focused**: one responsibility per composable
 
 **Example:**
+
 ```typescript
 export const useExample = () => {
   const isLoading = ref(false)
@@ -32,7 +33,7 @@ export const useExample = () => {
   return {
     isLoading: readonly(isLoading),
     error: readonly(error),
-    doAction
+    doAction,
   }
 }
 ```

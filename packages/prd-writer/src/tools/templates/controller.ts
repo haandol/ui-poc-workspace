@@ -38,14 +38,10 @@ Do NOT write any section without going through the guide's Q&A process first.`
     }
   )
 
-  server.tool(
-    'get_prd_full_template',
-    'Get the complete PRD template with all sections combined.',
-    () => {
-      const result = service.getFullTemplate(false)
-      return { content: [{ type: 'text' as const, text: result }] }
-    }
-  )
+  server.tool('get_prd_full_template', 'Get the complete PRD template with all sections combined.', () => {
+    const result = service.getFullTemplate(false)
+    return { content: [{ type: 'text' as const, text: result }] }
+  })
 
   server.tool(
     'get_prd_section_guide',

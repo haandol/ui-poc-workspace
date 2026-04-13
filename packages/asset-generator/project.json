@@ -25,6 +25,26 @@
         "cwd": "packages/asset-generator"
       },
       "dependsOn": ["build"]
+    },
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "packages/asset-generator"
+      },
+      "cache": true
+    },
+    "format": {
+      "command": "prettier . --write",
+      "options": {
+        "cwd": "packages/asset-generator"
+      }
+    },
+    "format:check": {
+      "command": "prettier . --check",
+      "options": {
+        "cwd": "packages/asset-generator"
+      },
+      "cache": true
     }
   }
 }
