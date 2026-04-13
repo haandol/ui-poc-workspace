@@ -3,13 +3,7 @@
 {
   "name": "Node.js & TypeScript",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:24-bookworm",
-  "features": {
-    "ghcr.io/devcontainers/features/aws-cli:1": {},
-    "ghcr.io/devcontainers/features/sshd:1": {},
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/mikaello/devcontainer-features/modern-shell-utils:2": {},
-    "ghcr.io/georgofenbeck/features/lazygit-linuxbinary:1": {}
-  },
+  "features": {},
   "customizations": {
     "vscode": {
       "settings": {
