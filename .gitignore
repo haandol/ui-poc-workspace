@@ -48,3 +48,4 @@ docs/*.pdf
 
 .nx/polygraph
 .claude/worktrees
+packages/workshop/preview_build

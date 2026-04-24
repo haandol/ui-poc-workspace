@@ -1,5 +1,18 @@
 {
   "name": "workshop",
   "projectType": "library",
-  "tags": ["type:docs"]
+  "tags": ["type:docs"],
+  "targets": {
+    "preview": {
+      "command": "./preview_build",
+      "options": {
+        "cwd": "packages/workshop"
+      },
+      "cache": false
+    },
+    "deploy": {
+      "command": "git subtree push --prefix=packages/workshop workshopstudio main",
+      "cache": false
+    }
+  }
 }
