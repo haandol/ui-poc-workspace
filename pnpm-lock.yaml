@@ -74,25 +74,6 @@ importers:
         specifier: ~6.0.3
         version: 6.0.3
 
-  packages/prd-writer:
-    dependencies:
-      '@modelcontextprotocol/sdk':
-        specifier: ^1.29.0
-        version: 1.29.0(zod@4.3.6)
-      zod:
-        specifier: ^4.3.6
-        version: 4.3.6
-    devDependencies:
-      '@types/node':
-        specifier: ^25.6.0
-        version: 25.6.0
-      tsx:
-        specifier: ^4.21.0
-        version: 4.21.0
-      typescript:
-        specifier: ~6.0.3
-        version: 6.0.3
-
   packages/web:
     dependencies:
       '@iconify-json/heroicons':
@@ -7869,6 +7850,7 @@ snapshots:
   '@types/node@25.6.0':
     dependencies:
       undici-types: 7.19.2
+    optional: true
 
   '@types/parse-json@4.0.2': {}
 
@@ -11187,7 +11169,8 @@ snapshots:
       magic-string: 0.30.21
       unplugin: 2.3.11
 
-  undici-types@7.19.2: {}
+  undici-types@7.19.2:
+    optional: true
 
   unenv@2.0.0-rc.24:
     dependencies:

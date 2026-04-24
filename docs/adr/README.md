@@ -15,7 +15,6 @@ Architecture Decision Record (ADR)는 소프트웨어 개발 과정에서 내린
 ```
 adr/
 ├── web/              # 웹 프론트엔드 관련 결정
-├── prd-writer/       # PRD Writer MCP 서버 관련 결정
 ├── asset-generator/  # Asset Generator MCP 서버 관련 결정
 ├── workshop/         # 워크숍 운영/콘텐츠 관련 결정
 └── infra/            # 인프라/빌드/배포 관련 결정
@@ -24,10 +23,6 @@ adr/
 ## 카테고리별 ADR 목록
 
 ### Web
-
-(아직 등록된 ADR 없음)
-
-### PRD Writer
 
 (아직 등록된 ADR 없음)
 

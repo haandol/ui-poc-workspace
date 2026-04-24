@@ -48,7 +48,6 @@
 | Scope             | 대상                                                  |
 | ----------------- | ----------------------------------------------------- |
 | `web`             | 웹 프론트엔드 (`packages/web/`)                       |
-| `prd-writer`      | PRD 문서 작성 MCP 서버 (`packages/prd-writer/`)       |
 | `asset-generator` | 에셋 생성 MCP 서버 (`packages/asset-generator/`)      |
 | `workshop`        | 워크숍 자료 및 문서 (`packages/workshop/`)            |
 | `workspace`       | 워크스페이스 루트 설정 (`nx.json`, `package.json` 등) |

@@ -1,15 +1,14 @@
 # UI PoC Workshop Project Guide
 
-A monorepo for non-technical UI PoC workshops. Provides a workflow from PRD writing to asset generation and web prototyping using AI tools (MCP servers).
+A monorepo for non-technical UI PoC workshops. Provides a workflow from asset generation to web prototyping using AI tools (MCP servers).
 
 ## Repository Structure
 
-| Package                                                            | Description                                           | Tech                      |
-| ------------------------------------------------------------------ | ----------------------------------------------------- | ------------------------- |
-| [`packages/web`](./packages/web/AGENTS.md)                         | Nuxt 4 web application (UI PoC frontend)              | TypeScript, Vue 3, Nuxt 4 |
-| [`packages/prd-writer`](./packages/prd-writer/AGENTS.md)           | MCP server — template-based PRD document writing tool | TypeScript, MCP SDK       |
-| [`packages/asset-generator`](./packages/asset-generator/AGENTS.md) | MCP server — asset generation tool                    | TypeScript, MCP SDK       |
-| [`packages/workshop`](./packages/workshop/)                        | Workshop materials and documentation                  | Markdown                  |
+| Package                                                            | Description                              | Tech                      |
+| ------------------------------------------------------------------ | ---------------------------------------- | ------------------------- |
+| [`packages/web`](./packages/web/AGENTS.md)                         | Nuxt 4 web application (UI PoC frontend) | TypeScript, Vue 3, Nuxt 4 |
+| [`packages/asset-generator`](./packages/asset-generator/AGENTS.md) | MCP server — asset generation tool       | TypeScript, MCP SDK       |
+| [`packages/workshop`](./packages/workshop/)                        | Workshop materials and documentation     | Markdown                  |
 
 ## Quick Start
 
@@ -50,7 +49,6 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 | Sub-Agent           | Directory                   | AGENTS.md                                    | Language              | Build/Lint                     |
 | ------------------- | --------------------------- | -------------------------------------------- | --------------------- | ------------------------------ |
 | **Web**             | `packages/web/`             | [link](./packages/web/AGENTS.md)             | TypeScript (Vue/Nuxt) | `npx nx build web`             |
-| **PRD Writer**      | `packages/prd-writer/`      | [link](./packages/prd-writer/AGENTS.md)      | TypeScript (MCP)      | `npx nx build prd-writer`      |
 | **Asset Generator** | `packages/asset-generator/` | [link](./packages/asset-generator/AGENTS.md) | TypeScript (MCP)      | `npx nx build asset-generator` |
 
 #### Orchestrator Responsibilities
@@ -153,7 +151,6 @@ This project uses [Nx](https://nx.dev) for monorepo management with pnpm workspa
 ```bash
 npx nx dev web                    # Web dev server
 npx nx build web                  # Build web
-npx nx build prd-writer           # Build PRD Writer
 npx nx build asset-generator      # Build Asset Generator
 npx nx run-many -t build          # Build all projects
 npx nx run-many -t lint           # Lint all projects
