@@ -7,9 +7,9 @@ weight: 20
 
 ## Step 1. PDF 다운로드
 
-Amazon Quick에서 리서치가 완료되면 **PDF로 다운로드** 버튼을 클릭합니다.
+Amazon QuickSuite에서 리서치가 완료되면 **PDF로 다운로드** 버튼을 클릭합니다.
 
-![Amazon Quick PDF 다운로드](/static/images/lab-1/quicksuite-download-pdf.png)
+![Amazon QuickSuite PDF 다운로드](/static/images/lab-1/quicksuite-download-pdf.png)
 
 ## Step 2. 파일명 변경
 

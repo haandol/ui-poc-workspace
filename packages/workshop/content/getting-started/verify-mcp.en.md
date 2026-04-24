@@ -3,7 +3,7 @@ title: 'MCP 서버 확인'
 weight: 30
 ---
 
-이 워크샵에서는 여러 MCP(Model Context Protocol) 서버를 활용합니다. MCP 서버는 Claude Code의 기능을 확장하는 플러그인으로, 프로젝트 폴더에 이미 설정되어 있습니다.
+이 워크숍에서는 여러 MCP(Model Context Protocol) 서버를 활용합니다. MCP 서버는 Claude Code의 기능을 확장하는 플러그인으로, 프로젝트 폴더에 이미 설정되어 있습니다.
 
 ## MCP 서버 목록 확인
 
@@ -59,16 +59,16 @@ Claude Code 실행 후 프롬프트에 입력합니다:
 | ----------------------- | -------------------------------------------- |
 | **pdf-reader**          | 딥리서치 PDF를 읽어주는 도구                 |
 | **alps-writer**         | PRD(ALPS) 문서를 작성해주는 도구             |
-| **airtable**            | 워크샵 진행 상태 추적                        |
+| **airtable**            | 워크숍 진행 상태 추적                        |
 | **chrome-devtools-mcp** | 브라우저 화면을 AI가 직접 보고 수정하는 도구 |
 | **context7**            | 최신 기술 문서를 자동으로 찾아주는 도구      |
 | **nx**                  | Nx 모노레포 워크스페이스 관리                |
 
-::alert[`airtable` 서버가 `failed` 상태여도 워크샵 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
+::alert[`airtable` 서버가 `failed` 상태여도 워크숍 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
 
 ## 진행 상태 추적 설정 (선택)
 
-워크샵 진행 상황을 진행자와 공유하려면 Airtable 연동을 설정합니다. Claude Code 프롬프트에 입력합니다:
+워크숍 진행 상황을 진행자와 공유하려면 Airtable 연동을 설정합니다. Claude Code 프롬프트에 입력합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /workshop-status setup

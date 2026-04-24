@@ -3,15 +3,15 @@ title: '딥리서치 실행'
 weight: 10
 ---
 
-Amazon Quick의 Quick Flow를 사용하여 서비스 아이디어를 조사합니다.
+Amazon QuickSuite의 Quick Flow를 사용하여 서비스 아이디어를 조사합니다.
 
 ## Step 1. Quick Flow 생성
 
-:button[Amazon Quick 열기]{target="\_blank" href="https://quicksight.aws.amazon.com/" variant="primary" iconName="external" iconAlign="right"}
+:button[Amazon QuickSuite 열기]{target="\_blank" href="https://quicksight.aws.amazon.com/" variant="primary" iconName="external" iconAlign="right"}
 
-Amazon Quick에서 **Quick Flow**를 새로 생성합니다.
+Amazon QuickSuite에서 **Quick Flow**를 새로 생성합니다.
 
-![Amazon Quick Quick Flow 생성](/static/images/lab-1/quicksuite-new-flow.png)
+![Amazon QuickSuite Quick Flow 생성](/static/images/lab-1/quicksuite-new-flow.png)
 
 ## Step 2. 리서치 프롬프트 입력
 

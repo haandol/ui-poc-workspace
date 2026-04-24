@@ -54,7 +54,7 @@ irm get.scoop.sh | iex
 Ghostty 터미널에서 아래 명령어를 실행합니다:
 
 ```bash
-scoop install git nodejs-lts glow
+scoop install git nodejs glow
 ```
 
 **설치 확인:**
@@ -99,7 +99,7 @@ claude --version
 **Step 1.** Ghostty 터미널에서 바탕화면으로 이동합니다.
 
 ```bash
-cd %USERPROFILE%\Desktop
+cd "$HOME\Desktop"
 ```
 
 **Step 2.** 프로젝트를 클론합니다.
@@ -147,10 +147,10 @@ Claude Code 실행 후:
 
 아래 도구들이 목록에 표시되면 정상입니다:
 
-| 도구                    | 역할                                               |
-| ----------------------- | -------------------------------------------------- |
-| **pdf-reader**          | 리서치 PDF를 읽어주는 도구                         |
-| **alps-writer**         | PRD(ALPS) 문서를 작성해주는 도구                   |
+| 도구                    | 역할                                                |
+| ----------------------- | --------------------------------------------------- |
+| **pdf-reader**          | 리서치 PDF를 읽어주는 도구                          |
+| **alps-writer**         | PRD(ALPS) 문서를 작성해주는 도구                    |
 | **chrome-devtools-mcp** | 브라우저 화면을 AI가 직접 보고 문제를 찾아주는 도구 |
 | **context7**            | 최신 기술 문서를 자동으로 찾아주는 도구             |
 | **frontend-design**     | 화면 디자인 품질을 높여주는 도구                    |
@@ -174,13 +174,13 @@ glow docs/WORKSHOP.md
 
 ## 작업별 폴더 위치 요약
 
-| 작업                       | 폴더 위치                        | 비고                       |
-| -------------------------- | -------------------------------- | -------------------------- |
-| 프로젝트 설정, 패키지 설치 | `ui-poc-workspace/` (루트)       | `pnpm install` 등          |
-| 리서치 PDF 저장            | `ui-poc-workspace/docs/`         | 딥리서치 PDF를 여기에 복사 |
-| PRD(ALPS) 문서             | `ui-poc-workspace/prd/`          | AI가 자동으로 저장         |
-| Claude Code 실행           | `ui-poc-workspace/` (루트)       | 항상 루트에서 실행         |
-| 웹 개발 서버 실행          | `ui-poc-workspace/` (루트)       | `pnpm dev:web`             |
+| 작업                       | 폴더 위치                        | 비고                                 |
+| -------------------------- | -------------------------------- | ------------------------------------ |
+| 프로젝트 설정, 패키지 설치 | `ui-poc-workspace/` (루트)       | `pnpm install` 등                    |
+| 리서치 PDF 저장            | `ui-poc-workspace/docs/`         | 딥리서치 PDF를 여기에 복사           |
+| PRD(ALPS) 문서             | `ui-poc-workspace/prd/`          | AI가 자동으로 저장                   |
+| Claude Code 실행           | `ui-poc-workspace/` (루트)       | 항상 루트에서 실행                   |
+| 웹 개발 서버 실행          | `ui-poc-workspace/` (루트)       | `pnpm dev:web`                       |
 | 웹 소스 코드               | `ui-poc-workspace/packages/web/` | AI가 알아서 수정 (직접 열 필요 없음) |
 
 ---
