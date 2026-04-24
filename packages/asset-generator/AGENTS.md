@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Asset Generator — fal.ai 기반 이미지 생성 MCP 서버. 텍스트 프롬프트로 qwen-image-2.0 모델을 통해 이미지를 생성한다. `non-tech-ui-poc-workshop` 모노레포의 일부.
+Asset Generator — fal.ai 기반 이미지 생성 MCP 서버. 텍스트 프롬프트로 OpenAI GPT Image 2 모델을 통해 이미지를 생성한다. `non-tech-ui-poc-workshop` 모노레포의 일부.
 
 **Tech Stack**: TypeScript 5.9+, Node.js >= 20, pnpm, MCP SDK (`@modelcontextprotocol/sdk`), Zod, fal.ai Client (`@fal-ai/client`)
 
@@ -54,8 +54,8 @@ src/
 **Image Generation Flow**:
 
 1. Controller receives text prompt via MCP tool call
-2. Service constructs request parameters for qwen-image-2.0
-3. Repository calls fal.ai API (`fal-ai/qwen-image-2.0`) and returns generated image
+2. Service constructs request parameters for GPT Image 2
+3. Repository calls fal.ai API (`openai/gpt-image-2`) and returns generated image
 4. Controller returns image result to MCP client
 
 **Key Dependencies**:
@@ -93,4 +93,4 @@ Verify before completing any task:
 - [README.md](./README.md) — Usage guide, tool reference
 - [Root AGENTS.md](../../AGENTS.md) — Monorepo overview, agent work protocol
 - [CONTRIBUTING.md](../../CONTRIBUTING.md) — Commit messages, branching, code style, PR rules
-- [fal.ai docs](https://fal.ai/models/fal-ai/qwen-image-2.0) — qwen-image-2.0 model reference
+- [fal.ai docs](https://fal.ai/models/openai/gpt-image-2) — GPT Image 2 model reference
