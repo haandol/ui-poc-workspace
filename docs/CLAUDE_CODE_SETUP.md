@@ -10,8 +10,8 @@ Claude Code를 Amazon Bedrock을 통해 사용하도록 설정합니다.
 
 - [INSTALLATION.md](./INSTALLATION.md)의 1~4단계가 완료되어 있어야 합니다 (Git, Node.js, pnpm, Claude Code 설치됨)
 - AWS 계정에 Bedrock 접근이 활성화되어 있어야 합니다
-- Bedrock에서 사용할 Claude 모델(예: Claude Opus 4.6)에 대한 접근 권한이 필요합니다
-- 적절한 IAM 권한이 설정되어 있어야 합니다 (아래 [관리자용: IAM 권한](#관리자용-iam-권한) 참고)
+- Bedrock에서 사용할 Claude 모델(예: Claude Opus 4.7)에 대한 접근 권한이 필요합니다
+- 적절한 IAM 권한이 설정되어 있어야 합니다
 
 ---
 
@@ -60,11 +60,12 @@ export AWS_REGION=us-east-1  # 사용할 리전
 모델 별칭(sonnet, opus 등)을 그대로 사용하면 Anthropic이 새 모델을 출시할 때 문제가 생길 수 있습니다. 아래와 같이 특정 모델 버전을 고정하세요:
 
 ```bash
-export ANTHROPIC_MODEL='us.anthropic.claude-opus-4-6'
+export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
 export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 ```
 
 > Application Inference Profile ARN을 사용할 수도 있습니다:
+>
 > ```bash
 > export ANTHROPIC_MODEL='arn:aws:bedrock:us-east-1:your-account-id:application-inference-profile/your-model-id'
 > ```
@@ -80,6 +81,7 @@ claude
 정상적으로 실행되면 Bedrock을 통해 Claude Code를 사용할 수 있습니다.
 
 > **팁**: 매번 환경변수를 설정하기 번거롭다면 셸 설정 파일에 추가하세요:
+>
 > - **Mac/Linux**: `~/.zshrc` 또는 `~/.bashrc`
 > - **Windows**: PowerShell 프로필 파일 (`$PROFILE`)
 >
@@ -88,7 +90,7 @@ claude
 > export CLAUDE_CODE_USE_BEDROCK=1
 > export AWS_REGION=us-east-1
 > export AWS_PROFILE=your-profile-name
-> export ANTHROPIC_MODEL='us.anthropic.claude-opus-4-6'
+> export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
 > export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 > ```
 >
@@ -109,11 +111,7 @@ AWS 관리자가 아래 IAM 정책을 사용자에게 부여해야 합니다:
     {
       "Sid": "AllowModelAndInferenceProfileAccess",
       "Effect": "Allow",
-      "Action": [
-        "bedrock:InvokeModel",
-        "bedrock:InvokeModelWithResponseStream",
-        "bedrock:ListInferenceProfiles"
-      ],
+      "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream", "bedrock:ListInferenceProfiles"],
       "Resource": [
         "arn:aws:bedrock:*:*:inference-profile/*",
         "arn:aws:bedrock:*:*:application-inference-profile/*",
@@ -123,10 +121,7 @@ AWS 관리자가 아래 IAM 정책을 사용자에게 부여해야 합니다:
     {
       "Sid": "AllowMarketplaceSubscription",
       "Effect": "Allow",
-      "Action": [
-        "aws-marketplace:ViewSubscriptions",
-        "aws-marketplace:Subscribe"
-      ],
+      "Action": ["aws-marketplace:ViewSubscriptions", "aws-marketplace:Subscribe"],
       "Resource": "*",
       "Condition": {
         "StringEquals": {

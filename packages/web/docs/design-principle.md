@@ -1,13 +1,77 @@
-# Design Principle
+# 디자인 원칙
 
-**Note**: For complete design system implementation details, refer to `design-system.md`
+**참고**: 디자인 시스템 구현 상세 내용은 `design-system.md` 참조
 
 ## 기술 스택
 
 ### UI 프레임워크
 
 - **TailwindCSS**: 유틸리티 우선 CSS 프레임워크로 일관된 디자인 시스템 구축
-- **DaisyUI 5**: TailwindCSS 기반 컴포넌트 라이브러리로 빠른 UI 개발
+- **DaisyUI 5**: TailwindCSS 기반 컴포넌트 라이브러리 — 레이아웃/구조용 클래스만 사용 (form 컴포넌트 금지, `AGENTS.md` 참조)
+
+### 차트 라이브러리
+
+차트는 **CSS만으로 구현하지 않는다**. 라인 차트, 도넛 차트, 복합 차트(바+라인 오버레이)는 반드시 라이브러리를 사용한다.
+
+- **`chart.js` + `vue-chartjs`** — 이미 `package.json`에 포함
+
+**기본 사용 패턴:**
+
+```vue
+<script setup lang="ts">
+import { Bar, Line, Doughnut } from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend)
+
+const barData = {
+  labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
+  datasets: [
+    {
+      label: '매출',
+      data: [120, 190, 150, 210, 180, 240],
+      backgroundColor: 'rgba(59, 130, 246, 0.5)',
+      borderColor: 'rgb(59, 130, 246)',
+      borderWidth: 1,
+    },
+  ],
+}
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+}
+</script>
+
+<template>
+  <!-- 반드시 부모에 높이 지정 -->
+  <div class="h-64">
+    <Bar
+      :data="barData"
+      :options="chartOptions"
+    />
+  </div>
+</template>
+```
+
+**주의사항:**
+
+- 차트 컨테이너에 `h-*` 또는 `style="height: Xpx"` 필수 — 없으면 0px로 렌더링
+- `maintainAspectRatio: false` 설정 권장 — 컨테이너 높이 기준으로 렌더링
+- 다크 모드에서 축/범례 색상: `color: '#9ca3af'` (gray-400) 적용
+- CSS 바 차트는 단순 비율 시각화(히트맵, 진행률)에만 허용
 
 ## 핵심 디자인 철학
 

@@ -45,4 +45,6 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 docs/*.pdf
 .claude/settings.local.json
-.workshop-participant
+
+.nx/polygraph
+.claude/worktrees
