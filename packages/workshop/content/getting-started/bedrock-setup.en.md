@@ -5,96 +5,54 @@ weight: 20
 
 Claude Code를 Amazon Bedrock을 통해 사용하도록 설정합니다. Bedrock을 사용하면 기업 환경에서 안전하게 Claude 모델을 활용할 수 있습니다.
 
-## 1. AWS 자격 증명 설정
+## AWS 자격 증명 및 환경변수 설정
 
 아래 방법 중 하나를 선택합니다.
 
 ::::tabs
-:::tab{label="AWS SSO (권장)"}
+:::tab{label="Workshop Studio 이벤트 자격 증명 (권장)"}
+
+워크숍 이벤트에 참가 중이라면 Workshop Studio에서 제공하는 임시 자격 증명을 사용합니다.
+
+1. Workshop Studio 이벤트 대시보드 왼쪽의 **Get AWS CLI credentials** 를 클릭합니다
+2. 본인의 OS에 맞는 탭(macOS/Linux 또는 Windows)을 선택합니다
+3. 표시된 환경변수 블록 전체를 복사하여 터미널에 붙여넣어 실행합니다
+4. 이어서 아래 Bedrock 환경변수도 함께 설정합니다
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
-# Mac/Linux
+# Mac/Linux — Workshop Studio 자격 증명 붙여넣기 후 아래 추가
 
-aws sso login --profile=<your-profile-name>
-export AWS_PROFILE=<your-profile-name>
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-east-1
+export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
+export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 :::
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
 
-# Windows (PowerShell)
+# Windows (PowerShell) — Workshop Studio 자격 증명 붙여넣기 후 아래 추가
 
-aws sso login --profile=<your-profile-name>
-$env:AWS_PROFILE="<your-profile-name>"
+$env:CLAUDE_CODE_USE_BEDROCK=1
+$env:AWS_REGION="us-east-1"
+$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
+$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 :::
 
-:::
-:::tab{label="환경변수 (Access Key)"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
-export AWS_ACCESS_KEY_ID=<your-access-key-id>
-export AWS_SECRET_ACCESS_KEY=<your-secret-access-key>
-export AWS_SESSION_TOKEN=<your-session-token>
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-$env:AWS_ACCESS_KEY_ID="<your-access-key-id>"
-$env:AWS_SECRET_ACCESS_KEY="<your-secret-access-key>"
-$env:AWS_SESSION_TOKEN="<your-session-token>"
-:::
+::alert[Workshop Studio 자격 증명은 일정 시간이 지나면 만료됩니다. 만료되면 위 과정을 다시 반복하세요.]{type="warning"}
 
 :::
 :::tab{label="Bedrock API 키"}
+
+Bedrock 콘솔에서 장기 API 키를 생성하여 사용합니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
 # Mac/Linux
 
 export AWS_BEARER_TOKEN_BEDROCK=<your-bedrock-api-key>
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-$env:AWS_BEARER_TOKEN_BEDROCK="<your-bedrock-api-key>"
-:::
-
-:::
-::::
-
-## 2. Bedrock 환경변수 설정
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
 export CLAUDE_CODE_USE_BEDROCK=1
 export AWS_REGION=us-east-1
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-$env:CLAUDE_CODE_USE_BEDROCK=1
-$env:AWS_REGION="us-east-1"
-:::
-
-## 3. 모델 버전 고정 (권장)
-
-특정 모델 버전을 고정하면 모델 업데이트로 인한 예기치 않은 동작 변경을 방지할 수 있습니다.
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
 export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
 export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 :::
@@ -103,13 +61,17 @@ export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 
 # Windows (PowerShell)
 
+$env:AWS_BEARER_TOKEN_BEDROCK="<your-bedrock-api-key>"
+$env:CLAUDE_CODE_USE_BEDROCK=1
+$env:AWS_REGION="us-east-1"
 $env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
 $env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 :::
 
-::alert[매번 환경변수를 설정하기 번거롭다면 `~/.zshrc` (Mac) 또는 PowerShell 프로필 파일 (`echo $PROFILE`로 경로 확인)에 위 내용을 추가하세요.]{type="info"}
+:::
+::::
 
-## 4. 동작 확인
+## 동작 확인
 
 프로젝트 폴더로 이동하여 Claude Code를 실행합니다.
 
