@@ -2,18 +2,14 @@
   "permissions": {
     "allow": []
   },
-  "enabledMcpjsonServers": [
-    "pdf-reader",
-    "alps-writer",
-    "airtable"
-  ],
+  "enabledMcpjsonServers": ["pdf-reader", "alps-writer", "airtable"],
   "enabledPlugins": {
     "nx@nx-claude-plugins": true,
-    "frontend-design": false,
-    "typescript-lsp": true,
-    "context7": true,
-    "chrome-devtools-mcp": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "nx-claude-plugins": {
