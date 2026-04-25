@@ -88,11 +88,12 @@ Claude Code 실행 후 프롬프트에 입력합니다:
 
 AI 이미지 생성 기능을 사용하려면 FAL API Key를 설정합니다. 진행자에게 전달받은 키를 아래와 같이 환경변수로 등록합니다.
 
+<!-- prettier-ignore-start -->
 ::::tabs
 :::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-echo 'export FAL*KEY="진행자에게*전달받은\_키"' >> ~/.zshrc
+echo 'export FAL_KEY="진행자에게_전달받은_키"' >> ~/.zshrc
 source ~/.zshrc
 :::
 
@@ -100,13 +101,14 @@ source ~/.zshrc
 :::tab{label="Windows (PowerShell)"}
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
-[Environment]::SetEnvironmentVariable('FAL*KEY', '진행자에게*전달받은\_키', 'User')
+[Environment]::SetEnvironmentVariable('FAL_KEY', '진행자에게_전달받은_키', 'User')
 :::
 
 설정 후 PowerShell을 **재시작**하세요.
 
 :::
 ::::
+<!-- prettier-ignore-end -->
 
 설정 후 Claude Code를 재시작하면 `/mcp`에서 `asset-generator`가 `✔ connected` 상태로 변경됩니다.
 
