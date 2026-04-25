@@ -70,8 +70,9 @@ curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scrip
 아래 명령을 순서대로 실행합니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
-git clone https://github.com/haandol/ui-poc-workspace "$HOME\Desktop\ui-poc-workspace"
-cd "$HOME\Desktop\ui-poc-workspace"
+$desktop = [Environment]::GetFolderPath('Desktop')
+git clone https://github.com/haandol/ui-poc-workspace "$desktop\ui-poc-workspace"
+cd "$desktop\ui-poc-workspace"
 powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
 :::
 

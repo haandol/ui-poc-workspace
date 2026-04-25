@@ -99,7 +99,7 @@ claude --version
 **Step 1.** Ghostty 터미널에서 바탕화면으로 이동합니다.
 
 ```bash
-cd "$HOME\Desktop"
+cd "$([Environment]::GetFolderPath('Desktop'))"
 ```
 
 **Step 2.** 프로젝트를 클론합니다.

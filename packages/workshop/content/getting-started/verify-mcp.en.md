@@ -21,7 +21,7 @@ claude
 :::tab{label="Windows (PowerShell)"}
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
-cd "$HOME\Desktop\ui-poc-workspace"
+cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
 claude
 :::
 

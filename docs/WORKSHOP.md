@@ -92,9 +92,10 @@ curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scrip
 **Windows — PowerShell에서 아래 두 명령을 순서대로 실행:**
 
 ```powershell
-# 1) 프로젝트 클론
-git clone https://github.com/haandol/ui-poc-workspace "$HOME\Desktop\ui-poc-workspace"
-cd "$HOME\Desktop\ui-poc-workspace"
+# 1) 프로젝트 클론 (바탕화면에 생성)
+$desktop = [Environment]::GetFolderPath('Desktop')
+git clone https://github.com/haandol/ui-poc-workspace "$desktop\ui-poc-workspace"
+cd "$desktop\ui-poc-workspace"
 
 # 2) 셋업 스크립트 실행
 powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
@@ -109,7 +110,7 @@ powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
 cd ~/Desktop/ui-poc-workspace && claude
 
 # Windows (PowerShell)
-cd "$HOME\Desktop\ui-poc-workspace"; claude
+cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 ```
 
 Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-reader`, `alps-writer` 등 MCP 서버 목록이 표시되면 정상입니다.
@@ -219,7 +220,7 @@ Claude가 두 가지를 물어봅니다:
 cd ~/Desktop/ui-poc-workspace && claude
 
 # Windows (PowerShell)
-cd "$HOME\Desktop\ui-poc-workspace"; claude
+cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 ```
 
 **Step 2.** Claude Code 프롬프트에서 PRD 작성을 요청합니다. `@docs/`까지 입력 후 Tab 키를 눌러 PDF 파일을 선택하세요.
@@ -266,7 +267,7 @@ cd "$HOME\Desktop\ui-poc-workspace"; claude
 cd ~/Desktop/ui-poc-workspace && pnpm dev:web
 
 # Windows (PowerShell)
-cd "$HOME\Desktop\ui-poc-workspace"; pnpm dev:web
+cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; pnpm dev:web
 ```
 
 **Step 3.** 브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
@@ -280,7 +281,7 @@ cd "$HOME\Desktop\ui-poc-workspace"; pnpm dev:web
 cd ~/Desktop/ui-poc-workspace && claude
 
 # Windows (PowerShell)
-cd "$HOME\Desktop\ui-poc-workspace"; claude
+cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 ```
 
 ### 4-2. PRD를 통해 UI 개발 시작
@@ -290,6 +291,7 @@ cd "$HOME\Desktop\ui-poc-workspace"; claude
 PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
 
 **파일명 확인 방법** (아래 중 편한 방법을 사용하세요):
+
 - **Finder(Mac) / 파일탐색기(Windows)**: `바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열면 `.alps.md` 파일이 있습니다.
 - **Claude Code에서 직접 확인**: `docs/prd/ 에 있는 파일 목록을 보여줘`라고 물어보세요.
 - **Tab 자동완성**: `@docs/prd/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.
