@@ -42,27 +42,33 @@ Claude Code 실행 후 프롬프트에 입력합니다:
   8 servers
 
     Project MCPs (.mcp.json)
-    airtable · ✔ connected
+    airtable · ✘ failed
     alps-writer · ✔ connected
     pdf-reader · ✔ connected
 
     Built-in MCPs (always available)
-    plugin:chrome-devtools-mcp · ✔ connected
-    plugin:context7 · ✔ connected
-    plugin:nx · ✔ connected
+    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
+    plugin:context7:context7 · ✔ connected
+    plugin:nx:nx-mcp · ✔ connected
 ──────────────────────────────────────────────────────
 ```
 
-각 MCP 서버의 역할은 다음과 같습니다:
+**MCP 서버** (`.mcp.json`):
 
-| MCP 서버                | 역할                                         |
-| ----------------------- | -------------------------------------------- |
-| **pdf-reader**          | 딥리서치 PDF를 읽어주는 도구                 |
-| **alps-writer**         | PRD(ALPS) 문서를 작성해주는 도구             |
-| **airtable**            | 워크숍 진행 상태 추적                        |
-| **chrome-devtools-mcp** | 브라우저 화면을 AI가 직접 보고 수정하는 도구 |
-| **context7**            | 최신 기술 문서를 자동으로 찾아주는 도구      |
-| **nx**                  | Nx 모노레포 워크스페이스 관리                |
+| MCP 서버    | 패키지                   | 용도                  |
+| ----------- | ------------------------ | --------------------- |
+| pdf-reader  | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
+| alps-writer | `alps-writer`            | PRD(ALPS) 문서 작성   |
+| airtable    | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
+
+**플러그인** (`.claude/settings.json`):
+
+| 플러그인            | 용도                                 |
+| ------------------- | ------------------------------------ |
+| context7            | 라이브러리/프레임워크 최신 문서 조회 |
+| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅     |
+| nx                  | Nx 모노레포 워크스페이스 관리        |
+| typescript-lsp      | TypeScript 코드 분석                 |
 
 ::alert[`airtable` 서버가 `failed` 상태여도 워크숍 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
 
