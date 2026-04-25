@@ -113,7 +113,7 @@ cd ~/Desktop/ui-poc-workspace && claude
 cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 ```
 
-Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-reader`, `alps-writer` 등 MCP 서버 목록이 표시되면 정상입니다.
+Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-reader`, `alps-writer`, `asset-generator` 등 MCP 서버 목록이 표시되면 정상입니다.
 
 <details>
 <summary><b>자동 설치되는 도구 목록</b> (클릭하여 펼치기)</summary>
@@ -122,11 +122,19 @@ Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-rea
 
 **MCP 서버** (`.mcp.json`):
 
-| MCP 서버    | 패키지                   | 용도                  |
-| ----------- | ------------------------ | --------------------- |
-| pdf-reader  | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
-| alps-writer | `alps-writer`            | PRD(ALPS) 문서 작성   |
-| airtable    | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
+| MCP 서버        | 패키지                   | 용도                  |
+| --------------- | ------------------------ | --------------------- |
+| pdf-reader      | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
+| alps-writer     | `alps-writer`            | PRD(ALPS) 문서 작성   |
+| asset-generator | (프로젝트 내장)          | 이미지 에셋 생성      |
+| airtable        | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
+
+**유저 MCP** (`~/.claude.json`):
+
+| MCP 서버      | 용도                       |
+| ------------- | -------------------------- |
+| ppt-generator | 프레젠테이션 슬라이드 생성 |
+| tavily        | 웹 검색 및 리서치          |
 
 **플러그인** (`.claude/settings.json`):
 
@@ -135,7 +143,6 @@ Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-rea
 | context7            | 라이브러리/프레임워크 최신 문서 조회 |
 | chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅     |
 | nx                  | Nx 모노레포 워크스페이스 관리        |
-| typescript-lsp      | TypeScript 코드 분석                 |
 
 **커스텀 스킬** (`.claude/skills/`):
 
@@ -148,12 +155,17 @@ Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-rea
 
 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
   Manage MCP servers
-  8 servers
+  9 servers
 
     Project MCPs (/Users/dongkyl/Desktop/ui-poc-workspace/.mcp.json)
-    airtable · ✘ failed
+  ❯ airtable · ✔ connected
     alps-writer · ✔ connected
+    asset-generator · ✘ failed
     pdf-reader · ✔ connected
+
+    User MCPs (/Users/dongkyl/.claude.json)
+    ppt-generator · ✔ connected
+    tavily · ✔ connected
 
     Built-in MCPs (always available)
     plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
@@ -167,7 +179,28 @@ Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-rea
 
 </details>
 
-### 2-3. 진행 상태 추적 설정하기
+> **참고**: `airtable`, `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.
+
+### 2-3. 이미지 에셋 생성 설정하기 (선택)
+
+AI 이미지 생성 기능을 사용하려면 FAL API Key를 설정합니다. 진행자에게 전달받은 키를 아래와 같이 환경변수로 등록합니다.
+
+```bash
+# Mac
+echo 'export FAL_KEY="진행자에게_전달받은_키"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+```powershell
+# Windows (PowerShell) — 설정 후 PowerShell 재시작 필요
+[Environment]::SetEnvironmentVariable('FAL_KEY', '진행자에게_전달받은_키', 'User')
+```
+
+설정 후 Claude Code를 재시작하면 `/mcp`에서 `asset-generator`가 `✔ connected` 상태로 변경됩니다.
+
+> **참고**: FAL API Key가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 에셋 생성 기능만 비활성화됩니다.
+
+### 2-4. 진행 상태 추적 설정하기
 
 워크숍 진행 상황을 진행자와 공유하기 위해 Airtable 연동을 설정합니다.
 진행자가 전달한 **Airtable API Key**를 준비한 뒤, Claude Code 프롬프트에 아래 명령을 입력합니다 (터미널이 아니라 Claude Code 대화창에서 입력):
@@ -183,9 +216,9 @@ Claude가 두 가지를 물어봅니다:
 
 설정이 완료되면 이후 단계(리서치, PRD, 개발 등)에서 **진행 상태가 자동으로 공유**됩니다.
 
-> **참고**: Airtable 키가 없어도 워크숍 진행에는 문제가 없습니다. 상태 추적만 비활성화됩니다.
+> **참고**: Airtable 키가 없어도 워크숍 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.
 
-### 2-4. 리서치 PDF 복사하기
+### 2-5. 리서치 PDF 복사하기
 
 딥리서치가 완료되면, 다운받은 리서치 PDF를 작업 폴더의 `docs/` 폴더에 복사합니다.
 파일명은 **영문으로 변경하는 것을 권장**합니다 (예: `research.pdf`). 한글 파일명이나 공백이 포함된 파일명은 문제가 될 수 있습니다.
