@@ -1,7 +1,9 @@
-# ──────────────────────────────────────────────
+﻿# ──────────────────────────────────────────────
 # Non-Tech UI PoC Workshop — Windows Setup
 # ──────────────────────────────────────────────
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"
 
 function Write-Ok   { param($msg) Write-Host "  ✓ $msg" -ForegroundColor Green }
@@ -36,23 +38,24 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
     Write-Ok "Git installed"
 }
 
-function Install-NodeJs {
-    Write-Info "Installing Node.js..."
-    scoop install nodejs
-    Write-Ok "Node.js installed"
+function Install-NodeJs24 {
+    Write-Info "Installing Node.js 24 via scoop..."
+    scoop bucket add versions 2>$null
+    scoop install versions/nodejs24
+    Write-Ok "Node.js 24 installed"
 }
 
 if (Get-Command node -ErrorAction SilentlyContinue) {
     $nodeVersion = (node --version) -replace 'v', ''
     $nodeMajor = [int]($nodeVersion.Split('.')[0])
-    if ($nodeMajor -ge 24) {
+    if ($nodeMajor -eq 24) {
         Write-Ok "Node.js v$nodeVersion"
     } else {
-        Write-Info "Node.js v$nodeVersion found, but v24+ required"
-        Install-NodeJs
+        Write-Info "Node.js v$nodeVersion found, but v24 required"
+        Install-NodeJs24
     }
 } else {
-    Install-NodeJs
+    Install-NodeJs24
 }
 
 if (Get-Command glow -ErrorAction SilentlyContinue) {
@@ -63,8 +66,8 @@ if (Get-Command glow -ErrorAction SilentlyContinue) {
     Write-Ok "glow installed"
 }
 
-# ── 3. pnpm & Claude Code ───────────────────
-Write-Host "3/5  pnpm & Claude Code"
+# ── 3. pnpm and Claude Code ─────────────────
+Write-Host '3/5  pnpm & Claude Code'
 
 if (Get-Command pnpm -ErrorAction SilentlyContinue) {
     Write-Ok "pnpm $(pnpm --version)"
@@ -90,6 +93,10 @@ $ProjectRoot = Split-Path -Parent $ScriptDir
 
 Push-Location $ProjectRoot
 try {
+    if (Test-Path "node_modules") {
+        Write-Info "Cleaning existing node_modules..."
+        Remove-Item -Recurse -Force "node_modules"
+    }
     pnpm install
     Write-Ok "Dependencies installed"
 } finally {
@@ -99,9 +106,9 @@ try {
 # ── 5. Verify dev server ────────────────────
 Write-Host "5/5  Dev server verification"
 
-Write-Info "Starting dev server (quick check)..."
+Write-Info 'Starting dev server (quick check)...'
 Push-Location $ProjectRoot
-$devProcess = Start-Process -FilePath "pnpm" -ArgumentList "dev:web" -PassThru -WindowStyle Hidden
+$devProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c pnpm dev:web" -PassThru -WindowStyle Hidden
 
 $success = $false
 for ($i = 1; $i -le 15; $i++) {
@@ -117,7 +124,7 @@ for ($i = 1; $i -le 15; $i++) {
 }
 
 if (-not $success) {
-    Write-Info "Dev server did not respond in 15s (this is OK — it may need more time on first run)"
+    Write-Info 'Dev server did not respond in 15s (this is OK - it may need more time on first run)'
 }
 
 Stop-Process -Id $devProcess.Id -Force -ErrorAction SilentlyContinue
