@@ -5,14 +5,53 @@ weight: 20
 
 생성된 PRD를 검토하고 필요한 부분을 수정합니다. AI와 대화하듯이 피드백을 주면 됩니다.
 
+## PRD 파일 열어보기
+
+생성된 ALPS 문서를 직접 읽어보려면 아래 방법 중 하나를 사용합니다.
+
+::::tabs
+:::tab{label="VSCode (추천)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+code docs/prd/
+:::
+
+VSCode에서 마크다운 미리보기를 보려면 파일을 연 뒤 `Cmd + Shift + V` (Mac) 또는 `Ctrl + Shift + V` (Windows)를 누릅니다.
+
+:::
+:::tab{label="glow (터미널)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+glow docs/prd/\*.alps.md
+:::
+
+터미널에서 마크다운이 보기 좋게 렌더링됩니다.
+
+:::
+:::tab{label="Claude Code"}
+
+Claude Code 프롬프트에서 직접 요약을 요청할 수도 있습니다.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+@docs/prd/XYZ.alps.md 전체 내용을 섹션별로 요약해줘
+:::
+
+:::
+::::
+
 ## PRD 검토 포인트
 
 생성된 ALPS 문서에서 아래 항목을 확인합니다:
 
-1. **Feature 목록** (Section 6) — 구현할 기능이 적절하게 정의되었는지
-2. **우선순위** — 핵심 기능이 높은 우선순위로 설정되었는지
-3. **User Story** — 사용자 관점에서 기능이 설명되었는지
-4. **인수 조건** — 기능 완료 기준이 명확한지
+1. **제품 개요** (Section 1) — 비전과 타겟 사용자가 내 아이디어와 일치하는지
+2. **MVP 목표** (Section 2) — 검증할 가설과 측정 지표가 현실적인지
+3. **데모 시나리오** (Section 3) — 핵심 사용자 여정이 자연스러운지
+4. **아키텍처** (Section 4) — 시스템 구성이 적절한지
+5. **디자인 명세** (Section 5) — 주요 화면 구성과 이동 흐름이 직관적인지
+6. **Feature 목록** (Section 6) — 구현할 기능과 우선순위가 적절한지
+7. **기능 상세** (Section 7) — User Story와 인수 조건이 명확한지
+8. **측정 지표** (Section 8) — 성공/실패 판단 기준이 구체적인지
+9. **범위 밖** (Section 9) — MVP에서 제외할 항목이 합리적인지
 
 ## 수정 요청 예시
 
