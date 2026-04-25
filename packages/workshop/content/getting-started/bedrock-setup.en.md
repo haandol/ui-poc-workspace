@@ -13,24 +13,57 @@ Claude Code를 Amazon Bedrock을 통해 사용하도록 설정합니다. Bedrock
 :::tab{label="AWS SSO (권장)"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
+
+# Mac/Linux
+
 aws sso login --profile=<your-profile-name>
 export AWS_PROFILE=<your-profile-name>
+:::
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+
+# Windows (PowerShell)
+
+aws sso login --profile=<your-profile-name>
+$env:AWS_PROFILE="<your-profile-name>"
 :::
 
 :::
 :::tab{label="환경변수 (Access Key)"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
+
+# Mac/Linux
+
 export AWS_ACCESS_KEY_ID=<your-access-key-id>
 export AWS_SECRET_ACCESS_KEY=<your-secret-access-key>
 export AWS_SESSION_TOKEN=<your-session-token>
+:::
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+
+# Windows (PowerShell)
+
+$env:AWS_ACCESS_KEY_ID="<your-access-key-id>"
+$env:AWS_SECRET_ACCESS_KEY="<your-secret-access-key>"
+$env:AWS_SESSION_TOKEN="<your-session-token>"
 :::
 
 :::
 :::tab{label="Bedrock API 키"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
+
+# Mac/Linux
+
 export AWS_BEARER_TOKEN_BEDROCK=<your-bedrock-api-key>
+:::
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+
+# Windows (PowerShell)
+
+$env:AWS_BEARER_TOKEN_BEDROCK="<your-bedrock-api-key>"
 :::
 
 :::
@@ -39,8 +72,19 @@ export AWS_BEARER_TOKEN_BEDROCK=<your-bedrock-api-key>
 ## 2. Bedrock 환경변수 설정
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
+
+# Mac/Linux
+
 export CLAUDE_CODE_USE_BEDROCK=1
 export AWS_REGION=us-east-1
+:::
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+
+# Windows (PowerShell)
+
+$env:CLAUDE_CODE_USE_BEDROCK=1
+$env:AWS_REGION="us-east-1"
 :::
 
 ## 3. 모델 버전 고정 (권장)
@@ -48,11 +92,22 @@ export AWS_REGION=us-east-1
 특정 모델 버전을 고정하면 모델 업데이트로 인한 예기치 않은 동작 변경을 방지할 수 있습니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
+
+# Mac/Linux
+
 export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
 export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 :::
 
-::alert[매번 환경변수를 설정하기 번거롭다면 `~/.zshrc` (Mac) 또는 PowerShell 프로필 파일에 위 내용을 추가하세요.]{type="info"}
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+
+# Windows (PowerShell)
+
+$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
+$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
+:::
+
+::alert[매번 환경변수를 설정하기 번거롭다면 `~/.zshrc` (Mac) 또는 PowerShell 프로필 파일 (`echo $PROFILE`로 경로 확인)에 위 내용을 추가하세요.]{type="info"}
 
 ## 4. 동작 확인
 

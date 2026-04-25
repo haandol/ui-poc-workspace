@@ -22,23 +22,43 @@ Claude Code를 Amazon Bedrock을 통해 사용하도록 설정합니다.
 **방법 A: AWS SSO 프로필 (권장)**
 
 ```bash
+# Mac/Linux
 aws sso login --profile=<your-profile-name>
-
 export AWS_PROFILE=your-profile-name
+```
+
+```powershell
+# Windows (PowerShell)
+aws sso login --profile=<your-profile-name>
+$env:AWS_PROFILE="your-profile-name"
 ```
 
 **방법 B: 환경변수 (Access Key)**
 
 ```bash
+# Mac/Linux
 export AWS_ACCESS_KEY_ID=your-access-key-id
 export AWS_SECRET_ACCESS_KEY=your-secret-access-key
 export AWS_SESSION_TOKEN=your-session-token
 ```
 
+```powershell
+# Windows (PowerShell)
+$env:AWS_ACCESS_KEY_ID="your-access-key-id"
+$env:AWS_SECRET_ACCESS_KEY="your-secret-access-key"
+$env:AWS_SESSION_TOKEN="your-session-token"
+```
+
 **방법 C: Bedrock API 키**
 
 ```bash
+# Mac/Linux
 export AWS_BEARER_TOKEN_BEDROCK=your-bedrock-api-key
+```
+
+```powershell
+# Windows (PowerShell)
+$env:AWS_BEARER_TOKEN_BEDROCK="your-bedrock-api-key"
 ```
 
 ---
@@ -48,9 +68,15 @@ export AWS_BEARER_TOKEN_BEDROCK=your-bedrock-api-key
 터미널에서 아래 환경변수를 설정합니다:
 
 ```bash
-# Bedrock 사용 활성화
+# Mac/Linux
 export CLAUDE_CODE_USE_BEDROCK=1
-export AWS_REGION=us-east-1  # 사용할 리전
+export AWS_REGION=us-east-1
+```
+
+```powershell
+# Windows (PowerShell)
+$env:CLAUDE_CODE_USE_BEDROCK=1
+$env:AWS_REGION="us-east-1"
 ```
 
 ---
@@ -60,14 +86,27 @@ export AWS_REGION=us-east-1  # 사용할 리전
 모델 별칭(sonnet, opus 등)을 그대로 사용하면 Anthropic이 새 모델을 출시할 때 문제가 생길 수 있습니다. 아래와 같이 특정 모델 버전을 고정하세요:
 
 ```bash
+# Mac/Linux
 export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
 export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
+```
+
+```powershell
+# Windows (PowerShell)
+$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
+$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 ```
 
 > Application Inference Profile ARN을 사용할 수도 있습니다:
 >
 > ```bash
+> # Mac/Linux
 > export ANTHROPIC_MODEL='arn:aws:bedrock:us-east-1:your-account-id:application-inference-profile/your-model-id'
+> ```
+>
+> ```powershell
+> # Windows (PowerShell)
+> $env:ANTHROPIC_MODEL="arn:aws:bedrock:us-east-1:your-account-id:application-inference-profile/your-model-id"
 > ```
 
 ---
@@ -82,11 +121,9 @@ claude
 
 > **팁**: 매번 환경변수를 설정하기 번거롭다면 셸 설정 파일에 추가하세요:
 >
-> - **Mac/Linux**: `~/.zshrc` 또는 `~/.bashrc`
-> - **Windows**: PowerShell 프로필 파일 (`$PROFILE`)
+> - **Mac/Linux**: `~/.zshrc` 또는 `~/.bashrc`에 아래 내용 추가
 >
 > ```bash
-> # Claude Code Bedrock 설정
 > export CLAUDE_CODE_USE_BEDROCK=1
 > export AWS_REGION=us-east-1
 > export AWS_PROFILE=your-profile-name
@@ -94,7 +131,15 @@ claude
 > export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
 > ```
 >
-> Windows PowerShell의 경우 `export` 대신 `$env:변수명 = '값'` 형식을 사용합니다.
+> - **Windows**: PowerShell 프로필 파일에 아래 내용 추가 (프로필 경로 확인: `echo $PROFILE`)
+>
+> ```powershell
+> $env:CLAUDE_CODE_USE_BEDROCK=1
+> $env:AWS_REGION="us-east-1"
+> $env:AWS_PROFILE="your-profile-name"
+> $env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
+> $env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
+> ```
 
 ---
 
