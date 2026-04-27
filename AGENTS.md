@@ -10,6 +10,11 @@ A monorepo for non-technical UI PoC workshops. Provides a workflow from asset ge
 | [`packages/asset-generator`](./packages/asset-generator/AGENTS.md) | MCP server — asset generation tool       | TypeScript, MCP SDK       |
 | [`packages/workshop`](./packages/workshop/)                        | Workshop materials and documentation     | Markdown                  |
 
+## Design System
+
+- [`DESIGN.md`](./DESIGN.md) — machine-readable design tokens (colors, typography, shapes, components). Read first for all UI work in `packages/web`.
+- [`docs/design/`](./docs/design/) — implementation patterns: [layout](./docs/design/layout.md), [components](./docs/design/components.md), [interaction](./docs/design/interaction.md).
+
 ## Quick Start
 
 ```bash

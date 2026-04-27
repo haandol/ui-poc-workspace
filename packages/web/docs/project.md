@@ -54,12 +54,12 @@
 
 ## 디자인 일관성
 
-- **`design-system.md`의 디자인 시스템 준수**
-- **`styling.md`의 스타일링 가이드라인 준수**
-- **다크 모드에 TailwindCSS `dark:` 디렉티브 사용**
-- **1-2개 accent 색상과 함께 중성 그레이스케일 서피스 선호**
-- **모션은 미묘하게 유지** (120-200ms, ease-out)
-- **Tailwind 간격 스케일을 사용하여 일관된 간격 유지**
+- **디자인 시스템은 루트 [`DESIGN.md`](../../../DESIGN.md)가 단일 소스 오브 트루스** — 토큰·색상·타이포·간격·Do/Don't.
+- 구현 패턴은 분할 문서에서: [layout](../../../docs/design/layout.md), [components](../../../docs/design/components.md), [interaction](../../../docs/design/interaction.md).
+- **다크 모드에 TailwindCSS `dark:` 디렉티브 사용** (`[data-theme="dark"]` 금지).
+- **1-2개 accent 색상과 함께 중성 그레이스케일 서피스 선호**.
+- **모션은 미묘하게 유지** (120-200ms, ease-out).
+- **Tailwind 간격 스케일을 사용하여 일관된 간격 유지**.
 
 ## Mock Data
 
@@ -78,7 +78,7 @@ export const mockProducts: Product[] = [ ... ]
 ```
 
 - Mock 데이터는 반드시 **TypeScript 타입 정의** 포함
-- 이미지 URL 대신 placeholder 전략 사용 (`design-system.md` Image Placeholders 참조)
+- 이미지 URL 대신 placeholder 전략 사용 ([docs/design/components.md — Image Placeholders](../../../docs/design/components.md#image-placeholders) 참조)
 
 ## Troubleshooting
 
@@ -99,7 +99,7 @@ npx nx build web && npx nx preview web
 
 ### Chart 라이브러리
 
-CSS만으로 라인 차트, 도넛 차트, 복합 차트(바+라인 오버레이) 구현은 불가능하다. `docs/design-principle.md`의 차트 라이브러리 가이드를 참조한다. CSS 바 차트는 단순 비율 시각화에만 사용 가능하다.
+CSS만으로 라인 차트, 도넛 차트, 복합 차트(바+라인 오버레이) 구현은 불가능하다. [docs/design/components.md — Charts](../../../docs/design/components.md#charts)의 차트 라이브러리 가이드를 참조한다. CSS 바 차트는 단순 비율 시각화에만 사용 가능하다.
 
 ## 접근성
 

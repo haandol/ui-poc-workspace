@@ -10,7 +10,7 @@
 
 1. 현재 위치는 `packages/web/` — 모든 파일 경로와 셸 명령은 이 디렉토리 기준이다.
 2. **Nuxt 4** + **TypeScript** + **Vue 3** 애플리케이션이다.
-3. UI 컴포넌트 수정 전 `docs/`의 디자인 시스템 규칙을 반드시 읽는다.
+3. UI 컴포넌트 수정 전 루트 [DESIGN.md](../../DESIGN.md)와 [docs/design/](../../docs/design/)의 분할 문서를 반드시 읽는다.
 4. 커밋 및 코드 스타일 규칙은 루트 [CONTRIBUTING.md](../../CONTRIBUTING.md)를 참조한다.
 
 ### 검증 (보고 전 실행)
@@ -22,7 +22,7 @@ npx nx build web     # 빌드 검증
 ### 제약 조건
 
 - Vue 3 Composition API `<script setup lang="ts">` 사용.
-- 디자인 시스템을 엄격히 준수 — `docs/design-system.md` 참조.
+- 디자인 시스템을 엄격히 준수 — 루트 [DESIGN.md](../../DESIGN.md) + [docs/design/](../../docs/design/) (layout, components, interaction).
 - 다크 모드는 `dark:` 디렉티브만 사용. `[data-theme="dark"]` 또는 `:global(.dark)` 금지.
 - 이 패키지에 MCP 서버 규칙을 적용하지 않는다.
 
@@ -41,7 +41,9 @@ UI PoC 워크숍용 웹 프론트엔드. 비개발 직군이 AI 도구를 활용
 
 ## 문서
 
-- **디자인 시스템 & 규칙**: `docs/` (design-system, design-principle, layout, styling, project, composables, store)
+- **디자인 시스템 & 토큰**: 루트 [DESIGN.md](../../DESIGN.md) — 색상/타이포/간격/Do·Don't.
+- **디자인 구현 패턴**: [../../docs/design/layout.md](../../docs/design/layout.md), [components.md](../../docs/design/components.md), [interaction.md](../../docs/design/interaction.md).
+- **프로젝트·코드 규칙**: `docs/` (project, composables, store).
 - **ADR**: `docs/adr/`
 
 ## 빠른 시작
@@ -59,11 +61,7 @@ npx nx preview web      # 프로덕션 빌드 미리보기
 packages/web/
 ├── app/
 │   └── app.vue              # 루트 컴포넌트
-├── docs/                    # 디자인 시스템 & 코딩 규칙
-│   ├── design-system.md     # 디자인 시스템 전체
-│   ├── design-principle.md  # 디자인 철학
-│   ├── layout.md            # 레이아웃 & 반응형 가이드라인
-│   ├── styling.md           # 스타일링 가이드라인
+├── docs/                    # 프로젝트·코드 규칙 (디자인은 루트 DESIGN.md + docs/design/)
 │   ├── project.md           # 프로젝트 가이드라인
 │   ├── composables.md       # Composables 가이드
 │   └── store.md             # Pinia 스토어 가이드
