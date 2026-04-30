@@ -33,7 +33,7 @@ glow docs/prd/\*.alps.md
 Claude Code 프롬프트에서 직접 검토를 요청할 수도 있습니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-@docs/prd/XYZ.alps.md 섹션별로 보여주고 검토할게
+@docs/prd/XYZ.alps.md 를 검토하려고해, 섹션별로 보여줘.
 :::
 
 :::
