@@ -11,7 +11,7 @@
       "cache": false
     },
     "deploy": {
-      "command": "git subtree split --prefix=packages/workshop -B workshop-deploy && git push workshopstudio workshop-deploy:main",
+      "command": "git branch -D workshop-deploy 2>/dev/null; git subtree split --prefix=packages/workshop -b workshop-deploy && git push workshopstudio workshop-deploy:main",
       "cache": false
     }
   }
