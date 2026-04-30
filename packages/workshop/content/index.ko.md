@@ -5,7 +5,7 @@ weight: 0
 
 비개발자(PM, 기획자)가 AI 도구만으로 서비스 아이디어를 실제 동작하는 웹 UI PoC로 만들어보는 워크숍입니다.
 
-![워크숍 개요](/static/images/workshop-overview.png)
+![워크숍 개요](/static/images/workshop-overview.jpg)
 
 이 워크숍에서는 **Amazon Bedrock** 위에서 동작하는 **Claude Code**를 활용하여, 코드를 직접 작성하지 않고도 딥리서치부터 PRD 작성, 웹 프로토타입 개발까지 전 과정을 경험합니다.
 

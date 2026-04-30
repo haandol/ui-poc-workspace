@@ -5,7 +5,7 @@ weight: 0
 
 A workshop where non-developers (PMs, product planners) turn a service idea into a working web UI PoC using nothing but AI tools.
 
-![Workshop overview](/static/images/workshop-overview.png)
+![Workshop overview](/static/images/workshop-overview.jpg)
 
 In this workshop you will use **Claude Code**, running on top of **Amazon Bedrock**, to go from deep research → PRD authoring → web prototype development — without writing code by hand.
 
