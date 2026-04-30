@@ -1,20 +1,20 @@
 ---
-title: '개발 서버 실행'
+title: 'Start the Dev Server'
 weight: 10
 ---
 
-개발하는 동안 터미널 탭을 **2개** 사용합니다. 하나는 개발 서버용, 하나는 Claude Code용입니다.
+While you develop, keep **two** terminal tabs open — one for the dev server, one for Claude Code.
 
-## Step 1. 개발 서버 탭 열기
+## Step 1. Open a tab for the dev server
 
-현재 터미널에서 새 탭을 엽니다.
+Open a new tab in your current terminal.
 
 - **Mac**: `Cmd + T`
 - **Windows**: `Ctrl + Shift + T`
 
-## Step 2. 개발 서버 실행
+## Step 2. Start the dev server
 
-새 탭(탭 1)에서 개발 서버를 실행합니다. **이 탭은 닫지 말고 계속 켜둡니다.**
+Run the dev server in the new tab (tab 1). **Leave this tab open.**
 
 ::::tabs
 :::tab{label="Mac"}
@@ -35,26 +35,26 @@ pnpm dev:web
 :::
 ::::
 
-아래와 같은 출력이 나오면 서버가 정상 실행된 것입니다:
+You should see output similar to:
 
 ```
   ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
 ```
 
-## Step 3. 브라우저에서 확인
+## Step 3. Check it in the browser
 
-브라우저에서 아래 주소를 엽니다:
+Open the URL in your browser:
 
-:button[http://localhost:3000 열기]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
+:button[Open http://localhost:3000]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
 
-기본 페이지가 표시되면 개발 서버가 정상 동작하는 것입니다.
+If the default page renders, the dev server is working.
 
-::alert[코드가 변경되면 브라우저가 자동으로 새로고침됩니다 (Hot Reload). 개발 서버 탭은 항상 켜두세요.]{type="info"}
+::alert[The browser hot-reloads automatically when code changes. Keep the dev server tab open at all times.]{type="info"}
 
-## Step 4. Claude Code 탭 열기
+## Step 4. Open the Claude Code tab
 
-새 탭을 하나 더 열어서 Claude Code를 실행합니다.
+Open another tab and run Claude Code.
 
 ::::tabs
 :::tab{label="Mac"}
@@ -75,7 +75,7 @@ claude
 :::
 ::::
 
-이제 두 탭이 준비되었습니다:
+You now have two tabs ready:
 
-- **탭 1** 📺 개발 서버 (항상 켜두기)
-- **탭 2** 🤖 Claude Code (AI 작업용)
+- **Tab 1** 📺 Dev server (always on)
+- **Tab 2** 🤖 Claude Code (for AI work)

@@ -1,14 +1,14 @@
 ---
-title: 'Lab 1: 딥리서치'
+title: 'Lab 1: Deep Research'
 weight: 20
 ---
 
-이 랩에서는 Amazon QuickSuite를 활용하여 자신의 서비스 아이디어를 조사합니다. 딥리서치가 진행되는 동안 개발 환경 설정을 병렬로 진행하여 시간을 효율적으로 사용합니다.
+In this lab you use Amazon QuickSuite to research your own service idea. While the deep research is running, set up your development environment in parallel to save time.
 
-**이 랩에서 할 일:**
+**What you'll do in this lab:**
 
-- Amazon QuickSuite로 서비스 아이디어 딥리서치
-- 리서치 결과를 PDF로 다운로드
-- PDF를 프로젝트 폴더에 저장
+- Use Amazon QuickSuite to do deep research on your service idea
+- Download the research results as a PDF
+- Save the PDF into the project folder
 
-**예상 소요 시간**: 30분
+**Expected duration**: 30 minutes

@@ -1,6 +1,7 @@
 version: 2.0
-defaultLocaleCode: en-US
+defaultLocaleCode: ko-KR
 localeCodes:
+  - ko-KR
   - en-US
 additionalLinks:
   - title: Amazon Bedrock 문서

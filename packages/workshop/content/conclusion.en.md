@@ -1,51 +1,51 @@
 ---
-title: '마무리'
+title: 'Wrap-up'
 weight: 90
 ---
 
-워크숍을 완료했습니다! 이 워크숍에서 달성한 것들을 정리합니다.
+You finished the workshop! Let's recap what you accomplished.
 
-## 완성한 것들
+## What you built
 
-이 워크숍을 통해 다음을 완성했습니다:
+Over this workshop you completed:
 
-1. **딥리서치** — Amazon QuickSuite로 서비스 도메인을 조사하고 경쟁사를 분석했습니다
-2. **PRD 작성** — ALPS 형식의 구조화된 PRD 문서를 AI와 함께 작성했습니다
-3. **UI PoC** — 백엔드 없이 모킹 데이터로 동작하는 웹 UI 프로토타입을 만들었습니다
+1. **Deep research** — researched your service domain and analyzed competitors with Amazon QuickSuite
+2. **PRD authoring** — co-authored a structured PRD in ALPS format with AI
+3. **UI PoC** — built a working web UI prototype backed entirely by mocked data
 
-## 데모 준비
+## Prepare for a demo
 
-만든 UI PoC를 팀에 공유할 준비를 합니다.
+Get ready to share the UI PoC with your team.
 
-개발 서버가 실행 중인 상태에서 브라우저 화면을 공유하면 됩니다:
+Keep the dev server running and share the browser window:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 pnpm dev:web
 :::
 
-:button[http://localhost:3000 열기]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
+:button[Open http://localhost:3000]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
 
-## 데모 발표 가이드
+## Demo script
 
-발표 시 아래 내용을 포함하면 좋습니다:
+Good things to cover when presenting:
 
-- 어떤 아이디어로 시작했는지
-- 최종 결과물은 어떤 모습인지
-- 만드는 과정에서 인상적이었던 점
+- The idea you started with
+- What the final result looks like
+- Moments that stood out while building it
 
-## 워크숍 피드백
+## Workshop feedback
 
-워크숍 개선을 위한 피드백을 공유합니다:
+Share feedback to help us improve the workshop:
 
-- 어려웠던 부분
-- 도움이 되었던 부분
-- 추가로 다뤄졌으면 하는 내용
+- What was difficult
+- What worked well
+- What you wish had been covered
 
-## 다음 단계
+## Next steps
 
-이 워크숍에서 만든 UI PoC를 발전시키려면:
+To take the PoC further:
 
-- **더 많은 Feature 추가**: PRD의 나머지 Feature를 구현합니다
-- **디자인 개선**: 실제 디자인 시스템을 적용합니다
-- **백엔드 연동**: 모킹 데이터를 실제 API로 교체합니다
-- **사용자 테스트**: 실제 사용자에게 피드백을 받습니다
+- **Add more features**: implement the remaining features from your PRD
+- **Polish the design**: apply a real design system
+- **Wire up a backend**: swap mocked data for real APIs
+- **User testing**: get feedback from real users

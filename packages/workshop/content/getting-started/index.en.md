@@ -1,13 +1,13 @@
 ---
-title: '시작하기'
+title: 'Getting Started'
 weight: 10
 ---
 
-워크숍을 시작하기 전에 개발 환경을 설정합니다. 이 섹션에서는 필요한 도구를 설치하고 Claude Code가 정상적으로 동작하는지 확인합니다.
+Before starting the workshop, set up your development environment. In this section you will install the required tools and confirm that Claude Code works end-to-end.
 
-**이 섹션에서 할 일:**
+**In this section you will:**
 
-- AWS 환경 설정 (AWS 이벤트 참여 또는 직접 운영)
-- 필요한 도구 설치 (Node.js, pnpm, Claude Code)
-- Amazon Bedrock 연동 설정
-- 프로젝트 클론 및 MCP 서버 연결 확인
+- Configure your AWS environment (AWS event attendee or self-hosted)
+- Install the required tools (Node.js, pnpm, Claude Code)
+- Set up the Amazon Bedrock integration
+- Clone the project and verify the MCP servers

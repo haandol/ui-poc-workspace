@@ -1,20 +1,20 @@
 ---
-title: 'Bedrock Setup'
+title: 'Bedrock 설정'
 weight: 20
 ---
 
-Set the environment variables so that Claude Code runs through AWS Bedrock.
+Claude Code가 AWS Bedrock을 통해 동작하도록 환경변수를 설정합니다.
 
-Pick one of the two options below.
+아래 두 가지 방법 중 하나를 선택하세요.
 
 ::::tabs
-:::tab{label="Workshop Studio credentials (recommended)"}
+:::tab{label="Workshop Studio 자격 증명 (권장)"}
 
-**Step 1.** On the Workshop Studio event dashboard, click **Get AWS CLI credentials**.
+**Step 1.** Workshop Studio 이벤트 대시보드에서 **Get AWS CLI credentials** 를 클릭합니다.
 
-**Step 2.** Select the tab for your OS (macOS/Linux or Windows), copy the entire block that is shown, and paste it into your terminal.
+**Step 2.** 본인의 OS 탭(macOS/Linux 또는 Windows)을 선택하고, 표시된 내용 전체를 복사하여 터미널에 붙여넣습니다.
 
-**Step 3.** Then paste the following in your terminal.
+**Step 3.** 이어서 아래 내용도 터미널에 붙여넣습니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
@@ -36,7 +36,7 @@ $env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
 $env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 :::
 
-**Step 4.** Change into the project folder and start Claude Code.
+**Step 4.** 프로젝트 폴더로 이동하여 Claude Code를 실행합니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
@@ -54,12 +54,12 @@ cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
 claude
 :::
 
-::alert[Workshop Studio credentials expire after a while. If Claude Code suddenly stops working, re-run Steps 1–3.]{type="warning"}
+::alert[Workshop Studio 자격 증명은 일정 시간 후 만료됩니다. Claude Code가 갑자기 동작하지 않으면 Step 1~3을 다시 해주세요.]{type="warning"}
 
 :::
-:::tab{label="Bedrock API key"}
+:::tab{label="Bedrock API 키"}
 
-Replace only the `<your-bedrock-api-key>` part with your actual key, then paste the block into your terminal.
+아래에서 `<your-bedrock-api-key>` 부분만 실제 키로 교체한 뒤, 터미널에 붙여넣습니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
@@ -83,7 +83,7 @@ $env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
 $env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 :::
 
-Change into the project folder and start Claude Code.
+프로젝트 폴더로 이동하여 Claude Code를 실행합니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 
@@ -104,12 +104,12 @@ claude
 :::
 ::::
 
-Once Claude Code is running, verify it with a simple question:
+Claude Code가 실행되면 간단한 질문으로 동작을 확인합니다:
 
 ```
-Hello, are you working?
+안녕하세요, 잘 동작하나요?
 ```
 
-If you get a normal reply, setup is complete.
+정상적으로 응답이 오면 설정 완료입니다.
 
-::alert[If you see `on-demand throughput isn't supported`, contact your facilitator.]{type="warning"}
+::alert[`on-demand throughput isn't supported` 오류가 발생하면 진행자에게 문의하세요.]{type="warning"}

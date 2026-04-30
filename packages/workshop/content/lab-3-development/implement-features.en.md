@@ -1,70 +1,70 @@
 ---
-title: 'Feature 구현'
+title: 'Implement Features'
 weight: 20
 ---
 
-PRD의 Feature를 하나씩 구현합니다. 한 번에 모든 기능을 만들지 말고 **Feature 단위로 하나씩** 진행합니다.
+Implement the PRD's features one at a time. Don't try to build everything at once — go **feature by feature**.
 
-## 파일명 확인 방법
+## How to find the file name
 
-아래 중 편한 방법을 사용하세요:
+Use whichever method is easiest:
 
-- **Finder(Mac) / 파일탐색기(Windows)**: `바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열면 `.alps.md` 파일이 있습니다.
-- **Claude Code에서 직접 확인**: `docs/prd/ 에 있는 파일 목록을 보여줘`라고 물어보세요.
-- **Tab 자동완성**: `@docs/prd/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.
+- **Finder (Mac) / File Explorer (Windows)**: open `Desktop > ui-poc-workspace > docs > prd` and look for the `.alps.md` file.
+- **Ask Claude Code directly**: `List the files in docs/prd/.`
+- **Tab autocomplete**: type `@docs/prd/` and press Tab to autocomplete the file name.
 
-## Feature 구현 요청
+## Request a feature implementation
 
-Claude Code 프롬프트에서 아래와 같이 입력합니다. `@docs/prd/`까지 입력 후 **Tab 키**로 파일을 선택합니다.
+In the Claude Code prompt, type the following. Type `@docs/prd/` and press **Tab** to pick the file.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-@docs/prd/XYZ.alps.md 를 읽고 F1 구현해줘.
+Read @docs/prd/XYZ.alps.md and implement F1.
 :::
 
-Claude Code가 PRD를 분석하고 코드를 작성합니다. 완료되면 브라우저에서 결과를 확인합니다.
+Claude Code will analyze the PRD and write the code. When it's done, inspect the result in the browser.
 
-## 반복 사이클
+## The iteration loop
 
-Feature를 하나씩 완성해 나가는 반복 사이클입니다:
+Build one feature at a time in a loop:
 
 ```
-1. Feature 구현 요청
-   └─ "@docs/prd/XYZ.alps.md 를 읽고 F1 구현해줘."
+1. Request a feature implementation
+   └─ "Read @docs/prd/XYZ.alps.md and implement F1."
 
-2. 브라우저에서 결과 확인
+2. Check the result in the browser
    └─ http://localhost:3000
 
-3. 피드백 및 수정 요청
-   └─ "버튼 색상을 파란색으로 바꿔줘"
+3. Feedback / edit requests
+   └─ "Change the button color to blue."
 
-4. 만족하면 다음 Feature로 이동
-   └─ "F2 구현해줘."
+4. Once you're happy, move to the next feature
+   └─ "Implement F2."
 ```
 
-::alert[같은 대화에서 계속 작업 중이면 `"F2 구현해줘."` 처럼 파일 경로 없이 입력해도 됩니다.]{type="info"}
+::alert[If you stay in the same conversation, you can skip the file path — just say `"Implement F2."`.]{type="info"}
 
-## 수정 요청 팁
+## Tips for edit requests
 
-수정을 요청할 때는 구체적으로 말할수록 좋습니다.
+The more specific your request, the better.
 
-| 나쁜 예           | 좋은 예                                                                       |
-| ----------------- | ----------------------------------------------------------------------------- |
-| "이거 좀 이상해"  | "사이드바 메뉴의 폰트 크기를 14px로 줄이고, 메뉴 항목 간 간격을 8px로 줄여줘" |
-| "디자인 바꿔줘"   | "전체 테마를 다크 모드로 바꿔줘"                                              |
-| "데이터 추가해줘" | "사용자 목록 샘플 데이터를 10건 만들어줘. 이름, 이메일, 가입일 포함"          |
+| Bad                    | Good                                                                                      |
+| ---------------------- | ----------------------------------------------------------------------------------------- |
+| "Something feels off." | "Reduce the sidebar menu font size to 14px and tighten the spacing between items to 8px." |
+| "Change the design."   | "Switch the whole app to dark mode."                                                      |
+| "Add some data."       | "Create 10 sample users with name, email, and signup date."                               |
 
-## 자주 쓰는 프롬프트
+## Handy prompts
 
-| 상황             | 프롬프트 예시                                                        |
-| ---------------- | -------------------------------------------------------------------- |
-| 새 페이지 추가   | "대시보드 페이지를 만들어줘"                                         |
-| 상단 메뉴 수정   | "상단 메뉴에 로고와 네비게이션을 추가해줘"                           |
-| 샘플 데이터 추가 | "사용자 목록 샘플 데이터를 10건 만들어줘. 이름, 이메일, 가입일 포함" |
-| 스타일 변경      | "전체 테마를 다크 모드로 바꿔줘"                                     |
-| 차트 추가        | "월별 매출 데이터를 막대 차트로 보여줘"                              |
-| 레이아웃 변경    | "왼쪽에 사이드바, 오른쪽에 메인 콘텐츠 배치로 변경해줘"              |
-| 에러 수정        | "이 에러를 수정해줘: [에러 메시지 붙여넣기]"                         |
-| 기능 검토        | "이 기능의 사용자 시나리오를 정리해줘"                               |
-| 비교 분석        | "경쟁사 서비스와 지금 만든 화면을 비교해줘"                          |
+| Situation             | Example prompt                                              |
+| --------------------- | ----------------------------------------------------------- |
+| Add a page            | "Create a dashboard page."                                  |
+| Edit the top menu     | "Add a logo and navigation to the top menu."                |
+| Add sample data       | "Create 10 sample users with name, email, and signup date." |
+| Change styles         | "Switch the whole app to dark mode."                        |
+| Add a chart           | "Show monthly revenue as a bar chart."                      |
+| Change layout         | "Use a sidebar on the left and main content on the right."  |
+| Fix an error          | "Fix this error: [paste the error message]"                 |
+| Feature review        | "Summarize the user scenarios for this feature."            |
+| Competitor comparison | "Compare the current screen to a similar competitor's."     |
 
-::alert[개발 중에도 AI에게 자유롭게 질문할 수 있습니다. "이 화면에서 사용자가 어떤 흐름으로 이동해?", "대시보드에 보여줄 핵심 지표를 추천해줘", "모바일에서는 이 레이아웃이 어떻게 보여?", "이 기능을 경쟁사처럼 카드 형태로 바꿀 수 있어?" 등 무엇이든 물어보세요.]{type="info"}
+::alert[Feel free to ask the AI anything while you develop — e.g., "How does a user move through this screen?", "What key metrics should the dashboard show?", "How does this layout look on mobile?", "Can we present this feature in a card layout like competitor X?" etc.]{type="info"}

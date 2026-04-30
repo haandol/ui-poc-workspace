@@ -1,14 +1,14 @@
 ---
-title: 'Lab 3: UI PoC 개발'
+title: 'Lab 3: Build the UI PoC'
 weight: 40
 ---
 
-이 랩에서는 작성한 PRD를 기반으로 실제 동작하는 웹 UI를 개발합니다. Claude Code가 Nuxt/Vue 기반 웹 애플리케이션을 자동으로 구현합니다.
+In this lab you take the PRD and turn it into a working web UI. Claude Code implements a Nuxt/Vue web app for you.
 
-**이 랩에서 할 일:**
+**What you'll do in this lab:**
 
-- 개발 서버 실행
-- PRD의 Feature를 하나씩 구현
-- 브라우저에서 결과 확인 및 피드백
+- Start the dev server
+- Implement the PRD features one at a time
+- Inspect the result in the browser and iterate on feedback
 
-**예상 소요 시간**: 100분
+**Expected duration**: 100 minutes

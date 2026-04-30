@@ -1,62 +1,62 @@
 ---
-title: 'AI로 UI PoC 만들기 — 비개발자를 위한 Claude Code on Bedrock 워크숍'
+title: 'Building a UI PoC with AI — Claude Code on Bedrock Workshop for Non-Developers'
 weight: 0
 ---
 
-비개발자(PM, 기획자)가 AI 도구만으로 서비스 아이디어를 실제 동작하는 웹 UI PoC로 만들어보는 워크숍입니다.
+A workshop where non-developers (PMs, product planners) turn a service idea into a working web UI PoC using nothing but AI tools.
 
-![워크숍 개요](/static/images/workshop-overview.png)
+![Workshop overview](/static/images/workshop-overview.png)
 
-이 워크숍에서는 **Amazon Bedrock** 위에서 동작하는 **Claude Code**를 활용하여, 코드를 직접 작성하지 않고도 딥리서치부터 PRD 작성, 웹 프로토타입 개발까지 전 과정을 경험합니다.
+In this workshop you will use **Claude Code**, running on top of **Amazon Bedrock**, to go from deep research → PRD authoring → web prototype development — without writing code by hand.
 
-> **핵심 안내**: 이 워크숍에서는 AI 도구와 **대화하듯이** 작업합니다. 진행 중 궁금한 점이 있으면 언제든 AI에게 질문하세요.
+> **Key idea**: In this workshop you work with AI tools **as if you were having a conversation**. If anything is unclear along the way, just ask the AI.
 
 ### What will I learn?
 
-이 워크숍을 통해 다음을 배울 수 있습니다:
+By completing this workshop you will learn how to:
 
-1. Amazon Bedrock을 통해 Claude Code를 설정하고 실행하는 방법
-2. AI 딥리서치 도구로 서비스 아이디어를 빠르게 조사하는 방법
-3. MCP(Model Context Protocol) 서버를 활용하여 AI 도구를 확장하는 방법
-4. ALPS 형식의 PRD 문서를 AI와 함께 작성하는 방법
-5. Claude Code로 Nuxt/Vue 기반 웹 UI를 프로토타이핑하는 방법
-6. 브라우저 DevTools MCP로 AI가 화면을 직접 보고 수정하게 하는 방법
-7. 백엔드 없이 모킹 데이터로 완성도 높은 UI PoC를 만드는 방법
+1. Configure and run Claude Code on top of Amazon Bedrock
+2. Use AI deep-research tools to quickly investigate a service idea
+3. Extend AI tools with MCP (Model Context Protocol) servers
+4. Co-author an ALPS-format PRD with AI
+5. Prototype a Nuxt/Vue web UI with Claude Code
+6. Let AI look at the live screen and fix things via the browser DevTools MCP
+7. Build a polished UI PoC with mocked data, no backend required
 
-## 타임테이블
+## Timetable
 
-| 시간          | 내용                          |
-| ------------- | ----------------------------- |
-| 12:00 ~ 12:40 | 오프닝                        |
-| 12:40 ~ 13:10 | 딥리서치 + 개발 환경 설정하기 |
-| 13:20 ~ 14:10 | PRD 만들기                    |
-| 14:20 ~ 16:00 | UI PoC 개발하기               |
-| 16:00 ~ 16:30 | 워크숍 소회                   |
+| Time          | Content                               |
+| ------------- | ------------------------------------- |
+| 12:00 ~ 12:40 | Opening                               |
+| 12:40 ~ 13:10 | Deep research + dev environment setup |
+| 13:20 ~ 14:10 | PRD authoring                         |
+| 14:20 ~ 16:00 | UI PoC development                    |
+| 16:00 ~ 16:30 | Retrospective                         |
 
 ## Target audience
 
-**200 레벨** — 개발 경험이 없는 PM, 기획자, 디자이너를 대상으로 합니다.
+**Level 200** — designed for PMs, product planners, and designers with no coding background.
 
-- 자신의 서비스 아이디어를 빠르게 시각화하고 싶은 분
-- AI 도구를 활용한 프로토타이핑 워크플로우를 익히고 싶은 분
-- **예상 소요 시간**: 약 4시간 30분 (오프닝 포함)
+- People who want to quickly visualize their own service ideas
+- People who want to learn an AI-powered prototyping workflow
+- **Expected duration**: about 4 hours 30 minutes (including opening)
 
 ### Prerequisites
 
-이 워크숍은 프로그래밍 지식이 없어도 참여할 수 있습니다.
+You can take this workshop without any programming knowledge.
 
-1. Amazon QuickSuite 설정
-2. Claude Code 설정
-3. 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
-4. 개인 노트북 (Mac 또는 Windows)
-5. 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
-6. AWS 계정 및 Amazon Bedrock 접근 권한 (워크숍 진행자가 제공)
+1. Amazon QuickSuite access
+2. Claude Code set up
+3. A service idea you would like to turn into a PoC (a quick note is enough; the more detail, the better)
+4. A personal laptop (Mac or Windows)
+5. A terminal app (Mac: Ghostty or the built-in Terminal; Windows: PowerShell)
+6. AWS account and Amazon Bedrock access (provided by the workshop facilitator)
 
 ### AWS Account Requirements and Costs
 
-**워크숍 이벤트에서**: 진행자가 AWS 계정을 제공합니다. 별도 비용이 발생하지 않습니다.
+**At a workshop event**: the facilitator provides the AWS account. You will not incur costs.
 
-**자체 진행 시**: Amazon Bedrock API 호출 비용이 발생합니다. 워크숍 완료 후 [정리 섹션](./cleanup.en.md)을 참고하여 리소스를 삭제하세요.
+**Self-hosted**: Amazon Bedrock API calls will incur charges. After finishing the workshop, follow the [Cleanup section](./cleanup/) to delete the resources.
 
-> **Tip**: 작업 중 막히거나 궁금한 점이 있으면 언제든 AI에게 질문하세요.
-> 기능 우선순위, 사용자 시나리오, 화면 구성, 경쟁사 비교 등 무엇이든 물어볼 수 있습니다.
+> **Tip**: Whenever you are stuck or curious, ask the AI.
+> Feature priorities, user scenarios, screen layouts, competitor comparisons — anything is fair game.
