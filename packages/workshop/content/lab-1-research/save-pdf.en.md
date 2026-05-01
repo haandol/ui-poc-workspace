@@ -72,3 +72,5 @@ List the files in the docs/ folder.
 :::
 
 If `research.pdf` shows up in the list, Lab 1 is complete. Move on to the next lab.
+
+::alert[If you set up the Airtable integration, the `RESEARCH-DONE` milestone is recorded automatically the moment Claude Code reads the PDF. No extra action needed.]{type="info"}

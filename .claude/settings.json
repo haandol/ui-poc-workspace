@@ -10,6 +10,19 @@
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "us.anthropic.claude-haiku-4-5-20251001-v1:0"
   },
   "enabledMcpjsonServers": ["pdf-reader", "alps-writer", "airtable"],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__pdf-reader__read_pdf|mcp__alps-writer__save_alps_section|mcp__alps-writer__export_alps_markdown",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/workshop-hook.mjs\""
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "nx@nx-claude-plugins": true,
     "typescript-lsp@claude-plugins-official": true,

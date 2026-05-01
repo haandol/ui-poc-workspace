@@ -70,6 +70,8 @@ docs/prd/ 에 있는 파일 목록을 보여줘
 
 생성된 `.alps.md` 파일을 열어 내용을 확인합니다.
 
+::alert[Airtable 연동을 설정한 경우, ALPS 섹션이 저장될 때마다 진행 상태가 자동으로 기록됩니다 — Section 1 저장 → `PRD-START`, Section 6(피쳐 목록) → `PRD-FEATURES`, 문서 완료 export → `PRD-DONE`.]{type="info"}
+
 :::code{showCopyAction=true showLineNumbers=false language=text}
 @docs/prd/XYZ.alps.md 의 Feature 목록을 요약해줘
 :::

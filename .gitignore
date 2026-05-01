@@ -49,3 +49,7 @@ docs/*.pdf
 .nx/polygraph
 .claude/worktrees
 packages/workshop/preview_build
+
+# Workshop participant local state (created from .work-status.template on setup)
+.work-status
+.workshop-participant

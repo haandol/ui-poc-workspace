@@ -1,0 +1,3 @@
+# Workshop progress journal (append-only, one line per milestone)
+# Format: MILESTONE_ID<TAB>ISO8601
+# Managed by .claude/skills/workshop-status and scripts/workshop-hook.mjs

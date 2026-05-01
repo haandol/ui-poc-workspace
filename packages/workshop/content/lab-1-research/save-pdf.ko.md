@@ -72,3 +72,5 @@ docs/ 폴더에 있는 파일 목록을 보여줘
 :::
 
 `research.pdf`가 목록에 표시되면 Lab 1이 완료된 것입니다. 다음 랩으로 이동합니다.
+
+::alert[Airtable 연동을 설정한 경우, Claude Code가 PDF를 읽는 순간 `RESEARCH-DONE` 상태가 자동으로 기록됩니다. 별도 조작이 필요하지 않습니다.]{type="info"}

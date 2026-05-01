@@ -68,3 +68,13 @@ The more specific your request, the better.
 | Competitor comparison | "Compare the current screen to a similar competitor's."     |
 
 ::alert[Feel free to ask the AI anything while you develop — e.g., "How does a user move through this screen?", "What key metrics should the dashboard show?", "How does this layout look on mobile?", "Can we present this feature in a card layout like competitor X?" etc.]{type="info"}
+
+## Automatic progress sharing
+
+If you set up the Airtable integration, Claude Code records your progress automatically in Lab 3:
+
+- When you start implementing your first feature → `SCAFFOLD-DONE`
+- After each feature is implemented and reported → `F1-DONE`, `F2-DONE`, …
+- When you announce the demo is ready → `DEMO-READY`
+
+Duplicates are filtered out automatically. To opt out for the session, say "stop sharing progress".

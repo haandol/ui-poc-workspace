@@ -75,3 +75,5 @@ Summarize the Feature list in @docs/prd/XYZ.alps.md.
 :::
 
 ::alert[The file name varies by service name. Type `@docs/prd/` and press Tab to autocomplete.]{type="info"}
+
+::alert[If you set up the Airtable integration, progress is recorded automatically as ALPS sections save — Section 1 → `PRD-START`, Section 6 (feature list) → `PRD-FEATURES`, final export → `PRD-DONE`.]{type="info"}
