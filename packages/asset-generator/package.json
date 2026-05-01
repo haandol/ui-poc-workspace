@@ -13,9 +13,9 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@fal-ai/client": "^1.9.6",
+    "@fal-ai/client": "^1.10.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "zod": "^4.3.6"
+    "zod": "^4.4.1"
   },
   "devDependencies": {
     "tsx": "^4.21.0",
