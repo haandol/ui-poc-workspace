@@ -179,3 +179,11 @@ Each package has a `project.json` defining its Nx targets. The root `nx.json` se
 - **ESLint**: Root `eslint.config.mjs` defines shared TypeScript rules. Each package extends it (packages/web adds Vue rules).
 - **Prettier**: Root `.prettierrc` for shared config. `packages/web/.prettierrc` overrides `singleAttributePerLine: true` for Vue templates.
 - **Pre-commit hook**: husky + lint-staged runs `eslint --fix` and `prettier --write` on staged files automatically.
+
+### Windows PowerShell Script Encoding
+
+PowerShell 5.1 (Windows default) reads `.ps1` files using the system default encoding (CP949 on Korean Windows). **UTF-8 without BOM causes all non-ASCII characters (Korean, symbols like ▸/✓/⚠) to display as `???` or mojibake.**
+
+- **All `.ps1` files containing non-ASCII text MUST be saved with UTF-8 BOM (`EF BB BF`).**
+- `chcp 65001` and `[Console]::OutputEncoding` only affect console output encoding, NOT how PowerShell reads the script file itself.
+- When creating new `.ps1` files, add BOM via: `node -e "const fs=require('fs'),p='file.ps1',b=fs.readFileSync(p);if(b[0]!==0xef)fs.writeFileSync(p,Buffer.concat([Buffer.from([0xef,0xbb,0xbf]),b]))"`

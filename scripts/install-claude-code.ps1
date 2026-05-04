@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
   Non-Tech UI PoC Workshop — Day 1 Installer (Windows)
   Installs Node.js (via winget) and Claude Code only.
