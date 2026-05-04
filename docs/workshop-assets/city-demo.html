@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js 3D City — Workshop Demo</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0d14;
+        color: #e8eaf0;
+        font-family:
+          "Inter",
+          "Pretendard",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-weight: 300;
+        letter-spacing: 0.01em;
+      }
+
+      #stage {
+        position: fixed;
+        inset: 0;
+      }
+      #stage canvas {
+        display: block;
+      }
+
+      .panel {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        width: 280px;
+        padding: 22px 20px;
+        background: rgba(14, 17, 24, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-radius: 16px;
+        z-index: 10;
+      }
+      .panel h1 {
+        margin: 0 0 4px;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .panel p.lead {
+        margin: 0 0 20px;
+        font-size: 12px;
+        color: #8b93a4;
+        letter-spacing: 0.04em;
+        line-height: 1.5;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        font-size: 12px;
+        color: #c0c6d2;
+        letter-spacing: 0.06em;
+      }
+      .row .label {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #8b93a4;
+        font-size: 11px;
+      }
+      .row .value {
+        color: #e8eaf0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: #6ea8ff;
+        margin: 4px 0 14px;
+      }
+
+      .toggles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 6px;
+      }
+      button.tog {
+        appearance: none;
+        padding: 10px 12px;
+        background: transparent;
+        color: #c0c6d2;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s,
+          border-color 0.15s;
+      }
+      button.tog.active {
+        background: #e8eaf0;
+        color: #0a0d14;
+        border-color: #e8eaf0;
+      }
+      button.tog:hover:not(.active) {
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #e8eaf0;
+      }
+
+      .swatches {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .swatch {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+        outline: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .swatch.active {
+        border-color: #e8eaf0;
+      }
+
+      .hint {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #6b7180;
+        pointer-events: none;
+      }
+      .hint span {
+        color: #c0c6d2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage"></div>
+
+    <div class="panel">
+      <h1>Nordic Grid</h1>
+      <p class="lead">
+        워크숍 데모 · Three.js 기본 지오메트리만으로 만든 3D 도시
+      </p>
+
+      <div class="row">
+        <span class="label">Buildings</span>
+        <span class="value" id="buildingsLabel">120</span>
+      </div>
+      <input
+        type="range"
+        id="buildings"
+        min="20"
+        max="240"
+        step="10"
+        value="120"
+      />
+
+      <div class="row">
+        <span class="label">Max Height</span>
+        <span class="value" id="heightLabel">12</span>
+      </div>
+      <input
+        type="range"
+        id="height"
+        min="4"
+        max="30"
+        step="1"
+        value="12"
+      />
+
+      <div class="row">
+        <span class="label">Density</span>
+        <span class="value" id="densityLabel">0.85</span>
+      </div>
+      <input
+        type="range"
+        id="density"
+        min="0.3"
+        max="1"
+        step="0.05"
+        value="0.85"
+      />
+
+      <div class="row" style="margin-top: 8px">
+        <span class="label">Mood</span>
+      </div>
+      <div class="toggles">
+        <button class="tog active" data-mood="night">Night</button>
+        <button class="tog" data-mood="day">Day</button>
+      </div>
+
+      <div class="row" style="margin-top: 16px">
+        <span class="label">Accent</span>
+      </div>
+      <div class="swatches" id="accents">
+        <div
+          class="swatch active"
+          data-accent="#6ea8ff"
+          style="background: #6ea8ff"
+        ></div>
+        <div
+          class="swatch"
+          data-accent="#ffb26a"
+          style="background: #ffb26a"
+        ></div>
+        <div
+          class="swatch"
+          data-accent="#b893ff"
+          style="background: #b893ff"
+        ></div>
+        <div
+          class="swatch"
+          data-accent="#7dffd4"
+          style="background: #7dffd4"
+        ></div>
+      </div>
+    </div>
+
+    <div class="hint">
+      <span>Drag</span> to orbit · <span>Scroll</span> to zoom ·
+      <span>Right-drag</span> to pan
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+      const stage = document.getElementById("stage");
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      stage.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        42,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        2000,
+      );
+      camera.position.set(70, 60, 90);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.maxPolarAngle = Math.PI * 0.48;
+      controls.minDistance = 30;
+      controls.maxDistance = 260;
+      controls.target.set(0, 2, 0);
+
+      const config = {
+        count: 120,
+        maxHeight: 12,
+        density: 0.85,
+        mood: "night",
+        accent: new THREE.Color("#6ea8ff"),
+      };
+
+      const moods = {
+        night: {
+          bg: new THREE.Color("#121829"),
+          fog: new THREE.Color("#121829"),
+          ambient: 0.75,
+          sun: 0.7,
+          sunColor: new THREE.Color("#9dc3ff"),
+          hemiSky: new THREE.Color("#3f4f78"),
+          hemiGround: new THREE.Color("#141826"),
+          hemi: 0.95,
+          ground: new THREE.Color("#252c3f"),
+          buildingA: new THREE.Color("#545d75"),
+          buildingB: new THREE.Color("#6c7690"),
+          buildingEmissive: new THREE.Color("#222a42"),
+          buildingEmissiveIntensity: 0.4,
+          windowLit: true,
+          moon: 1.2,
+          moonOpacity: 1.0,
+          moonGlowOpacity: 0.6,
+          starsOpacity: 0.75,
+        },
+        day: {
+          bg: new THREE.Color("#cfdce8"),
+          fog: new THREE.Color("#d7e1ea"),
+          ambient: 0.7,
+          sun: 1.3,
+          sunColor: new THREE.Color("#fff4e0"),
+          hemiSky: new THREE.Color("#dfe8f2"),
+          hemiGround: new THREE.Color("#b5beca"),
+          hemi: 0.6,
+          ground: new THREE.Color("#c5ccd4"),
+          buildingA: new THREE.Color("#e7ebf0"),
+          buildingB: new THREE.Color("#c0c7d0"),
+          buildingEmissive: new THREE.Color("#000000"),
+          buildingEmissiveIntensity: 0,
+          windowLit: false,
+          moon: 0.0,
+          moonOpacity: 0.0,
+          moonGlowOpacity: 0.0,
+          starsOpacity: 0.0,
+        },
+      };
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.22);
+      scene.add(ambient);
+
+      const hemi = new THREE.HemisphereLight(0x2a3a5c, 0x0b0f18, 0.75);
+      scene.add(hemi);
+
+      const sun = new THREE.DirectionalLight(0xffffff, 0.35);
+      sun.position.set(40, 70, 30);
+      sun.castShadow = true;
+      sun.shadow.mapSize.set(1024, 1024);
+      sun.shadow.camera.left = -80;
+      sun.shadow.camera.right = 80;
+      sun.shadow.camera.top = 80;
+      sun.shadow.camera.bottom = -80;
+      sun.shadow.camera.near = 1;
+      sun.shadow.camera.far = 200;
+      sun.shadow.bias = -0.0005;
+      scene.add(sun);
+
+      const moonLight = new THREE.DirectionalLight(0xbcd4ff, 0.0);
+      moonLight.position.set(120, 140, 60);
+      scene.add(moonLight);
+
+      const moon = new THREE.Mesh(
+        new THREE.SphereGeometry(10, 48, 48),
+        new THREE.MeshBasicMaterial({
+          color: 0xf4f1e0,
+          transparent: true,
+          opacity: 0.0,
+          fog: false,
+        }),
+      );
+      moon.position.set(140, 120, 60);
+      scene.add(moon);
+
+      const moonGlow = new THREE.Mesh(
+        new THREE.SphereGeometry(24, 48, 48),
+        new THREE.MeshBasicMaterial({
+          color: 0xbcd4ff,
+          transparent: true,
+          opacity: 0.0,
+          fog: false,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        }),
+      );
+      moonGlow.position.copy(moon.position);
+      scene.add(moonGlow);
+
+      const moonHalo = new THREE.Mesh(
+        new THREE.SphereGeometry(42, 48, 48),
+        new THREE.MeshBasicMaterial({
+          color: 0x7ea0ff,
+          transparent: true,
+          opacity: 0.0,
+          fog: false,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        }),
+      );
+      moonHalo.position.copy(moon.position);
+      scene.add(moonHalo);
+
+      const skyGeom = new THREE.SphereGeometry(900, 32, 32);
+      const skyMat = new THREE.ShaderMaterial({
+        side: THREE.BackSide,
+        fog: false,
+        uniforms: {
+          uTop: { value: new THREE.Color("#070a16") },
+          uMid: { value: new THREE.Color("#131a30") },
+          uHorizon: { value: new THREE.Color("#2a2040") },
+          uOpacity: { value: 0.0 },
+        },
+        vertexShader: `
+          varying vec3 vWorld;
+          void main(){
+            vWorld = position;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform vec3 uTop;
+          uniform vec3 uMid;
+          uniform vec3 uHorizon;
+          uniform float uOpacity;
+          varying vec3 vWorld;
+          void main(){
+            float h = normalize(vWorld).y;
+            vec3 col = mix(uHorizon, uMid, smoothstep(-0.05, 0.25, h));
+            col = mix(col, uTop, smoothstep(0.25, 0.75, h));
+            gl_FragColor = vec4(col, uOpacity);
+          }
+        `,
+        transparent: true,
+      });
+      const sky = new THREE.Mesh(skyGeom, skyMat);
+      scene.add(sky);
+
+      const starCount = 600;
+      const starPositions = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        const r = 600 + Math.random() * 100;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 0.6 + 0.3);
+        starPositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        starPositions[i * 3 + 1] = r * Math.cos(phi);
+        starPositions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+      }
+      const starGeom = new THREE.BufferGeometry();
+      starGeom.setAttribute(
+        "position",
+        new THREE.BufferAttribute(starPositions, 3),
+      );
+      const stars = new THREE.Points(
+        starGeom,
+        new THREE.PointsMaterial({
+          color: 0xeef4ff,
+          size: 1.4,
+          sizeAttenuation: true,
+          transparent: true,
+          opacity: 0.0,
+          fog: false,
+        }),
+      );
+      scene.add(stars);
+
+      scene.fog = new THREE.Fog(0x0d1220, 150, 420);
+
+      const ground = new THREE.Mesh(
+        new THREE.PlaneGeometry(400, 400),
+        new THREE.MeshStandardMaterial({ color: 0x11141c, roughness: 0.95 }),
+      );
+      ground.rotation.x = -Math.PI / 2;
+      ground.receiveShadow = true;
+      scene.add(ground);
+
+      const roads = new THREE.Group();
+      const roadMat = new THREE.MeshStandardMaterial({
+        color: 0x333a4d,
+        roughness: 0.85,
+        metalness: 0.0,
+      });
+      const roadW = 6;
+      const mapSize = 180;
+      for (let i = -3; i <= 3; i++) {
+        const h = new THREE.Mesh(
+          new THREE.PlaneGeometry(mapSize, roadW),
+          roadMat,
+        );
+        h.rotation.x = -Math.PI / 2;
+        h.position.set(0, 0.02, i * 24);
+        h.receiveShadow = true;
+        roads.add(h);
+
+        const v = new THREE.Mesh(
+          new THREE.PlaneGeometry(roadW, mapSize),
+          roadMat,
+        );
+        v.rotation.x = -Math.PI / 2;
+        v.position.set(i * 24, 0.02, 0);
+        v.receiveShadow = true;
+        roads.add(v);
+      }
+      scene.add(roads);
+
+      const stripeMat = new THREE.MeshBasicMaterial({ color: 0xf6d27a });
+      for (let i = -3; i <= 3; i++) {
+        for (let seg = -7; seg <= 7; seg++) {
+          if (Math.abs(seg) % 2 === 0) continue;
+          const s1 = new THREE.Mesh(
+            new THREE.PlaneGeometry(3, 0.3),
+            stripeMat,
+          );
+          s1.rotation.x = -Math.PI / 2;
+          s1.position.set(seg * 12, 0.05, i * 24);
+          scene.add(s1);
+
+          const s2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(0.3, 3),
+            stripeMat,
+          );
+          s2.rotation.x = -Math.PI / 2;
+          s2.position.set(i * 24, 0.05, seg * 12);
+          scene.add(s2);
+        }
+      }
+
+      const curbMat = new THREE.MeshBasicMaterial({ color: 0x5a6578 });
+      for (let i = -3; i <= 3; i++) {
+        [-roadW / 2, roadW / 2].forEach((off) => {
+          const h = new THREE.Mesh(
+            new THREE.PlaneGeometry(mapSize, 0.2),
+            curbMat,
+          );
+          h.rotation.x = -Math.PI / 2;
+          h.position.set(0, 0.04, i * 24 + off);
+          scene.add(h);
+
+          const v = new THREE.Mesh(
+            new THREE.PlaneGeometry(0.2, mapSize),
+            curbMat,
+          );
+          v.rotation.x = -Math.PI / 2;
+          v.position.set(i * 24 + off, 0.04, 0);
+          scene.add(v);
+        });
+      }
+
+      let city = null;
+      let windowsMesh = null;
+
+      function seededRandom(seed) {
+        let s = seed >>> 0;
+        return () => {
+          s = (s * 1664525 + 1013904223) >>> 0;
+          return s / 0xffffffff;
+        };
+      }
+
+      function buildCity() {
+        if (city) {
+          scene.remove(city);
+          city.traverse((o) => {
+            if (o.isMesh) {
+              o.geometry.dispose();
+              if (o.material.map) o.material.map.dispose();
+              o.material.dispose();
+            }
+          });
+        }
+
+        city = new THREE.Group();
+        const mood = moods[config.mood];
+
+        const boxGeom = new THREE.BoxGeometry(1, 1, 1);
+        const matA = new THREE.MeshStandardMaterial({
+          color: mood.buildingA,
+          roughness: 0.75,
+          metalness: 0.1,
+          emissive: mood.buildingEmissive,
+          emissiveIntensity: mood.buildingEmissiveIntensity,
+        });
+        const matB = new THREE.MeshStandardMaterial({
+          color: mood.buildingB,
+          roughness: 0.6,
+          metalness: 0.15,
+          emissive: mood.buildingEmissive,
+          emissiveIntensity: mood.buildingEmissiveIntensity,
+        });
+
+        const lots = [];
+        const gridStep = 6;
+        const gridHalf = 12;
+        for (let gx = -gridHalf; gx <= gridHalf; gx++) {
+          for (let gz = -gridHalf; gz <= gridHalf; gz++) {
+            const x = gx * gridStep;
+            const z = gz * gridStep;
+            const onRoadX = Math.abs(Math.round(x / 24) * 24 - x) < 4;
+            const onRoadZ = Math.abs(Math.round(z / 24) * 24 - z) < 4;
+            if (onRoadX || onRoadZ) continue;
+            lots.push({ x, z });
+          }
+        }
+
+        const rng = seededRandom(42);
+        const shuffled = lots
+          .map((l) => ({ l, r: rng() }))
+          .sort((a, b) => a.r - b.r)
+          .map((o) => o.l);
+
+        const used = shuffled.slice(
+          0,
+          Math.min(config.count, shuffled.length),
+        );
+
+        const windowGeom = new THREE.PlaneGeometry(0.45, 0.45);
+        const litColor = config.accent.clone();
+        const windowMat = new THREE.MeshBasicMaterial({
+          color: litColor,
+          transparent: true,
+          opacity: mood.windowLit ? 0.9 : 0.0,
+        });
+        windowMat.userData.isWindow = true;
+        const windowInstances = [];
+
+        used.forEach((lot, idx) => {
+          const rngLot = seededRandom(1000 + idx);
+          const falloff = rngLot() < config.density ? 1 : 0.35;
+          const h = Math.max(
+            1.5,
+            (0.4 + rngLot() * 0.6) * config.maxHeight * falloff,
+          );
+          const w = 2.4 + rngLot() * 1.4;
+          const d = 2.4 + rngLot() * 1.4;
+
+          const mesh = new THREE.Mesh(boxGeom, rngLot() > 0.5 ? matA : matB);
+          mesh.scale.set(w, h, d);
+          mesh.position.set(lot.x, h / 2, lot.z);
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          mesh.userData.isBuilding = true;
+          city.add(mesh);
+
+          if (mood.windowLit && h > 2.5) {
+            const rows = Math.floor(h / 1.0);
+            const colsX = Math.max(1, Math.floor(w / 0.9));
+            const colsZ = Math.max(1, Math.floor(d / 0.9));
+
+            for (let r = 0; r < rows; r++) {
+              for (let c = 0; c < colsX; c++) {
+                if (rngLot() > 0.55) continue;
+                const y = 0.6 + r * 1.0;
+                const xoff = -w / 2 + 0.4 + c * ((w - 0.8) / Math.max(1, colsX - 1 || 1));
+                ["north", "south"].forEach((side) => {
+                  const win = new THREE.Mesh(windowGeom, windowMat);
+                  win.position.set(
+                    lot.x + xoff,
+                    y,
+                    lot.z + (side === "south" ? d / 2 + 0.02 : -d / 2 - 0.02),
+                  );
+                  if (side === "north") win.rotation.y = Math.PI;
+                  windowInstances.push(win);
+                });
+              }
+              for (let c = 0; c < colsZ; c++) {
+                if (rngLot() > 0.55) continue;
+                const y = 0.6 + r * 1.0;
+                const zoff = -d / 2 + 0.4 + c * ((d - 0.8) / Math.max(1, colsZ - 1 || 1));
+                ["east", "west"].forEach((side) => {
+                  const win = new THREE.Mesh(windowGeom, windowMat);
+                  win.position.set(
+                    lot.x + (side === "east" ? w / 2 + 0.02 : -w / 2 - 0.02),
+                    y,
+                    lot.z + zoff,
+                  );
+                  win.rotation.y =
+                    side === "east" ? Math.PI / 2 : -Math.PI / 2;
+                  windowInstances.push(win);
+                });
+              }
+            }
+          }
+        });
+
+        windowInstances.forEach((w) => city.add(w));
+        windowsMesh = { instances: windowInstances, material: windowMat };
+
+        scene.add(city);
+      }
+
+      function applyMood() {
+        const mood = moods[config.mood];
+        scene.background = mood.bg;
+        scene.fog.color.copy(mood.fog);
+        ambient.intensity = mood.ambient;
+        hemi.color.copy(mood.hemiSky);
+        hemi.groundColor.copy(mood.hemiGround);
+        hemi.intensity = mood.hemi;
+        sun.intensity = mood.sun;
+        sun.color.copy(mood.sunColor);
+        ground.material.color.copy(mood.ground);
+        ground.material.needsUpdate = true;
+
+        if (city) {
+          city.traverse((o) => {
+            if (!o.isMesh) return;
+            const mat = o.material;
+            if (!mat || mat.userData?.isWindow) return;
+            if (mat.emissive && o.userData?.isBuilding) {
+              mat.emissive.copy(mood.buildingEmissive);
+              mat.emissiveIntensity = mood.buildingEmissiveIntensity;
+              mat.needsUpdate = true;
+            }
+          });
+        }
+
+        if (windowsMesh) {
+          windowsMesh.material.opacity = mood.windowLit ? 0.9 : 0.0;
+          windowsMesh.material.color.copy(config.accent);
+        }
+
+        moonLight.intensity = mood.moon ?? 0;
+        moon.material.opacity = mood.moonOpacity ?? 0;
+        moon.visible = (mood.moonOpacity ?? 0) > 0;
+        moonGlow.material.opacity = mood.moonGlowOpacity ?? 0;
+        moonGlow.visible = (mood.moonGlowOpacity ?? 0) > 0;
+        moonHalo.material.opacity = (mood.moonGlowOpacity ?? 0) * 0.5;
+        moonHalo.visible = (mood.moonGlowOpacity ?? 0) > 0;
+        stars.material.opacity = mood.starsOpacity ?? 0;
+        stars.visible = (mood.starsOpacity ?? 0) > 0;
+
+        skyMat.uniforms.uOpacity.value = config.mood === "night" ? 1.0 : 0.0;
+        sky.visible = config.mood === "night";
+      }
+
+      buildCity();
+      applyMood();
+
+      function render() {
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+      }
+      render();
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      const countEl = document.getElementById("buildings");
+      const countLabel = document.getElementById("buildingsLabel");
+      countEl.addEventListener("input", () => {
+        config.count = parseInt(countEl.value);
+        countLabel.textContent = countEl.value;
+        buildCity();
+        applyMood();
+      });
+
+      const heightEl = document.getElementById("height");
+      const heightLabel = document.getElementById("heightLabel");
+      heightEl.addEventListener("input", () => {
+        config.maxHeight = parseFloat(heightEl.value);
+        heightLabel.textContent = heightEl.value;
+        buildCity();
+        applyMood();
+      });
+
+      const densityEl = document.getElementById("density");
+      const densityLabel = document.getElementById("densityLabel");
+      densityEl.addEventListener("input", () => {
+        config.density = parseFloat(densityEl.value);
+        densityLabel.textContent = parseFloat(densityEl.value).toFixed(2);
+        buildCity();
+        applyMood();
+      });
+
+      document.querySelectorAll("[data-mood]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-mood]")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          config.mood = btn.dataset.mood;
+          buildCity();
+          applyMood();
+        });
+      });
+
+      document.querySelectorAll(".swatch").forEach((sw) => {
+        sw.addEventListener("click", () => {
+          document
+            .querySelectorAll(".swatch")
+            .forEach((s) => s.classList.remove("active"));
+          sw.classList.add("active");
+          config.accent = new THREE.Color(sw.dataset.accent);
+          if (windowsMesh) {
+            windowsMesh.material.color.copy(config.accent);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
