@@ -234,6 +234,14 @@
           style="background: #7dffd4"
         ></div>
       </div>
+
+      <div class="row" style="margin-top: 18px">
+        <span class="label">Kaiju</span>
+      </div>
+      <div class="toggles">
+        <button class="tog active" data-kaiju="off">Off</button>
+        <button class="tog" data-kaiju="on">On</button>
+      </div>
     </div>
 
     <div class="hint">
@@ -548,6 +556,16 @@
       let traffic = null;
       let crossings = null;
       let pedestrians = null;
+      let kaiju = null;
+      const kaijuState = {
+        active: false,
+        pos: new THREE.Vector3(),
+        dir: new THREE.Vector3(1, 0, 0),
+        time: 0,
+        dyingBuildings: [],
+        dusts: [],
+        skyLerp: 0,
+      };
 
       function seededRandom(seed) {
         let s = seed >>> 0;
@@ -639,12 +657,19 @@
           mesh.castShadow = true;
           mesh.receiveShadow = true;
           mesh.userData.isBuilding = true;
+          mesh.userData.windows = [];
           city.add(mesh);
 
           if (mood.windowLit && h > 2.5) {
             const rows = Math.floor(h / 1.0);
             const colsX = Math.max(1, Math.floor(w / 0.9));
             const colsZ = Math.max(1, Math.floor(d / 0.9));
+
+            const registerWindow = (win) => {
+              win.userData.ownerBuilding = mesh;
+              mesh.userData.windows.push(win);
+              windowInstances.push(win);
+            };
 
             for (let r = 0; r < rows; r++) {
               for (let c = 0; c < colsX; c++) {
@@ -659,7 +684,7 @@
                     lot.z + (side === "south" ? d / 2 + 0.02 : -d / 2 - 0.02),
                   );
                   if (side === "north") win.rotation.y = Math.PI;
-                  windowInstances.push(win);
+                  registerWindow(win);
                 });
               }
               for (let c = 0; c < colsZ; c++) {
@@ -675,7 +700,7 @@
                   );
                   win.rotation.y =
                     side === "east" ? Math.PI / 2 : -Math.PI / 2;
-                  windowInstances.push(win);
+                  registerWindow(win);
                 });
               }
             }
@@ -1119,6 +1144,390 @@
         });
       }
 
+      // ─────────── Kaiju ───────────
+      const kaijuSkyNight = {
+        uTop: new THREE.Color("#070a16"),
+        uMid: new THREE.Color("#131a30"),
+        uHorizon: new THREE.Color("#2a2040"),
+        bg: new THREE.Color("#121829"),
+      };
+      const kaijuSkyRed = {
+        uTop: new THREE.Color("#2a0e12"),
+        uMid: new THREE.Color("#3a1216"),
+        uHorizon: new THREE.Color("#5a1a18"),
+        bg: new THREE.Color("#2a0e12"),
+      };
+
+      function disposeGroup(group) {
+        if (!group) return;
+        group.traverse((o) => {
+          if (o.isMesh) {
+            o.geometry?.dispose();
+            if (Array.isArray(o.material)) {
+              o.material.forEach((m) => m.dispose());
+            } else {
+              o.material?.dispose();
+            }
+          }
+        });
+      }
+
+      function buildKaiju() {
+        disposeKaiju();
+
+        const group = new THREE.Group();
+        const bodyMat = new THREE.MeshStandardMaterial({
+          color: 0x3a4a3e,
+          roughness: 0.8,
+          metalness: 0.1,
+          emissive: new THREE.Color(0x1f3525).multiplyScalar(0.45),
+          emissiveIntensity: 1.0,
+        });
+
+        const torso = new THREE.Mesh(
+          new THREE.BoxGeometry(3, 4, 2),
+          bodyMat,
+        );
+        torso.position.y = 4;
+        torso.castShadow = true;
+        group.add(torso);
+
+        const head = new THREE.Mesh(
+          new THREE.BoxGeometry(1.8, 1.4, 1.8),
+          bodyMat,
+        );
+        head.position.set(0, 6.8, 0.5);
+        head.castShadow = true;
+        group.add(head);
+
+        // Eyes
+        const eyeMat = new THREE.MeshStandardMaterial({
+          color: 0xffcc66,
+          emissive: new THREE.Color(0xffcc66),
+          emissiveIntensity: 1.2,
+          roughness: 0.3,
+        });
+        const eyeGeom = new THREE.SphereGeometry(0.18, 10, 10);
+        [-0.4, 0.4].forEach((x) => {
+          const eye = new THREE.Mesh(eyeGeom, eyeMat);
+          eye.position.set(x, 6.9, 1.45);
+          group.add(eye);
+        });
+
+        // Legs
+        const legGeom = new THREE.CylinderGeometry(0.6, 0.6, 3, 14);
+        [-0.9, 0.9].forEach((x) => {
+          const leg = new THREE.Mesh(legGeom, bodyMat);
+          leg.position.set(x, 1.5, 0);
+          leg.castShadow = true;
+          group.add(leg);
+        });
+
+        // Arms
+        const armGeom = new THREE.CylinderGeometry(0.35, 0.35, 2, 12);
+        [-1.9, 1.9].forEach((x) => {
+          const arm = new THREE.Mesh(armGeom, bodyMat);
+          arm.position.set(x, 4.3, 0.3);
+          arm.rotation.z = x < 0 ? Math.PI / 6 : -Math.PI / 6;
+          arm.rotation.x = -Math.PI / 6;
+          arm.castShadow = true;
+          group.add(arm);
+        });
+
+        // Tail — 5 tapering boxes
+        const tail = new THREE.Group();
+        let tailZ = -1;
+        let tailY = 3.2;
+        let tailW = 1.2;
+        let tailH = 1.0;
+        for (let i = 0; i < 5; i++) {
+          const seg = new THREE.Mesh(
+            new THREE.BoxGeometry(tailW, tailH, 1.0),
+            bodyMat,
+          );
+          tailZ -= 0.9;
+          tailY -= 0.2;
+          seg.position.set(0, tailY, tailZ);
+          seg.rotation.x = -0.22;
+          tail.add(seg);
+          tailW *= 0.78;
+          tailH *= 0.82;
+        }
+        group.add(tail);
+
+        // Back fins — simple planes
+        const finMat = new THREE.MeshStandardMaterial({
+          color: 0x2a382e,
+          roughness: 0.7,
+          metalness: 0.1,
+          emissive: new THREE.Color(0x12281c),
+          emissiveIntensity: 0.6,
+          side: THREE.DoubleSide,
+        });
+        for (let i = 0; i < 4; i++) {
+          const finShape = new THREE.Shape();
+          finShape.moveTo(-0.4, 0);
+          finShape.lineTo(0.4, 0);
+          finShape.lineTo(0, 0.8);
+          finShape.lineTo(-0.4, 0);
+          const finGeom = new THREE.ShapeGeometry(finShape);
+          const fin = new THREE.Mesh(finGeom, finMat);
+          fin.rotation.y = Math.PI / 2;
+          fin.position.set(0, 6 - i * 0.4, 0.2 - i * 0.8);
+          group.add(fin);
+        }
+
+        // Scale so kaiju ≈ 1.5 × tallest building
+        const maxBuildingH = config.maxHeight;
+        const desired = maxBuildingH * 1.5;
+        const currentH = 8; // torso top ≈ 6, head top ≈ 8
+        const s = desired / currentH;
+        group.scale.setScalar(s);
+
+        // Start at map edge, walking toward center
+        kaijuState.pos.set(-halfMap + 4, 0, 0);
+        kaijuState.dir.set(1, 0, 0);
+        kaijuState.time = 0;
+        group.position.copy(kaijuState.pos);
+
+        scene.add(group);
+        kaiju = group;
+        kaiju.userData.bodyMat = bodyMat;
+        kaiju.userData.finMat = finMat;
+      }
+
+      function disposeKaiju() {
+        if (kaiju) {
+          scene.remove(kaiju);
+          disposeGroup(kaiju);
+          kaiju = null;
+        }
+      }
+
+      function startCrushBuilding(buildingMesh) {
+        if (buildingMesh.userData.crushing) return;
+        buildingMesh.userData.crushing = true;
+        buildingMesh.userData.crushT = 0;
+        kaijuState.dyingBuildings.push(buildingMesh);
+      }
+
+      function spawnDust(position) {
+        const count = 40;
+        const positions = new Float32Array(count * 3);
+        const velocities = [];
+        for (let i = 0; i < count; i++) {
+          positions[i * 3] = position.x + (Math.random() - 0.5) * 2;
+          positions[i * 3 + 1] = 0.1 + Math.random() * 0.3;
+          positions[i * 3 + 2] = position.z + (Math.random() - 0.5) * 2;
+          velocities.push(
+            new THREE.Vector3(
+              (Math.random() - 0.5) * 1.2,
+              0.5 + Math.random() * 1.2,
+              (Math.random() - 0.5) * 1.2,
+            ),
+          );
+        }
+        const geom = new THREE.BufferGeometry();
+        geom.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3),
+        );
+        const mat = new THREE.PointsMaterial({
+          color: 0xa0a0a0,
+          size: 0.35,
+          transparent: true,
+          opacity: 0.8,
+          sizeAttenuation: true,
+          depthWrite: false,
+        });
+        const points = new THREE.Points(geom, mat);
+        scene.add(points);
+        kaijuState.dusts.push({ points, velocities, life: 0 });
+      }
+
+      function updateKaiju(delta) {
+        // Sky color lerp toward red when active
+        const target = kaijuState.active ? 1 : 0;
+        kaijuState.skyLerp +=
+          (target - kaijuState.skyLerp) * Math.min(delta * 1.4, 1);
+
+        if (config.mood === "night") {
+          const t = kaijuState.skyLerp;
+          const top = kaijuSkyNight.uTop
+            .clone()
+            .lerp(kaijuSkyRed.uTop, t);
+          const mid = kaijuSkyNight.uMid
+            .clone()
+            .lerp(kaijuSkyRed.uMid, t);
+          const hor = kaijuSkyNight.uHorizon
+            .clone()
+            .lerp(kaijuSkyRed.uHorizon, t);
+          skyMat.uniforms.uTop.value.copy(top);
+          skyMat.uniforms.uMid.value.copy(mid);
+          skyMat.uniforms.uHorizon.value.copy(hor);
+
+          const bg = kaijuSkyNight.bg.clone().lerp(kaijuSkyRed.bg, t);
+          scene.background = bg;
+          scene.fog.color.copy(bg);
+        }
+
+        // Update existing dust particles regardless of active state
+        kaijuState.dusts = kaijuState.dusts.filter((d) => {
+          d.life += delta;
+          const posAttr = d.points.geometry.attributes.position;
+          for (let i = 0; i < d.velocities.length; i++) {
+            posAttr.array[i * 3] += d.velocities[i].x * delta;
+            posAttr.array[i * 3 + 1] += d.velocities[i].y * delta;
+            posAttr.array[i * 3 + 2] += d.velocities[i].z * delta;
+            d.velocities[i].y -= delta * 0.8;
+          }
+          posAttr.needsUpdate = true;
+          d.points.material.opacity = Math.max(0, 0.8 - d.life * 0.8);
+          if (d.life >= 1.0) {
+            scene.remove(d.points);
+            d.points.geometry.dispose();
+            d.points.material.dispose();
+            return false;
+          }
+          return true;
+        });
+
+        // Advance crushing buildings
+        kaijuState.dyingBuildings = kaijuState.dyingBuildings.filter(
+          (b) => {
+            if (!b.parent) return false;
+            b.userData.crushT += delta / 1.2;
+            const t = Math.min(1, b.userData.crushT);
+            b.scale.y = Math.max(0.0001, (1 - t) * b.userData.origScaleY);
+            const shakeX = Math.sin(performance.now() * 0.04) * 0.15;
+            const shakeZ = Math.cos(performance.now() * 0.04) * 0.15;
+            b.position.y =
+              (b.userData.origHeight * (1 - t)) / 2 +
+              Math.sin(performance.now() * 0.03) * 0.05;
+            b.position.x = b.userData.origX + shakeX;
+            b.position.z = b.userData.origZ + shakeZ;
+
+            // Sync windows with the collapsing building (position only;
+            // opacity is left to the shared mood-driven material).
+            if (b.userData.windows && b.userData.windows.length) {
+              const collapseRatio = 1 - t;
+              b.userData.windows.forEach((win) => {
+                if (win.userData.origY === undefined) {
+                  win.userData.origY = win.position.y;
+                  win.userData.origX = win.position.x;
+                  win.userData.origZ = win.position.z;
+                }
+                win.position.x = win.userData.origX + shakeX;
+                win.position.z = win.userData.origZ + shakeZ;
+                win.position.y = win.userData.origY * collapseRatio;
+                win.visible = t < 0.98;
+              });
+            }
+
+            if (t >= 1) {
+              spawnDust(
+                new THREE.Vector3(
+                  b.userData.origX,
+                  0,
+                  b.userData.origZ,
+                ),
+              );
+              // Remove windows of this building
+              if (b.userData.windows) {
+                b.userData.windows.forEach((win) => {
+                  if (win.parent) win.parent.remove(win);
+                });
+                if (windowsMesh?.instances) {
+                  windowsMesh.instances = windowsMesh.instances.filter(
+                    (w) => !b.userData.windows.includes(w),
+                  );
+                }
+              }
+              b.parent.remove(b);
+              b.geometry?.dispose();
+              if (Array.isArray(b.material)) {
+                b.material.forEach((m) => m.dispose());
+              } else {
+                b.material?.dispose();
+              }
+              return false;
+            }
+            return true;
+          },
+        );
+
+        if (!kaijuState.active || !kaiju) return;
+
+        kaijuState.time += delta;
+
+        // Walk along current direction
+        const speed = 2.0;
+        kaijuState.pos.addScaledVector(kaijuState.dir, speed * delta);
+
+        // Simple logic: when reaching center or wandering too far, turn.
+        if (kaijuState.pos.length() < 1) {
+          const choices = [
+            new THREE.Vector3(1, 0, 0),
+            new THREE.Vector3(-1, 0, 0),
+            new THREE.Vector3(0, 0, 1),
+            new THREE.Vector3(0, 0, -1),
+          ];
+          kaijuState.dir.copy(
+            choices[Math.floor(Math.random() * choices.length)],
+          );
+        }
+        if (
+          Math.abs(kaijuState.pos.x) > halfMap - 2 ||
+          Math.abs(kaijuState.pos.z) > halfMap - 2
+        ) {
+          kaijuState.dir.multiplyScalar(-1);
+        }
+
+        // Walk bob + sway
+        const bob = Math.sin(kaijuState.time * 4) * 0.15;
+        const sway = Math.sin(kaijuState.time * 2) * 0.05;
+        kaiju.position.set(
+          kaijuState.pos.x,
+          bob,
+          kaijuState.pos.z,
+        );
+        kaiju.rotation.y = Math.atan2(kaijuState.dir.x, kaijuState.dir.z);
+        kaiju.rotation.z = sway;
+
+        // Check for buildings within crush radius
+        if (city) {
+          const crushR = 5 * kaiju.scale.x * 0.2 + 5;
+          const pos2 = new THREE.Vector3(
+            kaijuState.pos.x,
+            0,
+            kaijuState.pos.z,
+          );
+          city.children.forEach((child) => {
+            if (!child.userData.isBuilding) return;
+            if (child.userData.crushing) return;
+            const dx = child.position.x - pos2.x;
+            const dz = child.position.z - pos2.z;
+            const d = Math.sqrt(dx * dx + dz * dz);
+            if (d < crushR) {
+              child.userData.origScaleY = child.scale.y;
+              child.userData.origHeight = child.scale.y;
+              child.userData.origX = child.position.x;
+              child.userData.origZ = child.position.z;
+              startCrushBuilding(child);
+            }
+          });
+        }
+      }
+
+      function setKaijuActive(active) {
+        kaijuState.active = active;
+        if (active) {
+          buildKaiju();
+        } else {
+          disposeKaiju();
+        }
+      }
+
       buildCity();
       buildTraffic();
       buildCrossings();
@@ -1134,6 +1543,7 @@
         controls.update();
         updateTraffic(delta);
         updatePedestrians(delta);
+        updateKaiju(delta);
         renderer.render(scene, camera);
         requestAnimationFrame(render);
       }
@@ -1145,11 +1555,20 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
+      function resetKaiju() {
+        setKaijuActive(false);
+        kaijuState.dyingBuildings.length = 0;
+        document.querySelectorAll("[data-kaiju]").forEach((b) => {
+          b.classList.toggle("active", b.dataset.kaiju === "off");
+        });
+      }
+
       const countEl = document.getElementById("buildings");
       const countLabel = document.getElementById("buildingsLabel");
       countEl.addEventListener("input", () => {
         config.count = parseInt(countEl.value);
         countLabel.textContent = countEl.value;
+        resetKaiju();
         buildCity();
         applyMood();
       });
@@ -1159,6 +1578,7 @@
       heightEl.addEventListener("input", () => {
         config.maxHeight = parseFloat(heightEl.value);
         heightLabel.textContent = heightEl.value;
+        resetKaiju();
         buildCity();
         applyMood();
       });
@@ -1168,6 +1588,7 @@
       densityEl.addEventListener("input", () => {
         config.density = parseFloat(densityEl.value);
         densityLabel.textContent = parseFloat(densityEl.value).toFixed(2);
+        resetKaiju();
         buildCity();
         applyMood();
       });
@@ -1194,6 +1615,16 @@
           if (windowsMesh) {
             windowsMesh.material.color.copy(config.accent);
           }
+        });
+      });
+
+      document.querySelectorAll("[data-kaiju]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-kaiju]")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          setKaijuActive(btn.dataset.kaiju === "on");
         });
       });
     </script>
