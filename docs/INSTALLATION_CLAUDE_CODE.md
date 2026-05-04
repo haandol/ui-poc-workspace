@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scrip
 **Windows** — 💻 PowerShell 을 **관리자 권한** 으로 열고:
 
 ```powershell
-iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
+chcp 65001 >$null; [Console]::OutputEncoding=[System.Text.Encoding]::UTF8; iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
 ```
 
 설치는 약 3~5분 소요됩니다. **"Claude Code is ready"** 와 유사한 메시지가 나오면 완료.

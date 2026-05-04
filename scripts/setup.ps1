@@ -2,8 +2,10 @@
 # Non-Tech UI PoC Workshop — Windows Setup
 # ──────────────────────────────────────────────
 
+$null = chcp 65001 2>&1
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
+$OutputEncoding            = [System.Text.Encoding]::UTF8
 $ErrorActionPreference = "Stop"
 
 function Write-Ok   { param($msg) Write-Host "  ✓ $msg" -ForegroundColor Green }

@@ -10,12 +10,11 @@
 $ErrorActionPreference = 'Stop'
 $NodeMinMajor = 22
 
-# 한글 출력 깨짐 방지 (Windows PowerShell 5.1 기본 콘솔 인코딩은 CP949)
-try {
-  [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
-  $OutputEncoding = [System.Text.UTF8Encoding]::new()
-  chcp 65001 > $null 2>&1
-} catch {}
+# 한글 출력 깨짐 방지 — chcp 를 가장 먼저 실행해야 콘솔 렌더링이 UTF-8 로 전환됨
+$null = chcp 65001 2>&1
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
+$OutputEncoding            = [System.Text.Encoding]::UTF8
 
 function Say    ($msg) { Write-Host "  ▸ $msg" }
 function Warn   ($msg) { Write-Host "  ⚠ $msg" -ForegroundColor Yellow }
