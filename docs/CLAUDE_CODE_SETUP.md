@@ -44,30 +44,11 @@ $env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
 ## 방법 B: Bedrock API 키
 
-### Mac/Linux
+1. 터미널(또는 PowerShell) 에서 `claude` 를 실행해 대화창을 엽니다.
+2. 💬 대화창에 아래 슬래시 명령을 입력합니다.
 
-아래에서 `<your-bedrock-api-key>` 부분만 실제 키로 교체한 뒤, 터미널에 붙여넣기:
+   ```
+   /setup-bedrock
+   ```
 
-```bash
-export AWS_BEARER_TOKEN_BEDROCK=<your-bedrock-api-key>
-export CLAUDE_CODE_USE_BEDROCK=1
-export AWS_REGION=us-east-1
-export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
-export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
-```
-
-`claude` 입력하여 실행
-
-### Windows (PowerShell)
-
-아래에서 `<your-bedrock-api-key>` 부분만 실제 키로 교체한 뒤, 터미널에 붙여넣기:
-
-```powershell
-$env:AWS_BEARER_TOKEN_BEDROCK="<your-bedrock-api-key>"
-$env:CLAUDE_CODE_USE_BEDROCK=1
-$env:AWS_REGION="us-east-1"
-$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
-$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
-```
-
-`claude` 입력하여 실행
+3. Claude 가 묻는 대로 **Bedrock API 키** 를 붙여넣으면 끝입니다. 환경변수를 직접 설정할 필요가 없습니다.
