@@ -117,7 +117,7 @@ Claude Code 를 **처음 실행**하면 어떤 provider(Anthropic / Bedrock / Ve
 
 ### 3-5. AWS region 입력
 
-**AWS region** 입력 화면에서 반드시 `us-east-1` 를 입력하고 Enter.
+**AWS region** 입력 화면에서 `us-east-1` 를 입력하고 Enter.
 
 ![AWS region us-east-1](./workshop-assets/setup-bedrock/cc-3.png)
 
