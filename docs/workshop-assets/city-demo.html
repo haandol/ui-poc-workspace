@@ -476,6 +476,9 @@
       });
       const roadW = 6;
       const mapSize = 180;
+      const roadIndices = [-3, -2, -1, 0, 1, 2, 3];
+      const roadStep = 24;
+      const halfMap = mapSize / 2;
       for (let i = -3; i <= 3; i++) {
         const h = new THREE.Mesh(
           new THREE.PlaneGeometry(mapSize, roadW),
@@ -542,6 +545,9 @@
 
       let city = null;
       let windowsMesh = null;
+      let traffic = null;
+      let crossings = null;
+      let pedestrians = null;
 
       function seededRandom(seed) {
         let s = seed >>> 0;
@@ -725,13 +731,440 @@
 
         skyMat.uniforms.uOpacity.value = config.mood === "night" ? 1.0 : 0.0;
         sky.visible = config.mood === "night";
+
+        applyTrafficMood();
+        applyPedestriansMood();
+      }
+
+      const pastelPalette = [
+        0xf2a9a9, // blush
+        0xf9d39a, // apricot
+        0xf6e7a2, // butter
+        0xa9d6c2, // mint
+        0xa6c9e8, // sky
+        0xc6b8e3, // lavender
+      ];
+
+      function buildTraffic() {
+        if (traffic) {
+          scene.remove(traffic);
+          traffic.traverse((o) => {
+            if (o.isMesh) {
+              o.geometry.dispose();
+              o.material.dispose();
+            }
+          });
+        }
+
+        traffic = new THREE.Group();
+        traffic.userData.cars = [];
+
+        const bodyGeom = new THREE.BoxGeometry(1.8, 0.5, 0.9);
+        const roofGeom = new THREE.BoxGeometry(1.0, 0.4, 0.78);
+        const headlightGeom = new THREE.SphereGeometry(0.18, 10, 10);
+
+        const laneOffset = 1.4;
+        const lanes = [];
+        roadIndices.forEach((idx) => {
+          const base = idx * roadStep;
+          // horizontal road: cars move along X, one lane per direction
+          lanes.push({ axis: "x", roadCoord: base - laneOffset, dir: 1 });
+          lanes.push({ axis: "x", roadCoord: base + laneOffset, dir: -1 });
+          // vertical road: cars move along Z
+          lanes.push({ axis: "z", roadCoord: base - laneOffset, dir: 1 });
+          lanes.push({ axis: "z", roadCoord: base + laneOffset, dir: -1 });
+        });
+
+        const carCount = 30;
+        for (let i = 0; i < carCount; i++) {
+          const lane = lanes[Math.floor(Math.random() * lanes.length)];
+          const color = pastelPalette[i % pastelPalette.length];
+          const speed = 3.5 + Math.random() * 3.0;
+
+          const car = new THREE.Group();
+          car.userData.lane = lane;
+          car.userData.speed = speed;
+
+          const bodyMat = new THREE.MeshStandardMaterial({
+            color,
+            roughness: 0.55,
+            metalness: 0.25,
+          });
+          const body = new THREE.Mesh(bodyGeom, bodyMat);
+          body.position.y = 0.25;
+          body.castShadow = true;
+          car.add(body);
+
+          const roofMat = new THREE.MeshStandardMaterial({
+            color: new THREE.Color(color).multiplyScalar(0.75),
+            roughness: 0.5,
+            metalness: 0.2,
+          });
+          const roof = new THREE.Mesh(roofGeom, roofMat);
+          roof.position.set(-0.05, 0.65, 0);
+          roof.castShadow = true;
+          car.add(roof);
+
+          const headlightMat = new THREE.MeshBasicMaterial({
+            color: 0xfff2a8,
+            transparent: true,
+            opacity: 0.0,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+          });
+          const hlLeft = new THREE.Mesh(headlightGeom, headlightMat);
+          const hlRight = new THREE.Mesh(headlightGeom, headlightMat);
+          hlLeft.position.set(0.95, 0.32, 0.32);
+          hlRight.position.set(0.95, 0.32, -0.32);
+          car.add(hlLeft);
+          car.add(hlRight);
+          car.userData.headlightMat = headlightMat;
+
+          // place along the lane
+          const t = Math.random() * mapSize - halfMap;
+          if (lane.axis === "x") {
+            car.position.set(t, 0, lane.roadCoord);
+            car.rotation.y = lane.dir === 1 ? 0 : Math.PI;
+          } else {
+            car.position.set(lane.roadCoord, 0, t);
+            car.rotation.y = lane.dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+          }
+
+          traffic.add(car);
+          traffic.userData.cars.push(car);
+        }
+
+        scene.add(traffic);
+      }
+
+      function updateTraffic(delta) {
+        if (!traffic) return;
+        traffic.userData.cars.forEach((car) => {
+          const { lane, speed } = car.userData;
+          if (lane.axis === "x") {
+            car.position.x += lane.dir * speed * delta;
+            if (lane.dir === 1 && car.position.x > halfMap) {
+              car.position.x = -halfMap;
+            } else if (lane.dir === -1 && car.position.x < -halfMap) {
+              car.position.x = halfMap;
+            }
+          } else {
+            car.position.z += lane.dir * speed * delta;
+            if (lane.dir === 1 && car.position.z > halfMap) {
+              car.position.z = -halfMap;
+            } else if (lane.dir === -1 && car.position.z < -halfMap) {
+              car.position.z = halfMap;
+            }
+          }
+        });
+      }
+
+      function applyTrafficMood() {
+        if (!traffic) return;
+        const isNight = config.mood === "night";
+        traffic.userData.cars.forEach((car) => {
+          car.userData.headlightMat.opacity = isNight ? 0.95 : 0.0;
+        });
+      }
+
+      const peoplePalette = [
+        0xe7c3b4, // peach
+        0xbfd4b2, // sage
+        0xc5c5e3, // lilac
+        0xe9d39d, // wheat
+        0xb0c8d4, // dusty blue
+        0xd9b6c4, // rosy
+      ];
+
+      function buildCrossings() {
+        if (crossings) {
+          scene.remove(crossings);
+          crossings.traverse((o) => {
+            if (o.isMesh) {
+              o.geometry.dispose();
+              o.material.dispose();
+            }
+          });
+        }
+
+        crossings = new THREE.Group();
+        const stripeMat = new THREE.MeshBasicMaterial({ color: 0xf3f4f6 });
+        const stripeCount = 5;
+        const stripeW = 0.5;
+        const stripeGap = 0.45;
+        const stripeLen = 3.2;
+        const offsetFromCenter = roadW / 2 + stripeLen / 2 + 0.15;
+
+        roadIndices.forEach((ix) => {
+          roadIndices.forEach((iz) => {
+            const cx = ix * roadStep;
+            const cz = iz * roadStep;
+
+            // crosswalks on 4 sides of the intersection
+            [-1, 1].forEach((sign) => {
+              // north/south crosswalks (stripes across the N-S road, cars travel in Z)
+              for (let s = 0; s < stripeCount; s++) {
+                const stripe = new THREE.Mesh(
+                  new THREE.PlaneGeometry(stripeW, stripeLen),
+                  stripeMat,
+                );
+                stripe.rotation.x = -Math.PI / 2;
+                const base =
+                  -((stripeCount - 1) / 2) * (stripeW + stripeGap);
+                stripe.position.set(
+                  cx + base + s * (stripeW + stripeGap),
+                  0.06,
+                  cz + sign * offsetFromCenter,
+                );
+                crossings.add(stripe);
+              }
+
+              // east/west crosswalks (stripes across E-W road)
+              for (let s = 0; s < stripeCount; s++) {
+                const stripe = new THREE.Mesh(
+                  new THREE.PlaneGeometry(stripeLen, stripeW),
+                  stripeMat,
+                );
+                stripe.rotation.x = -Math.PI / 2;
+                const base =
+                  -((stripeCount - 1) / 2) * (stripeW + stripeGap);
+                stripe.position.set(
+                  cx + sign * offsetFromCenter,
+                  0.06,
+                  cz + base + s * (stripeW + stripeGap),
+                );
+                crossings.add(stripe);
+              }
+            });
+          });
+        });
+
+        scene.add(crossings);
+      }
+
+      function buildPedestrians() {
+        if (pedestrians) {
+          scene.remove(pedestrians);
+          pedestrians.traverse((o) => {
+            if (o.isMesh) {
+              o.geometry.dispose();
+              o.material.dispose();
+            }
+          });
+        }
+
+        pedestrians = new THREE.Group();
+        pedestrians.userData.people = [];
+
+        const bodyGeom = new THREE.BoxGeometry(0.3, 1.2, 0.3);
+        const headGeom = new THREE.SphereGeometry(0.18, 10, 10);
+
+        const sidewalkOffset = roadW / 2 + 0.6;
+
+        const peopleCount = 40;
+        for (let i = 0; i < peopleCount; i++) {
+          const color = peoplePalette[i % peoplePalette.length];
+          const speed = 1.1 + Math.random() * 0.8;
+          const person = new THREE.Group();
+
+          const bodyMat = new THREE.MeshStandardMaterial({
+            color,
+            roughness: 0.75,
+            metalness: 0.0,
+            emissive: new THREE.Color(color).multiplyScalar(0.18),
+            emissiveIntensity: 0.6,
+          });
+          const body = new THREE.Mesh(bodyGeom, bodyMat);
+          body.position.y = 0.6;
+          body.castShadow = true;
+          person.add(body);
+
+          const headColor = 0xf0d6be;
+          const headMat = new THREE.MeshStandardMaterial({
+            color: headColor,
+            roughness: 0.7,
+            metalness: 0.0,
+            emissive: new THREE.Color(headColor).multiplyScalar(0.2),
+            emissiveIntensity: 0.6,
+          });
+          const head = new THREE.Mesh(headGeom, headMat);
+          head.position.y = 1.35;
+          head.castShadow = true;
+          person.add(head);
+
+          person.userData.speed = speed;
+          person.userData.baseSpeed = speed;
+          person.userData.bodyMat = bodyMat;
+          person.userData.headMat = headMat;
+          assignSidewalk(person);
+
+          pedestrians.add(person);
+          pedestrians.userData.people.push(person);
+        }
+
+        scene.add(pedestrians);
+      }
+
+      function assignSidewalk(person) {
+        // Pick a horizontal or vertical road, side (+/-), sidewalk offset.
+        const axis = Math.random() < 0.5 ? "x" : "z";
+        const roadIdx =
+          roadIndices[Math.floor(Math.random() * roadIndices.length)];
+        const side = Math.random() < 0.5 ? 1 : -1;
+        const dir = Math.random() < 0.5 ? 1 : -1;
+        const sidewalkOffset = roadW / 2 + 0.6;
+
+        person.userData.mode = "sidewalk";
+        person.userData.axis = axis;
+        person.userData.roadIdx = roadIdx;
+        person.userData.side = side;
+        person.userData.dir = dir;
+        person.userData.speed = person.userData.baseSpeed;
+
+        const along = Math.random() * mapSize - halfMap;
+        if (axis === "x") {
+          person.position.set(
+            along,
+            0,
+            roadIdx * roadStep + side * sidewalkOffset,
+          );
+          person.rotation.y = dir === 1 ? 0 : Math.PI;
+        } else {
+          person.position.set(
+            roadIdx * roadStep + side * sidewalkOffset,
+            0,
+            along,
+          );
+          person.rotation.y = dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+        }
+      }
+
+      function startCrossing(person) {
+        // Find the nearest intersection along the person's axis, switch to crossing mode across the perpendicular road.
+        const sidewalkOffset = roadW / 2 + 0.6;
+        const axis = person.userData.axis;
+        const roadIdx = person.userData.roadIdx;
+        const side = person.userData.side;
+
+        if (axis === "x") {
+          // pedestrian walks along X on the east-west road at z = roadIdx*roadStep + side*sidewalkOffset.
+          // Crossing moves across Z of a perpendicular (vertical) road at x = crossRoadIdx*roadStep.
+          const crossIdx =
+            roadIndices[Math.floor(Math.random() * roadIndices.length)];
+          const start = new THREE.Vector3(
+            crossRoadAlignedCoord(person.position.x, crossIdx),
+            0,
+            person.position.z,
+          );
+          const end = new THREE.Vector3(
+            start.x,
+            0,
+            roadIdx * roadStep + -side * sidewalkOffset,
+          );
+          person.position.copy(start);
+          person.userData.mode = "crossing";
+          person.userData.crossStart = start;
+          person.userData.crossEnd = end;
+          person.userData.crossAxis = "z";
+          person.userData.speed = person.userData.baseSpeed * 1.6;
+          person.rotation.y = end.z > start.z ? Math.PI / 2 : -Math.PI / 2;
+          person.userData.nextSide = -side;
+        } else {
+          const crossIdx =
+            roadIndices[Math.floor(Math.random() * roadIndices.length)];
+          const start = new THREE.Vector3(
+            person.position.x,
+            0,
+            crossRoadAlignedCoord(person.position.z, crossIdx),
+          );
+          const end = new THREE.Vector3(
+            roadIdx * roadStep + -side * sidewalkOffset,
+            0,
+            start.z,
+          );
+          person.position.copy(start);
+          person.userData.mode = "crossing";
+          person.userData.crossStart = start;
+          person.userData.crossEnd = end;
+          person.userData.crossAxis = "x";
+          person.userData.speed = person.userData.baseSpeed * 1.6;
+          person.rotation.y = end.x > start.x ? 0 : Math.PI;
+          person.userData.nextSide = -side;
+        }
+      }
+
+      function crossRoadAlignedCoord(current, crossIdx) {
+        // Clamp: pick the coordinate of the nearest intersection in the direction of travel.
+        return crossIdx * roadStep;
+      }
+
+      function updatePedestrians(delta) {
+        if (!pedestrians) return;
+        pedestrians.userData.people.forEach((p) => {
+          const ud = p.userData;
+
+          if (ud.mode === "sidewalk") {
+            if (ud.axis === "x") {
+              p.position.x += ud.dir * ud.speed * delta;
+              if (p.position.x > halfMap) p.position.x = -halfMap;
+              if (p.position.x < -halfMap) p.position.x = halfMap;
+            } else {
+              p.position.z += ud.dir * ud.speed * delta;
+              if (p.position.z > halfMap) p.position.z = -halfMap;
+              if (p.position.z < -halfMap) p.position.z = halfMap;
+            }
+            // Occasionally switch to crossing near intersections.
+            if (Math.random() < 0.002) {
+              startCrossing(p);
+            }
+          } else if (ud.mode === "crossing") {
+            const target = ud.crossEnd;
+            const step = ud.speed * delta;
+            const toTarget = target.clone().sub(p.position);
+            const dist = toTarget.length();
+            if (dist <= step) {
+              // Arrived. Resume sidewalk on the other side.
+              p.position.copy(target);
+              ud.side = ud.nextSide;
+              ud.mode = "sidewalk";
+              ud.speed = ud.baseSpeed;
+              // Keep axis and roadIdx.
+              if (ud.axis === "x") {
+                p.rotation.y = ud.dir === 1 ? 0 : Math.PI;
+              } else {
+                p.rotation.y = ud.dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+              }
+            } else {
+              p.position.add(toTarget.multiplyScalar(step / dist));
+            }
+          }
+        });
+      }
+
+      function applyPedestriansMood() {
+        if (!pedestrians) return;
+        const isNight = config.mood === "night";
+        pedestrians.userData.people.forEach((p) => {
+          p.userData.bodyMat.emissiveIntensity = isNight ? 0.75 : 0.0;
+          p.userData.headMat.emissiveIntensity = isNight ? 0.75 : 0.0;
+        });
       }
 
       buildCity();
+      buildTraffic();
+      buildCrossings();
+      buildPedestrians();
       applyMood();
+      applyTrafficMood();
+      applyPedestriansMood();
+
+      const clock = new THREE.Clock();
 
       function render() {
+        const delta = Math.min(clock.getDelta(), 0.1);
         controls.update();
+        updateTraffic(delta);
+        updatePedestrians(delta);
         renderer.render(scene, camera);
         requestAnimationFrame(render);
       }
