@@ -1,24 +1,18 @@
-﻿#Requires -Version 5.1
+#Requires -Version 5.1
 <#
-  Non-Tech UI PoC Workshop — Day 1 Installer (Windows)
+  Non-Tech UI PoC Workshop - Day 1 Installer (Windows)
   Installs Node.js (via winget) and Claude Code only.
 
-  Usage (PowerShell, 관리자 권한 권장):
+  Usage (PowerShell, run as Administrator):
     iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
 #>
 
 $ErrorActionPreference = 'Stop'
 $NodeMinMajor = 22
 
-# 한글 출력 깨짐 방지 — chcp 를 가장 먼저 실행해야 콘솔 렌더링이 UTF-8 로 전환됨
-$null = chcp 65001 2>&1
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
-$OutputEncoding            = [System.Text.Encoding]::UTF8
-
-function Say    ($msg) { Write-Host "  ▸ $msg" }
-function Warn   ($msg) { Write-Host "  ⚠ $msg" -ForegroundColor Yellow }
-function Fail   ($msg) { Write-Host "  ✗ $msg" -ForegroundColor Red; exit 1 }
+function Say  ($msg) { Write-Host "  > $msg" }
+function Warn ($msg) { Write-Host "  ! $msg" -ForegroundColor Yellow }
+function Fail ($msg) { Write-Host "  x $msg" -ForegroundColor Red; exit 1 }
 
 @'
 
@@ -41,11 +35,11 @@ function Refresh-EnvPath {
 # 1) winget check
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
   Fail @"
-winget 이 이 컴퓨터에 없습니다. Windows 10/11 의 'App Installer' 를 업데이트하거나,
-https://nodejs.org/ko/download 에서 Node.js LTS 설치 파일을 수동 설치한 뒤 이 스크립트를 다시 실행해주세요.
+winget is not available on this machine. Update 'App Installer' from the Microsoft Store,
+or install Node.js LTS manually from https://nodejs.org/en/download and rerun this script.
 "@
 }
-Say 'winget 확인됨.'
+Say 'winget OK.'
 
 # 2) Node.js
 $needNodeInstall = $true
@@ -54,17 +48,17 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
   if ($raw -match 'v(\d+)\.') {
     $currentMajor = [int]$Matches[1]
     if ($currentMajor -ge $NodeMinMajor) {
-      Say "Node.js $raw 확인됨."
+      Say "Node.js $raw OK."
       $needNodeInstall = $false
     }
     else {
-      Warn "Node.js $raw 버전이 낮습니다. Node.js LTS 를 설치합니다."
+      Warn "Node.js $raw is too old. Installing Node.js LTS."
     }
   }
 }
 
 if ($needNodeInstall) {
-  Say 'Node.js LTS 설치 중...'
+  Say 'Installing Node.js LTS...'
   winget install --id OpenJS.NodeJS.LTS -e --source winget --accept-source-agreements --accept-package-agreements
   Refresh-EnvPath
 }
@@ -75,17 +69,17 @@ if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
 }
 if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
   Fail @"
-npm 을 찾을 수 없습니다. PowerShell 창을 닫고 새로 연 다음 이 스크립트를 다시 실행해주세요.
+npm not found. Close this PowerShell window, open a new one, and rerun this script.
 "@
 }
 
 # 4) Claude Code
 if (Get-Command claude -ErrorAction SilentlyContinue) {
   $ver = (& claude --version) 2>$null
-  Say "Claude Code 가 이미 설치되어 있습니다: $ver"
+  Say "Claude Code already installed: $ver"
 }
 else {
-  Say 'Claude Code 설치 중... (npm install -g @anthropic-ai/claude-code)'
+  Say 'Installing Claude Code... (npm install -g @anthropic-ai/claude-code)'
   npm install -g '@anthropic-ai/claude-code'
   Refresh-EnvPath
 }
@@ -95,21 +89,23 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
   $ver = (& claude --version) 2>$null
   @"
 
-  ✓ Claude Code is ready.
-    $ver
+  [OK] Claude Code is ready.
+       $ver
 
-  다음 단계:
-    1) 새 PowerShell 을 열고 아래를 실행합니다.
+  Next steps:
+    1) Open a new PowerShell and run:
        `$desktop = [Environment]::GetFolderPath('Desktop')
        New-Item -ItemType Directory -Path "`$desktop\claude-play" -Force | Out-Null
        cd "`$desktop\claude-play"
        claude
-    2) Claude Code 대화창에서 /setup-bedrock 을 실행해 자격증명을 등록합니다.
+    2) On first launch, pick "3rd-party platform" -> "Amazon Bedrock"
+       and enter your Bedrock API key.
 
 "@ | Write-Host
 }
 else {
   Fail @"
-Claude Code 가 PATH 에 잡히지 않습니다. PowerShell 창을 닫고 새로 연 다음 'claude --version' 을 실행해보세요.
+Claude Code not found on PATH. Close this PowerShell window, open a new one,
+and run 'claude --version' again.
 "@
 }

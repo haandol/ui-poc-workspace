@@ -182,8 +182,4 @@ Each package has a `project.json` defining its Nx targets. The root `nx.json` se
 
 ### Windows PowerShell Script Encoding
 
-PowerShell 5.1 (Windows default) reads `.ps1` files using the system default encoding (CP949 on Korean Windows). **UTF-8 without BOM causes all non-ASCII characters (Korean, symbols like ▸/✓/⚠) to display as `???` or mojibake.**
-
-- **All `.ps1` files containing non-ASCII text MUST be saved with UTF-8 BOM (`EF BB BF`).**
-- `chcp 65001` and `[Console]::OutputEncoding` only affect console output encoding, NOT how PowerShell reads the script file itself.
-- When creating new `.ps1` files, add BOM via: `node -e "const fs=require('fs'),p='file.ps1',b=fs.readFileSync(p);if(b[0]!==0xef)fs.writeFileSync(p,Buffer.concat([Buffer.from([0xef,0xbb,0xbf]),b]))"`
+Keep `.ps1` files ASCII-only. PowerShell 5.1 (the Windows default) reads `.ps1` files using the system default encoding (CP949 on Korean Windows), which mangles non-ASCII characters unless the file is saved with a UTF-8 BOM. Avoiding non-ASCII entirely sidesteps the problem — don't add Korean text, box-drawing characters, or status glyphs (▸/✓/⚠) to these scripts.
