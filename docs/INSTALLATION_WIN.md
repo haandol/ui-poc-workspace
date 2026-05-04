@@ -1,22 +1,27 @@
 # 수동 설치 가이드 (Windows)
 
-[원라이너 설치](./INSTALLATION.md#1-원라이너-설치-mac--windows-공통) 가 자동으로 해주는 일(winget → Node.js → Claude Code)을 **직접 한 단계씩** 실행하고 싶을 때 사용하세요. 원라이너가 실패했거나, 각 단계에서 어떤 일이 일어나는지 눈으로 확인하고 싶을 때 유용합니다.
+[원라이너 설치](./INSTALLATION.md#1-원라이너-설치-mac--windows-공통) 가 자동으로 해주는 일(Scoop → Node.js → Claude Code)을 **직접 한 단계씩** 실행하고 싶을 때 사용하세요. 원라이너가 실패했거나, 각 단계에서 어떤 일이 일어나는지 눈으로 확인하고 싶을 때 유용합니다.
 
-설치 과정은 총 3단계입니다. 모두 💻 **PowerShell** (**관리자 권한** 권장) 에서 진행합니다.
+설치 과정은 총 3단계입니다. 모두 💻 **PowerShell** 에서 진행합니다 (관리자 권한 불필요).
 
 ---
 
-## 1. winget 확인 (패키지 매니저)
+## 1. Scoop 확인 (패키지 매니저)
 
-Node.js 를 간편하게 설치하기 위해 Windows 기본 패키지 매니저인 **winget** 을 사용합니다. Windows 10 최신 / Windows 11 이면 기본 탑재되어 있습니다.
+Node.js 를 간편하게 설치하기 위해 **Scoop** 패키지 매니저를 사용합니다. 관리자 권한 없이 사용자 디렉터리에 설치되어 편리합니다.
 
 ```powershell
-winget --version
+scoop --version
 ```
 
-버전이 출력되지 않으면 Microsoft Store 에서 **App Installer** 를 업데이트하거나, 아래 "Node.js 수동 설치" 를 따르세요.
+버전이 출력되지 않으면 아래 명령으로 Scoop 을 설치합니다:
 
-> **winget 이 작동하지 않으면**: [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 를 다운로드해 직접 설치한 뒤 **3단계** 로 건너뜁니다.
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+> **Scoop 이 작동하지 않으면**: [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 를 다운로드해 직접 설치한 뒤 **3단계** 로 건너뜁니다.
 
 ---
 
@@ -25,7 +30,7 @@ winget --version
 Claude Code 는 Node.js **22 이상**에서 동작합니다. 워크숍에서는 Node.js LTS 를 사용합니다.
 
 ```powershell
-winget install --id OpenJS.NodeJS.LTS -e --source winget --accept-source-agreements --accept-package-agreements
+scoop install nodejs-lts
 ```
 
 설치 후 **PowerShell 창을 닫고 새로 열어야** `node`, `npm` 커맨드가 PATH 에 잡힙니다.
@@ -74,7 +79,7 @@ claude --version
 
 | 증상                                    | 해결 방법                                                                                                                    |
 | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `winget` 이 없음 / 작동하지 않음        | Microsoft Store 에서 **App Installer** 업데이트, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치 |
+| `scoop` 이 없음 / 작동하지 않음         | 위 1단계의 Scoop 설치 명령을 실행, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치              |
 | `node` / `claude` 를 찾을 수 없음       | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                                                 |
-| `npm install -g` 권한 오류              | PowerShell 을 **관리자 권한** 으로 다시 실행                                                                                 |
+| `npm install -g` 권한 오류              | Scoop 으로 Node.js 를 설치했다면 권한 오류가 나지 않습니다. 수동 설치한 경우 관리자 PowerShell 에서 재시도                    |
 | 사내 네트워크에서 `npm install` 이 느림 | `npm config set registry https://<사내-미러>` 또는 `npm config set proxy http://<프록시>:<포트>` 설정                        |

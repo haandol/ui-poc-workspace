@@ -3,7 +3,7 @@ title: 'Install Tools'
 weight: 10
 ---
 
-Install **Node.js and Claude Code** for Day 1 of the workshop. A single one-liner installs everything you need (Homebrew/winget → Node.js → Claude Code).
+Install **Node.js and Claude Code** for Day 1 of the workshop. A single one-liner installs everything you need (Homebrew/Scoop → Node.js → Claude Code).
 
 ## Icons used in this guide
 
@@ -17,15 +17,14 @@ This guide hops between **two different input windows**. Icons make it clear whi
 ## Prerequisite: open a terminal
 
 ::::tabs
-:::tab{label="Windows (PowerShell as Administrator)"}
+:::tab{label="Windows (PowerShell)"}
 
 1. Click the **Start (⊞)** button on the taskbar or press the **Windows key**.
 2. Type `powershell`.
-3. In the search results, right-click **"Windows PowerShell"** or **"PowerShell"** and choose **"Run as administrator"**.
-4. When the "Do you want to allow this app to make changes to your device?" prompt appears, click **Yes**.
-5. A blue (or black) window opens. This is your 💻 **Terminal**. Confirm the title bar shows **"Administrator:"**.
+3. In the search results, click **"Windows PowerShell"** or **"PowerShell"**.
+4. A blue (or black) window opens. This is your 💻 **Terminal**.
 
-::alert[A regular PowerShell window will fail the later `npm install -g` step with a permission error. Make sure the title bar shows **"Administrator:"**.]{type="warning"}
+::alert[Scoop works without administrator privileges. A regular PowerShell window is fine.]{type="info"}
 
 :::
 :::tab{label="Mac"}
@@ -51,7 +50,7 @@ curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scrip
 :::
 :::tab{label="Windows"}
 
-Paste the line below into the 💻 PowerShell (as Administrator) window you opened in the "Prerequisite" step.
+Paste the line below into the 💻 PowerShell window you opened in the "Prerequisite" step.
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
 iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
@@ -62,7 +61,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 You're done when you see a message similar to **"Claude Code is ready"**.
 
-Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/winget), (2) install Node.js LTS, (3) `npm install -g @anthropic-ai/claude-code`.
+Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/Scoop), (2) install Node.js LTS, (3) `npm install -g @anthropic-ai/claude-code`.
 
 ## Verify the install
 
@@ -81,9 +80,9 @@ If a version number is printed, the install succeeded.
 | Symptom                                     | Fix                                                                                    |
 | ------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `npm install -g` permission error (Mac)     | `sudo npm install -g @anthropic-ai/claude-code`                                        |
-| `npm install -g` permission error (Windows) | Reopen PowerShell **as Administrator** and retry                                       |
+| `npm install -g` permission error (Windows) | Scoop-installed Node.js should not need admin. If manually installed, reopen PowerShell as Administrator |
 | `node` / `claude` not found (Windows)       | Close and reopen PowerShell (PATH needs to refresh)                                    |
-| `winget` is missing or broken (Windows)     | Download Node.js LTS `.msi` directly from [nodejs.org](https://nodejs.org/en/download) |
+| `scoop` is missing or broken (Windows)      | Download Node.js LTS `.msi` directly from [nodejs.org](https://nodejs.org/en/download) |
 
 ## Manual install (step by step)
 

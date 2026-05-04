@@ -3,7 +3,7 @@ title: '도구 설치'
 weight: 10
 ---
 
-워크숍 1일차에 사용할 **Node.js 와 Claude Code** 를 설치합니다. 원라이너 한 줄로 필요한 도구(Homebrew/winget → Node.js → Claude Code)를 한 번에 설치할 수 있습니다.
+워크숍 1일차에 사용할 **Node.js 와 Claude Code** 를 설치합니다. 원라이너 한 줄로 필요한 도구(Homebrew/Scoop → Node.js → Claude Code)를 한 번에 설치할 수 있습니다.
 
 ## 문서에서 쓰는 표기
 
@@ -17,15 +17,14 @@ weight: 10
 ## 사전 준비: 터미널 여는 법
 
 ::::tabs
-:::tab{label="Windows (PowerShell 관리자 권한)"}
+:::tab{label="Windows (PowerShell)"}
 
 1. 작업 표시줄의 **시작(⊞)** 버튼을 클릭하거나, 키보드의 **Windows 키** 를 누릅니다.
 2. `powershell` 이라고 입력합니다.
-3. 검색 결과에서 **"Windows PowerShell"** 또는 **"PowerShell"** 을 **우클릭 → "관리자 권한으로 실행"** 을 선택합니다.
-4. "이 앱이 디바이스를 변경할 수 있도록 허용하시겠습니까?" 창이 뜨면 **예**를 클릭합니다.
-5. 파란색(또는 검은색) 창이 열립니다. 이 창이 💻 **터미널** 입니다. 창 제목에 **"관리자:"** 가 붙어있는지 확인하세요.
+3. 검색 결과에서 **"Windows PowerShell"** 또는 **"PowerShell"** 을 클릭합니다.
+4. 파란색(또는 검은색) 창이 열립니다. 이 창이 💻 **터미널** 입니다.
 
-::alert[일반 PowerShell 창이라면 뒤의 `npm install -g` 단계에서 권한 오류가 납니다. 반드시 **관리자 권한** 으로 여세요.]{type="warning"}
+::alert[Scoop 은 관리자 권한 없이 동작합니다. 일반 PowerShell 로 충분합니다.]{type="info"}
 
 :::
 :::tab{label="Mac"}
@@ -51,7 +50,7 @@ curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scrip
 :::
 :::tab{label="Windows"}
 
-위 "사전 준비" 에서 연 💻 PowerShell (관리자 권한) 에 아래를 붙여넣습니다.
+위 "사전 준비" 에서 연 💻 PowerShell 에 아래를 붙여넣습니다.
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
 iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
@@ -62,7 +61,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 **"Claude Code is ready"** 와 유사한 메시지가 나오면 설치 완료입니다.
 
-원라이너가 내부적으로 실행하는 것은 (1) 패키지 매니저 확인 (Homebrew/winget), (2) Node.js LTS 설치, (3) `npm install -g @anthropic-ai/claude-code` 세 단계입니다.
+원라이너가 내부적으로 실행하는 것은 (1) 패키지 매니저 확인 (Homebrew/Scoop), (2) Node.js LTS 설치, (3) `npm install -g @anthropic-ai/claude-code` 세 단계입니다.
 
 ## 설치 확인
 
@@ -81,9 +80,9 @@ claude --version
 | 증상                                       | 해결 방법                                                                                      |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------- |
 | `npm install -g` 에서 권한 오류 (Mac)      | `sudo npm install -g @anthropic-ai/claude-code`                                                |
-| `npm install -g` 에서 권한 오류 (Windows)  | PowerShell 을 **관리자 권한** 으로 다시 실행 후 시도                                           |
+| `npm install -g` 에서 권한 오류 (Windows)  | Scoop 으로 Node.js 를 설치했다면 권한 오류가 나지 않습니다. 수동 설치한 경우 관리자 PowerShell 에서 재시도 |
 | `node` / `claude` 명령을 못 찾음 (Windows) | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                   |
-| winget 이 없거나 작동하지 않음 (Windows)   | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드 |
+| Scoop 이 없거나 작동하지 않음 (Windows)    | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드 |
 
 ## 수동 설치 (단계별)
 

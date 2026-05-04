@@ -1,9 +1,10 @@
 #Requires -Version 5.1
 <#
   Non-Tech UI PoC Workshop - Day 1 Installer (Windows)
-  Installs Git, Node.js (via winget), and Claude Code.
+  Installs Git, Node.js (via Scoop), and Claude Code.
+  No administrator privileges required.
 
-  Usage (PowerShell, run as Administrator):
+  Usage (PowerShell):
     iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
 #>
 
@@ -25,21 +26,15 @@ function Fail ($msg) { Write-Host "  x $msg" -ForegroundColor Red; exit 1 }
 
 '@ | Write-Host
 
-# Refresh PATH in current session after installs (so new executables show up)
-function Refresh-EnvPath {
-  $machine = [Environment]::GetEnvironmentVariable('Path', 'Machine')
-  $user    = [Environment]::GetEnvironmentVariable('Path', 'User')
-  $env:Path = ($machine, $user | Where-Object { $_ }) -join ';'
+# 1) Scoop
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+  Say 'Scoop not found. Installing...'
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+  Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 }
-
-# 1) winget check
-if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-  Fail @"
-winget is not available on this machine. Update 'App Installer' from the Microsoft Store,
-or install Node.js LTS manually from https://nodejs.org/en/download and rerun this script.
-"@
+else {
+  Say 'Scoop OK.'
 }
-Say 'winget OK.'
 
 # 2) Git
 if (Get-Command git -ErrorAction SilentlyContinue) {
@@ -48,8 +43,7 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 }
 else {
   Say 'Installing Git...'
-  winget install --id Git.Git -e --source winget --accept-source-agreements --accept-package-agreements
-  Refresh-EnvPath
+  scoop install git
 }
 
 # 3) Node.js
@@ -70,14 +64,10 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
 
 if ($needNodeInstall) {
   Say 'Installing Node.js LTS...'
-  winget install --id OpenJS.NodeJS.LTS -e --source winget --accept-source-agreements --accept-package-agreements
-  Refresh-EnvPath
+  scoop install nodejs-lts
 }
 
 # 4) npm present?
-if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
-  Refresh-EnvPath
-}
 if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
   Fail @"
 npm not found. Close this PowerShell window, open a new one, and rerun this script.
@@ -92,7 +82,6 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
 else {
   Say 'Installing Claude Code... (npm install -g @anthropic-ai/claude-code)'
   npm install -g '@anthropic-ai/claude-code'
-  Refresh-EnvPath
 }
 
 # 6) Verify
