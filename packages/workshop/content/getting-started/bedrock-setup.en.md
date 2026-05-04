@@ -3,113 +3,74 @@ title: 'Bedrock Setup'
 weight: 20
 ---
 
-Set the environment variables so that Claude Code runs through AWS Bedrock.
+Launch Claude Code and **register Bedrock credentials**. Until you finish this step, Claude Code cannot reply.
 
-Pick one of the two options below.
+## 1. Launch Claude Code
+
+Create a scratch folder and open the Claude Code chat.
 
 ::::tabs
-:::tab{label="Workshop Studio credentials (recommended)"}
-
-**Step 1.** On the Workshop Studio event dashboard, click **Get AWS CLI credentials**.
-
-**Step 2.** Select the tab for your OS (macOS/Linux or Windows), copy the entire block that is shown, and paste it into your terminal.
-
-**Step 3.** Then paste the following in your terminal.
+:::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
-export CLAUDE_CODE_USE_BEDROCK=1
-export AWS_REGION=us-east-1
-export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
-export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
+mkdir -p ~/Desktop/claude-play && cd ~/Desktop/claude-play && claude
 :::
+
+:::
+:::tab{label="Windows (PowerShell)"}
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-$env:CLAUDE_CODE_USE_BEDROCK=1
-$env:AWS_REGION="us-east-1"
-$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
-$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
-:::
-
-**Step 4.** Change into the project folder and start Claude Code.
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
-cd ~/Desktop/ui-poc-workspace
-claude
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
-claude
-:::
-
-::alert[Workshop Studio credentials expire after a while. If Claude Code suddenly stops working, re-run Steps 1–3.]{type="warning"}
-
-:::
-:::tab{label="Bedrock API key"}
-
-Replace only the `<your-bedrock-api-key>` part with your actual key, then paste the block into your terminal.
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
-export AWS_BEARER_TOKEN_BEDROCK=<your-bedrock-api-key>
-export CLAUDE_CODE_USE_BEDROCK=1
-export AWS_REGION=us-east-1
-export ANTHROPIC_DEFAULT_OPUS_MODEL='us.anthropic.claude-opus-4-7'
-export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-haiku-4-5-20251001-v1:0'
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-$env:AWS_BEARER_TOKEN_BEDROCK="<your-bedrock-api-key>"
-$env:CLAUDE_CODE_USE_BEDROCK=1
-$env:AWS_REGION="us-east-1"
-$env:ANTHROPIC_DEFAULT_OPUS_MODEL="us.anthropic.claude-opus-4-7"
-$env:ANTHROPIC_SMALL_FAST_MODEL="us.anthropic.claude-haiku-4-5-20251001-v1:0"
-:::
-
-Change into the project folder and start Claude Code.
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# Mac/Linux
-
-cd ~/Desktop/ui-poc-workspace
-claude
-:::
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-
-# Windows (PowerShell)
-
-cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
+$desktop = [Environment]::GetFolderPath('Desktop')
+New-Item -ItemType Directory -Path "$desktop\claude-play" -Force | Out-Null
+cd "$desktop\claude-play"
 claude
 :::
 
 :::
 ::::
 
-Once Claude Code is running, verify it with a simple question:
+Once the 💬 Claude Code chat opens and the cursor is blinking, move on.
 
-```
-Hello, are you working?
-```
+## 2. Register Bedrock credentials
 
-If you get a normal reply, setup is complete.
+On the **first launch**, Claude Code automatically shows the provider selection screen. Skip straight to Step 1.
 
-::alert[If you see `on-demand throughput isn't supported`, contact your facilitator.]{type="warning"}
+::alert[If the provider selection screen doesn't appear or you're already logged in with a different account, type `/login` in the 💬 chat to bring it back.]{type="info"}
+
+**Step 1.** On the **Select login method** screen, press **`3`** to choose `3rd-party platform` and press Enter.
+
+![Select login method - 3rd-party platform](/static/images/getting-started/setup-bedrock/login-1.png)
+
+**Step 2.** On the **Using 3rd-party platforms** screen, press **`1`** to choose `Amazon Bedrock · interactive setup` and press Enter.
+
+![Using 3rd-party platforms - Amazon Bedrock](/static/images/getting-started/setup-bedrock/login-2.png)
+
+**Step 3.** On the **authentication method** screen, press **`2`** to select `Bedrock API key (bearer token)` and press Enter. The Bedrock API key flow is the simplest and is recommended.
+
+![Auth method - Bedrock API key](/static/images/getting-started/setup-bedrock/cc-1.png)
+
+**Step 4.** On the **Bedrock API key** screen, paste the API key your facilitator gave you and press Enter.
+
+![Paste Bedrock API key](/static/images/getting-started/setup-bedrock/cc-2.png)
+
+**Step 5.** On the **AWS region** screen, enter `us-west-2` (required) and press Enter.
+
+![AWS region us-west-2](/static/images/getting-started/setup-bedrock/cc-3.png)
+
+::alert[Claude Code reads the `AWS_REGION` environment variable, not `~/.aws/config`, so you must specify the region here even if your profile already has one.]{type="info"}
+
+**Step 6.** On the **pin model versions** screen, press **`2`** to select `Pin the working models with 1M context` and press Enter. You're done — no need to set environment variables manually.
+
+![Pin model versions](/static/images/getting-started/setup-bedrock/cc-4.png)
+
+## 3. Smoke test
+
+Type a quick message in the 💬 Claude Code chat to confirm you get a reply.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+hi
+:::
+
+A reply means installation and credential registration are both complete.
+
+::alert[If `/login` goes silent or you see `on-demand throughput isn't supported`, credentials may have expired — ask your facilitator for a new one and rerun `/login`.]{type="warning"}
