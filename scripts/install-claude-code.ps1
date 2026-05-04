@@ -10,6 +10,13 @@
 $ErrorActionPreference = 'Stop'
 $NodeMinMajor = 22
 
+# 한글 출력 깨짐 방지 (Windows PowerShell 5.1 기본 콘솔 인코딩은 CP949)
+try {
+  [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+  $OutputEncoding = [System.Text.UTF8Encoding]::new()
+  chcp 65001 > $null 2>&1
+} catch {}
+
 function Say    ($msg) { Write-Host "  ▸ $msg" }
 function Warn   ($msg) { Write-Host "  ⚠ $msg" -ForegroundColor Yellow }
 function Fail   ($msg) { Write-Host "  ✗ $msg" -ForegroundColor Red; exit 1 }
