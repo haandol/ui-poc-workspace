@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ──────────────────────────────────────────────
 # Non-Tech UI PoC Workshop — Day 1 Installer (Mac)
-# Installs Node.js (via Homebrew) and Claude Code only.
+# Installs Git, Node.js (via Homebrew), and Claude Code.
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.sh | bash
@@ -40,7 +40,15 @@ else
   say "Homebrew OK."
 fi
 
-# 2) Node.js
+# 2) Git
+if command -v git >/dev/null 2>&1; then
+  say "Git already installed: $(git --version)"
+else
+  say "Installing Git..."
+  brew install git
+fi
+
+# 3) Node.js
 need_node_install=1
 if command -v node >/dev/null 2>&1; then
   current_version=$(node --version | sed 's/^v//')
@@ -60,7 +68,7 @@ if [[ "${need_node_install}" -eq 1 ]]; then
   brew link --overwrite --force node@24 || true
 fi
 
-# 3) Claude Code
+# 4) Claude Code
 if command -v claude >/dev/null 2>&1; then
   say "Claude Code already installed: $(claude --version 2>/dev/null || true)"
 else
@@ -68,7 +76,7 @@ else
   npm install -g @anthropic-ai/claude-code
 fi
 
-# 4) Verify
+# 5) Verify
 if command -v claude >/dev/null 2>&1; then
   cat << EOF
 

@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
   Non-Tech UI PoC Workshop - Day 1 Installer (Windows)
-  Installs Node.js (via winget) and Claude Code only.
+  Installs Git, Node.js (via winget), and Claude Code.
 
   Usage (PowerShell, run as Administrator):
     iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
@@ -41,7 +41,18 @@ or install Node.js LTS manually from https://nodejs.org/en/download and rerun th
 }
 Say 'winget OK.'
 
-# 2) Node.js
+# 2) Git
+if (Get-Command git -ErrorAction SilentlyContinue) {
+  $gitVer = (& git --version) 2>$null
+  Say "Git already installed: $gitVer"
+}
+else {
+  Say 'Installing Git...'
+  winget install --id Git.Git -e --source winget --accept-source-agreements --accept-package-agreements
+  Refresh-EnvPath
+}
+
+# 3) Node.js
 $needNodeInstall = $true
 if (Get-Command node -ErrorAction SilentlyContinue) {
   $raw = (& node --version) 2>$null
@@ -63,7 +74,7 @@ if ($needNodeInstall) {
   Refresh-EnvPath
 }
 
-# 3) npm present?
+# 4) npm present?
 if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
   Refresh-EnvPath
 }
@@ -73,7 +84,7 @@ npm not found. Close this PowerShell window, open a new one, and rerun this scri
 "@
 }
 
-# 4) Claude Code
+# 5) Claude Code
 if (Get-Command claude -ErrorAction SilentlyContinue) {
   $ver = (& claude --version) 2>$null
   Say "Claude Code already installed: $ver"
@@ -84,7 +95,7 @@ else {
   Refresh-EnvPath
 }
 
-# 5) Verify
+# 6) Verify
 if (Get-Command claude -ErrorAction SilentlyContinue) {
   $ver = (& claude --version) 2>$null
   @"
