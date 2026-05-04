@@ -1,7 +1,6 @@
 # Claude Code 설치 & 자격증명 등록 가이드
 
-워크숍 1일차에서 사용할 **Claude Code 를 설치하고 Bedrock 자격증명을 등록** 하는 전체 과정을 담고 있습니다.
-원라이너 설치만 하면 되는 분은 [WORKSHOP_1ST_DAY.md](./WORKSHOP_1ST_DAY.md) 의 "Claude Code 설치" 섹션만 따라도 됩니다.
+워크숍 1일차에서 사용할 **Claude Code 를 설치하고 Bedrock 자격증명을 등록** 하는 전체 과정을 담고 있습니다. 순서대로 따라가면 Claude Code 가 동작하는 상태까지 만들 수 있습니다.
 
 ---
 

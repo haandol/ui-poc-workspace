@@ -74,38 +74,10 @@
 
 오늘은 **Claude Code** 를 설치하고, Bedrock 자격증명을 Claude Code 에 등록하는 것까지 진행합니다.
 
-### 원라이너 설치 (Mac / Windows 공통)
+👉 **[INSTALLATION_CLAUDE_CODE.md](./INSTALLATION_CLAUDE_CODE.md)** 를 열어 **원라이너 설치 → 자격증명 등록** 까지 순서대로 따라가세요. 전 과정이 한 문서 안에 있습니다.
 
-필요한 도구(Node.js, Claude Code) 를 한 번에 설치합니다. 💻 터미널 또는 💻 PowerShell 에 **아래 한 줄을 그대로 복사해서 붙여넣고 Enter** 를 누르세요.
+설치가 끝나면 [3. 휴식 + 설치 점검 시간](#3-휴식--설치-점검-시간-1420--1450) 으로 넘어오면 됩니다.
 
-**Mac**:
-
-```bash
-# 💻 터미널 (Mac)
-curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.sh | bash
-```
-
-**Windows** — 💻 PowerShell 을 **관리자 권한** 으로 열고:
-
-```powershell
-# 💻 PowerShell (Windows, 관리자 권한)
-iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/install-claude-code.ps1 | iex
-```
-
-설치는 약 3~5분 소요됩니다. **"Claude Code is ready"** 와 유사한 메시지가 나오면 완료.
-
-설치 확인:
-
-```bash
-# 💻 터미널 / PowerShell 공통
-claude --version
-```
-
-버전 번호가 출력되면 설치 성공입니다.
-
-> **그 외 상세(자격증명 등록, 오류 대응 등) 는 별도 문서로 분리했습니다.**
-> 👉 **[INSTALLATION_CLAUDE_CODE.md](./INSTALLATION_CLAUDE_CODE.md)** 를 따라 자격증명 등록까지 마친 뒤 [3. 휴식 + 설치 점검 시간](#3-휴식--설치-점검-시간-1420--1450) 으로 넘어가세요.
->
 > 설치가 도중에 멈추거나 오류 메시지가 나타나면 도우미에게 편하게 요청해주세요.
 
 ---
