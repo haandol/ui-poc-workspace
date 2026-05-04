@@ -1,4 +1,4 @@
-# Non-Tech UI PoC Workshop Runbook
+# Non-Tech UI PoC Workshop Runbook — Day 2
 
 비개발자(PM)를 위한 AI 기반 UI PoC 워크숍 런북입니다.
 자신이 만들고 싶은 서비스 아이디어만 가져오면, 리서치부터 PRD 작성, 실제 웹 UI PoC까지 완성할 수 있습니다.
