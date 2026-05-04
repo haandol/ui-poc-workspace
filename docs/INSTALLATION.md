@@ -24,8 +24,6 @@
 3. 검색 결과에서 **"Windows PowerShell"** 또는 **"PowerShell"** 을 클릭합니다.
 4. 파란색(또는 검은색) 창이 열립니다. 이 창이 💻 **터미널** 입니다.
 
-> **Tip**: Scoop 은 관리자 권한 없이 동작합니다. 일반 PowerShell 로 충분합니다.
-
 ### Mac — 터미널 여는 법
 
 1. 키보드에서 **⌘(Command) + Space** 를 눌러 Spotlight 를 엽니다.
@@ -119,15 +117,13 @@ Claude Code 를 **처음 실행**하면 어떤 provider(Anthropic / Bedrock / Ve
 
 ### 3-5. AWS region 입력
 
-**AWS region** 입력 화면에서 반드시 `us-west-2` 를 입력하고 Enter.
+**AWS region** 입력 화면에서 반드시 `us-east-1` 를 입력하고 Enter.
 
-![AWS region us-west-2](./workshop-assets/setup-bedrock/cc-3.png)
-
-> Claude Code 는 `~/.aws/config` 가 아니라 `AWS_REGION` 환경변수를 읽기 때문에, 프로필에 리전이 있더라도 여기에서 명시적으로 지정해야 합니다.
+![AWS region us-east-1](./workshop-assets/setup-bedrock/cc-3.png)
 
 ### 3-6. 모델 버전 핀 고정
 
-**모델 버전 핀 고정** 화면에서 **`2` 를 눌러** `Pin the working models with 1M context` 를 선택하고 Enter. 환경변수를 직접 설정할 필요가 없습니다.
+**모델 버전 핀 고정** 화면에서 **`4` 를 눌러** `Skip` 를 선택하고 Enter.
 
 ![Pin model versions](./workshop-assets/setup-bedrock/cc-4.png)
 
@@ -147,14 +143,14 @@ hi
 
 ## 4. 트러블슈팅
 
-| 증상                                        | 해결 방법                                                                                      |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `npm install -g` 에서 권한 오류 (Mac)       | `sudo npm install -g @anthropic-ai/claude-code`                                                |
+| 증상                                        | 해결 방법                                                                                                  |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `npm install -g` 에서 권한 오류 (Mac)       | `sudo npm install -g @anthropic-ai/claude-code`                                                            |
 | `npm install -g` 에서 권한 오류 (Windows)   | Scoop 으로 Node.js 를 설치했다면 권한 오류가 나지 않습니다. 수동 설치한 경우 관리자 PowerShell 에서 재시도 |
-| `node` / `claude` 명령을 못 찾음 (Windows)  | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                   |
-| Scoop 이 없거나 작동하지 않음 (Windows)     | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드 |
-| `/setup-bedrock` 입력 후 응답이 없음        | 자격증명이 만료됐을 수 있음. 진행자에게 새 자격증명 요청 후 재입력                             |
-| `on-demand throughput isn't supported` 오류 | 진행자에게 문의                                                                                |
+| `node` / `claude` 명령을 못 찾음 (Windows)  | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                               |
+| Scoop 이 없거나 작동하지 않음 (Windows)     | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드             |
+| `/setup-bedrock` 입력 후 응답이 없음        | 자격증명이 만료됐을 수 있음. 진행자에게 새 자격증명 요청 후 재입력                                         |
+| `on-demand throughput isn't supported` 오류 | 진행자에게 문의                                                                                            |
 
 ---
 
