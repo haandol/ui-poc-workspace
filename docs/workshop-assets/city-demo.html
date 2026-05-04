@@ -958,13 +958,14 @@
 
         const bodyGeom = new THREE.BoxGeometry(0.3, 1.2, 0.3);
         const headGeom = new THREE.SphereGeometry(0.18, 10, 10);
+        const headColor = 0xf0d6be;
 
         const sidewalkOffset = roadW / 2 + 0.6;
-
         const peopleCount = 40;
+
         for (let i = 0; i < peopleCount; i++) {
           const color = peoplePalette[i % peoplePalette.length];
-          const speed = 1.1 + Math.random() * 0.8;
+          const baseSpeed = 1.1 + Math.random() * 0.8;
           const person = new THREE.Group();
 
           const bodyMat = new THREE.MeshStandardMaterial({
@@ -979,7 +980,6 @@
           body.castShadow = true;
           person.add(body);
 
-          const headColor = 0xf0d6be;
           const headMat = new THREE.MeshStandardMaterial({
             color: headColor,
             roughness: 0.7,
@@ -992,12 +992,21 @@
           head.castShadow = true;
           person.add(head);
 
-          person.userData.speed = speed;
-          person.userData.baseSpeed = speed;
-          person.userData.bodyMat = bodyMat;
-          person.userData.headMat = headMat;
-          assignSidewalk(person);
+          person.userData = {
+            baseSpeed,
+            speed: baseSpeed,
+            bodyMat,
+            headMat,
+            mode: "sidewalk",
+            axis: Math.random() < 0.5 ? "x" : "z",
+            roadIdx:
+              roadIndices[Math.floor(Math.random() * roadIndices.length)],
+            side: Math.random() < 0.5 ? 1 : -1,
+            dir: Math.random() < 0.5 ? 1 : -1,
+            crossCooldown: 2 + Math.random() * 4,
+          };
 
+          placeOnSidewalk(person, (Math.random() - 0.5) * mapSize * 0.9);
           pedestrians.add(person);
           pedestrians.userData.people.push(person);
         }
@@ -1005,140 +1014,100 @@
         scene.add(pedestrians);
       }
 
-      function assignSidewalk(person) {
-        // Pick a horizontal or vertical road, side (+/-), sidewalk offset.
-        const axis = Math.random() < 0.5 ? "x" : "z";
-        const roadIdx =
-          roadIndices[Math.floor(Math.random() * roadIndices.length)];
-        const side = Math.random() < 0.5 ? 1 : -1;
-        const dir = Math.random() < 0.5 ? 1 : -1;
+      function placeOnSidewalk(person, along) {
         const sidewalkOffset = roadW / 2 + 0.6;
-
-        person.userData.mode = "sidewalk";
-        person.userData.axis = axis;
-        person.userData.roadIdx = roadIdx;
-        person.userData.side = side;
-        person.userData.dir = dir;
-        person.userData.speed = person.userData.baseSpeed;
-
-        const along = Math.random() * mapSize - halfMap;
-        if (axis === "x") {
-          person.position.set(
-            along,
-            0,
-            roadIdx * roadStep + side * sidewalkOffset,
-          );
-          person.rotation.y = dir === 1 ? 0 : Math.PI;
+        const ud = person.userData;
+        const sidewalkCoord = ud.roadIdx * roadStep + ud.side * sidewalkOffset;
+        if (ud.axis === "x") {
+          person.position.set(along, 0, sidewalkCoord);
+          person.rotation.y = ud.dir === 1 ? 0 : Math.PI;
         } else {
-          person.position.set(
-            roadIdx * roadStep + side * sidewalkOffset,
-            0,
-            along,
-          );
-          person.rotation.y = dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+          person.position.set(sidewalkCoord, 0, along);
+          person.rotation.y = ud.dir === 1 ? -Math.PI / 2 : Math.PI / 2;
         }
-      }
-
-      function startCrossing(person) {
-        // Find the nearest intersection along the person's axis, switch to crossing mode across the perpendicular road.
-        const sidewalkOffset = roadW / 2 + 0.6;
-        const axis = person.userData.axis;
-        const roadIdx = person.userData.roadIdx;
-        const side = person.userData.side;
-
-        if (axis === "x") {
-          // pedestrian walks along X on the east-west road at z = roadIdx*roadStep + side*sidewalkOffset.
-          // Crossing moves across Z of a perpendicular (vertical) road at x = crossRoadIdx*roadStep.
-          const crossIdx =
-            roadIndices[Math.floor(Math.random() * roadIndices.length)];
-          const start = new THREE.Vector3(
-            crossRoadAlignedCoord(person.position.x, crossIdx),
-            0,
-            person.position.z,
-          );
-          const end = new THREE.Vector3(
-            start.x,
-            0,
-            roadIdx * roadStep + -side * sidewalkOffset,
-          );
-          person.position.copy(start);
-          person.userData.mode = "crossing";
-          person.userData.crossStart = start;
-          person.userData.crossEnd = end;
-          person.userData.crossAxis = "z";
-          person.userData.speed = person.userData.baseSpeed * 1.6;
-          person.rotation.y = end.z > start.z ? Math.PI / 2 : -Math.PI / 2;
-          person.userData.nextSide = -side;
-        } else {
-          const crossIdx =
-            roadIndices[Math.floor(Math.random() * roadIndices.length)];
-          const start = new THREE.Vector3(
-            person.position.x,
-            0,
-            crossRoadAlignedCoord(person.position.z, crossIdx),
-          );
-          const end = new THREE.Vector3(
-            roadIdx * roadStep + -side * sidewalkOffset,
-            0,
-            start.z,
-          );
-          person.position.copy(start);
-          person.userData.mode = "crossing";
-          person.userData.crossStart = start;
-          person.userData.crossEnd = end;
-          person.userData.crossAxis = "x";
-          person.userData.speed = person.userData.baseSpeed * 1.6;
-          person.rotation.y = end.x > start.x ? 0 : Math.PI;
-          person.userData.nextSide = -side;
-        }
-      }
-
-      function crossRoadAlignedCoord(current, crossIdx) {
-        // Clamp: pick the coordinate of the nearest intersection in the direction of travel.
-        return crossIdx * roadStep;
       }
 
       function updatePedestrians(delta) {
         if (!pedestrians) return;
+        const sidewalkOffset = roadW / 2 + 0.6;
+        const minEdge = roadIndices[0] * roadStep;
+        const maxEdge = roadIndices[roadIndices.length - 1] * roadStep;
+
         pedestrians.userData.people.forEach((p) => {
           const ud = p.userData;
 
           if (ud.mode === "sidewalk") {
+            const step = ud.dir * ud.speed * delta;
             if (ud.axis === "x") {
-              p.position.x += ud.dir * ud.speed * delta;
-              if (p.position.x > halfMap) p.position.x = -halfMap;
-              if (p.position.x < -halfMap) p.position.x = halfMap;
+              p.position.x += step;
+              if (p.position.x > maxEdge) p.position.x = minEdge;
+              if (p.position.x < minEdge) p.position.x = maxEdge;
             } else {
-              p.position.z += ud.dir * ud.speed * delta;
-              if (p.position.z > halfMap) p.position.z = -halfMap;
-              if (p.position.z < -halfMap) p.position.z = halfMap;
+              p.position.z += step;
+              if (p.position.z > maxEdge) p.position.z = minEdge;
+              if (p.position.z < minEdge) p.position.z = maxEdge;
             }
-            // Occasionally switch to crossing near intersections.
-            if (Math.random() < 0.002) {
-              startCrossing(p);
+
+            ud.crossCooldown -= delta;
+            if (ud.crossCooldown > 0) return;
+
+            // Try to cross at the nearest intersection along the walk direction.
+            const along = ud.axis === "x" ? p.position.x : p.position.z;
+            const nextIntersection =
+              Math.round(along / roadStep) * roadStep;
+            const distToIntersection = Math.abs(nextIntersection - along);
+            if (distToIntersection < 1.2) {
+              // Snap to the intersection center and start crossing.
+              if (ud.axis === "x") {
+                p.position.x = nextIntersection;
+              } else {
+                p.position.z = nextIntersection;
+              }
+              ud.mode = "crossing";
+              ud.speed = ud.baseSpeed * 1.6;
+              ud.nextSide = -ud.side;
+              ud.crossTarget =
+                ud.roadIdx * roadStep + ud.nextSide * sidewalkOffset;
+              if (ud.axis === "x") {
+                p.rotation.y =
+                  ud.crossTarget > p.position.z ? Math.PI / 2 : -Math.PI / 2;
+              } else {
+                p.rotation.y =
+                  ud.crossTarget > p.position.x ? 0 : Math.PI;
+              }
             }
           } else if (ud.mode === "crossing") {
-            const target = ud.crossEnd;
             const step = ud.speed * delta;
-            const toTarget = target.clone().sub(p.position);
-            const dist = toTarget.length();
-            if (dist <= step) {
-              // Arrived. Resume sidewalk on the other side.
-              p.position.copy(target);
-              ud.side = ud.nextSide;
-              ud.mode = "sidewalk";
-              ud.speed = ud.baseSpeed;
-              // Keep axis and roadIdx.
-              if (ud.axis === "x") {
-                p.rotation.y = ud.dir === 1 ? 0 : Math.PI;
-              } else {
-                p.rotation.y = ud.dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+            if (ud.axis === "x") {
+              const delta2 = ud.crossTarget - p.position.z;
+              const move = Math.sign(delta2) * Math.min(step, Math.abs(delta2));
+              p.position.z += move;
+              if (Math.abs(ud.crossTarget - p.position.z) < 0.01) {
+                finishCrossing(p);
               }
             } else {
-              p.position.add(toTarget.multiplyScalar(step / dist));
+              const delta2 = ud.crossTarget - p.position.x;
+              const move = Math.sign(delta2) * Math.min(step, Math.abs(delta2));
+              p.position.x += move;
+              if (Math.abs(ud.crossTarget - p.position.x) < 0.01) {
+                finishCrossing(p);
+              }
             }
           }
         });
+      }
+
+      function finishCrossing(person) {
+        const ud = person.userData;
+        ud.side = ud.nextSide;
+        ud.mode = "sidewalk";
+        ud.speed = ud.baseSpeed;
+        ud.crossCooldown = 3 + Math.random() * 5;
+        if (ud.axis === "x") {
+          person.rotation.y = ud.dir === 1 ? 0 : Math.PI;
+        } else {
+          person.rotation.y = ud.dir === 1 ? -Math.PI / 2 : Math.PI / 2;
+        }
       }
 
       function applyPedestriansMood() {
