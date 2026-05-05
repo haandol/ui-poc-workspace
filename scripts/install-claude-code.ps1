@@ -80,8 +80,8 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
   Say "Claude Code already installed: $ver"
 }
 else {
-  Say 'Installing Claude Code... (npm install -g @anthropic-ai/claude-code)'
-  npm install -g '@anthropic-ai/claude-code'
+  Say 'Installing Claude Code... (irm https://claude.ai/install.ps1 | iex)'
+  irm https://claude.ai/install.ps1 | iex
 }
 
 # 6) Verify
