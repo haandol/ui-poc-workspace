@@ -50,7 +50,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 설치는 약 3~5분 소요됩니다. **"Claude Code is ready"** 와 유사한 메시지가 나오면 완료.
 
-원라이너가 내부적으로 실행하는 것은 (1) Homebrew/Scoop 확인, (2) Node.js LTS 설치, (3) Claude Code 설치(`scoop install claude-code`) 세 단계입니다.
+원라이너가 내부적으로 실행하는 것은 (1) Homebrew/Scoop 확인, (2) Node.js 22+ 설치, (3) Claude Code 설치(`scoop install claude-code`) 세 단계입니다.
 
 **설치 확인** — 💻 터미널에서:
 

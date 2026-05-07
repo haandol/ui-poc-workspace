@@ -61,7 +61,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 You're done when you see a message similar to **"Claude Code is ready"**.
 
-Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/Scoop), (2) install Node.js LTS, (3) install Claude Code (Windows: `scoop install claude-code` / Mac: official installer).
+Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/Scoop), (2) install Node.js 22+, (3) install Claude Code (Windows: `scoop install claude-code` / Mac: official installer).
 
 ## Verify the install
 

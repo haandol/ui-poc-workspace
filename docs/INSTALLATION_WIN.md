@@ -27,7 +27,7 @@ Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
 ## 2. Node.js 설치
 
-Claude Code 는 Node.js **22 이상**에서 동작합니다. 워크숍에서는 Node.js LTS 를 사용합니다.
+Claude Code 는 Node.js **22 이상**에서 동작합니다. Scoop 으로 설치하면 22+ 가 설치됩니다.
 
 ```powershell
 scoop install nodejs-lts

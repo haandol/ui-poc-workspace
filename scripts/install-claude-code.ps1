@@ -57,13 +57,13 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
       $needNodeInstall = $false
     }
     else {
-      Warn "Node.js $raw is too old. Installing Node.js LTS."
+      Warn "Node.js $raw is too old (need 22+). Installing Node.js..."
     }
   }
 }
 
 if ($needNodeInstall) {
-  Say 'Installing Node.js LTS...'
+  Say 'Installing Node.js 22+...'
   scoop install nodejs-lts
 }
 

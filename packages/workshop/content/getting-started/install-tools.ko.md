@@ -61,7 +61,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 **"Claude Code is ready"** 와 유사한 메시지가 나오면 설치 완료입니다.
 
-원라이너가 내부적으로 실행하는 것은 (1) 패키지 매니저 확인 (Homebrew/Scoop), (2) Node.js LTS 설치, (3) Claude Code 설치 (Windows: `scoop install claude-code` / Mac: 공식 인스톨러) 세 단계입니다.
+원라이너가 내부적으로 실행하는 것은 (1) 패키지 매니저 확인 (Homebrew/Scoop), (2) Node.js 22+ 설치, (3) Claude Code 설치 (Windows: `scoop install claude-code` / Mac: 공식 인스톨러) 세 단계입니다.
 
 ## 설치 확인
 
