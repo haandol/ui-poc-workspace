@@ -49,13 +49,11 @@ npm --version
 
 ## 3. Claude Code 설치
 
-npm 전역 설치로 `claude` 커맨드를 시스템에 등록합니다.
+Scoop 을 이용해 `claude` 커맨드를 시스템에 등록합니다.
 
 ```powershell
-npm install -g "@anthropic-ai/claude-code"
+scoop install claude-code
 ```
-
-> 권한 오류가 나면 PowerShell 을 **관리자 권한**으로 다시 열고 재시도하세요.
 
 설치 후 **PowerShell 창을 닫고 새로 여세요** (PATH 갱신 필요).
 
@@ -77,9 +75,8 @@ claude --version
 
 ## 트러블슈팅
 
-| 증상                                    | 해결 방법                                                                                                                    |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `scoop` 이 없음 / 작동하지 않음         | 위 1단계의 Scoop 설치 명령을 실행, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치              |
-| `node` / `claude` 를 찾을 수 없음       | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                                                 |
-| `npm install -g` 권한 오류              | Scoop 으로 Node.js 를 설치했다면 권한 오류가 나지 않습니다. 수동 설치한 경우 관리자 PowerShell 에서 재시도                    |
-| 사내 네트워크에서 `npm install` 이 느림 | `npm config set registry https://<사내-미러>` 또는 `npm config set proxy http://<프록시>:<포트>` 설정                        |
+| 증상                              | 해결 방법                                                                                                      |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `scoop` 이 없음 / 작동하지 않음   | 위 1단계의 Scoop 설치 명령을 실행, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치 |
+| `node` / `claude` 를 찾을 수 없음 | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                                   |
+| `scoop install claude-code` 실패  | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치                         |

@@ -50,7 +50,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 설치는 약 3~5분 소요됩니다. **"Claude Code is ready"** 와 유사한 메시지가 나오면 완료.
 
-원라이너가 내부적으로 실행하는 것은 (1) Homebrew/Scoop 확인, (2) Node.js LTS 설치, (3) `npm install -g @anthropic-ai/claude-code` 세 단계입니다.
+원라이너가 내부적으로 실행하는 것은 (1) Homebrew/Scoop 확인, (2) Node.js LTS 설치, (3) Claude Code 설치(`scoop install claude-code`) 세 단계입니다.
 
 **설치 확인** — 💻 터미널에서:
 
@@ -143,14 +143,14 @@ hi
 
 ## 4. 트러블슈팅
 
-| 증상                                        | 해결 방법                                                                                                  |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `npm install -g` 에서 권한 오류 (Mac)       | `sudo npm install -g @anthropic-ai/claude-code`                                                            |
-| `npm install -g` 에서 권한 오류 (Windows)   | Scoop 으로 Node.js 를 설치했다면 권한 오류가 나지 않습니다. 수동 설치한 경우 관리자 PowerShell 에서 재시도 |
-| `node` / `claude` 명령을 못 찾음 (Windows)  | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                               |
-| Scoop 이 없거나 작동하지 않음 (Windows)     | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드             |
-| `/setup-bedrock` 입력 후 응답이 없음        | 자격증명이 만료됐을 수 있음. 진행자에게 새 자격증명 요청 후 재입력                                         |
-| `on-demand throughput isn't supported` 오류 | 진행자에게 문의                                                                                            |
+| 증상                                        | 해결 방법                                                                                      |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `npm install -g` 에서 권한 오류 (Mac)       | `sudo npm install -g @anthropic-ai/claude-code`                                                |
+| `scoop install claude-code` 실패 (Windows)  | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치         |
+| `node` / `claude` 명령을 못 찾음 (Windows)  | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                   |
+| Scoop 이 없거나 작동하지 않음 (Windows)     | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 LTS `.msi` 직접 다운로드 |
+| `/setup-bedrock` 입력 후 응답이 없음        | 자격증명이 만료됐을 수 있음. 진행자에게 새 자격증명 요청 후 재입력                             |
+| `on-demand throughput isn't supported` 오류 | 진행자에게 문의                                                                                |
 
 ---
 

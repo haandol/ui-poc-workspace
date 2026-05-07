@@ -80,8 +80,8 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
   Say "Claude Code already installed: $ver"
 }
 else {
-  Say 'Installing Claude Code... (irm https://claude.ai/install.ps1 | iex)'
-  irm https://claude.ai/install.ps1 | iex
+  Say 'Installing Claude Code via Scoop...'
+  scoop install claude-code
 }
 
 # 6) Verify

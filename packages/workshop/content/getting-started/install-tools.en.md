@@ -61,7 +61,7 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 
 You're done when you see a message similar to **"Claude Code is ready"**.
 
-Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/Scoop), (2) install Node.js LTS, (3) `npm install -g @anthropic-ai/claude-code`.
+Under the hood, the one-liner does three things: (1) check the package manager (Homebrew/Scoop), (2) install Node.js LTS, (3) install Claude Code (Windows: `scoop install claude-code` / Mac: official installer).
 
 ## Verify the install
 
@@ -77,12 +77,12 @@ If a version number is printed, the install succeeded.
 
 ## Troubleshooting
 
-| Symptom                                     | Fix                                                                                    |
-| ------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `npm install -g` permission error (Mac)     | `sudo npm install -g @anthropic-ai/claude-code`                                        |
-| `npm install -g` permission error (Windows) | Scoop-installed Node.js should not need admin. If manually installed, reopen PowerShell as Administrator |
-| `node` / `claude` not found (Windows)       | Close and reopen PowerShell (PATH needs to refresh)                                    |
-| `scoop` is missing or broken (Windows)      | Download Node.js LTS `.msi` directly from [nodejs.org](https://nodejs.org/en/download) |
+| Symptom                                     | Fix                                                                                     |
+| ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `npm install -g` permission error (Mac)     | `sudo npm install -g @anthropic-ai/claude-code`                                         |
+| `scoop install claude-code` fails (Windows) | Run `scoop update` first, or use `npm install -g @anthropic-ai/claude-code` as fallback |
+| `node` / `claude` not found (Windows)       | Close and reopen PowerShell (PATH needs to refresh)                                     |
+| `scoop` is missing or broken (Windows)      | Download Node.js LTS `.msi` directly from [nodejs.org](https://nodejs.org/en/download)  |
 
 ## Manual install (step by step)
 
