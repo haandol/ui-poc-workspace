@@ -62,18 +62,16 @@ weight: 30
 
 ## 이미지 에셋 생성 설정 (선택)
 
-AI 이미지 생성 기능을 사용하려면 FAL API Key 가 필요합니다. 💬 Claude Code 대화창에 진행자에게 전달받은 키와 함께 아래처럼 요청하면, Claude 가 OS 에 맞게 환경변수를 등록해줍니다.
+AI 이미지 생성 기능을 사용하려면 FAL API Key 가 필요합니다. 💬 Claude Code 대화창에 진행자에게 전달받은 키와 함께 아래처럼 요청합니다:
 
 <!-- prettier-ignore-start -->
 :::code{showCopyAction=true showLineNumbers=false language=text}
 FAL_KEY 를 "진행자에게_전달받은_키" 로 설정해줘.
-Mac이면 ~/.zshrc, Windows면 사용자 환경변수에 영구 등록해줘.
+.claude/settings.local.json 의 env 에 등록해줘.
 :::
 <!-- prettier-ignore-end -->
 
-Claude 가 실행할 명령에 대한 승인 요청이 뜨면 **Yes** 를 선택합니다. 등록이 끝나면 💬 대화창을 `/exit` 으로 종료하고 💻 터미널에서 다시 `claude` 로 실행한 뒤, `/mcp` 에서 `asset-generator` 가 `✔ connected` 상태로 바뀌었는지 확인합니다.
-
-::alert[환경변수는 프로세스 시작 시점에만 읽히기 때문에 Claude Code 를 반드시 **재시작**해야 반영됩니다. `/mcp` 의 reconnect 만으로는 부족합니다.]{type="info"}
+Claude 가 실행할 명령에 대한 승인 요청이 뜨면 **Yes** 를 선택합니다. 등록이 끝나면 `/mcp` 에서 `asset-generator` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
 
 ::alert[FAL API Key 가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 에셋 생성 기능만 비활성화됩니다.]{type="info"}
 

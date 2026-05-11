@@ -62,16 +62,14 @@ You should see something like this:
 
 ## Configure image asset generation (optional)
 
-To use the AI image generation feature, you need a FAL API key. In the 💬 Claude Code chat, paste your key into a request like the one below — Claude will register the environment variable for your OS.
+To use the AI image generation feature, you need a FAL API key. In the 💬 Claude Code chat, paste your key into a request like the one below:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Set FAL_KEY to "KEY_FROM_FACILITATOR".
-On Mac persist it in ~/.zshrc, on Windows persist it as a user environment variable.
+Register it in .claude/settings.local.json under env.
 :::
 
-Approve the command Claude wants to run. Once done, `/exit` the 💬 chat and relaunch `claude` from the 💻 terminal, then run `/mcp` to verify `asset-generator` is now `✔ connected`.
-
-::alert[Environment variables are read at process start, so Claude Code must be **restarted** for the key to take effect. Reconnecting from `/mcp` alone is not enough.]{type="info"}
+Approve the command Claude wants to run. Once done, open `/mcp` and click 🔄 reconnect next to `asset-generator` to verify it switches to `✔ connected`.
 
 ::alert[You can complete the workshop without a FAL API key. Only the image asset generation feature is disabled without it.]{type="info"}
 
