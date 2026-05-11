@@ -47,7 +47,9 @@ Open the URL in your browser:
 
 :button[Open http://localhost:3000]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
 
-If the default page renders, the dev server is working.
+![Dev server default page](/static/images/lab-3/dev-server.png)
+
+If you see this page, the web server is running correctly.
 
 ::alert[The browser hot-reloads automatically when code changes. Keep the dev server tab open at all times.]{type="info"}
 

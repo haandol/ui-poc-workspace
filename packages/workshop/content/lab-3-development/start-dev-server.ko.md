@@ -47,7 +47,9 @@ pnpm dev:web
 
 :button[http://localhost:3000 열기]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
 
-기본 페이지가 표시되면 개발 서버가 정상 동작하는 것입니다.
+![개발 서버 기본 페이지](/static/images/lab-3/dev-server.png)
+
+위 화면이 보이면 웹 서버가 정상적으로 실행된 것입니다.
 
 ::alert[코드가 변경되면 브라우저가 자동으로 새로고침됩니다 (Hot Reload). 개발 서버 탭은 항상 켜두세요.]{type="info"}
 
