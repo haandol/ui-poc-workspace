@@ -1,19 +1,19 @@
 ---
 title: 'Claude Code 설정'
-weight: 20
+weight: 25
 ---
 
-Claude Code 를 실행하고 **Bedrock 자격증명을 등록**합니다. 등록이 끝나야 실제로 AI 응답이 옵니다.
+프로젝트 폴더에서 Claude Code 를 실행하고 **Bedrock 자격증명을 등록**합니다. 등록이 끝나야 실제로 AI 응답이 옵니다.
 
 ## 1. Claude Code 실행
 
-연습용 폴더를 만들고 Claude Code 대화창을 엽니다.
+이전 단계에서 클론한 프로젝트 폴더에서 Claude Code 를 실행합니다.
 
 ::::tabs
 :::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-mkdir -p ~/Desktop/claude-play && cd ~/Desktop/claude-play && claude
+cd ~/Desktop/ui-poc-workspace && claude
 :::
 
 :::
@@ -21,8 +21,7 @@ mkdir -p ~/Desktop/claude-play && cd ~/Desktop/claude-play && claude
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
 $desktop = [Environment]::GetFolderPath('Desktop')
-New-Item -ItemType Directory -Path "$desktop\claude-play" -Force | Out-Null
-cd "$desktop\claude-play"
+cd "$desktop\ui-poc-workspace"
 claude
 :::
 
@@ -83,4 +82,4 @@ hi
 
 ## 다음 단계
 
-Bedrock 연동이 확인되었으면, 다음 페이지에서 워크숍 프로젝트를 다운로드합니다. 지금 열려있는 Claude Code 세션은 다음 단계에서 종료합니다.
+Bedrock 연동이 확인되었으면, 다음 페이지에서 MCP 서버 연결을 확인합니다.

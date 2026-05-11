@@ -1,19 +1,19 @@
 ---
 title: 'Claude Code Setup'
-weight: 20
+weight: 25
 ---
 
-Launch Claude Code and **register Bedrock credentials**. Until you finish this step, Claude Code cannot reply.
+Launch Claude Code from the project folder and **register Bedrock credentials**. Until you finish this step, Claude Code cannot reply.
 
 ## 1. Launch Claude Code
 
-Create a scratch folder and open the Claude Code chat.
+Run Claude Code from the project folder you cloned in the previous step.
 
 ::::tabs
 :::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-mkdir -p ~/Desktop/claude-play && cd ~/Desktop/claude-play && claude
+cd ~/Desktop/ui-poc-workspace && claude
 :::
 
 :::
@@ -21,8 +21,7 @@ mkdir -p ~/Desktop/claude-play && cd ~/Desktop/claude-play && claude
 
 :::code{showCopyAction=true showLineNumbers=false language=powershell}
 $desktop = [Environment]::GetFolderPath('Desktop')
-New-Item -ItemType Directory -Path "$desktop\claude-play" -Force | Out-Null
-cd "$desktop\claude-play"
+cd "$desktop\ui-poc-workspace"
 claude
 :::
 
@@ -83,4 +82,4 @@ When you resume the workshop in a later session and Workshop Studio credentials 
 
 ## Next step
 
-Now that Bedrock is working, the next page walks you through downloading the workshop project. The Claude Code session you have open now will be closed in the next step.
+Now that Bedrock is working, the next page verifies the MCP server connections.
