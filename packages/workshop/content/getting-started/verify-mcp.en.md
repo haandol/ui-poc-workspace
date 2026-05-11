@@ -68,11 +68,17 @@ Configure image generation (FAL API) and progress tracking (Airtable) in one ste
 /workshop-status setup
 :::
 
-Claude asks three things:
+Claude asks for three things at once. Enter them with numbers (newline: Mac `Shift+Enter` / Windows `Ctrl+Enter`):
+
+```
+1. patXXXXXX
+2. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:xxxxxxxx
+3. CoffeeAddictPM
+```
 
 1. **Airtable API key** — the value provided by your facilitator (starts with `pat_...`)
 2. **FAL_KEY** — the fal.ai API key for image generation (provided by your facilitator)
-3. **Nickname** — the name shown in the progress tracker (e.g., "CoffeeAddictPM")
+3. **Nickname** — the name shown in the progress tracker
 
 Once configured, type `/mcp` and click 🔄 reconnect next to `asset-generator` and `airtable` to verify they switch to `✔ connected`.
 

@@ -84,11 +84,17 @@ claude
 /workshop-status setup
 ```
 
-Claude가 세 가지를 물어봅니다:
+Claude가 세 가지를 한 번에 물어봅니다. 아래처럼 번호와 함께 입력하세요 (줄바꿈: Mac `Shift+Enter` / Windows `Ctrl+Enter`):
+
+```
+1. patXXXXXX
+2. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:xxxxxxxx
+3. 커피중독PM
+```
 
 1. **Airtable API Key** — 진행자에게 전달받은 값 (`pat_...`로 시작)
 2. **FAL_KEY** — 이미지 생성용 fal.ai API 키 (진행자에게 전달받은 값)
-3. **닉네임** — 진행 상태에 표시될 이름 (예: "커피중독PM", "픽셀요정")
+3. **닉네임** — 진행 상태에 표시될 이름
 
 설정이 완료되면 `/mcp` 을 입력한 뒤, `asset-generator` 와 `airtable` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
 
