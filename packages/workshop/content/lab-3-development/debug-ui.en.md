@@ -5,12 +5,6 @@ weight: 30
 
 When the screen doesn't look right, the AI can look at the browser itself and fix the issue using `chrome-devtools-mcp`.
 
-## Prerequisites
-
-Keep `http://localhost:3000` open in Chrome.
-
-::alert[This feature only works in Chrome. It doesn't work in Safari or Firefox.]{type="warning"}
-
 ## Ask the AI to look at the screen
 
 Try prompts like:

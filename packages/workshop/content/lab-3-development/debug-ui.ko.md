@@ -5,12 +5,6 @@ weight: 30
 
 개발 중 화면이 의도대로 나오지 않으면, AI가 직접 브라우저 화면을 보고 문제를 찾아 수정할 수 있습니다. `chrome-devtools-mcp`를 활용합니다.
 
-## 사전 준비
-
-Chrome 브라우저에서 `http://localhost:3000`을 열어둡니다.
-
-::alert[이 기능은 Chrome 브라우저에서만 동작합니다. Safari나 Firefox에서는 사용할 수 없습니다.]{type="warning"}
-
 ## 화면 확인 요청
 
 💬 Claude Code 대화창에서 아래와 같이 요청합니다:

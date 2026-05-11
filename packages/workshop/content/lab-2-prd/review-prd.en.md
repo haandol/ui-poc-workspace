@@ -15,24 +15,7 @@ I want to review @docs/prd/XYZ.alps.md — please show it section by section.
 
 ::alert[The file name varies by service name. Type `@docs/prd/` and press Tab to autocomplete.]{type="info"}
 
-If you prefer to use an external editor, open a separate 💻 terminal (not the Claude Code chat):
-
-::::tabs
-:::tab{label="VSCode"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-code docs/prd/
-:::
-
-To see a rendered Markdown preview, open the file and press `Cmd + Shift + V` (Mac) or `Ctrl + Shift + V` (Windows).
-
-:::
-:::tab{label="Notepad / Text editor"}
-
-Open the folder `Desktop > ui-poc-workspace > docs > prd` and double-click the `.alps.md` file.
-
-:::
-::::
+::alert[If you want to open the file directly, navigate to `Desktop > ui-poc-workspace > docs > prd` and double-click the `.alps.md` file.]{type="info"}
 
 ## PRD review checklist
 

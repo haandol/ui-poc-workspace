@@ -15,24 +15,7 @@ weight: 20
 
 ::alert[파일명은 서비스 이름에 따라 다릅니다. `@docs/prd/`까지 입력 후 Tab 키로 자동완성하세요.]{type="info"}
 
-별도 편집기로 열어보고 싶다면 💻 터미널(Claude Code 가 아닌 별도 터미널 창)에서:
-
-::::tabs
-:::tab{label="VSCode"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-code docs/prd/
-:::
-
-파일을 연 뒤 `Cmd + Shift + V` (Mac) 또는 `Ctrl + Shift + V` (Windows) 로 미리보기를 열 수 있습니다.
-
-:::
-:::tab{label="메모장 / 텍스트 편집기"}
-
-`바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열고 `.alps.md` 파일을 더블클릭합니다.
-
-:::
-::::
+::alert[파일을 직접 열어보고 싶다면 `바탕화면 > ui-poc-workspace > docs > prd` 폴더에서 `.alps.md` 파일을 더블클릭하면 됩니다.]{type="info"}
 
 ## PRD 검토 포인트
 
