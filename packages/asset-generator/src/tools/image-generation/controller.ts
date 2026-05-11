@@ -38,7 +38,7 @@ function formatImageResult(result: {
 export function registerImageGenerationTools(server: McpServer, container: DIContainer): void {
   server.tool(
     'generate_image',
-    'Generate an image from a text prompt using GPT Image 2 model via fal.ai. Capable of creating extremely detailed images with fine typography. Returns image URLs. Requires FAL_KEY environment variable.',
+    'Generate an image using GPT Image 2 via fal.ai. Write prompts as detailed natural-language descriptions (style, composition, lighting, colors, typography). Always write prompts in English. Returns image URLs.',
     GENERATE_IMAGE_PARAMS,
     async (args) => {
       try {
