@@ -16,6 +16,7 @@ awsAccountConfig:
     deployableRegions:
       required:
         - us-east-1
+        - us-west-2
     minAccessibleRegions: 1
     maxAccessibleRegions: 1
     accessibleRegions:
