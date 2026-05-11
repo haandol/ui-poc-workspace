@@ -25,32 +25,27 @@ weight: 20
 
 ## Step 4. 프로젝트 폴더에 복사
 
-PDF 파일을 프로젝트의 `docs/` 폴더로 복사합니다.
-
-::::tabs
-:::tab{label="Mac (드래그앤드롭)"}
-
-Finder에서 다운로드 폴더의 PDF 파일을 아래 경로로 드래그앤드롭합니다:
+PDF 파일을 프로젝트의 `docs/` 폴더로 복사합니다. 드래그앤드롭, 복사/붙여넣기 등 편한 방법을 사용하면 되며, 최종적으로 파일이 아래 경로에 위치하기만 하면 됩니다:
 
 ```
 바탕화면 > ui-poc-workspace > docs
 ```
 
-:::
-:::tab{label="Mac (터미널)"}
+터미널을 선호한다면 아래 명령으로도 복사할 수 있습니다.
+
+::::tabs
+:::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 cp ~/Downloads/research.pdf ~/Desktop/ui-poc-workspace/docs/
 :::
 
 :::
-:::tab{label="Windows"}
+:::tab{label="Windows (PowerShell)"}
 
-파일 탐색기에서 다운로드 폴더의 PDF 파일을 아래 경로로 복사합니다:
-
-```
-바탕화면 > ui-poc-workspace > docs
-```
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+Copy-Item "$HOME\Downloads\research.pdf" "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace\docs\"
+:::
 
 :::
 ::::
