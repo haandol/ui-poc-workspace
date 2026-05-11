@@ -16,12 +16,10 @@
   "private": true,
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@parcel/watcher",
       "@swc/core",
       "esbuild",
       "nx"
-    ],
-    "ignoredBuiltDependencies": [
-      "@parcel/watcher"
     ]
   },
   "devDependencies": {
