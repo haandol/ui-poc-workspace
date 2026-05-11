@@ -7,32 +7,13 @@ This workshop makes use of several MCP (Model Context Protocol) servers. MCP ser
 
 ## Check the MCP server list
 
-Run Claude Code from the project folder, then type `/mcp`.
-
-::::tabs
-:::tab{label="Mac"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-cd ~/Desktop/ui-poc-workspace
-claude
-:::
-
-:::
-:::tab{label="Windows (PowerShell)"}
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
-claude
-:::
-
-:::
-::::
-
-Once Claude Code is running, enter:
+You should already have Claude Code running in the project folder (`ui-poc-workspace`) from the previous step. In the 💬 Claude Code chat, enter:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /mcp
 :::
+
+::alert[If Claude Code isn't running, open a 💻 terminal and launch it from the project folder. Mac: `cd ~/Desktop/ui-poc-workspace && claude` / Windows: `cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude`]{type="info"}
 
 You should see something like this:
 
@@ -76,41 +57,26 @@ You should see something like this:
 
 **Plugins** (`.claude/settings.json`):
 
-| Plugin              | Purpose                                      |
-| ------------------- | -------------------------------------------- |
-| context7            | Fetch up-to-date library/framework docs      |
-| chrome-devtools-mcp | Capture browser screenshots and debug the UI |
-| nx                  | Manage the Nx monorepo workspace             |
+| Plugin              | Purpose                                                                                       |
+| ------------------- | --------------------------------------------------------------------------------------------- |
+| context7            | Fetch up-to-date library/framework docs                                                       |
+| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                  |
+| nx                  | Helper that lets Claude understand the project's build/run layout (you don't use it directly) |
 
 ::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
 
 ## Configure image asset generation (optional)
 
-To use the AI image generation feature, set the FAL API key. Use the key provided by your facilitator and set it as an environment variable:
+To use the AI image generation feature, you need a FAL API key. In the 💬 Claude Code chat, paste your key into a request like the one below — Claude will register the environment variable for your OS.
 
-<!-- prettier-ignore-start -->
-::::tabs
-:::tab{label="Mac"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-echo 'export FAL_KEY="KEY_FROM_FACILITATOR"' >> ~/.zshrc
-source ~/.zshrc
+:::code{showCopyAction=true showLineNumbers=false language=text}
+Set FAL_KEY to "KEY_FROM_FACILITATOR".
+On Mac persist it in ~/.zshrc, on Windows persist it as a user environment variable.
 :::
 
-:::
-:::tab{label="Windows (PowerShell)"}
+Approve the command Claude wants to run. Once done, `/exit` the 💬 chat and relaunch `claude` from the 💻 terminal, then run `/mcp` to verify `asset-generator` is now `✔ connected`.
 
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-[Environment]::SetEnvironmentVariable('FAL_KEY', 'KEY_FROM_FACILITATOR', 'User')
-:::
-
-After setting it, **restart** PowerShell.
-
-:::
-::::
-<!-- prettier-ignore-end -->
-
-After the key is set and you restart Claude Code, `/mcp` will show `asset-generator` as `✔ connected`.
+::alert[Environment variables are read at process start, so Claude Code must be **restarted** for the key to take effect. Reconnecting from `/mcp` alone is not enough.]{type="info"}
 
 ::alert[You can complete the workshop without a FAL API key. Only the image asset generation feature is disabled without it.]{type="info"}
 

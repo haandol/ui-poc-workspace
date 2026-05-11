@@ -65,12 +65,35 @@ ui-poc-workspace/
 
 ## Verify
 
-Check that Claude Code recognizes the file:
+Check that the file is in the right place. In your 💻 terminal:
 
-:::code{showCopyAction=true showLineNumbers=false language=text}
-List the files in the docs/ folder.
+::::tabs
+:::tab{label="Mac"}
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+ls ~/Desktop/ui-poc-workspace/docs/
 :::
+
+:::
+:::tab{label="Windows (PowerShell)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+dir "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace\docs\"
+:::
+
+:::
+::::
 
 If `research.pdf` shows up in the list, Lab 1 is complete. Move on to the next lab.
 
 ::alert[If you set up the Airtable integration, the `RESEARCH-DONE` milestone is recorded automatically the moment Claude Code reads the PDF. No extra action needed.]{type="info"}
+
+## Step 5. Back up somewhere safe (recommended)
+
+The research PDF is the input for the PRD and UI PoC steps that follow, so keep a copy **outside** the project folder as well. For example:
+
+```
+Documents/ui-poc/research.pdf
+```
+
+::alert[If you clean up or re-clone the project folder, the PDF inside `docs/` can disappear. Keeping a backup elsewhere lets you restore it quickly in a later session.]{type="info"}

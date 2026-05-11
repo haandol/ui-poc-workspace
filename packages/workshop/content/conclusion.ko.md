@@ -15,15 +15,11 @@ weight: 90
 
 ## 데모 준비
 
-만든 UI PoC를 팀에 공유할 준비를 합니다.
-
-개발 서버가 실행 중인 상태에서 브라우저 화면을 공유하면 됩니다:
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-pnpm dev:web
-:::
+만든 UI PoC를 팀에 공유할 준비를 합니다. Lab 3 에서 실행해둔 개발 서버 탭(탭 1) 이 그대로 켜져 있다면, 브라우저에서 아래 주소를 열어 그대로 화면 공유하면 됩니다.
 
 :button[http://localhost:3000 열기]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
+
+::alert[개발 서버를 이미 종료했다면, 💻 터미널(탭 1) 에서 `pnpm dev:web` 으로 다시 실행하세요. 서버가 이미 실행 중일 때 `pnpm dev:web` 을 다시 실행하면 포트 3000 충돌로 실패합니다.]{type="info"}
 
 ## 데모 발표 가이드
 

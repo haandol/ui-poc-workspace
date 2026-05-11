@@ -13,7 +13,7 @@ Chrome 브라우저에서 `http://localhost:3000`을 열어둡니다.
 
 ## 화면 확인 요청
 
-Claude Code 프롬프트에서 아래와 같이 요청합니다:
+💬 Claude Code 대화창에서 아래와 같이 요청합니다:
 
 | 상황                | 프롬프트 예시                                              |
 | ------------------- | ---------------------------------------------------------- |
@@ -33,21 +33,31 @@ Claude Code 프롬프트에서 아래와 같이 요청합니다:
 - **Mac**: `Cmd + Shift + R`
 - **Windows**: `Ctrl + Shift + R`
 
-그래도 반영되지 않으면 개발 서버를 재시작합니다:
+그래도 반영되지 않으면 💻 개발 서버 탭(탭 1)에서 `Ctrl+C` 로 서버를 종료한 뒤 재시작합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# 탭 1에서 Ctrl+C로 서버 종료 후 재시작
-
 pnpm dev:web
 :::
 
 ### 포트 충돌 오류
 
-포트 3000이 이미 사용 중인 경우:
+포트 3000이 이미 사용 중인 경우, `PORT` 환경변수를 지정해서 다른 포트로 실행할 수 있습니다.
+
+::::tabs
+:::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-pnpm dev:web -- --port 3001
+PORT=3001 pnpm dev:web
 :::
 
-그 후 브라우저에서 `http://localhost:3001`로 접속합니다.
+:::
+:::tab{label="Windows (PowerShell)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+$env:PORT=3001; pnpm dev:web
+:::
+
+:::
+::::
+
+그 후 브라우저에서 `http://localhost:3001` 로 접속합니다.

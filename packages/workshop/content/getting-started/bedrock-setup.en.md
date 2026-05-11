@@ -53,9 +53,9 @@ On the **first launch**, Claude Code automatically shows the provider selection 
 
 ![Paste Bedrock API key](/static/images/getting-started/setup-bedrock/cc-2.png)
 
-**Step 5.** On the **AWS region** screen, enter `us-west-2` (required) and press Enter.
+**Step 5.** On the **AWS region** screen, enter `us-east-1` (required) and press Enter.
 
-![AWS region us-west-2](/static/images/getting-started/setup-bedrock/cc-3.png)
+![AWS region us-east-1](/static/images/getting-started/setup-bedrock/cc-3.png)
 
 ::alert[Claude Code reads the `AWS_REGION` environment variable, not `~/.aws/config`, so you must specify the region here even if your profile already has one.]{type="info"}
 
@@ -74,3 +74,13 @@ hi
 A reply means installation and credential registration are both complete.
 
 ::alert[If `/login` goes silent or you see `on-demand throughput isn't supported`, credentials may have expired — ask your facilitator for a new one and rerun `/login`.]{type="warning"}
+
+## If your credentials have already expired
+
+When you resume the workshop in a later session and Workshop Studio credentials have already expired, you don't need to reinstall anything. In the 💬 Claude Code chat, run `/setup-bedrock` to bring up the same flow and paste the new API key your facilitator shares.
+
+::alert[After re-registering, run `/model` in the 💬 chat and confirm `Opus 4.6 (us.anthropic.claude-opus-4-6-v1)` is selected.]{type="info"}
+
+## Next step
+
+Now that Bedrock is working, the next page walks you through downloading the workshop project. The Claude Code session you have open now will be closed in the next step.

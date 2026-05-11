@@ -15,15 +15,11 @@ Over this workshop you completed:
 
 ## Prepare for a demo
 
-Get ready to share the UI PoC with your team.
-
-Keep the dev server running and share the browser window:
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-pnpm dev:web
-:::
+Get ready to share the UI PoC with your team. If the dev server tab (tab 1) from Lab 3 is still running, just open the URL below in your browser and share the window.
 
 :button[Open http://localhost:3000]{target="\_blank" href="http://localhost:3000" variant="primary" iconName="external" iconAlign="right"}
+
+::alert[If you already stopped the dev server, bring it back up in the 💻 terminal (tab 1) with `pnpm dev:web`. Running `pnpm dev:web` while the server is still running will fail with a port-3000 conflict.]{type="info"}
 
 ## Demo script
 

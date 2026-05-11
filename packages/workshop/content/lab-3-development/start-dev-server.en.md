@@ -7,21 +7,20 @@ While you develop, keep **two** terminal tabs open — one for the dev server, o
 
 ## Step 1. Open a tab for the dev server
 
-Open a new tab in your current terminal.
+Keep the terminal with the Claude Code session from Lab 2 open. **Open a new tab:**
 
 - **Mac**: `Cmd + T`
 - **Windows**: `Ctrl + Shift + T`
 
 ## Step 2. Start the dev server
 
-Run the dev server in the new tab (tab 1). **Leave this tab open.**
+Run the dev server in the new tab. **Leave this tab open at all times.**
 
 ::::tabs
 :::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-cd ~/Desktop/ui-poc-workspace
-pnpm dev:web
+cd ~/Desktop/ui-poc-workspace && pnpm dev:web
 :::
 
 :::
@@ -52,30 +51,13 @@ If the default page renders, the dev server is working.
 
 ::alert[The browser hot-reloads automatically when code changes. Keep the dev server tab open at all times.]{type="info"}
 
-## Step 4. Open the Claude Code tab
+## Step 4. Switch to the Claude Code tab
 
-Open another tab and run Claude Code.
+Switch back to the tab where Claude Code is still running from Lab 2. If the chat is still open, you're good to go.
 
-::::tabs
-:::tab{label="Mac"}
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-cd ~/Desktop/ui-poc-workspace
-claude
-:::
-
-:::
-:::tab{label="Windows (PowerShell)"}
-
-:::code{showCopyAction=true showLineNumbers=false language=powershell}
-cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"
-claude
-:::
-
-:::
-::::
+::alert[If you already closed Claude Code or that tab, open a new tab and run: Mac: `cd ~/Desktop/ui-poc-workspace && claude` / Windows: `cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude`]{type="info"}
 
 You now have two tabs ready:
 
 - **Tab 1** 📺 Dev server (always on)
-- **Tab 2** 🤖 Claude Code (for AI work)
+- **Tab 2** 💬 Claude Code (for AI work)

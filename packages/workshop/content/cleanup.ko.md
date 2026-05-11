@@ -13,13 +13,7 @@ weight: 100
 
 ## 로컬 개발 서버 종료
 
-개발 서버가 실행 중이라면 종료합니다:
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# 탭 1에서 Ctrl+C
-
-:::
+개발 서버가 실행 중이라면 개발 서버 탭(탭 1)으로 이동해 `Ctrl + C` 를 눌러 종료합니다.
 
 ## 비용 확인
 

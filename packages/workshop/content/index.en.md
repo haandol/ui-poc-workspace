@@ -23,34 +23,25 @@ By completing this workshop you will learn how to:
 6. Let AI look at the live screen and fix things via the browser DevTools MCP
 7. Build a polished UI PoC with mocked data, no backend required
 
-## Timetable
-
-| Time          | Content                               |
-| ------------- | ------------------------------------- |
-| 12:00 ~ 12:40 | Opening                               |
-| 12:40 ~ 13:10 | Deep research + dev environment setup |
-| 13:20 ~ 14:10 | PRD authoring                         |
-| 14:20 ~ 16:00 | UI PoC development                    |
-| 16:00 ~ 16:30 | Retrospective                         |
-
 ## Target audience
 
 **Level 200** — designed for PMs, product planners, and designers with no coding background.
 
 - People who want to quickly visualize their own service ideas
 - People who want to learn an AI-powered prototyping workflow
-- **Expected duration**: about 4 hours 30 minutes (including opening)
+- **Expected duration**: ~8 hours total (~4 hours for install + research, ~4 hours for PRD + build)
 
 ### Prerequisites
 
 You can take this workshop without any programming knowledge.
 
-1. Amazon QuickSuite access
-2. Claude Code set up
-3. A service idea you would like to turn into a PoC (a quick note is enough; the more detail, the better)
-4. A personal laptop (Mac or Windows)
-5. A terminal app (Mac: Ghostty or the built-in Terminal; Windows: PowerShell)
-6. AWS account and Amazon Bedrock access (provided by the workshop facilitator)
+1. A service idea you would like to turn into a PoC (a quick note is enough; the more detail, the better)
+2. A personal laptop (Mac or Windows)
+3. A terminal app (Mac: Ghostty or the built-in Terminal; Windows: PowerShell)
+4. AWS account and Amazon Bedrock access (provided by the workshop facilitator)
+5. Amazon QuickSuite access (used for the research step; provided by the facilitator)
+
+::alert[Back up the `research.pdf` produced by Quick Research in a safe location. The PRD and UI PoC steps build directly on top of that PDF.]{type="info"}
 
 ### AWS Account Requirements and Costs
 

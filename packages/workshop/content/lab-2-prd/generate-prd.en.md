@@ -21,16 +21,28 @@ ALPS (Agentic Lean Product Spec) is the PRD format used in this workshop. It has
 | **Section 8** | MVP metrics               | How to collect data and decide success/failure             |
 | **Section 9** | Out of scope              | Features excluded from the MVP, roadmap, tech debt         |
 
-## Step 1. Start Claude Code
+::alert[For UI-only PoCs, Section 4 (architecture) and Section 8 (metrics) may be auto-simplified or skipped. It's normal if those sections end up empty.]{type="info"}
 
-Run Claude Code from the project folder.
+## Step 1. Confirm the research PDF is in place
+
+Make sure the `research.pdf` you produced earlier is inside the project's `docs/` folder. If the file only exists in your backup location (e.g., `Documents/ui-poc/research.pdf`), copy it into **`Desktop > ui-poc-workspace > docs`** now.
+
+```
+Desktop/ui-poc-workspace/
+└── docs/research.pdf    ← it must live here
+```
+
+::alert[If the file name contains non-ASCII characters or spaces, rename it to `research.pdf` — Claude Code may not pick it up otherwise.]{type="warning"}
+
+## Step 2. Start Claude Code
+
+Run Claude Code from the project folder. In your 💻 terminal:
 
 ::::tabs
 :::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-cd ~/Desktop/ui-poc-workspace
-claude
+cd ~/Desktop/ui-poc-workspace && claude
 :::
 
 :::
@@ -44,7 +56,9 @@ claude
 :::
 ::::
 
-## Step 2. Ask for the PRD
+::alert[If Claude Code is already running in the project folder, skip this step. You can tell it's running if you see the 💬 chat with a blinking cursor.]{type="info"}
+
+## Step 3. Ask for the PRD
 
 In the Claude Code prompt, type the following. Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
 
@@ -60,7 +74,7 @@ The ALPS document is **not** produced all at once. Claude Code walks you through
 
 When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Because this is interactive, it takes roughly **20–30 minutes**.
 
-## Step 3. Inspect the generated PRD
+## Step 4. Inspect the generated PRD
 
 Once the PRD is generated, review it:
 

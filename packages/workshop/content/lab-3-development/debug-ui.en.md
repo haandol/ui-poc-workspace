@@ -33,21 +33,31 @@ Force a cache refresh:
 - **Mac**: `Cmd + Shift + R`
 - **Windows**: `Ctrl + Shift + R`
 
-If that doesn't work, restart the dev server:
+If that doesn't work, in dev server tab (tab 1) press `Ctrl + C` to stop, then rerun:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# In tab 1, Ctrl+C to stop, then restart
-
 pnpm dev:web
 :::
 
 ### Port conflict
 
-If port 3000 is already in use:
+If port 3000 is already in use, set the `PORT` environment variable to run on a different port.
+
+::::tabs
+:::tab{label="Mac"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
-pnpm dev:web -- --port 3001
+PORT=3001 pnpm dev:web
 :::
+
+:::
+:::tab{label="Windows (PowerShell)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+$env:PORT=3001; pnpm dev:web
+:::
+
+:::
+::::
 
 Then open `http://localhost:3001` in your browser.

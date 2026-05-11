@@ -65,12 +65,35 @@ ui-poc-workspace/
 
 ## 확인
 
-Claude Code에서 파일이 정상적으로 인식되는지 확인합니다.
+파일이 올바른 위치에 있는지 확인합니다. 💻 터미널에서:
 
-:::code{showCopyAction=true showLineNumbers=false language=text}
-docs/ 폴더에 있는 파일 목록을 보여줘
+::::tabs
+:::tab{label="Mac"}
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+ls ~/Desktop/ui-poc-workspace/docs/
 :::
 
-`research.pdf`가 목록에 표시되면 Lab 1이 완료된 것입니다. 다음 랩으로 이동합니다.
+:::
+:::tab{label="Windows (PowerShell)"}
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+dir "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace\docs\"
+:::
+
+:::
+::::
+
+`research.pdf` 가 목록에 표시되면 Lab 1 이 완료된 것입니다. 다음 랩으로 이동합니다.
 
 ::alert[Airtable 연동을 설정한 경우, Claude Code가 PDF를 읽는 순간 `RESEARCH-DONE` 상태가 자동으로 기록됩니다. 별도 조작이 필요하지 않습니다.]{type="info"}
+
+## Step 5. 안전한 위치에 백업 (권장)
+
+리서치 PDF 는 이후 PRD 작성과 UI PoC 빌드의 입력이 되므로, `docs/` 폴더와는 별도로 **안전한 위치에 복사본을 보관**해두는 것을 권장합니다. 예를 들어:
+
+```
+문서/ui-poc/research.pdf
+```
+
+::alert[프로젝트 폴더를 정리하거나 재클론할 경우 `docs/` 안의 PDF 가 사라질 수 있습니다. 별도 위치에 백업본이 있으면 다음 세션에서 바로 복원할 수 있습니다.]{type="info"}

@@ -10,4 +10,7 @@ weight: 10
 - AWS 환경 설정 (AWS 이벤트 참여 또는 직접 운영)
 - 필요한 도구 설치 (Node.js, pnpm, Claude Code)
 - Amazon Bedrock 연동 설정
-- 프로젝트 클론 및 MCP 서버 연결 확인
+- 프로젝트 다운로드 및 패키지 설치
+- MCP 서버 연결 확인
+
+::alert[**이어서 참여하는 경우**: 설치와 Quick Research 를 이미 마친 뒤 다시 접속했다면, [Bedrock 설정 — 자격증명이 만료되었다면](./bedrock-setup/#자격증명이-만료되었다면) 섹션으로 바로 이동해 `/setup-bedrock` 으로 새 키만 재등록하면 됩니다. 나머지 설치 과정은 다시 진행할 필요가 없습니다.]{type="info"}

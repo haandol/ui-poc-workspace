@@ -7,34 +7,29 @@ weight: 20
 
 ## PRD 파일 열어보기
 
-생성된 ALPS 문서를 직접 읽어보려면 아래 방법 중 하나를 사용합니다.
+생성된 ALPS 문서를 검토하려면 💬 Claude Code 대화창에서 직접 요청하는 것이 가장 간편합니다.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+@docs/prd/XYZ.alps.md 를 검토하려고해, 섹션별로 보여줘.
+:::
+
+::alert[파일명은 서비스 이름에 따라 다릅니다. `@docs/prd/`까지 입력 후 Tab 키로 자동완성하세요.]{type="info"}
+
+별도 편집기로 열어보고 싶다면 💻 터미널(Claude Code 가 아닌 별도 터미널 창)에서:
 
 ::::tabs
-:::tab{label="VSCode (추천)"}
+:::tab{label="VSCode"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 code docs/prd/
 :::
 
-VSCode에서 마크다운 미리보기를 보려면 파일을 연 뒤 `Cmd + Shift + V` (Mac) 또는 `Ctrl + Shift + V` (Windows)를 누릅니다.
+파일을 연 뒤 `Cmd + Shift + V` (Mac) 또는 `Ctrl + Shift + V` (Windows) 로 미리보기를 열 수 있습니다.
 
 :::
-:::tab{label="glow (터미널)"}
+:::tab{label="메모장 / 텍스트 편집기"}
 
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-glow docs/prd/\*.alps.md
-:::
-
-터미널에서 마크다운이 보기 좋게 렌더링됩니다.
-
-:::
-:::tab{label="Claude Code"}
-
-Claude Code 프롬프트에서 직접 검토를 요청할 수도 있습니다.
-
-:::code{showCopyAction=true showLineNumbers=false language=text}
-@docs/prd/XYZ.alps.md 를 검토하려고해, 섹션별로 보여줘.
-:::
+`바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열고 `.alps.md` 파일을 더블클릭합니다.
 
 :::
 ::::

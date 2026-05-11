@@ -7,34 +7,29 @@ Review the generated PRD and adjust whatever needs changing. Just talk to the AI
 
 ## Open the PRD file
 
-Pick one of the following ways to read the generated ALPS document directly.
+The easiest way to review the ALPS document is to ask Claude Code directly. In the 💬 Claude Code chat:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+I want to review @docs/prd/XYZ.alps.md — please show it section by section.
+:::
+
+::alert[The file name varies by service name. Type `@docs/prd/` and press Tab to autocomplete.]{type="info"}
+
+If you prefer to use an external editor, open a separate 💻 terminal (not the Claude Code chat):
 
 ::::tabs
-:::tab{label="VSCode (recommended)"}
+:::tab{label="VSCode"}
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 code docs/prd/
 :::
 
-To see a rendered Markdown preview in VSCode, open the file and press `Cmd + Shift + V` (Mac) or `Ctrl + Shift + V` (Windows).
+To see a rendered Markdown preview, open the file and press `Cmd + Shift + V` (Mac) or `Ctrl + Shift + V` (Windows).
 
 :::
-:::tab{label="glow (terminal)"}
+:::tab{label="Notepad / Text editor"}
 
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-glow docs/prd/\*.alps.md
-:::
-
-Renders Markdown nicely in the terminal.
-
-:::
-:::tab{label="Claude Code"}
-
-You can also ask Claude Code to walk you through it.
-
-:::code{showCopyAction=true showLineNumbers=false language=text}
-I want to review @docs/prd/XYZ.alps.md — please show it section by section.
-:::
+Open the folder `Desktop > ui-poc-workspace > docs > prd` and double-click the `.alps.md` file.
 
 :::
 ::::

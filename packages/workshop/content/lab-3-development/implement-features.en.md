@@ -73,7 +73,7 @@ The more specific your request, the better.
 
 If you set up the Airtable integration, Claude Code records your progress automatically in Lab 3:
 
-- When you start implementing your first feature → `SCAFFOLD-DONE`
+- After the dev server is confirmed running and you ask for the first feature → `SCAFFOLD-DONE`
 - After each feature is implemented and reported → `F1-DONE`, `F2-DONE`, …
 - When you announce the demo is ready → `DEMO-READY`
 

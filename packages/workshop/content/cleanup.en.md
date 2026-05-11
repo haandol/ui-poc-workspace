@@ -13,13 +13,7 @@ This workshop does not create any resources that call Amazon Bedrock on your beh
 
 ## Stop the local dev server
 
-If the dev server is still running, stop it:
-
-:::code{showCopyAction=true showLineNumbers=false language=bash}
-
-# In tab 1, press Ctrl+C
-
-:::
+If the dev server is still running, switch to the dev server tab (tab 1) and press `Ctrl + C` to stop it.
 
 ## Check your costs
 
