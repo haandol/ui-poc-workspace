@@ -90,7 +90,7 @@ Claude가 세 가지를 물어봅니다:
 2. **FAL_KEY** — 이미지 생성용 fal.ai API 키 (진행자에게 전달받은 값)
 3. **닉네임** — 진행 상태에 표시될 이름 (예: "커피중독PM", "픽셀요정")
 
-설정이 완료되면 `/mcp` 에서 `asset-generator` 와 `airtable` 이 `✔ connected` 상태로 바뀌었는지 확인합니다.
+설정이 완료되면 `/mcp` 을 입력한 뒤, `asset-generator` 와 `airtable` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
 
 > **참고**: 키가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 생성 및 진행 상태 추적 기능만 비활성화됩니다.
 

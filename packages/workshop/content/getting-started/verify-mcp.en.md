@@ -60,32 +60,20 @@ You should see something like this:
 
 ::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
 
-## Configure image asset generation (optional)
+## Workshop environment setup (optional)
 
-To use the AI image generation feature, you need a FAL API key. In the 💬 Claude Code chat, paste your key into a request like the one below:
-
-:::code{showCopyAction=true showLineNumbers=false language=text}
-Set FAL_KEY to "KEY_FROM_FACILITATOR".
-Register it in .claude/settings.local.json under env.
-:::
-
-Approve the command Claude wants to run. Once done, open `/mcp` and click 🔄 reconnect next to `asset-generator` to verify it switches to `✔ connected`.
-
-::alert[You can complete the workshop without a FAL API key. Only the image asset generation feature is disabled without it.]{type="info"}
-
-## Configure progress tracking (optional)
-
-To share your workshop progress with the facilitator, set up the Airtable integration. In the Claude Code prompt, enter:
+Configure image generation (FAL API) and progress tracking (Airtable) in one step. In the 💬 Claude Code chat, enter:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /workshop-status setup
 :::
 
-Claude asks two things:
+Claude asks three things:
 
 1. **Airtable API key** — the value provided by your facilitator (starts with `pat_...`)
-2. **Nickname** — the name shown in the progress tracker (e.g., "CoffeeAddictPM")
+2. **FAL_KEY** — the fal.ai API key for image generation (provided by your facilitator)
+3. **Nickname** — the name shown in the progress tracker (e.g., "CoffeeAddictPM")
 
-Once configured, later steps automatically share your progress.
+Once configured, type `/mcp` and click 🔄 reconnect next to `asset-generator` and `airtable` to verify they switch to `✔ connected`.
 
-::alert[You can complete the workshop without an Airtable key. Only the progress tracking feature is disabled without it.]{type="info"}
+::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}

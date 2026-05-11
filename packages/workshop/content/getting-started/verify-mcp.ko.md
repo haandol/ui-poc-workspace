@@ -60,34 +60,20 @@ weight: 30
 
 ::alert[`airtable`과 `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.]{type="info"}
 
-## 이미지 에셋 생성 설정 (선택)
+## 워크숍 환경 설정 (선택)
 
-AI 이미지 생성 기능을 사용하려면 FAL API Key 가 필요합니다. 💬 Claude Code 대화창에 진행자에게 전달받은 키와 함께 아래처럼 요청합니다:
-
-<!-- prettier-ignore-start -->
-:::code{showCopyAction=true showLineNumbers=false language=text}
-FAL_KEY 를 "진행자에게_전달받은_키" 로 설정해줘.
-.claude/settings.local.json 의 env 에 등록해줘.
-:::
-<!-- prettier-ignore-end -->
-
-Claude 가 실행할 명령에 대한 승인 요청이 뜨면 **Yes** 를 선택합니다. 등록이 끝나면 `/mcp` 에서 `asset-generator` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
-
-::alert[FAL API Key 가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 에셋 생성 기능만 비활성화됩니다.]{type="info"}
-
-## 진행 상태 추적 설정 (선택)
-
-워크숍 진행 상황을 진행자와 공유하려면 Airtable 연동을 설정합니다. 💬 Claude Code 대화창에 입력합니다:
+이미지 생성(FAL API)과 진행 상태 추적(Airtable)을 한 번에 설정합니다. 💬 Claude Code 대화창에 입력합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /workshop-status setup
 :::
 
-Claude가 두 가지를 물어봅니다:
+Claude가 세 가지를 물어봅니다:
 
 1. **Airtable API Key** — 진행자에게 전달받은 값 (`pat_...`로 시작)
-2. **닉네임** — 진행 상태에 표시될 이름 (예: "커피중독PM")
+2. **FAL_KEY** — 이미지 생성용 fal.ai API 키 (진행자에게 전달받은 값)
+3. **닉네임** — 진행 상태에 표시될 이름 (예: "커피중독PM")
 
-설정이 완료되면 이후 단계에서 진행 상태가 자동으로 공유됩니다.
+설정이 완료되면 `/mcp` 을 입력한 뒤, `asset-generator` 와 `airtable` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
 
-::alert[Airtable 키가 없어도 워크숍 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
+::alert[키가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 생성 및 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
