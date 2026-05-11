@@ -39,7 +39,7 @@ export class ImageGenerationService {
   async generateImage(params: GenerateImageParams): Promise<GenerateImageResult> {
     const result = await this.repository.generateImage({
       prompt: params.prompt,
-      image_size: params.image_size ?? 'square_hd',
+      image_size: params.image_size ?? 'square',
       quality: params.quality ?? 'high',
       num_images: params.num_images ?? 1,
       output_format: params.output_format ?? 'png',
