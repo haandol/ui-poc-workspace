@@ -69,6 +69,22 @@ The more specific your request, the better.
 
 ::alert[Feel free to ask the AI anything while you develop — e.g., "How does a user move through this screen?", "What key metrics should the dashboard show?", "How does this layout look on mobile?", "Can we present this feature in a card layout like competitor X?" etc.]{type="info"}
 
+## (Optional) Image generation
+
+The project includes an **Asset Generator MCP** that lets the AI create images for you. Generated images are saved to `packages/web/public/` automatically, so you can use them on your pages right away.
+
+Example prompts:
+
+| Situation            | Example prompt                                            |
+| -------------------- | --------------------------------------------------------- |
+| Hero banner          | "Create a hero banner image for the landing page."        |
+| Logo / icon          | "Generate a minimalist app logo."                         |
+| Background image     | "Make an abstract gradient background for the dashboard." |
+| Sample profile photo | "Generate 4 avatar images for user profiles."             |
+| Product mockup       | "Create a latte photo for the coffee shop menu screen."   |
+
+::alert[Image generation uses an external API (fal.ai) and requires network access. It may take 2–3 minutes depending on image size.]{type="warning"}
+
 ## Automatic progress sharing
 
 If you set up the Airtable integration, Claude Code records your progress automatically in Lab 3:
