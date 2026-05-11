@@ -69,10 +69,12 @@ weight: 30
 
 AI 이미지 생성 기능을 사용하려면 FAL API Key 가 필요합니다. 💬 Claude Code 대화창에 진행자에게 전달받은 키와 함께 아래처럼 요청하면, Claude 가 OS 에 맞게 환경변수를 등록해줍니다.
 
+<!-- prettier-ignore-start -->
 :::code{showCopyAction=true showLineNumbers=false language=text}
-FAL*KEY 를 "진행자에게*전달받은\_키" 로 설정해줘.
+FAL_KEY 를 "진행자에게_전달받은_키" 로 설정해줘.
 Mac이면 ~/.zshrc, Windows면 사용자 환경변수에 영구 등록해줘.
 :::
+<!-- prettier-ignore-end -->
 
 Claude 가 실행할 명령에 대한 승인 요청이 뜨면 **Yes** 를 선택합니다. 등록이 끝나면 💬 대화창을 `/exit` 으로 종료하고 💻 터미널에서 다시 `claude` 로 실행한 뒤, `/mcp` 에서 `asset-generator` 가 `✔ connected` 상태로 바뀌었는지 확인합니다.
 
