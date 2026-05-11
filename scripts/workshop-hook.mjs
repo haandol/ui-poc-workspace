@@ -99,14 +99,54 @@ async function sendImageCountToAirtable(total) {
     ],
   };
 
-  await fetch(url, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+  };
+
+  const res = await fetch(url, { method: 'PATCH', headers, body: JSON.stringify(body) });
+
+  if (res.status === 422) {
+    await ensureRequiredFields(apiKey, baseId, tableName);
+    await fetch(url, { method: 'PATCH', headers, body: JSON.stringify(body) });
+  }
+}
+
+const REQUIRED_FIELDS = [
+  { name: 'Name', type: 'singleLineText' },
+  { name: 'Phase', type: 'singleSelect', options: { choices: [
+    { name: '환경설정' }, { name: '리서치' }, { name: 'PRD' },
+    { name: '스캐폴딩' }, { name: '피쳐 개발' }, { name: '완료' },
+  ]}},
+  { name: 'Milestone_ID', type: 'singleLineText' },
+  { name: 'Milestone', type: 'singleLineText' },
+  { name: 'Timestamp', type: 'singleLineText' },
+  { name: 'Notes', type: 'multilineText' },
+  { name: 'IMG_COUNT', type: 'number', options: { precision: 0 } },
+];
+
+async function ensureRequiredFields(apiKey, baseId, tableName) {
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+  };
+
+  const tablesUrl = `https://api.airtable.com/v0/meta/bases/${baseId}/tables`;
+  const tablesRes = await fetch(tablesUrl, { headers });
+  if (!tablesRes.ok) return;
+  const tablesData = await tablesRes.json();
+  const table = tablesData.tables?.find((t) => t.name === tableName || t.id === tableName);
+  if (!table) return;
+
+  const existingNames = new Set(table.fields.map((f) => f.name));
+  const fieldUrl = `https://api.airtable.com/v0/meta/bases/${baseId}/tables/${table.id}/fields`;
+
+  for (const field of REQUIRED_FIELDS) {
+    if (existingNames.has(field.name)) continue;
+    const body = { name: field.name, type: field.type };
+    if (field.options) body.options = field.options;
+    await fetch(fieldUrl, { method: 'POST', headers, body: JSON.stringify(body) });
+  }
 }
 
 function detectMilestone(payload) {
@@ -188,14 +228,17 @@ async function sendToAirtable(milestoneId) {
     ],
   };
 
-  await fetch(url, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    'Content-Type': 'application/json',
+  };
+
+  const res = await fetch(url, { method: 'PATCH', headers, body: JSON.stringify(body) });
+
+  if (res.status === 422) {
+    await ensureRequiredFields(apiKey, baseId, tableName);
+    await fetch(url, { method: 'PATCH', headers, body: JSON.stringify(body) });
+  }
 }
 
 function parseFeatureMilestone(id) {
