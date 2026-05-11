@@ -8,7 +8,7 @@
  * Failures are swallowed — a broken hook must never break the workshop flow.
  */
 
-import { appendFileSync, existsSync, readFileSync, copyFileSync } from 'node:fs';
+import { appendFileSync, existsSync, readFileSync, copyFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const ROOT = process.env.CLAUDE_PROJECT_DIR || process.cwd();
@@ -37,12 +37,76 @@ async function main() {
     return;
   }
 
+  const imgCount = detectImageGeneration(payload);
+  if (imgCount) {
+    const total = incrementImageCount(imgCount);
+    await sendImageCountToAirtable(total).catch(() => {});
+    return;
+  }
+
   const milestoneId = detectMilestone(payload);
   if (!milestoneId) return;
   if (alreadyRecorded(milestoneId)) return;
 
   appendJournal(milestoneId);
   await sendToAirtable(milestoneId).catch(() => {});
+}
+
+function detectImageGeneration(payload) {
+  const toolName = payload.tool_name || payload.toolName;
+  if (toolName !== 'mcp__asset-generator__generate_image') return null;
+  const input = payload.tool_input || payload.toolInput || {};
+  return input.num_images || 1;
+}
+
+function incrementImageCount(count) {
+  ensureJournal();
+  const content = existsSync(JOURNAL) ? readFileSync(JOURNAL, 'utf8') : '';
+  const match = content.match(/^IMG_COUNT\t(\d+)/m);
+  const prev = match ? parseInt(match[1], 10) : 0;
+  const total = prev + count;
+  if (match) {
+    const updated = content.replace(/^IMG_COUNT\t\d+.*$/m, `IMG_COUNT\t${total}\t${new Date().toISOString()}`);
+    writeFileSync(JOURNAL, updated);
+  } else {
+    appendFileSync(JOURNAL, `IMG_COUNT\t${total}\t${new Date().toISOString()}\n`);
+  }
+  return total;
+}
+
+async function sendImageCountToAirtable(total) {
+  const apiKey = process.env.AIRTABLE_API_KEY;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  const tableName = process.env.AIRTABLE_TABLE_NAME || 'Progress';
+  if (!apiKey || !baseId) return;
+  if (!existsSync(PARTICIPANT_FILE)) return;
+
+  const participant = readFileSync(PARTICIPANT_FILE, 'utf8').trim();
+  if (!participant) return;
+
+  const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
+  const body = {
+    performUpsert: {
+      fieldsToMergeOn: ['Name'],
+    },
+    records: [
+      {
+        fields: {
+          Name: participant,
+          IMG_COUNT: total,
+        },
+      },
+    ],
+  };
+
+  await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 }
 
 function detectMilestone(payload) {

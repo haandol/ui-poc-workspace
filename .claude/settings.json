@@ -7,7 +7,7 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "mcp__pdf-reader__read_pdf|mcp__alps-writer__save_alps_section|mcp__alps-writer__export_alps_markdown",
+        "matcher": "mcp__pdf-reader__read_pdf|mcp__alps-writer__save_alps_section|mcp__alps-writer__export_alps_markdown|mcp__asset-generator__generate_image",
         "hooks": [
           {
             "type": "command",
