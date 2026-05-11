@@ -40,7 +40,7 @@ export class ImageGenerationService {
     const result = await this.repository.generateImage({
       prompt: params.prompt,
       image_size: params.image_size ?? 'square',
-      quality: params.quality ?? 'high',
+      quality: params.quality ?? 'medium',
       num_images: params.num_images ?? 1,
       output_format: params.output_format ?? 'png',
     })
