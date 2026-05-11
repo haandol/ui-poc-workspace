@@ -53,3 +53,7 @@ packages/workshop/preview_build
 # Workshop participant local state (created from .work-status.template on setup)
 .work-status
 .workshop-participant
+
+# ALPS PRD documents (generated per participant, not shared via git)
+docs/prd/*.alps.md
+docs/prd/*.alps.xml

@@ -107,18 +107,25 @@ async function sendToAirtable(milestoneId) {
 
   const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
   const body = {
-    fields: {
-      Participant: participant,
-      Phase: info.phase,
-      Milestone_ID: milestoneId,
-      Milestone: info.label,
-      Timestamp: new Date().toISOString(),
-      Details: 'auto-recorded by workshop-hook',
+    performUpsert: {
+      fieldsToMergeOn: ['Name'],
     },
+    records: [
+      {
+        fields: {
+          Name: participant,
+          Phase: info.phase,
+          Milestone_ID: milestoneId,
+          Milestone: info.label,
+          Timestamp: new Date().toISOString(),
+          Notes: 'auto-recorded by workshop-hook',
+        },
+      },
+    ],
   };
 
   await fetch(url, {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
