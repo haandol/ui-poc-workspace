@@ -7,14 +7,14 @@ When the screen doesn't look right, the AI can look at the browser itself and fi
 
 ## Ask the AI to look at the screen
 
-Try prompts like:
+Try prompts like the ones below. Mentioning that the dev server is at `http://localhost:3000` helps the AI navigate to the right address.
 
-| Situation             | Example prompt                                                 |
-| --------------------- | -------------------------------------------------------------- |
-| Check the screen      | "Take a screenshot of the current browser and check it."       |
-| Broken-looking layout | "Check the current page in the browser and fix what's broken." |
-| Console errors        | "Check if there are any errors in the browser and fix them."   |
-| Design check          | "Screenshot the current page and compare it to the PRD."       |
+| Situation             | Example prompt                                                                 |
+| --------------------- | ------------------------------------------------------------------------------ |
+| Check the screen      | "Open localhost:3000 in the browser and take a screenshot."                    |
+| Broken-looking layout | "Check the page at localhost:3000 in the browser and fix what's broken."       |
+| Console errors        | "Check if there are any errors at localhost:3000 in the browser and fix them." |
+| Design check          | "Screenshot localhost:3000 and compare it to the PRD."                         |
 
 ::alert[Simple prompts like "take a look at the screen", "screenshot it", or "something looks weird — what's wrong?" are usually enough for the AI to diagnose the issue.]{type="info"}
 
