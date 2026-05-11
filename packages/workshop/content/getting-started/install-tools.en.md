@@ -3,7 +3,7 @@ title: 'Install Tools'
 weight: 10
 ---
 
-Install **Node.js and Claude Code** for Day 1 of the workshop. A single one-liner installs everything you need (Homebrew/Scoop → Node.js → Claude Code).
+Install **Node.js and Claude Code** for the workshop. A single one-liner installs everything you need (Homebrew/Scoop → Node.js → Claude Code).
 
 ## Icons used in this guide
 

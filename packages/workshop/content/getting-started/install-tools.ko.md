@@ -3,7 +3,7 @@ title: '도구 설치'
 weight: 10
 ---
 
-워크숍 1일차에 사용할 **Node.js 와 Claude Code** 를 설치합니다. 원라이너 한 줄로 필요한 도구(Homebrew/Scoop → Node.js → Claude Code)를 한 번에 설치할 수 있습니다.
+워크숍에서 사용할 **Node.js 와 Claude Code** 를 설치합니다. 원라이너 한 줄로 필요한 도구(Homebrew/Scoop → Node.js → Claude Code)를 한 번에 설치할 수 있습니다.
 
 ## 문서에서 쓰는 표기
 
