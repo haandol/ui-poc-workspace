@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import type { DIContainer } from '../../di/container.js'
+import type { GenerateImageResult } from './service.js'
 
 const IMAGE_SIZE_ENUM = z.enum([
   'square_hd',
@@ -20,25 +21,21 @@ const GENERATE_IMAGE_PARAMS = {
     .describe('Image quality level — higher quality costs more tokens (default: high)'),
   num_images: z.number().int().min(1).max(4).optional().describe('Number of images to generate (default: 1, max: 4)'),
   output_format: z.enum(['png', 'jpeg', 'webp']).optional().describe('Output image format (default: png)'),
+  output_dir: z.string().optional().describe('Directory to save generated images (default: packages/web/public)'),
 }
 
-function formatImageResult(result: {
-  images: Array<{ url: string; width?: number; height?: number; content_type?: string }>
-}): string {
+function formatImageResult(result: GenerateImageResult): string {
   const imageList = result.images
-    .map(
-      (img, i) =>
-        `Image ${i + 1}: ${img.url} (${img.width ?? 0}x${img.height ?? 0}, ${img.content_type ?? 'image/png'})`
-    )
+    .map((img, i) => `Image ${i + 1}: ${img.path} (${img.width}x${img.height}, ${img.content_type})`)
     .join('\n')
 
-  return [`Generated ${result.images.length} image(s)`, '', imageList].join('\n')
+  return [`Generated and saved ${result.images.length} image(s)`, '', imageList].join('\n')
 }
 
 export function registerImageGenerationTools(server: McpServer, container: DIContainer): void {
   server.tool(
     'generate_image',
-    'Generate an image using GPT Image 2 via fal.ai. Write prompts as detailed natural-language descriptions (style, composition, lighting, colors, typography). Always write prompts in English. Returns image URLs.',
+    'Generate an image using GPT Image 2 via fal.ai. Write prompts as detailed natural-language descriptions (style, composition, lighting, colors, typography). Always write prompts in English. Images are saved locally and the file paths are returned.',
     GENERATE_IMAGE_PARAMS,
     async (args) => {
       try {
