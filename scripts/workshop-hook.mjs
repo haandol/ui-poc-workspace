@@ -17,10 +17,13 @@ const TEMPLATE = join(ROOT, '.work-status.template');
 const PARTICIPANT_FILE = join(ROOT, '.workshop-participant');
 
 const MILESTONES = {
+  'SETUP-DONE': { phase: '환경설정', label: 'Environment Ready' },
   'RESEARCH-DONE': { phase: '리서치', label: 'Deep Research Done' },
   'PRD-START': { phase: 'PRD', label: 'PRD Started' },
   'PRD-FEATURES': { phase: 'PRD', label: 'PRD Features Defined' },
   'PRD-DONE': { phase: 'PRD', label: 'PRD Complete' },
+  'SCAFFOLD-DONE': { phase: '스캐폴딩', label: 'UI Scaffold Done' },
+  'DEMO-READY': { phase: '완료', label: 'Demo Ready' },
 };
 
 async function main() {
@@ -99,7 +102,7 @@ async function sendToAirtable(milestoneId) {
   const participant = readFileSync(PARTICIPANT_FILE, 'utf8').trim();
   if (!participant) return;
 
-  const info = MILESTONES[milestoneId];
+  const info = MILESTONES[milestoneId] || parseFeatureMilestone(milestoneId);
   if (!info) return;
 
   const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}`;
@@ -122,6 +125,12 @@ async function sendToAirtable(milestoneId) {
     },
     body: JSON.stringify(body),
   });
+}
+
+function parseFeatureMilestone(id) {
+  const match = id.match(/^F(\d+)-DONE$/);
+  if (!match) return null;
+  return { phase: '피쳐 개발', label: `F${match[1]} Complete` };
 }
 
 function readStdin() {
