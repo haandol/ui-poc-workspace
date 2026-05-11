@@ -7,7 +7,13 @@ weight: 30
 
 ## MCP 서버 목록 확인
 
-이전 단계에서 프로젝트 폴더(`ui-poc-workspace`)에서 Claude Code 를 이미 실행한 상태입니다. 💬 Claude Code 대화창에 아래를 입력합니다:
+이전 단계에서 프로젝트 폴더(`ui-poc-workspace`)에서 Claude Code 를 이미 실행한 상태입니다. 💬 Claude Code 대화창에 아래를 입력하여 플러그인을 로드합니다:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/reload-plugins
+:::
+
+로드가 완료되면 💬 Claude Code 대화창에 아래를 입력하여 MCP 서버 목록을 확인합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /mcp
@@ -20,17 +26,13 @@ weight: 30
 ```
 ──────────────────────────────────────────────────────
   Manage MCP servers
-  9 servers
+  7 servers
 
     Project MCPs (.mcp.json)
     airtable · ✔ connected
     alps-writer · ✔ connected
     asset-generator · ✘ failed
     pdf-reader · ✔ connected
-
-    User MCPs (~/.claude.json)
-    ppt-generator · ✔ connected
-    tavily · ✔ connected
 
     Built-in MCPs (always available)
     plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
@@ -47,13 +49,6 @@ weight: 30
 | alps-writer     | `alps-writer`            | PRD(ALPS) 문서 작성   |
 | asset-generator | (프로젝트 내장)          | 이미지 에셋 생성      |
 | airtable        | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
-
-**유저 MCP** (`~/.claude.json`):
-
-| MCP 서버      | 용도                       |
-| ------------- | -------------------------- |
-| ppt-generator | 프레젠테이션 슬라이드 생성 |
-| tavily        | 웹 검색 및 리서치          |
 
 **플러그인** (`.claude/settings.json`):
 

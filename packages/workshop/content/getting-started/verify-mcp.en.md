@@ -7,7 +7,13 @@ This workshop makes use of several MCP (Model Context Protocol) servers. MCP ser
 
 ## Check the MCP server list
 
-You should already have Claude Code running in the project folder (`ui-poc-workspace`) from the previous step. In the 💬 Claude Code chat, enter:
+You should already have Claude Code running in the project folder (`ui-poc-workspace`) from the previous step. In the 💬 Claude Code chat, enter the following to load plugins:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/reload-plugins
+:::
+
+Once loaded, enter the following in the 💬 Claude Code chat to check the MCP server list:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /mcp
@@ -20,17 +26,13 @@ You should see something like this:
 ```
 ──────────────────────────────────────────────────────
   Manage MCP servers
-  9 servers
+  7 servers
 
     Project MCPs (.mcp.json)
     airtable · ✔ connected
     alps-writer · ✔ connected
     asset-generator · ✘ failed
     pdf-reader · ✔ connected
-
-    User MCPs (~/.claude.json)
-    ppt-generator · ✔ connected
-    tavily · ✔ connected
 
     Built-in MCPs (always available)
     plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
@@ -47,13 +49,6 @@ You should see something like this:
 | alps-writer     | `alps-writer`            | Author the PRD (ALPS)      |
 | asset-generator | (bundled in project)     | Generate image assets      |
 | airtable        | `airtable-mcp-server`    | Track workshop progress    |
-
-**User MCPs** (`~/.claude.json`):
-
-| MCP server    | Purpose                      |
-| ------------- | ---------------------------- |
-| ppt-generator | Generate presentation slides |
-| tavily        | Web search and research      |
 
 **Plugins** (`.claude/settings.json`):
 
