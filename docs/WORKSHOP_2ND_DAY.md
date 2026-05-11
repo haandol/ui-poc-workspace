@@ -11,27 +11,29 @@
 
 ## 타임테이블
 
-| 시간          | 내용                          | 작업 폴더           |
-| ------------- | ----------------------------- | ------------------- |
-| 12:00 ~ 12:40 | 오프닝                        | —                   |
-| 12:40 ~ 13:10 | 딥리서치 + 개발 환경 설정하기 | `ui-poc-workspace/` |
-| 13:20 ~ 14:10 | PRD 만들기                    | `ui-poc-workspace/` |
-| 14:20 ~ 16:00 | UI PoC 개발하기               | `ui-poc-workspace/` |
-| 16:00 ~ 16:30 | 워크숍 소회                   | —                   |
+| 시간          | 내용                      | 주 사용 입력창             |
+| ------------- | ------------------------- | -------------------------- |
+| 13:00 ~ 13:10 | 오프닝                    | —                          |
+| 13:10 ~ 13:40 | Claude Code 설정하기      | 💻 터미널                  |
+| 13:40 ~ 14:00 | PRD Writer 소개하기       | —                          |
+| 14:10 ~ 14:50 | PRD 만들기                | 💻 터미널 + 💬 Claude Code |
+| 15:00 ~ 16:30 | UI PoC 빌드하기           | —                          |
+| 16:40 ~ 17:00 | 본인이 만든 내용 공유하기 | —                          |
 
 ---
 
 ## 사전 준비물
 
-- Amazon QuickSuite 설정
-- Claude Code 설정
-- 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
+- 1일차에 설치한 Claude Code
+- 1일차에 Quick Research 로 받아둔 `research.pdf`
 - 개인 노트북
 - 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
 
+> 💻 **터미널**, 💬 **Claude Code 대화창** 이라는 표기는 [INSTALLATION.md](./INSTALLATION.md#문서에서-쓰는-표기) 와 동일한 의미로 사용합니다.
+
 ---
 
-## 1. 오프닝 (12:00 ~ 12:40)
+## 1. 오프닝 (13:00 ~ 13:10)
 
 워크숍의 목표와 진행 방식을 소개합니다.
 
@@ -39,8 +41,8 @@
 
 **진행 흐름**:
 
-1. 딥리서치로 아이디어 조사 (+ 동시에 개발 환경 설정)
-2. PRD 문서 작성
+1. Claude Code 자격증명 재등록 (1일차 키 만료)
+2. 1일차에 받아둔 리서치 PDF 로 PRD 문서 작성
 3. Claude Code로 UI PoC 개발
 4. 결과물 데모 및 피드백
 
@@ -49,161 +51,47 @@
 
 ---
 
-## 2. 딥리서치 + 개발 환경 설정하기 (12:40 ~ 13:10)
+## 2. Claude Code 설정하기 (13:10 ~ 13:40)
 
-딥리서치가 진행되는 동안 개발 환경을 병렬로 설정합니다.
+1일차에 설치는 이미 끝났지만, Workshop Studio 자격증명이 **만료**되었기 때문에 Bedrock API 키를 다시 등록해야 합니다.
 
-### 2-1. 딥리서치로 아이디어 조사하기
+### 2-1. Bedrock 자격증명 다시 등록하기
 
-**Step 1.** Amazon QuickSuite 를 열고 Quick Flow를 생성합니다.
-
-아래 내용으로 Quick Flow를 만듭니다:
-
-```
-나는 PM이고, 새로운 서비스의 UI PoC를 준비하고 있어.
-백엔드 없이 모든 데이터와 API를 모킹해서 웹 UI만 프로토타입할 거야.
-
-아래 내용을 포함해서 딥리서치해줘:
-1. 해당 서비스 도메인의 주요 경쟁사 분석 (핵심 기능, UX 특징, 강점/약점)
-2. 우리 서비스만의 차별화 포인트
-3. 타겟 사용자와 핵심 사용 시나리오
-4. UI PoC에 반드시 포함해야 할 핵심 기능 추천
-
-리포트는 한글로 작성해줘.
-```
-
-**Step 2.** Flow 가 생성되면 미리 준비해 온 구현할 내용을 입력해서 조사해 달라고 요청합니다.
-
-**Step 3.** 조사가 완료되면 Quick Research에서 **PDF로 다운로드**합니다.
-
-> **Tip**: 딥리서치는 약 30분 정도 소요됩니다. 조사가 진행되는 동안 아래 개발 환경 설정을 함께 진행하세요.
-
-### 2-2. 개발 환경 설정하기
-
-셋업 스크립트를 실행하면 모든 환경설정이 자동으로 완료됩니다.
-설치 완료 후 작업 폴더는 `바탕화면/ui-poc-workspace/` 에 생성됩니다.
-
-**Mac — 원라이너 (클론 + 설치 한번에):**
+**Step 1.** 💻 터미널에서 Claude Code 를 실행합니다.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/scripts/bootstrap.sh | bash
+claude
 ```
 
-**Windows — PowerShell에서 아래 두 명령을 순서대로 실행:**
+**Step 2.** 💬 Claude Code 대화창에서 `/setup-bedrock` 명령으로 새 키를 등록합니다.
 
-```powershell
-# 1) 프로젝트 클론 (바탕화면에 생성)
-$desktop = [Environment]::GetFolderPath('Desktop')
-git clone https://github.com/haandol/ui-poc-workspace "$desktop\ui-poc-workspace"
-cd "$desktop\ui-poc-workspace"
-
-# 2) 셋업 스크립트 실행
-powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
+```
+/setup-bedrock
 ```
 
-> **참고**: 스크립트 실행이 어려운 경우 [수동 설치 가이드](./INSTALLATION.md)를 참고하세요.
+진행자가 새로 공유한 **Bedrock API 키** 를 붙여넣고, region 은 `us-east-1` 을 입력합니다.
 
-설치가 완료되면 작업 폴더에서 Claude Code를 실행하여 MCP 도구가 정상 연결되었는지 확인합니다:
+> **자세한 절차**: 스크린샷 포함 전체 과정은 [INSTALLATION.md — 3. Bedrock 자격증명 등록](./INSTALLATION.md#3-bedrock-자격증명-등록) 을 참고하세요.
 
-```bash
-# Mac
-cd ~/Desktop/ui-poc-workspace && claude
+**Step 3.** 💬 대화창에서 `/model` 로 `Opus 4.6 (us.anthropic.claude-opus-4-6-v1)` 이 선택되어 있는지 확인합니다.
 
-# Windows (PowerShell)
-cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
+### 2-2. 이미지 에셋 생성 설정하기 (선택)
+
+AI 이미지 생성 기능을 사용하려면 FAL API Key 가 필요합니다. 💬 Claude Code 대화창에 진행자에게 전달받은 키와 함께 아래처럼 요청하면, Claude 가 OS 에 맞게 환경변수를 등록해줍니다.
+
+```
+FAL_KEY 를 "진행자에게_전달받은_키" 로 설정해줘.
+Mac이면 ~/.zshrc, Windows면 사용자 환경변수에 영구 등록해줘.
 ```
 
-Claude Code가 실행되면 프롬프트에 `/mcp` 를 입력합니다. `pdf-reader`, `alps-writer`, `asset-generator` 등 MCP 서버 목록이 표시되면 정상입니다.
+Claude 가 실행할 명령에 대해 승인 요청이 뜨면 **Yes** 를 선택합니다. 등록이 끝나면 💬 대화창을 `/exit` 으로 종료하고 다시 `claude` 로 실행한 뒤, `/mcp` 에서 `asset-generator` 가 `✔ connected` 상태로 바뀌었는지 확인합니다.
 
-<details>
-<summary><b>자동 설치되는 도구 목록</b> (클릭하여 펼치기)</summary>
+> **참고**: FAL API Key 가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 에셋 생성 기능만 비활성화됩니다.
 
-셋업 스크립트와 프로젝트 설정을 통해 아래 도구들이 자동으로 구성됩니다.
-
-**MCP 서버** (`.mcp.json`):
-
-| MCP 서버        | 패키지                   | 용도                  |
-| --------------- | ------------------------ | --------------------- |
-| pdf-reader      | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
-| alps-writer     | `alps-writer`            | PRD(ALPS) 문서 작성   |
-| asset-generator | (프로젝트 내장)          | 이미지 에셋 생성      |
-| airtable        | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
-
-**유저 MCP** (`~/.claude.json`):
-
-| MCP 서버      | 용도                       |
-| ------------- | -------------------------- |
-| ppt-generator | 프레젠테이션 슬라이드 생성 |
-| tavily        | 웹 검색 및 리서치          |
-
-**플러그인** (`.claude/settings.json`):
-
-| 플러그인            | 용도                                 |
-| ------------------- | ------------------------------------ |
-| context7            | 라이브러리/프레임워크 최신 문서 조회 |
-| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅     |
-| nx                  | Nx 모노레포 워크스페이스 관리        |
-
-**커스텀 스킬** (`.claude/skills/`):
-
-| 스킬            | 사용법             | 용도                           |
-| --------------- | ------------------ | ------------------------------ |
-| workshop-status | `/workshop-status` | 워크숍 진행 상태 Airtable 공유 |
-
-```bash
-❯ /mcp
-
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-  Manage MCP servers
-  9 servers
-
-    Project MCPs (/Users/dongkyl/Desktop/ui-poc-workspace/.mcp.json)
-  ❯ airtable · ✔ connected
-    alps-writer · ✔ connected
-    asset-generator · ✘ failed
-    pdf-reader · ✔ connected
-
-    User MCPs (/Users/dongkyl/.claude.json)
-    ppt-generator · ✔ connected
-    tavily · ✔ connected
-
-    Built-in MCPs (always available)
-    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
-    plugin:context7:context7 · ✔ connected
-    plugin:nx:nx-mcp · ✔ connected
-
-  ※ Run claude --debug to see error logs
-  https://code.claude.com/docs/en/mcp for help
- ↑↓ to navigate · Enter to confirm · Esc to cancel
-```
-
-</details>
-
-> **참고**: `airtable`, `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.
-
-### 2-3. 이미지 에셋 생성 설정하기 (선택)
-
-AI 이미지 생성 기능을 사용하려면 FAL API Key를 설정합니다. 진행자에게 전달받은 키를 아래와 같이 환경변수로 등록합니다.
-
-```bash
-# Mac
-echo 'export FAL_KEY="진행자에게_전달받은_키"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-```powershell
-# Windows (PowerShell) — 설정 후 PowerShell 재시작 필요
-[Environment]::SetEnvironmentVariable('FAL_KEY', '진행자에게_전달받은_키', 'User')
-```
-
-설정 후 Claude Code를 재시작하면 `/mcp`에서 `asset-generator`가 `✔ connected` 상태로 변경됩니다.
-
-> **참고**: FAL API Key가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 에셋 생성 기능만 비활성화됩니다.
-
-### 2-4. 진행 상태 추적 설정하기
+### 2-3. 진행 상태 추적 설정하기
 
 워크숍 진행 상황을 진행자와 공유하기 위해 Airtable 연동을 설정합니다.
-진행자가 전달한 **Airtable API Key**를 준비한 뒤, Claude Code 프롬프트에 아래 명령을 입력합니다 (터미널이 아니라 Claude Code 대화창에서 입력):
+진행자가 전달한 **Airtable API Key**를 준비한 뒤, 💬 Claude Code 대화창에서 아래 명령을 입력합니다.
 
 ```
 /workshop-status setup
@@ -218,45 +106,47 @@ Claude가 두 가지를 물어봅니다:
 
 > **참고**: Airtable 키가 없어도 워크숍 진행에는 문제가 없습니다. 진행 상태 추적 기능만 비활성화됩니다.
 
-### 2-5. 리서치 PDF 복사하기
+---
 
-딥리서치가 완료되면, 다운받은 리서치 PDF를 작업 폴더의 `docs/` 폴더에 복사합니다.
-파일명은 **영문으로 변경하는 것을 권장**합니다 (예: `research.pdf`). 한글 파일명이나 공백이 포함된 파일명은 문제가 될 수 있습니다.
+## 3. PRD 만들기 (14:10 ~ 14:50)
+
+### 3-1. 리서치 PDF 복사하기
+
+1일차 마지막에 백업해둔 `research.pdf` 를 작업 폴더의 `docs/` 폴더로 복사합니다.
 
 ```
 바탕화면/ui-poc-workspace/
-└── docs/          <- 여기에 리서치 PDF 복사
+└── docs/research.pdf    <- 여기에 복사
 ```
 
-> **복사 방법**: 다운로드 폴더에서 PDF 파일을 `바탕화면 > ui-poc-workspace > docs` 폴더로 드래그앤드롭하면 됩니다.
+> **복사 방법**: 백업해둔 위치(예: `문서/ui-poc/`) 의 PDF 파일을 `바탕화면 > ui-poc-workspace > docs` 폴더로 드래그앤드롭하면 됩니다.
+> 파일명에 한글이나 공백이 포함되어 있다면 `research.pdf` 로 변경하세요.
 
----
+> **PDF 를 잃어버렸거나 아이디어가 바뀌었다면**: 1일차 [섹션 5](./WORKSHOP_1ST_DAY.md#5-quick-research-로-리서치-pdf-받기-1600--1650) 의 프롬프트 템플릿으로 Quick Research 를 다시 돌려 새 `research.pdf` 를 받아오세요.
 
-## 3. PRD 만들기 (13:20 ~ 14:10)
-
-리서치 PDF를 기반으로 PRD를 작성합니다.
+### 3-2. PRD 작성 요청하기
 
 ```
 바탕화면/ui-poc-workspace/    (프로젝트 루트에서 Claude Code 실행)
-├── docs/research.pdf         <- 리서치 PDF (입력, 파일명은 다를 수 있음)
+├── docs/research.pdf         <- 리서치 PDF (입력)
 └── docs/prd/                 <- ALPS 문서가 여기에 저장됨 (출력)
 ```
 
 > **`@` 문법이란?** Claude Code에서 `@파일경로`를 입력하면 해당 파일을 AI가 직접 읽을 수 있습니다.
 > `@docs/`까지 입력한 뒤 **Tab 키**를 누르면 파일명이 자동완성되므로, 파일명을 정확히 외울 필요가 없습니다.
 
-**Step 1.** 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
-이미 Claude Code가 실행 중이라면 그대로 사용하세요.
+**Step 1.** 💻 터미널에서 프로젝트 폴더로 이동 후 Claude Code를 실행합니다.
+이미 💬 Claude Code 대화창이 열려 있다면 그대로 사용하세요.
 
 ```bash
-# Mac
+# 💻 터미널 (Mac)
 cd ~/Desktop/ui-poc-workspace && claude
 
-# Windows (PowerShell)
+# 💻 터미널 (Windows PowerShell)
 cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 ```
 
-**Step 2.** Claude Code 프롬프트에서 PRD 작성을 요청합니다. `@docs/`까지 입력 후 Tab 키를 눌러 PDF 파일을 선택하세요.
+**Step 2.** 💬 Claude Code 대화창에서 PRD 작성을 요청합니다. `@docs/`까지 입력 후 Tab 키를 눌러 PDF 파일을 선택하세요.
 
 프롬프트 예시:
 
@@ -277,7 +167,7 @@ cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 
 ---
 
-## 4. UI PoC 개발하기 (14:20 ~ 16:00)
+## 4. UI PoC 빌드하기 (15:00 ~ 16:30)
 
 ```
 바탕화면/ui-poc-workspace/          (프로젝트 루트에서 모든 작업)
@@ -288,14 +178,14 @@ cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude
 
 ### 4-1. 개발 서버 먼저 실행하기
 
-개발하는 동안 터미널 탭을 **2개** 사용합니다. 하나는 개발 서버용, 하나는 Claude Code용입니다.
+개발하는 동안 💻 터미널 탭을 **2개** 사용합니다. 하나는 개발 서버용, 하나는 💬 Claude Code 대화창용입니다.
 
-**Step 1.** 현재 터미널 창에서 새 탭을 엽니다: Mac `Cmd + T` / Windows `Ctrl + Shift + T`
+**Step 1.** 현재 💻 터미널 창에서 새 탭을 엽니다: Mac `Cmd + T` / Windows `Ctrl + Shift + T`
 
 **Step 2.** 새 탭(탭 1)에서 개발 서버를 실행합니다. 이 탭은 닫지 말고 계속 켜둡니다.
 
 ```bash
-# 📺 탭 1: 개발 서버 (항상 켜두기)
+# 📺 💻 터미널 탭 1: 개발 서버 (항상 켜두기)
 # Mac
 cd ~/Desktop/ui-poc-workspace && pnpm dev:web
 
@@ -305,11 +195,11 @@ cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; pnpm dev:web
 
 **Step 3.** 브라우저에서 `http://localhost:3000`을 열어두세요. 코드가 변경되면 자동으로 반영됩니다 (Hot Reload).
 
-**Step 4.** 다시 새 탭을 열어서(Mac `Cmd + T` / Windows `Ctrl + Shift + T`) Claude Code를 실행합니다.
-이미 Claude Code가 실행 중인 탭이 있다면 그 탭을 사용하세요.
+**Step 4.** 다시 새 💻 터미널 탭을 열어서(Mac `Cmd + T` / Windows `Ctrl + Shift + T`) Claude Code를 실행합니다.
+이미 💬 Claude Code 대화창이 열려 있는 탭이 있다면 그 탭을 사용하세요.
 
 ```bash
-# 🤖 탭 2: Claude Code (AI 작업용)
+# 🤖 💻 터미널 탭 2: Claude Code 실행 (이후 💬 대화창에서 작업)
 # Mac
 cd ~/Desktop/ui-poc-workspace && claude
 
@@ -403,7 +293,7 @@ PRD의 피쳐를 하나씩 구현해달라고 요청합니다.
 
 ---
 
-## 5. 워크숍 소회 (16:00 ~ 16:30)
+## 5. 본인이 만든 내용 공유하기 (16:40 ~ 17:00)
 
 ### 5-1. 데모 시간
 
