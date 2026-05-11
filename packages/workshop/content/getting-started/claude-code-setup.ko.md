@@ -1,5 +1,5 @@
 ---
-title: 'Bedrock 설정'
+title: 'Claude Code 설정'
 weight: 20
 ---
 

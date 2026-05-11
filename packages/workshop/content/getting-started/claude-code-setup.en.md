@@ -1,5 +1,5 @@
 ---
-title: 'Bedrock Setup'
+title: 'Claude Code Setup'
 weight: 20
 ---
 

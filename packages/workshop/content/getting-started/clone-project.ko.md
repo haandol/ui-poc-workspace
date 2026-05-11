@@ -92,4 +92,4 @@ claude
 
 💬 Claude Code 대화창이 열리면 다음 단계로 넘어갑니다.
 
-::alert[이전 단계(Bedrock 설정)에서 등록한 자격증명은 그대로 유지됩니다. 다시 `/login` 할 필요는 없습니다.]{type="info"}
+::alert[이전 단계(Claude Code 설정)에서 등록한 자격증명은 그대로 유지됩니다. 다시 `/login` 할 필요는 없습니다.]{type="info"}
