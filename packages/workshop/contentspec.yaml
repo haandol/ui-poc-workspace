@@ -8,3 +8,19 @@ additionalLinks:
     link: https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html
   - title: Claude Code 문서
     link: https://code.claude.com/docs
+awsAccountConfig:
+  accountSources:
+    - workshop_studio
+    - customer_provided
+  regionConfiguration:
+    deployableRegions:
+      required:
+        - us-east-1
+    minAccessibleRegions: 1
+    maxAccessibleRegions: 1
+    accessibleRegions:
+      required:
+        - us-east-1
+  participantRole:
+    iamPolicies:
+      - static/iam-policy.json

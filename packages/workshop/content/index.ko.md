@@ -35,11 +35,12 @@ weight: 0
 
 이 워크숍은 프로그래밍 지식이 없어도 참여할 수 있습니다.
 
-1. 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
-2. 개인 노트북 (Mac 또는 Windows)
-3. 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
-4. AWS 계정 및 Amazon Bedrock 접근 권한 (워크숍 진행자가 제공)
-5. Amazon QuickSuite 접근 (리서치 단계에서 사용, 진행자가 제공)
+1. AI 리서치 도구 (예: Amazon QuickSuite)
+2. Claude Code 설정
+3. 자신이 PoC로 만들어보고 싶은 서비스 아이디어 (간단한 메모 수준이면 충분, 자세할수록 좋음)
+4. 개인 노트북 (Mac 또는 Windows)
+5. 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
+6. AWS 계정 및 Amazon Bedrock 접근 권한 (워크숍 진행자가 제공)
 
 ::alert[리서치 단계에서 받은 `research.pdf` 는 안전한 위치에 백업해두세요. PRD 작성과 UI PoC 빌드가 이 PDF 를 기반으로 진행됩니다.]{type="info"}
 
@@ -47,7 +48,7 @@ weight: 0
 
 **워크숍 이벤트에서**: 진행자가 AWS 계정을 제공합니다. 별도 비용이 발생하지 않습니다.
 
-**자체 진행 시**: Amazon Bedrock API 호출 비용이 발생합니다. 워크숍 완료 후 [정리 섹션](./cleanup/)을 참고하여 리소스를 삭제하세요.
+**자체 진행 시**: Amazon Bedrock API 호출 비용이 발생합니다. 자세한 내용은 [Amazon Bedrock 요금 페이지](https://aws.amazon.com/bedrock/pricing/)를 참고하세요. 워크숍 완료 후 [정리 섹션](./cleanup/)을 참고하여 리소스를 삭제하세요.
 
 > **Tip**: 작업 중 막히거나 궁금한 점이 있으면 언제든 AI에게 질문하세요.
 > 기능 우선순위, 사용자 시나리오, 화면 구성, 경쟁사 비교 등 무엇이든 물어볼 수 있습니다.
