@@ -32,7 +32,7 @@ export interface GptImage2Output {
 export class ImageGenerationRepository {
   async generateImage(input: GptImage2Input): Promise<GptImage2Output> {
     const { image_size, ...rest } = input
-    const resolvedSize = SIZE_MAP[image_size ?? 'landscape_4_3'] ?? SIZE_MAP['landscape_4_3']
+    const resolvedSize = SIZE_MAP[image_size ?? 'square_hd'] ?? SIZE_MAP['square_hd']
     const result = await fal.subscribe(TEXT_TO_IMAGE_MODEL, {
       input: { ...rest, image_size: resolvedSize },
     })

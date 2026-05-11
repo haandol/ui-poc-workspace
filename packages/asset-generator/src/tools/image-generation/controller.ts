@@ -14,7 +14,7 @@ const IMAGE_SIZE_ENUM = z.enum([
 
 const GENERATE_IMAGE_PARAMS = {
   prompt: z.string().describe('Text prompt describing the image to generate'),
-  image_size: IMAGE_SIZE_ENUM.optional().describe('Image size preset (default: square_hd, 1024x1024)'),
+  image_size: IMAGE_SIZE_ENUM.optional().describe('Image size preset (default: square_hd, 2048x2048)'),
   quality: z
     .enum(['low', 'medium', 'high'])
     .optional()
