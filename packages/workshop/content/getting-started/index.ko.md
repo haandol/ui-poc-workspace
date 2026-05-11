@@ -12,5 +12,3 @@ weight: 10
 - 프로젝트 다운로드 및 패키지 설치
 - Claude Code 설정
 - MCP 서버 연결 확인
-
-::alert[**이어서 참여하는 경우**: 설치와 Quick Research 를 이미 마친 뒤 다시 접속했다면, [Claude Code 설정 — 자격증명이 만료되었다면](./claude-code-setup/#자격증명이-만료되었다면) 섹션으로 바로 이동해 `/setup-bedrock` 으로 새 키만 재등록하면 됩니다. 나머지 설치 과정은 다시 진행할 필요가 없습니다.]{type="info"}

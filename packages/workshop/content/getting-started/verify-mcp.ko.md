@@ -19,8 +19,6 @@ weight: 30
 /mcp
 :::
 
-::alert[Claude Code 가 실행 중이 아니라면, 💻 터미널에서 프로젝트 폴더로 이동한 뒤 `claude` 를 실행하세요. Mac: `cd ~/Desktop/ui-poc-workspace && claude` / Windows: `cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude`]{type="info"}
-
 아래와 같이 MCP 서버 목록이 표시되면 정상입니다:
 
 ```

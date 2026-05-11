@@ -68,7 +68,13 @@ On the **first launch**, Claude Code automatically shows the provider selection 
 
 ## 3. Smoke test
 
-Type a quick message in the 💬 Claude Code chat to confirm you get a reply.
+After credential registration completes, Claude Code exits automatically. Relaunch it from the 💻 terminal:
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+claude
+:::
+
+Once the 💬 Claude Code chat opens, type a quick message to confirm you get a reply.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 hi

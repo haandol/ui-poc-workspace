@@ -19,8 +19,6 @@ Once loaded, enter the following in the 💬 Claude Code chat to check the MCP s
 /mcp
 :::
 
-::alert[If Claude Code isn't running, open a 💻 terminal and launch it from the project folder. Mac: `cd ~/Desktop/ui-poc-workspace && claude` / Windows: `cd "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace"; claude`]{type="info"}
-
 You should see something like this:
 
 ```

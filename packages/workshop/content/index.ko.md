@@ -42,8 +42,6 @@ weight: 0
 5. 터미널 앱 (Mac: Ghostty 또는 기본 터미널, Windows: PowerShell)
 6. AWS 계정 및 Amazon Bedrock 접근 권한 (워크숍 진행자가 제공)
 
-::alert[리서치 단계에서 받은 `research.pdf` 는 안전한 위치에 백업해두세요. PRD 작성과 UI PoC 빌드가 이 PDF 를 기반으로 진행됩니다.]{type="info"}
-
 ### AWS Account Requirements and Costs
 
 **워크숍 이벤트에서**: 진행자가 AWS 계정을 제공합니다. 별도 비용이 발생하지 않습니다.

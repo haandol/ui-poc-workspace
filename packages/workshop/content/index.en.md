@@ -41,8 +41,6 @@ You can take this workshop without any programming knowledge.
 4. AWS account and Amazon Bedrock access (provided by the workshop facilitator)
 5. Amazon QuickSuite access (used for the research step; provided by the facilitator)
 
-::alert[Back up the `research.pdf` produced by Quick Research in a safe location. The PRD and UI PoC steps build directly on top of that PDF.]{type="info"}
-
 ### AWS Account Requirements and Costs
 
 **At a workshop event**: the facilitator provides the AWS account. You will not incur costs.
