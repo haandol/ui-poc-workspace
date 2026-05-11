@@ -3,7 +3,7 @@
     "allow": []
   },
   "env": {},
-  "enabledMcpjsonServers": ["pdf-reader", "alps-writer", "airtable"],
+  "enabledMcpjsonServers": ["pdf-reader", "alps-writer", "airtable", "asset-generator"],
   "hooks": {
     "PostToolUse": [
       {
