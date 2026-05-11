@@ -183,3 +183,15 @@ Each package has a `project.json` defining its Nx targets. The root `nx.json` se
 ### Windows PowerShell Script Encoding
 
 Keep `.ps1` files ASCII-only. PowerShell 5.1 (the Windows default) reads `.ps1` files using the system default encoding (CP949 on Korean Windows), which mangles non-ASCII characters unless the file is saved with a UTF-8 BOM. Avoiding non-ASCII entirely sidesteps the problem — don't add Korean text, box-drawing characters, or status glyphs (▸/✓/⚠) to these scripts.
+
+### Chrome DevTools MCP — Browser Access
+
+When you need to open a browser (e.g., to take a screenshot, inspect the UI, or debug), **always use `new_page` to create a browser instance** managed by the MCP server. Do NOT ask the user to launch Chrome with a remote debugging port — most workshop participants are non-technical Windows users who cannot run Chrome in debugging mode.
+
+Preferred flow:
+
+1. `new_page` → creates a browser page and returns a page ID
+2. `navigate_page` → navigate to the target URL (e.g., `http://localhost:3000`)
+3. `take_screenshot` / `evaluate_script` / etc. — interact as needed
+
+Only fall back to `list_pages` + `select_page` (connecting to an existing debug-mode browser) if the user has explicitly started Chrome with `--remote-debugging-port`.

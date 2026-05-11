@@ -9,14 +9,16 @@ When the screen doesn't look right, the AI can look at the browser itself and fi
 
 Try prompts like the ones below. Mentioning that the dev server is at `http://localhost:3000` helps the AI navigate to the right address.
 
-| Situation             | Example prompt                                                                 |
-| --------------------- | ------------------------------------------------------------------------------ |
-| Check the screen      | "Open localhost:3000 in the browser and take a screenshot."                    |
-| Broken-looking layout | "Check the page at localhost:3000 in the browser and fix what's broken."       |
-| Console errors        | "Check if there are any errors at localhost:3000 in the browser and fix them." |
-| Design check          | "Screenshot localhost:3000 and compare it to the PRD."                         |
+| Situation             | Example prompt                                                                                   |
+| --------------------- | ------------------------------------------------------------------------------------------------ |
+| Check the screen      | "Dev server is already running at localhost:3000. Open it in the browser and take a screenshot." |
+| Broken-looking layout | "Check the page and fix what's broken."                                                          |
+| Console errors        | "Check if there are any browser errors and fix them."                                            |
+| Design check          | "Screenshot the page and compare it to the PRD."                                                 |
 
 ::alert[Simple prompts like "take a look at the screen", "screenshot it", or "something looks weird — what's wrong?" are usually enough for the AI to diagnose the issue.]{type="info"}
+
+::alert[If the AI says it can't open a browser, run `/reload-plugins` then check `/mcp` to confirm the `chrome-devtools` plugin is connected. See the [Verify MCP Servers](/getting-started/verify-mcp) page for details.]{type="warning"}
 
 ## Common troubleshooting
 
