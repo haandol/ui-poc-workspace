@@ -44,13 +44,17 @@ On the **first launch**, Claude Code automatically shows the provider selection 
 
 ![Using 3rd-party platforms - Amazon Bedrock](/static/images/getting-started/setup-bedrock/login-2.png)
 
-**Step 3.** On the **authentication method** screen, press **`2`** to select `Bedrock API key (bearer token)` and press Enter. The Bedrock API key flow is the simplest and is recommended.
+**Step 3.** On the **authentication method** screen, press **`3`** to select `Access Key, Secret` and press Enter.
 
 ![Auth method - Bedrock API key](/static/images/getting-started/setup-bedrock/cc-1.png)
 
-**Step 4.** On the **Bedrock API key** screen, paste the API key your facilitator gave you and press Enter.
+**Step 4.** Enter the AWS credentials you confirmed in the previous [Environment Setup](/getting-started/environment-setup) step. Paste each value and press Enter.
 
-![Paste Bedrock API key](/static/images/getting-started/setup-bedrock/cc-2.png)
+- **AWS Access Key ID** — paste the Access Key value and press Enter
+- **AWS Secret Access Key** — paste the Secret Access Key value and press Enter
+- **AWS Session Token** — paste the Session Token value and press Enter
+
+![Paste AWS credentials](/static/images/getting-started/setup-bedrock/cc-2.png)
 
 **Step 5.** On the **AWS region** screen, enter `us-east-1` (required) and press Enter.
 

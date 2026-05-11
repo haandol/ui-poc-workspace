@@ -38,11 +38,15 @@ Follow the steps below to access the Workshop Studio AWS account.
 
 Once you are on the event dashboard, you can see the workshop overview and the AWS account information.
 
-## Open the AWS console
+## Verify AWS credentials
 
-From the event dashboard, click **Open AWS Console** on the left. In the console's top right, make sure the region is **US East (N. Virginia) us-east-1**.
+From the event dashboard, click **Get AWS CLI credentials** on the left to view the credentials.
 
-![Console access](/static/images/getting-started/console-access.png)
+![Get credentials](/static/images/getting-started/get-credentials.png)
+
+Confirm that your AWS credentials (Access Key, Secret Access Key, Session Token) are displayed as shown below.
+
+![AWS credentials](/static/images/getting-started/aws-credentials.png)
 
 ::alert[The event account credentials expire after a while. When they do, copy fresh credentials from the Workshop Studio dashboard.]{type="warning"}
 
