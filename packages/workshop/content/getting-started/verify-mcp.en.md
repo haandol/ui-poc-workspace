@@ -117,6 +117,6 @@ If `airtable` is connected, enter the following in the 💬 Claude Code chat to 
 /workshop-status
 :::
 
-If your current setup status is printed, the Airtable integration is working correctly.
+If your current setup status is printed and a record is created in Airtable, the integration is working correctly.
 
 ::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}
