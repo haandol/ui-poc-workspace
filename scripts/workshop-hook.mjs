@@ -76,9 +76,10 @@ function incrementImageCount(count) {
 
 async function sendImageCountToAirtable(total) {
   const apiKey = process.env.AIRTABLE_API_KEY;
-  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!apiKey) return;
+  const baseId = await resolveBaseId(apiKey);
   const tableName = process.env.AIRTABLE_TABLE_NAME || 'Progress';
-  if (!apiKey || !baseId) return;
+  if (!baseId) return;
   if (!existsSync(PARTICIPANT_FILE)) return;
 
   const participant = readFileSync(PARTICIPANT_FILE, 'utf8').trim();
@@ -196,11 +197,23 @@ function appendJournal(milestoneId) {
   appendFileSync(JOURNAL, `${milestoneId}\t${new Date().toISOString()}\n`);
 }
 
+async function resolveBaseId(apiKey) {
+  if (process.env.AIRTABLE_BASE_ID) return process.env.AIRTABLE_BASE_ID;
+  const res = await fetch('https://api.airtable.com/v0/meta/bases', {
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const base = data.bases?.[0];
+  return base?.id || null;
+}
+
 async function sendToAirtable(milestoneId) {
   const apiKey = process.env.AIRTABLE_API_KEY;
-  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!apiKey) return;
+  const baseId = await resolveBaseId(apiKey);
   const tableName = process.env.AIRTABLE_TABLE_NAME || 'Progress';
-  if (!apiKey || !baseId) return;
+  if (!baseId) return;
   if (!existsSync(PARTICIPANT_FILE)) return;
 
   const participant = readFileSync(PARTICIPANT_FILE, 'utf8').trim();
