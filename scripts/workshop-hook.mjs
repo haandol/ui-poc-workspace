@@ -20,7 +20,14 @@ const MILESTONES = {
   'SETUP-DONE': { phase: '환경설정', label: 'Environment Ready' },
   'RESEARCH-DONE': { phase: '리서치', label: 'Deep Research Done' },
   'PRD-START': { phase: 'PRD', label: 'PRD Started' },
+  'PRD-S2': { phase: 'PRD', label: 'PRD Section 2' },
+  'PRD-S3': { phase: 'PRD', label: 'PRD Section 3' },
+  'PRD-S4': { phase: 'PRD', label: 'PRD Section 4' },
+  'PRD-S5': { phase: 'PRD', label: 'PRD Section 5' },
   'PRD-FEATURES': { phase: 'PRD', label: 'PRD Features Defined' },
+  'PRD-S7': { phase: 'PRD', label: 'PRD Section 7' },
+  'PRD-S8': { phase: 'PRD', label: 'PRD Section 8' },
+  'PRD-S9': { phase: 'PRD', label: 'PRD Section 9' },
   'PRD-DONE': { phase: 'PRD', label: 'PRD Complete' },
   'SCAFFOLD-DONE': { phase: '스캐폴딩', label: 'UI Scaffold Done' },
   'DEMO-READY': { phase: '완료', label: 'Demo Ready' },
@@ -165,6 +172,7 @@ function detectMilestone(payload) {
     const section = Number(input.section ?? input.section_number ?? input.sectionNumber);
     if (section === 1) return 'PRD-START';
     if (section === 6) return 'PRD-FEATURES';
+    if (section >= 2 && section <= 9) return `PRD-S${section}`;
   }
 
   if (toolName === 'mcp__alps-writer__export_alps_markdown') {
