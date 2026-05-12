@@ -66,6 +66,14 @@ On the **first launch**, Claude Code automatically shows the provider selection 
 
 ![Pin model versions](/static/images/getting-started/setup-bedrock/cc-4.png)
 
+**Step 7.** In the 💬 Claude Code chat, type `/model` and confirm that **Opus 4.6 (`us.anthropic.claude-opus-4-6-v1`)** is selected.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/model
+:::
+
+::alert[If a different model is selected, switch to `Opus 4.6`. This workshop uses Opus 4.6.]{type="info"}
+
 ## 3. Smoke test
 
 After credential registration completes, Claude Code exits automatically. Relaunch it from the 💻 terminal:
@@ -86,9 +94,7 @@ A reply means installation and credential registration are both complete.
 
 ## If your credentials have already expired
 
-When you resume the workshop in a later session and Workshop Studio credentials have already expired, you don't need to reinstall anything. In the 💬 Claude Code chat, run `/setup-bedrock` to bring up the same flow and paste the new API key your facilitator shares.
-
-::alert[After re-registering, run `/model` in the 💬 chat and confirm `Opus 4.6 (us.anthropic.claude-opus-4-6-v1)` is selected.]{type="info"}
+When you resume the workshop in a later session and Workshop Studio credentials have already expired, you don't need to reinstall anything. In the 💬 Claude Code chat, run `/setup-bedrock` to bring up the same flow and paste the new API key your facilitator shares. After re-registering, verify the model with `/model` as described in **Step 7** above.
 
 ## Next step
 
