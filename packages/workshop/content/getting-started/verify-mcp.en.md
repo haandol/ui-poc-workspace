@@ -111,4 +111,12 @@ Once the 💬 Claude Code chat opens, enter:
 
 Verify that `asset-generator` and `airtable` show `✔ connected`.
 
+If `airtable` is connected, enter the following in the 💬 Claude Code chat to confirm progress tracking works:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/workshop-status
+:::
+
+If your current setup status is printed, the Airtable integration is working correctly.
+
 ::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}

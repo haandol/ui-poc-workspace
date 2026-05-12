@@ -111,4 +111,12 @@ claude
 
 `asset-generator` 와 `airtable` 이 `✔ connected` 상태로 표시되는지 확인합니다.
 
+`airtable` 이 connected 상태라면, 💬 Claude Code 대화창에서 아래 명령을 입력하여 진행 상태가 정상적으로 업데이트되는지 확인합니다:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/workshop-status
+:::
+
+현재 환경 설정 상태가 출력되면 Airtable 연동이 정상 동작하는 것입니다.
+
 ::alert[키가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 생성 및 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}
