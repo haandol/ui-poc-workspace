@@ -70,9 +70,9 @@ Read @docs/research.pdf and write an ALPS document for the UI PoC.
 
 The ALPS document is **not** produced all at once. Claude Code walks you through Section 1 to Section 9 **section by section**, presenting a draft and asking for your confirmation. You must read and **confirm (or request changes)** before it moves to the next section.
 
-::alert[Read each section carefully and, if the content does not match your intent, ask for specific edits. The clearer this step, the better Lab 3 development will go.]{type="warning"}
+::alert[For a UI PoC, speed matters more than perfection. The goal is to **write fast → implement → get feedback** in tight cycles. If the broad direction looks right, confirm and move on — you can always adjust details during development.]{type="info"}
 
-When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Because this is interactive, it takes roughly **20–30 minutes**.
+When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Moving quickly takes about **10–15 minutes**; a thorough review takes **20–30 minutes**.
 
 ## Step 4. Inspect the generated PRD
 

@@ -52,7 +52,7 @@ Ask anything that's unclear while the PRD takes shape.
 - "Trim the feature list down to only what's essential for the MVP."
 - "Walk me through the user flow end to end."
 
-::alert[It pays to review the PRD thoroughly before development. You can change it later, but getting direction right up front saves a lot of development time.]{type="info"}
+::alert[The key to a UI PoC is spinning the **PRD → implement → feedback** cycle fast. Don't spend too long perfecting the PRD — get the broad direction right, move to development, and refine as you see the actual screens.]{type="info"}
 
 ## Completion check
 
