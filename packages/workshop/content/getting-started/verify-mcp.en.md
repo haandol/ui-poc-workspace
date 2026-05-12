@@ -78,6 +78,37 @@ Claude asks for three things at once. Enter them with numbers (newline: Mac `Shi
 2. **FAL_KEY** — the fal.ai API key for image generation (provided by your facilitator)
 3. **Nickname** — the name shown in the progress tracker
 
-Once configured, type `/mcp` and click 🔄 reconnect next to `asset-generator` and `airtable` to verify they switch to `✔ connected`.
+Once configured, restart Claude Code and verify the MCP connections.
+
+::::tabs
+:::tab{label="Mac"}
+
+In your 💻 terminal, quit Claude Code (`Ctrl+C` or `/exit`) and relaunch:
+
+:::code{showCopyAction=true showLineNumbers=false language=bash}
+claude
+:::
+
+:::
+:::tab{label="Windows (PowerShell)"}
+
+In your 💻 terminal, quit Claude Code (`Ctrl+C` or `/exit`) and relaunch:
+
+:::code{showCopyAction=true showLineNumbers=false language=powershell}
+claude
+:::
+
+::alert[On Windows, you must restart Claude Code for the new environment variables to take effect.]{type="info"}
+
+:::
+::::
+
+Once the 💬 Claude Code chat opens, enter:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/mcp
+:::
+
+Click 🔄 reconnect next to `asset-generator` and `airtable` to verify they switch to `✔ connected`.
 
 ::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}
