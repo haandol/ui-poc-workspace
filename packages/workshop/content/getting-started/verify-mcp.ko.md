@@ -109,6 +109,6 @@ claude
 /mcp
 :::
 
-`asset-generator` 와 `airtable` 옆의 🔄 reconnect 를 눌러 `✔ connected` 상태로 바뀌는지 확인합니다.
+`asset-generator` 와 `airtable` 이 `✔ connected` 상태로 표시되는지 확인합니다.
 
 ::alert[키가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 생성 및 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}

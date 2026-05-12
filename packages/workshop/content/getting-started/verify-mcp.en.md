@@ -109,6 +109,6 @@ Once the 💬 Claude Code chat opens, enter:
 /mcp
 :::
 
-Click 🔄 reconnect next to `asset-generator` and `airtable` to verify they switch to `✔ connected`.
+Verify that `asset-generator` and `airtable` show `✔ connected`.
 
 ::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}
