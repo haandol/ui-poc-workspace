@@ -7,7 +7,7 @@ Launch Claude Code from the project folder and **register Bedrock credentials**.
 
 ## 1. Launch Claude Code
 
-Run Claude Code from the project folder you cloned in the previous step.
+In your 💻 terminal, run Claude Code from the project folder you cloned in the previous step.
 
 ::::tabs
 :::tab{label="Mac"}

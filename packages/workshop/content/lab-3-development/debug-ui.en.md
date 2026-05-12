@@ -29,7 +29,7 @@ Force a cache refresh:
 - **Mac**: `Cmd + Shift + R`
 - **Windows**: `Ctrl + Shift + R`
 
-If that doesn't work, in dev server tab (tab 1) press `Ctrl + C` to stop, then rerun:
+If that doesn't work, in the 💻 dev server tab (tab 1) press `Ctrl + C` to stop, then rerun:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 pnpm dev:web
@@ -37,7 +37,7 @@ pnpm dev:web
 
 ### Port conflict
 
-If port 3000 is already in use, set the `PORT` environment variable to run on a different port.
+If port 3000 is already in use, in your 💻 terminal set the `PORT` environment variable to run on a different port.
 
 ::::tabs
 :::tab{label="Mac"}

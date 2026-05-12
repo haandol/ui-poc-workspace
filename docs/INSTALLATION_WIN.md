@@ -33,7 +33,7 @@ Claude Code 는 Node.js **22 이상**에서 동작합니다. Scoop 으로 설치
 scoop install nodejs-lts
 ```
 
-설치 후 **PowerShell 창을 닫고 새로 열어야** `node`, `npm` 커맨드가 PATH 에 잡힙니다.
+설치 후 **PowerShell 창을 완전히 종료하고 새로 열어야** `node`, `npm` 커맨드가 PATH 에 잡힙니다. 새 탭을 여는 것이 아니라 창 자체를 닫아야 합니다.
 
 **설치 확인** (새 PowerShell 에서):
 
@@ -55,7 +55,7 @@ Scoop 을 이용해 `claude` 커맨드를 시스템에 등록합니다.
 scoop install claude-code
 ```
 
-설치 후 **PowerShell 창을 닫고 새로 여세요** (PATH 갱신 필요).
+설치 후 **PowerShell 창을 완전히 종료하고 새로 여세요** (새 탭이 아닌 창 닫기 — PATH 는 새 프로세스에만 반영됩니다).
 
 **설치 확인** (새 PowerShell 에서):
 
@@ -75,8 +75,9 @@ claude --version
 
 ## 트러블슈팅
 
-| 증상                              | 해결 방법                                                                                                      |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `scoop` 이 없음 / 작동하지 않음   | 위 1단계의 Scoop 설치 명령을 실행, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치 |
-| `node` / `claude` 를 찾을 수 없음 | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                                   |
-| `scoop install claude-code` 실패  | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치                         |
+| 증상                              | 해결 방법                                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scoop` 이 없음 / 작동하지 않음   | 위 1단계의 Scoop 설치 명령을 실행, 또는 [nodejs.org](https://nodejs.org/ko/download) 에서 LTS `.msi` 수동 설치                                                                  |
+| `npm` 을 찾을 수 없음 (설치 직후) | ① PowerShell 창을 **완전히 종료**(새 탭이 아닌 창 닫기) 후 새 창에서 재시도. ② 그래도 안 되면 PowerShell 을 **관리자 권한으로 실행**(우클릭 → "관리자 권한으로 실행") 후 재시도 |
+| `node` / `claude` 를 찾을 수 없음 | PowerShell 창을 **완전히 종료**(새 탭이 아닌 창 닫기) 후 다시 열어서 재시도 (환경 변수는 새 프로세스에만 반영)                                                                  |
+| `scoop install claude-code` 실패  | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치                                                                                          |

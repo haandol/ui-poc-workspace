@@ -7,7 +7,7 @@ weight: 25
 
 ## 1. Claude Code 실행
 
-이전 단계에서 클론한 프로젝트 폴더에서 Claude Code 를 실행합니다.
+💻 터미널에서 이전 단계에서 클론한 프로젝트 폴더로 이동하여 Claude Code 를 실행합니다.
 
 ::::tabs
 :::tab{label="Mac"}

@@ -60,7 +60,7 @@ claude
 
 ## Step 3. Ask for the PRD
 
-In the Claude Code prompt, type the following. Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
+In the 💬 Claude Code chat, type the following. Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Read @docs/research.pdf and write an ALPS document for the UI PoC.
@@ -76,7 +76,7 @@ When all sections are confirmed, the ALPS document is saved as a `.alps.md` file
 
 ## Step 4. Inspect the generated PRD
 
-Once the PRD is generated, review it:
+Once the PRD is generated, review it in the 💬 Claude Code chat:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 List the files in docs/prd/.

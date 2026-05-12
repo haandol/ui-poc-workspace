@@ -59,13 +59,13 @@ iwr -useb https://raw.githubusercontent.com/haandol/ui-poc-workspace/main/script
 :::
 ::::
 
-**"Claude Code is ready"** 와 유사한 메시지가 나오면 설치 완료입니다.
+**"Installation complete"** 와 유사한 메시지가 나오면 설치 완료입니다.
 
 원라이너가 내부적으로 실행하는 것은 (1) 패키지 매니저 확인 (Homebrew/Scoop), (2) Node.js LTS 설치, (3) Claude Code 설치 (Windows: `scoop install claude-code` / Mac: 공식 인스톨러) 세 단계입니다.
 
 ## 설치 확인
 
-💻 터미널에서:
+설치가 끝나면 같은 💻 터미널에서 아래 명령을 실행합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 claude --version
@@ -73,16 +73,17 @@ claude --version
 
 버전 번호가 출력되면 설치 성공입니다.
 
-::alert[`claude` 명령을 찾을 수 없다는 오류가 나면 **터미널 창을 닫고 새로 열어서** 다시 실행해 보세요. PATH 갱신이 필요합니다.]{type="info"}
+::alert[Windows 에서 `claude` 를 못 찾는다는 오류가 나오면, PowerShell 창을 **완전히 종료**(새 탭이 아닌 창 닫기) 후 **새 창**에서 스크립트를 다시 실행하세요.]{type="info"}
 
 ## 트러블슈팅
 
-| 증상                                       | 해결 방법                                                                                                  |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| `npm install -g` 에서 권한 오류 (Mac)      | `sudo npm install -g @anthropic-ai/claude-code`                                                            |
-| `scoop install claude-code` 실패 (Windows) | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치                     |
-| `node` / `claude` 명령을 못 찾음 (Windows) | PowerShell 창을 닫고 다시 연 뒤 재시도 (환경 변수 갱신 필요)                                               |
-| Scoop 이 없거나 작동하지 않음 (Windows)    | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 **Node.js LTS** `.msi` 직접 다운로드 |
+| 증상                                        | 해결 방법                                                                                                                                                                                                                     |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm install -g` 에서 권한 오류 (Mac)       | `sudo npm install -g @anthropic-ai/claude-code`                                                                                                                                                                               |
+| `scoop install claude-code` 실패 (Windows)  | `scoop update` 후 재시도, 또는 `npm install -g @anthropic-ai/claude-code` 로 대체 설치                                                                                                                                        |
+| 원라이너 완료 후 `npm` 을 못 찾음 (Windows) | ① PowerShell 창을 **완전히 종료**(새 탭이 아닌 창 닫기) 후 **새 창**에서 스크립트를 다시 실행. ② 그래도 안 되면 PowerShell 을 **관리자 권한으로 실행**(시작 메뉴에서 "PowerShell" 우클릭 → "관리자 권한으로 실행") 후 재시도. |
+| `node` / `claude` 명령을 못 찾음 (Windows)  | PowerShell 창을 **완전히 종료**(새 탭이 아닌 창 닫기) 후 다시 열어서 재시도 (환경 변수는 새 프로세스에만 반영)                                                                                                                |
+| Scoop 이 없거나 작동하지 않음 (Windows)     | [https://nodejs.org/ko/download](https://nodejs.org/ko/download) 에서 **Node.js LTS** `.msi` 직접 다운로드                                                                                                                    |
 
 ## 수동 설치 (단계별)
 

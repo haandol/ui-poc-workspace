@@ -67,14 +67,10 @@ if ($needNodeInstall) {
   scoop install nodejs-lts
 }
 
-# 4) npm present?
-if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
-  Fail @"
-npm not found. Close this PowerShell window, open a new one, and rerun this script.
-"@
-}
+# 4) Claude Code
+# Refresh PATH so scoop-installed binaries are visible in this session
+$env:Path = [System.Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'Machine')
 
-# 5) Claude Code
 if (Get-Command claude -ErrorAction SilentlyContinue) {
   $ver = (& claude --version) 2>$null
   Say "Claude Code already installed: $ver"
@@ -82,30 +78,24 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
 else {
   Say 'Installing Claude Code via Scoop...'
   scoop install claude-code
+  # Refresh PATH after installing claude-code
+  $env:Path = [System.Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'Machine')
 }
 
-# 6) Verify
-if (Get-Command claude -ErrorAction SilentlyContinue) {
-  $ver = (& claude --version) 2>$null
-  @"
+# 5) Verify
+if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
+  Fail 'Claude Code not found. Please close this window, open a new PowerShell, and run: claude --version'
+}
 
-  [OK] Claude Code is ready.
-       $ver
+$ver = (& claude --version) 2>$null
+@"
 
-  Next steps:
-    1) Open a new PowerShell and run:
-       `$desktop = [Environment]::GetFolderPath('Desktop')
-       New-Item -ItemType Directory -Path "`$desktop\claude-play" -Force | Out-Null
-       cd "`$desktop\claude-play"
-       claude
-    2) On first launch, pick "3rd-party platform" -> "Amazon Bedrock"
-       and enter your Bedrock API key.
+  =========================================================
+  [OK] Claude Code is ready!  ($ver)
+  =========================================================
+
+  Next step:
+    Close this PowerShell window and open a fresh one,
+    then proceed to "Clone Project" in the workshop guide.
 
 "@ | Write-Host
-}
-else {
-  Fail @"
-Claude Code not found on PATH. Close this PowerShell window, open a new one,
-and run 'claude --version' again.
-"@
-}

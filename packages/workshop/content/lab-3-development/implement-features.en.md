@@ -15,7 +15,7 @@ Use whichever method is easiest:
 
 ## Request a feature implementation
 
-In the Claude Code prompt, type the following. Type `@docs/prd/` and press **Tab** to pick the file.
+In the 💬 Claude Code chat, type the following. Type `@docs/prd/` and press **Tab** to pick the file.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Read @docs/prd/XYZ.alps.md and implement F1.

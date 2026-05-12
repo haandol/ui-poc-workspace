@@ -29,7 +29,7 @@ weight: 30
 - **Mac**: `Cmd + Shift + R`
 - **Windows**: `Ctrl + Shift + R`
 
-그래도 반영되지 않으면 💻 개발 서버 탭(탭 1)에서 `Ctrl+C` 로 서버를 종료한 뒤 재시작합니다:
+그래도 반영되지 않으면 💻 개발 서버 탭(탭 1)에서 `Ctrl+C` 로 서버를 종료한 뒤 💻 터미널에서 재시작합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=bash}
 pnpm dev:web
@@ -37,7 +37,7 @@ pnpm dev:web
 
 ### 포트 충돌 오류
 
-포트 3000이 이미 사용 중인 경우, `PORT` 환경변수를 지정해서 다른 포트로 실행할 수 있습니다.
+포트 3000이 이미 사용 중인 경우, 💻 터미널에서 `PORT` 환경변수를 지정해서 다른 포트로 실행할 수 있습니다.
 
 ::::tabs
 :::tab{label="Mac"}

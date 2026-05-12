@@ -14,7 +14,7 @@ Keep the terminal with the Claude Code session from Lab 2 open. **Open a new tab
 
 ## Step 2. Start the dev server
 
-Run the dev server in the new tab. **Leave this tab open at all times.**
+💻 Run the dev server in the new terminal tab. **Leave this tab open at all times.**
 
 ::::tabs
 :::tab{label="Mac"}

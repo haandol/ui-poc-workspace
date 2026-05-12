@@ -7,7 +7,7 @@ weight: 20
 
 ## PRD 파일 열어보기
 
-생성된 ALPS 문서를 검토하려면 💬 Claude Code 대화창에서 직접 요청하는 것이 가장 간편합니다.
+생성된 ALPS 문서를 검토하려면 💬 Claude Code 대화창에서 직접 요청하는 것이 가장 간편합니다. 💬 대화창에 아래를 입력합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 @docs/prd/XYZ.alps.md 를 검토하려고해, 섹션별로 보여줘.
