@@ -81,8 +81,6 @@ dir "$([Environment]::GetFolderPath('Desktop'))\ui-poc-workspace\docs\"
 
 `research.pdf` 가 목록에 표시되면 Lab 1 이 완료된 것입니다. 다음 랩으로 이동합니다.
 
-::alert[Airtable 연동을 설정한 경우, Claude Code가 PDF를 읽는 순간 `RESEARCH-DONE` 상태가 자동으로 기록됩니다. 별도 조작이 필요하지 않습니다.]{type="info"}
-
 ## Step 5. 안전한 위치에 백업 (권장)
 
 리서치 PDF 는 이후 PRD 작성과 UI PoC 빌드의 입력이 되므로, `docs/` 폴더와는 별도로 **안전한 위치에 복사본을 보관**해두는 것을 권장합니다. 예를 들어:

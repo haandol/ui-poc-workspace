@@ -84,13 +84,3 @@ Example prompts:
 | Product mockup       | "Create a latte photo for the coffee shop menu screen."   |
 
 ::alert[Image generation uses an external API (fal.ai) and requires network access. It may take 2–3 minutes depending on image size.]{type="warning"}
-
-## Automatic progress sharing
-
-If you set up the Airtable integration, Claude Code records your progress automatically in Lab 3:
-
-- After the dev server is confirmed running and you ask for the first feature → `SCAFFOLD-DONE`
-- After each feature is implemented and reported → `F1-DONE`, `F2-DONE`, …
-- When you announce the demo is ready → `DEMO-READY`
-
-Duplicates are filtered out automatically. To opt out for the session, say "stop sharing progress".
