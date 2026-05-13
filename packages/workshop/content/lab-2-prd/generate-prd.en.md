@@ -25,11 +25,13 @@ ALPS (Agentic Lean Product Spec) is the PRD format used in this workshop. It has
 
 ## Things to keep in mind while writing the PRD
 
-- For a UI PoC, speed matters more than perfection. The goal is to **write fast → implement → get feedback** in tight cycles. If the broad direction looks right, confirm and move on — you can always adjust details during development.
-- This workshop's UI PoC tech stack is **Nuxt.js (Vue 3)**. You don't need to specify the tech stack in the PRD — it's automatically detected from the project structure.
-- **Section 3 (Demo scenarios)** — The AI agent uses these scenarios to predict which features are needed. The more **specific** you are about what the user does on each screen, the better the generated feature list will be.
-- **Section 6 (Requirements summary)** — This is where you see the full implementation scope. The recommended number of features for a UI PoC is **5–7**. If there are too many, ask to remove them: `"F8 won't be implemented in this PoC"`, etc.
-- **Sections 7–9** — Once Section 6 is confirmed, the rest can be auto-generated (see Step 3 below).
+| Question                                  | Answer                                                                                                                                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| How thorough should the PRD be?           | Don't over-polish. The key is spinning the **PRD → implement → feedback** cycle fast. If the broad direction looks right, confirm and move on — adjust details during development. |
+| Do I need to specify the tech stack?      | No. This workshop uses **Nuxt.js (Vue 3)**, and it's auto-detected from the project structure.                                                                                     |
+| Which section matters most?               | **Section 3 (Demo scenarios)**. The AI agent predicts features from these scenarios, so the more specific you are about what the user does on each screen, the better.             |
+| What if there are too many features?      | **Section 6** shows the full scope. The recommended count for a UI PoC is **5–7**. Remove extras with prompts like `"F8 won't be implemented in this PoC"`.                        |
+| Do I have to write Sections 7–9 manually? | No. Once Section 6 is confirmed, the rest can be auto-generated (see Step 3 below).                                                                                                |
 
 ## Step 1. Confirm the research PDF is in place
 
