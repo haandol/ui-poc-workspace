@@ -160,7 +160,6 @@ This project uses [Nx](https://nx.dev) for monorepo management with pnpm workspa
 ### Common Commands
 
 ```bash
-npx nx dev web                    # Web dev server
 npx nx build web                  # Build web
 npx nx build asset-generator      # Build Asset Generator
 npx nx run-many -t build          # Build all projects
@@ -170,6 +169,8 @@ npx nx run-many -t format:check   # Check formatting
 npx nx graph                      # Dependency graph
 npx nx affected -t build          # Build affected projects only
 ```
+
+> **`npx nx dev web` (개발 서버)는 사용자가 직접 관리합니다.** 에이전트가 실행하지 마세요.
 
 ### Project Configuration
 

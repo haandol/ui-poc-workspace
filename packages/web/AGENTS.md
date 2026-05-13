@@ -49,11 +49,12 @@ UI PoC 워크숍용 웹 프론트엔드. 비개발 직군이 AI 도구를 활용
 ## 빠른 시작
 
 ```bash
-npx nx dev web          # 개발 서버 (localhost:3000)
 npx nx build web        # 프로덕션 빌드
 npx nx generate web     # 정적 사이트 생성
 npx nx preview web      # 프로덕션 빌드 미리보기
 ```
+
+> **개발 서버는 사용자가 별도 터미널에서 직접 실행합니다.** 에이전트가 `npx nx dev web`, `pnpm dev:web` 등을 실행하지 마세요. 사용자가 명시적으로 요청한 경우에만 실행합니다.
 
 ## 프로젝트 구조
 
@@ -145,10 +146,11 @@ definePageMeta({ layout: false })
 
 `nuxt.config.ts`, 환경 변수 참조.
 
-**HMR 캐시 깨짐 시**: 파일 수정이 브라우저에 반영되지 않으면 `.nuxt` 디렉토리 삭제 후 dev 서버 재시작
+**HMR 캐시 깨짐 시**: 파일 수정이 브라우저에 반영되지 않으면 `.nuxt` 디렉토리를 삭제하고 사용자에게 dev 서버 재시작을 요청하세요.
 
 ```bash
-rm -rf .nuxt && npx nx dev web
+rm -rf .nuxt
+# 사용자에게 dev 서버 탭에서 재시작하도록 안내
 ```
 
 ## 문서 유지보수
