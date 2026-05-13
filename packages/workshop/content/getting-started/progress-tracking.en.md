@@ -1,5 +1,5 @@
 ---
-title: 'Progress Tracking'
+title: 'Progress Tracking (Optional)'
 weight: 35
 ---
 
