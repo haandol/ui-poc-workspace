@@ -68,7 +68,7 @@ claude
 
 ::alert[If Claude Code is already running in the project folder, skip this step. You can tell it's running if you see the 💬 chat with a blinking cursor.]{type="info"}
 
-## Step 3. Ask for the PRD
+## Step 3. Write the PRD — Sections 1–6
 
 In the 💬 Claude Code chat, type the following. Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
 
@@ -78,9 +78,11 @@ Read @docs/research.pdf and write an ALPS document for the UI PoC.
 
 ::alert[With the `@` syntax, Claude Code reads the file directly. Typing `@docs/` and pressing Tab autocompletes the file name.]{type="info"}
 
-The ALPS document is **not** produced all at once. Claude Code walks you through Section 1 to Section 9 **section by section**, presenting a draft and asking for your confirmation. You must read and **confirm (or request changes)** before it moves to the next section.
+Claude Code presents a draft for each section starting from Section 1, asking for your confirmation. Read and **confirm (or request changes)** to move to the next section. Confirm through Section 6 (feature list).
 
-**Once you've finished Section 6**, you can auto-generate the remaining sections. In the 💬 Claude Code chat, type:
+## Step 4. Write the PRD — Sections 7–9 (auto-generate)
+
+Once Section 6 is confirmed, you can auto-generate the remaining sections. In the 💬 Claude Code chat, type:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Based on the current project structure and the PRD written so far, write sections 7-9 automatically.
@@ -88,7 +90,7 @@ Based on the current project structure and the PRD written so far, write section
 
 When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Moving quickly takes about **10–15 minutes**; a thorough review takes **20–30 minutes**.
 
-## Step 4. Inspect the generated PRD
+## Step 5. Inspect the generated PRD
 
 Once the PRD is generated, review it in the 💬 Claude Code chat:
 

@@ -68,7 +68,7 @@ claude
 
 ::alert[이미 프로젝트 폴더에서 Claude Code 가 실행 중이라면 이 단계를 건너뛰세요. 실행 중인지 확인하려면 커서가 깜박이는 💬 대화창이 열려있는지 보면 됩니다.]{type="info"}
 
-## Step 3. PRD 작성 요청
+## Step 3. PRD 작성 — Section 1~6
 
 💬 Claude Code 대화창에서 아래와 같이 입력합니다. `@docs/`까지 입력한 뒤 **Tab 키**를 눌러 PDF 파일을 자동완성합니다.
 
@@ -78,9 +78,11 @@ claude
 
 ::alert[`@` 문법을 사용하면 Claude Code가 해당 파일을 직접 읽을 수 있습니다. `@docs/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.]{type="info"}
 
-ALPS 문서는 자동으로 한 번에 생성되지 않습니다. Claude Code가 Section 1부터 Section 9까지 **섹션별로 초안을 제시하고 사용자에게 확인을 요청**하며, 사용자가 내용을 읽고 **확인(또는 수정 요청)** 을 해야 다음 섹션으로 넘어갑니다.
+Claude Code가 Section 1부터 **섹션별로 초안을 제시하고 확인을 요청**합니다. 내용을 읽고 **확인(또는 수정 요청)** 을 하면 다음 섹션으로 넘어갑니다. Section 6 (기능 목록) 까지 확정하세요.
 
-**Section 6 까지 작성했다면**, 나머지 섹션은 자동으로 채울 수 있습니다. 💬 Claude Code 대화창에서 아래를 입력하세요:
+## Step 4. PRD 작성 — Section 7~9 자동 생성
+
+Section 6 까지 확정했다면, 나머지는 자동으로 채울 수 있습니다. 💬 Claude Code 대화창에서 아래를 입력하세요:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 현재 프로젝트 구조와 현재까지 작성된 prd 내용을 바탕으로 섹션 7~9 까지 알아서 작성해줘
@@ -88,7 +90,7 @@ ALPS 문서는 자동으로 한 번에 생성되지 않습니다. Claude Code가
 
 모든 섹션이 확정되면 ALPS 문서가 `docs/prd/` 폴더에 `.alps.md` 파일로 저장됩니다. 빠르게 진행하면 약 **10~15분**, 꼼꼼히 검토하면 **20~30분** 정도 소요됩니다.
 
-## Step 4. 생성된 PRD 확인
+## Step 5. 생성된 PRD 확인
 
 PRD가 생성되면 💬 Claude Code 대화창에서 내용을 검토합니다.
 
