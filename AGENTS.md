@@ -145,6 +145,12 @@ After each triggering action completes successfully, the agent must run `/worksh
 - Execute the status update **after** the triggering action, not before.
 - On failure (Airtable API error, network issue), log the error but do not retry or block.
 
+### Dev Server — User-Managed Only
+
+The workshop participant always starts the dev server themselves in a separate terminal tab. The agent **must NOT** start the dev server (`pnpm dev:web`, `npx nx dev web`, etc.) unless the user explicitly asks for it. Do not spawn background processes, open new terminal tabs, or run the dev server as part of feature implementation.
+
+If you need to verify that the dev server is running (e.g., before taking a screenshot), ask the user to confirm rather than starting it yourself.
+
 ---
 
 ## Nx Workspace
