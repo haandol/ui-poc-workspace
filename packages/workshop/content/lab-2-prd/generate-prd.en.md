@@ -23,10 +23,13 @@ ALPS (Agentic Lean Product Spec) is the PRD format used in this workshop. It has
 
 ::alert[For UI-only PoCs, Section 4 (architecture) and Section 8 (metrics) may be auto-simplified or skipped. It's normal if those sections end up empty.]{type="info"}
 
-**Tips for key sections:**
+## Things to keep in mind while writing the PRD
 
+- For a UI PoC, speed matters more than perfection. The goal is to **write fast → implement → get feedback** in tight cycles. If the broad direction looks right, confirm and move on — you can always adjust details during development.
+- This workshop's UI PoC tech stack is **Nuxt.js (Vue 3)**. You don't need to specify the tech stack in the PRD — it's automatically detected from the project structure.
 - **Section 3 (Demo scenarios)** — The AI agent uses these scenarios to predict which features are needed. The more **specific** you are about what the user does on each screen, the better the generated feature list will be.
 - **Section 6 (Requirements summary)** — This is where you see the full implementation scope. The recommended number of features for a UI PoC is **5–7**. If there are too many, ask to remove them: `"F8 won't be implemented in this PoC"`, etc.
+- **Sections 7–9** — Once Section 6 is confirmed, the rest can be auto-generated (see Step 3 below).
 
 ## Step 1. Confirm the research PDF is in place
 
@@ -75,15 +78,11 @@ Read @docs/research.pdf and write an ALPS document for the UI PoC.
 
 The ALPS document is **not** produced all at once. Claude Code walks you through Section 1 to Section 9 **section by section**, presenting a draft and asking for your confirmation. You must read and **confirm (or request changes)** before it moves to the next section.
 
-::alert[For a UI PoC, speed matters more than perfection. The goal is to **write fast → implement → get feedback** in tight cycles. If the broad direction looks right, confirm and move on — you can always adjust details during development.]{type="info"}
-
 **Once you've finished Section 6**, you can auto-generate the remaining sections. In the 💬 Claude Code chat, type:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Based on the current project structure and the PRD written so far, write sections 7-9 automatically.
 :::
-
-::alert[This workshop's UI PoC tech stack is **Nuxt.js (Vue 3)**. You don't need to specify the tech stack in the PRD — it's automatically detected from the project structure.]{type="info"}
 
 When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Moving quickly takes about **10–15 minutes**; a thorough review takes **20–30 minutes**.
 
