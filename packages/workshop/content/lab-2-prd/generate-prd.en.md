@@ -83,6 +83,8 @@ The ALPS document is **not** produced all at once. Claude Code walks you through
 Based on the current project structure and the PRD written so far, write sections 7-9 automatically.
 :::
 
+::alert[This workshop's UI PoC tech stack is **Nuxt.js (Vue 3)**. You don't need to specify the tech stack in the PRD — it's automatically detected from the project structure.]{type="info"}
+
 When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Moving quickly takes about **10–15 minutes**; a thorough review takes **20–30 minutes**.
 
 ## Step 4. Inspect the generated PRD
