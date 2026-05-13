@@ -77,6 +77,12 @@ The ALPS document is **not** produced all at once. Claude Code walks you through
 
 ::alert[For a UI PoC, speed matters more than perfection. The goal is to **write fast → implement → get feedback** in tight cycles. If the broad direction looks right, confirm and move on — you can always adjust details during development.]{type="info"}
 
+**Once you've finished Section 6**, you can auto-generate the remaining sections. In the 💬 Claude Code chat, type:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+Based on the current project structure and the PRD written so far, write sections 7-9 automatically.
+:::
+
 When all sections are confirmed, the ALPS document is saved as a `.alps.md` file in `docs/prd/`. Moving quickly takes about **10–15 minutes**; a thorough review takes **20–30 minutes**.
 
 ## Step 4. Inspect the generated PRD
