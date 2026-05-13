@@ -58,7 +58,7 @@ Ask anything that's unclear while the PRD takes shape.
 
 When the PRD review is done, make sure:
 
-- [ ] You have a reasonable Feature list of 3–5 items
+- [ ] You have a reasonable Feature list of 5–7 items
 - [ ] Each Feature has a user story and acceptance criteria
 - [ ] The implementation order (F1 → F2 → ...) is logical
 

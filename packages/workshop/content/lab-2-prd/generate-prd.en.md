@@ -23,6 +23,11 @@ ALPS (Agentic Lean Product Spec) is the PRD format used in this workshop. It has
 
 ::alert[For UI-only PoCs, Section 4 (architecture) and Section 8 (metrics) may be auto-simplified or skipped. It's normal if those sections end up empty.]{type="info"}
 
+**Tips for key sections:**
+
+- **Section 3 (Demo scenarios)** — The AI agent uses these scenarios to predict which features are needed. The more **specific** you are about what the user does on each screen, the better the generated feature list will be.
+- **Section 6 (Requirements summary)** — This is where you see the full implementation scope. The recommended number of features for a UI PoC is **5–7**. If there are too many, ask to remove them: `"F8 won't be implemented in this PoC"`, etc.
+
 ## Step 1. Confirm the research PDF is in place
 
 Make sure the `research.pdf` you produced earlier is inside the project's `docs/` folder. If the file only exists in your backup location (e.g., `Documents/ui-poc/research.pdf`), copy it into **`Desktop > ui-poc-workspace > docs`** now.
