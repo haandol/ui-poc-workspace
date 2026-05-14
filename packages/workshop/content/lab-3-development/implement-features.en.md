@@ -18,10 +18,17 @@ Use whichever method is easiest:
 In the 💬 Claude Code chat, type the following. Type `@docs/prd/` and press **Tab** to pick the file.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-Read @docs/prd/XYZ.alps.md and implement F1.
+/feature-dev @docs/prd/XYZ.alps.md Implement F1.
 :::
 
-Claude Code will analyze the PRD and write the code. When it's done, inspect the result in the browser.
+`/feature-dev` is the dedicated command for feature implementation. When you use it, Claude automatically:
+
+1. Analyzes the PRD and checks feature dependencies
+2. **Writes an ADR (Architecture Decision Record)** to plan the implementation approach
+3. Shows you the ADR and asks for confirmation
+4. After your approval, writes the code
+
+::alert[An ADR is a design document that outlines "how to build it" upfront. Claude creates it automatically — you just review and approve.]{type="info"}
 
 ## The iteration loop
 
@@ -29,19 +36,22 @@ Build one feature at a time in a loop:
 
 ```
 1. Request a feature implementation
-   └─ "Read @docs/prd/XYZ.alps.md and implement F1."
+   └─ "/feature-dev @docs/prd/XYZ.alps.md Implement F1."
 
-2. Check the result in the browser
+2. Review and approve the ADR
+   └─ Check the implementation plan Claude shows you
+
+3. Check the result in the browser
    └─ http://localhost:3000
 
-3. Feedback / edit requests
+4. Feedback / edit requests
    └─ "Change the button color to blue."
 
-4. Once you're happy, move to the next feature
-   └─ "Implement F2."
+5. Once you're happy, move to the next feature
+   └─ "/feature-dev Implement F2."
 ```
 
-::alert[If you stay in the same conversation, you can skip the file path — just say `"Implement F2."`.]{type="info"}
+::alert[If you stay in the same conversation, you can skip the file path — just say `"/feature-dev Implement F2."`.]{type="info"}
 
 ## Tips for edit requests
 

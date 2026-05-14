@@ -93,7 +93,7 @@ Review PRD Feature → Write ADR (Proposed) → User Confirmation → Start Impl
 
 1. **Review PRD Feature** — Check the Feature ID and priority in ALPS PRD Section 6 (Requirements Summary), and read the User Story, User Flow, Technical Description, and Acceptance Criteria in Section 7 (Feature-Level Specification).
 2. **Write ADR (Required before implementation)**
-   - Create an ADR file in the appropriate category directory under `docs/adr/`.
+   - Create an ADR file under `docs/adr/`.
    - Include the PRD Feature ID in the ADR title (e.g., `0001-f1-email-signup.md`).
    - Specify PRD Feature references (Feature ID, priority) in the ADR Context.
    - Record the implementation direction and technical decisions in the ADR Decision.

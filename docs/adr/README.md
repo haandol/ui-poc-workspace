@@ -2,6 +2,8 @@
 
 이 디렉토리는 UI PoC Workshop 프로젝트의 주요 아키텍처 결정을 문서화합니다.
 
+이 프로젝트는 UI PoC 전용으로, 웹 프론트엔드(packages/web)에 대한 ADR만 관리한다. 카테고리 서브디렉토리 없이 `docs/adr/` 직하에 플랫하게 배치한다.
+
 ## ADR이란?
 
 Architecture Decision Record (ADR)는 소프트웨어 개발 과정에서 내린 중요한 아키텍처 결정을 기록하는 문서입니다. 각 ADR은 다음을 포함합니다:
@@ -13,28 +15,13 @@ Architecture Decision Record (ADR)는 소프트웨어 개발 과정에서 내린
 ## 디렉토리 구조
 
 ```
-adr/
-├── web/              # 웹 프론트엔드 관련 결정
-├── asset-generator/  # Asset Generator MCP 서버 관련 결정
-├── workshop/         # 워크숍 운영/콘텐츠 관련 결정
-└── infra/            # 인프라/빌드/배포 관련 결정
+docs/adr/
+├── README.md         # 이 문서 (인덱스)
+├── TEMPLATE.md       # ADR 템플릿
+└── XXXX-fN-*.md      # 개별 ADR 파일
 ```
 
-## 카테고리별 ADR 목록
-
-### Web
-
-(아직 등록된 ADR 없음)
-
-### Asset Generator
-
-(아직 등록된 ADR 없음)
-
-### Workshop
-
-(아직 등록된 ADR 없음)
-
-### Infra
+## ADR 목록
 
 (아직 등록된 ADR 없음)
 
@@ -49,8 +36,9 @@ adr/
 
 ## 명명 규칙
 
-- 파일명: `XXXX-kebab-case-title.md`
-- 번호는 카테고리 내에서 순차적으로 증가
+- 파일명: `XXXX-fN-kebab-case-title.md` (e.g., `0001-f1-email-signup.md`)
+- 번호는 순차적으로 증가
+- Feature ID를 파일명에 포함
 - 제목은 명확하고 간결하게
 
 ## 참고

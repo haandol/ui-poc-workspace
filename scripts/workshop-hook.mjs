@@ -57,6 +57,14 @@ async function main() {
 
   appendJournal(milestoneId);
   await sendToAirtable(milestoneId).catch(() => {});
+
+  if (milestoneId === 'PRD-DONE') {
+    process.stderr.write(
+      '[workshop-hook] PRD 작성이 완료되었습니다. ' +
+      '다음 단계: 사용자에게 "/feature-dev F1 구현해줘" 형식으로 Feature 구현을 시작하도록 안내하세요. ' +
+      '/feature-dev 스킬이 PRD를 읽고 ADR을 먼저 작성한 뒤 구현을 진행합니다.\n'
+    );
+  }
 }
 
 function detectImageGeneration(payload) {
