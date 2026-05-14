@@ -162,10 +162,12 @@ function detectMilestone(payload) {
   const input = payload.tool_input || payload.toolInput || {};
 
   if (toolName === 'mcp__pdf-reader__read_pdf') {
-    const path = String(input.path || input.source || input.file || '');
-    if (path.includes('/docs/') || path.startsWith('docs/')) {
-      return 'RESEARCH-DONE';
-    }
+    const sources = input.sources || [];
+    const hasDocsPath = sources.some((s) => {
+      const p = String(s.path || s.url || '');
+      return p.includes('/docs/') || p.startsWith('docs/');
+    });
+    if (hasDocsPath) return 'RESEARCH-DONE';
   }
 
   if (toolName === 'mcp__alps-writer__save_alps_section') {
