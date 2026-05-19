@@ -2,8 +2,10 @@
   "permissions": {
     "allow": []
   },
-  "env": {},
-  "enabledMcpjsonServers": ["pdf-reader", "alps-writer", "airtable", "asset-generator"],
+  "env": {
+    "ALPS_OUTPUT_DIR": "./docs/prd"
+  },
+  "enabledMcpjsonServers": ["pdf-reader", "airtable", "asset-generator"],
   "hooks": {
     "PostToolUse": [
       {
