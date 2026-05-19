@@ -9,15 +9,16 @@ Airtable 연동을 설정한 경우, 워크숍 진행 상태가 자동으로 Air
 
 아래 마일스톤은 워크숍을 진행하면서 **자동으로** 기록됩니다. 별도 조작이 필요하지 않습니다.
 
-| 마일스톤                | 기록 시점                                      | 발생 위치 |
-| ----------------------- | ---------------------------------------------- | --------- |
-| `RESEARCH-DONE`         | Claude Code 가 리서치 PDF 를 읽는 순간         | Lab 1     |
-| `PRD-START`             | ALPS Section 1 이 저장될 때                    | Lab 2     |
-| `PRD-FEATURES`          | ALPS Section 6 (기능 목록) 이 저장될 때        | Lab 2     |
-| `PRD-DONE`              | ALPS 문서가 최종 export 될 때                  | Lab 2     |
-| `SCAFFOLD-DONE`         | 개발 서버 기동 확인 후 첫 Feature 구현 요청 시 | Lab 3     |
-| `F1-DONE`, `F2-DONE`, … | 각 Feature 구현 완료 후 결과 보고 시           | Lab 3     |
-| `DEMO-READY`            | "데모 준비 끝" 등 완료 선언 시                 | Lab 3     |
+| 마일스톤                | 기록 시점                                        | 발생 위치 |
+| ----------------------- | ------------------------------------------------ | --------- |
+| `SETUP-DONE`            | `/workshop-status setup` 으로 Airtable 연결 직후 | 환경설정  |
+| `RESEARCH-DONE`         | Claude Code 가 리서치 PDF 를 읽는 순간           | Lab 1     |
+| `PRD-START`             | ALPS Section 1 이 저장될 때                      | Lab 2     |
+| `PRD-FEATURES`          | ALPS Section 6 (기능 목록) 이 저장될 때          | Lab 2     |
+| `PRD-DONE`              | ALPS 문서가 최종 export 될 때                    | Lab 2     |
+| `SCAFFOLD-DONE`         | 개발 서버 기동 확인 후 첫 Feature 구현 요청 시   | Lab 3     |
+| `F1-DONE`, `F2-DONE`, … | 각 Feature 구현 완료 후 결과 보고 시             | Lab 3     |
+| `DEMO-READY`            | "데모 준비 끝" 등 완료 선언 시                   | Lab 3     |
 
 ## 참고 사항
 

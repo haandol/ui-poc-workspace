@@ -11,6 +11,7 @@ The milestones below are recorded **automatically** as you work through the labs
 
 | Milestone               | When it's recorded                                                          | Lab   |
 | ----------------------- | --------------------------------------------------------------------------- | ----- |
+| `SETUP-DONE`            | Right after `/workshop-status setup` confirms the Airtable connection       | Setup |
 | `RESEARCH-DONE`         | The moment Claude Code reads the research PDF                               | Lab 1 |
 | `PRD-START`             | When ALPS Section 1 is saved                                                | Lab 2 |
 | `PRD-FEATURES`          | When ALPS Section 6 (feature list) is saved                                 | Lab 2 |
