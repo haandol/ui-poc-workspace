@@ -15,13 +15,9 @@ In this workshop you will use **Claude Code**, running on top of **Amazon Bedroc
 
 By completing this workshop you will learn how to:
 
-1. Configure and run Claude Code on top of Amazon Bedrock
-2. Use AI deep-research tools to quickly investigate a service idea
-3. Extend AI tools with MCP (Model Context Protocol) servers
-4. Co-author an ALPS-format PRD with AI
-5. Prototype a Nuxt/Vue web UI with Claude Code
-6. Let AI look at the live screen and fix things via the browser DevTools MCP
-7. Build a polished UI PoC with mocked data, no backend required
+1. Install an AI coding assistant (Claude Code) on your laptop and connect helper tools to build a smart workspace
+2. Chat with AI to research a service idea and turn it into a planning document optimized for agent-driven development
+3. Build a working web screen prototype by showing the AI your screen — without writing code yourself
 
 ## Target audience
 
