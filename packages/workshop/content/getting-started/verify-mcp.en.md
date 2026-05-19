@@ -50,11 +50,12 @@ You should see something like this:
 
 **Plugins** (`.claude/settings.json`):
 
-| Plugin              | Purpose                                                                                       |
-| ------------------- | --------------------------------------------------------------------------------------------- |
-| context7            | Fetch up-to-date library/framework docs                                                       |
-| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                  |
-| nx                  | Helper that lets Claude understand the project's build/run layout (you don't use it directly) |
+| Plugin              | Purpose                                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| alps-writer         | Slash commands that turn PRD features into ADRs and then code (`/feature-to-adr`, `/adr-impl`, etc.) |
+| context7            | Fetch up-to-date library/framework docs                                                              |
+| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                         |
+| nx                  | Helper that lets Claude understand the project's build/run layout (you don't use it directly)        |
 
 ::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
 

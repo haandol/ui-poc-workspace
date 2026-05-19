@@ -70,15 +70,31 @@ claude
 
 ## Step 3. Write the PRD — Sections 1–6
 
-In the 💬 Claude Code chat, type the following. Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
+In the 💬 Claude Code chat, ask Claude to start the ALPS document. **Pick whichever style you prefer.**
+
+**Option A — Slash command (recommended)**
+
+Type up to `@docs/` and press **Tab** to autocomplete the PDF file name.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/alps-init Use @docs/research.pdf to write an ALPS document for the UI PoC.
+:::
+
+`/alps-init` is a slash command from the [`alps-writer` plugin](https://github.com/haandol/alps-writer-mcp). It asks whether to start a new doc or resume an existing one, then walks through the 9 sections one at a time.
+
+**Option B — Natural language**
+
+You can also just ask in plain English. The plugin runs the same flow in the background.
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Read @docs/research.pdf and write an ALPS document for the UI PoC.
 :::
 
+::alert[If slash commands feel awkward, start with natural language — Claude picks up the right alps-writer tools automatically. As you get comfortable, slash commands are faster and clearer.]{type="info"}
+
 ::alert[With the `@` syntax, Claude Code reads the file directly. Typing `@docs/` and pressing Tab autocompletes the file name.]{type="info"}
 
-Claude Code presents a draft for each section starting from Section 1, asking for your confirmation. Read and **confirm (or request changes)** to move to the next section. Confirm through Section 6 (feature list).
+Either way, Claude Code presents a draft for each section starting from Section 1, asking for your confirmation. Read and **confirm (or request changes)** to move to the next section. Confirm through Section 6 (feature list).
 
 ## Step 4. Write the PRD — Sections 7–9 (auto-generate)
 

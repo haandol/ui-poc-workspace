@@ -70,15 +70,31 @@ claude
 
 ## Step 3. PRD 작성 — Section 1~6
 
-💬 Claude Code 대화창에서 아래와 같이 입력합니다. `@docs/`까지 입력한 뒤 **Tab 키**를 눌러 PDF 파일을 자동완성합니다.
+💬 Claude Code 대화창에서 ALPS 작성을 요청합니다. **두 가지 방식 중 편한 쪽을 사용하세요.**
+
+**방식 A — 슬래시 명령 (권장)**
+
+같은 메시지에 리서치 PDF를 첨부합니다 (`@docs/`까지 입력한 뒤 **Tab 키**로 자동완성).
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-@docs/research.pdf 를 읽고 UI PoC 를 위한 alps 문서를 작성해줘.
+/alps-init @docs/research.pdf 를 참고해서 UI PoC 용 ALPS 문서를 작성해줘.
 :::
+
+`/alps-init`은 [`alps-writer` plugin](https://github.com/haandol/alps-writer-mcp)이 제공하는 슬래시 명령으로, 신규 문서/이어 작성 여부를 확인한 뒤 9개 섹션을 한 섹션씩 진행합니다.
+
+**방식 B — 자연어 요청**
+
+평소 쓰던 말투 그대로 요청해도 됩니다. plugin이 백그라운드에서 같은 작업을 수행합니다.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+@docs/research.pdf 를 읽고 UI PoC 용 ALPS 문서를 작성해줘.
+:::
+
+::alert[명령어가 어색하면 자연어로 시작하세요. Claude가 자동으로 alps-writer 도구를 골라 같은 흐름으로 진행합니다. 익숙해지면 슬래시 명령이 더 빠르고 명확합니다.]{type="info"}
 
 ::alert[`@` 문법을 사용하면 Claude Code가 해당 파일을 직접 읽을 수 있습니다. `@docs/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.]{type="info"}
 
-Claude Code가 Section 1부터 **섹션별로 초안을 제시하고 확인을 요청**합니다. 내용을 읽고 **확인(또는 수정 요청)** 을 하면 다음 섹션으로 넘어갑니다. Section 6 (기능 목록) 까지 확정하세요.
+어느 방식으로 시작하든 Claude Code가 Section 1부터 **섹션별로 초안을 제시하고 확인을 요청**합니다. 내용을 읽고 **확인(또는 수정 요청)** 을 하면 다음 섹션으로 넘어갑니다. Section 6 (기능 목록) 까지 확정하세요.
 
 ## Step 4. PRD 작성 — Section 7~9 자동 생성
 

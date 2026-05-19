@@ -13,45 +13,93 @@ Use whichever method is easiest:
 - **Ask Claude Code directly**: `List the files in docs/prd/.`
 - **Tab autocomplete**: type `@docs/prd/` and press Tab to autocomplete the file name.
 
-## Request a feature implementation
+## Two-step feature flow
 
-In the 💬 Claude Code chat, type the following. Type `@docs/prd/` and press **Tab** to pick the file.
+This workshop uses the [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) to build each feature as **Feature → ADR → code**. An ADR (Architecture Decision Record) is a short design memo for "how to build this feature" — the plugin drafts it from the PRD automatically.
+
+```
+PRD Feature (F1)
+      │
+      ▼  /feature-to-adr f1     ← Step 1: draft the ADR
+ADR docs/adr/0001-f1-*.md
+      │
+      ▼  /adr-impl f1            ← Step 2: write code that follows the ADR
+done
+```
+
+### Step 1. Draft the ADR (`/feature-to-adr`)
+
+In the 💬 Claude Code chat, pick whichever style you prefer. Type `@docs/prd/` and press **Tab** to pick the file.
+
+**Option A — Slash command (recommended)**
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-/feature-dev @docs/prd/XYZ.alps.md Implement F1.
+Read @docs/prd/XYZ.alps.md and run /feature-to-adr f1.
 :::
 
-`/feature-dev` is the dedicated command for feature implementation. When you use it, Claude automatically:
+**Option B — Natural language**
 
-1. Analyzes the PRD and checks feature dependencies
-2. **Writes an ADR (Architecture Decision Record)** to plan the implementation approach
-3. Shows you the ADR and asks for confirmation
-4. After your approval, writes the code
+:::code{showCopyAction=true showLineNumbers=false language=text}
+Read @docs/prd/XYZ.alps.md and let's start with F1 — draft the ADR first.
+:::
 
-::alert[An ADR is a design document that outlines "how to build it" upfront. Claude creates it automatically — you just review and approve.]{type="info"}
+::alert[Plain English works too. The plugin will follow the `/feature-to-adr` flow automatically. Slash commands are shorter and more deterministic once you get used to them.]{type="info"}
+
+Either way, Claude will:
+
+1. Find F1 in PRD Section 7 and analyze it
+2. Create a draft at `docs/adr/0001-f1-*.md`
+3. Show you the ADR (Status / Context / Decision / Consequences) and **ask for confirmation**
+
+If it looks right, reply "OK" or "go ahead". If not, request changes in plain language — e.g., "Change F1's data model to X."
+
+::alert[You don't need to understand every section on first read. Just check that the **Decision** section matches your intent.]{type="info"}
+
+### Step 2. Implement the code (`/adr-impl`)
+
+Once the ADR is settled, in the same chat use whichever style you prefer.
+
+**Option A — Slash command**
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/adr-impl f1
+:::
+
+**Option B — Natural language**
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+Implement F1 following the ADR we just confirmed.
+:::
+
+Claude writes the code following the ADR's Decision; the dev server picks it up. Check the result at `http://localhost:3000`.
 
 ## The iteration loop
 
 Build one feature at a time in a loop:
 
 ```
-1. Request a feature implementation
-   └─ "/feature-dev @docs/prd/XYZ.alps.md Implement F1."
+1. Draft the ADR
+   └─ "Read @docs/prd/XYZ.alps.md and run /feature-to-adr f1."
 
 2. Review and approve the ADR
-   └─ Check the implementation plan Claude shows you
+   └─ Check the Decision section → "OK" or request edits
 
-3. Check the result in the browser
+3. Implement the code
+   └─ "/adr-impl f1"
+
+4. Check the result in the browser
    └─ http://localhost:3000
 
-4. Feedback / edit requests
+5. Feedback / edit requests
    └─ "Change the button color to blue."
 
-5. Once you're happy, move to the next feature
-   └─ "/feature-dev Implement F2."
+6. Once you're happy, move to the next feature
+   └─ "/feature-to-adr f2"  →  "/adr-impl f2"
 ```
 
-::alert[If you stay in the same conversation, you can skip the file path — just say `"/feature-dev Implement F2."`.]{type="info"}
+::alert[If you stay in the same conversation, you can skip the PRD path — just `/feature-to-adr f2` is enough; the previous PRD is reused.]{type="info"}
+
+::alert[**If a change diverges from the ADR mid-implementation**: say "this part needs to differ from the ADR" and Claude will update the ADR before changing the code. Or after the fact, run `/adr-sync f1` to detect and resolve drift between code and ADR.]{type="info"}
 
 ## Tips for edit requests
 

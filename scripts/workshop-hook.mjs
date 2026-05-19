@@ -61,8 +61,9 @@ async function main() {
   if (milestoneId === 'PRD-DONE') {
     process.stderr.write(
       '[workshop-hook] PRD 작성이 완료되었습니다. ' +
-      '다음 단계: 사용자에게 "/feature-dev F1 구현해줘" 형식으로 Feature 구현을 시작하도록 안내하세요. ' +
-      '/feature-dev 스킬이 PRD를 읽고 ADR을 먼저 작성한 뒤 구현을 진행합니다.\n'
+        '다음 단계: 사용자에게 "/feature-to-adr f1" 으로 첫 Feature의 ADR 초안을 만들고, ' +
+        '확인 후 "/adr-impl f1" 으로 구현하도록 안내하세요. ' +
+        'alps-writer plugin이 PRD Section 7을 ADR로 변환한 뒤 코드를 작성합니다.\n',
     );
   }
 }

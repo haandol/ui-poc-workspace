@@ -46,7 +46,7 @@ npx nx graph                # 의존 관계 그래프
 
 ## 문서
 
-- [워크숍 런북](./docs/WORKSHOP.md) — 워크숍 타임테이블 및 진행 가이드
+- [워크숍 런북](./packages/workshop/) — 수강자용 lab 가이드 (`packages/workshop/content/`)
 - [개발 환경 설치 가이드](./docs/INSTALLATION.md) — Claude Code 설치 + Bedrock 자격증명 등록
 - **패키지별 AGENTS**: 각 패키지의 AGENTS.md에서 세부 지침 확인
 
