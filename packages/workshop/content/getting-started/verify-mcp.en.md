@@ -56,14 +56,18 @@ In the 💬 Claude Code chat, enter the following to check plugin status:
 /plugin
 :::
 
-You should see every plugin marked `✔ enabled`, like this:
+When the plugin dialog opens, press the ⌨️ **right arrow key (`→`)** to switch to the **Installed** tab. Setup is correct when every plugin under the `Project` section shows `✔ enabled`, like this:
 
 ```
 ──────────────────────────────────────────────────────
   Plugins  Discover   Installed   Marketplaces   Errors
 
+  ╭──────────────────────────────────────────────────╮
+  │ ⌕ Search…                                        │
+  ╰──────────────────────────────────────────────────╯
+
       Project
-    alps-writer Plugin · alps-writer · ✔ enabled
+  ❯ alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected

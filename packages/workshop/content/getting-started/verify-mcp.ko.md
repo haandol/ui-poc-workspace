@@ -56,14 +56,18 @@ weight: 30
 /plugin
 :::
 
-아래와 같이 모든 플러그인이 `✔ enabled` 상태로 표시되면 정상입니다:
+플러그인 다이얼로그가 열리면 ⌨️ **오른쪽 방향키(`→`)** 를 눌러 **Installed** 탭으로 이동합니다. 아래와 같이 `Project` 섹션 아래 모든 플러그인이 `✔ enabled` 상태로 표시되면 정상입니다:
 
 ```
 ──────────────────────────────────────────────────────
   Plugins  Discover   Installed   Marketplaces   Errors
 
+  ╭──────────────────────────────────────────────────╮
+  │ ⌕ Search…                                        │
+  ╰──────────────────────────────────────────────────╯
+
       Project
-    alps-writer Plugin · alps-writer · ✔ enabled
+  ❯ alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected
