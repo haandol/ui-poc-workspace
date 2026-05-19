@@ -28,14 +28,13 @@ You should see something like this:
 
     Project MCPs (.mcp.json)
     airtable · ✔ connected
-    alps-writer · ✔ connected
     asset-generator · ✘ failed
     pdf-reader · ✔ connected
 
     Built-in MCPs (always available)
+    plugin:alps-writer:alps-writer · ✔ connected
     plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
     plugin:context7:context7 · ✔ connected
-    plugin:nx:nx-mcp · ✔ connected
 ──────────────────────────────────────────────────────
 ```
 
@@ -44,20 +43,47 @@ You should see something like this:
 | MCP server      | Package                  | Purpose                    |
 | --------------- | ------------------------ | -------------------------- |
 | pdf-reader      | `@sylphx/pdf-reader-mcp` | Read the deep-research PDF |
-| alps-writer     | `alps-writer`            | Author the PRD (ALPS)      |
 | asset-generator | (bundled in project)     | Generate image assets      |
 | airtable        | `airtable-mcp-server`    | Track workshop progress    |
 
+::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
+
+## Verify plugin installation
+
+In the 💬 Claude Code chat, enter the following to check plugin status:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/plugin
+:::
+
+You should see every plugin marked `✔ enabled`, like this:
+
+```
+──────────────────────────────────────────────────────
+  Plugins  Discover   Installed   Marketplaces   Errors
+
+      Project
+    alps-writer Plugin · alps-writer · ✔ enabled
+    └ alps-writer MCP · ✔ connected
+    chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
+    └ chrome-devtools MCP · ✔ connected
+    context7 Plugin · claude-plugins-official · ✔ enabled
+    └ context7 MCP · ✔ connected
+    frontend-design Plugin · claude-plugins-official · ✔ enabled
+   ↓ more below
+──────────────────────────────────────────────────────
+```
+
 **Plugins** (`.claude/settings.json`):
 
-| Plugin              | Purpose                                                                                              |
-| ------------------- | ---------------------------------------------------------------------------------------------------- |
-| alps-writer         | Slash commands that turn PRD features into ADRs and then code (`/feature-to-adr`, `/adr-impl`, etc.) |
-| context7            | Fetch up-to-date library/framework docs                                                              |
-| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                         |
-| nx                  | Helper that lets Claude understand the project's build/run layout (you don't use it directly)        |
+| Plugin              | Purpose                                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| alps-writer         | Author the PRD (ALPS) and turn its features into ADRs and code via slash commands (`/feature-to-adr`, `/adr-impl`, etc.) |
+| context7            | Fetch up-to-date library/framework docs                                                                                  |
+| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                                             |
+| frontend-design     | UI component/screen design guidance                                                                                      |
 
-::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
+::alert[If `alps-writer` shows up in the `Errors` tab or fails to download, run `/plugin marketplace update alps-writer` and then `/reload-plugins`.]{type="info"}
 
 ## Workshop environment setup (optional)
 

@@ -28,36 +28,62 @@ weight: 30
 
     Project MCPs (.mcp.json)
     airtable · ✔ connected
-    alps-writer · ✔ connected
     asset-generator · ✘ failed
     pdf-reader · ✔ connected
 
     Built-in MCPs (always available)
+    plugin:alps-writer:alps-writer · ✔ connected
     plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
     plugin:context7:context7 · ✔ connected
-    plugin:nx:nx-mcp · ✔ connected
 ──────────────────────────────────────────────────────
 ```
 
-**MCP 서버** (`.mcp.json`):
+**프로젝트 MCP 서버** (`.mcp.json`):
 
 | MCP 서버        | 패키지                   | 용도                  |
 | --------------- | ------------------------ | --------------------- |
 | pdf-reader      | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
-| alps-writer     | `alps-writer`            | PRD(ALPS) 문서 작성   |
 | asset-generator | (프로젝트 내장)          | 이미지 에셋 생성      |
 | airtable        | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
 
+::alert[`airtable`과 `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.]{type="info"}
+
+## 플러그인 설치 확인
+
+💬 Claude Code 대화창에 아래를 입력하여 플러그인 상태를 확인합니다:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/plugin
+:::
+
+아래와 같이 모든 플러그인이 `✔ enabled` 상태로 표시되면 정상입니다:
+
+```
+──────────────────────────────────────────────────────
+  Plugins  Discover   Installed   Marketplaces   Errors
+
+      Project
+    alps-writer Plugin · alps-writer · ✔ enabled
+    └ alps-writer MCP · ✔ connected
+    chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
+    └ chrome-devtools MCP · ✔ connected
+    context7 Plugin · claude-plugins-official · ✔ enabled
+    └ context7 MCP · ✔ connected
+    frontend-design Plugin · claude-plugins-official · ✔ enabled
+   ↓ more below
+──────────────────────────────────────────────────────
+```
+
 **플러그인** (`.claude/settings.json`):
 
-| 플러그인            | 용도                                                                                                     |
-| ------------------- | -------------------------------------------------------------------------------------------------------- |
-| alps-writer         | PRD Feature를 ADR로 변환 후 코드로 구현하는 슬래시 명령 (`/feature-to-adr`, `/adr-impl`, `/adr-sync` 등) |
-| context7            | 라이브러리/프레임워크 최신 문서 조회                                                                     |
-| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅                                                                         |
-| nx                  | 프로젝트 내부 빌드/실행 구조를 Claude 가 이해하기 위한 보조 도구 (직접 사용하지 않음)                    |
+| 플러그인            | 용도                                                                                                                       |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| alps-writer         | PRD(ALPS) 문서 작성 + Feature를 ADR로 변환 후 코드로 구현하는 슬래시 명령 (`/feature-to-adr`, `/adr-impl`, `/adr-sync` 등) |
+| context7            | 라이브러리/프레임워크 최신 문서 조회                                                                                       |
+| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅                                                                                           |
+| frontend-design     | UI 컴포넌트/화면 설계 가이드                                                                                               |
 
-::alert[`airtable`과 `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.]{type="info"}
+::alert[`alps-writer` 플러그인이 `Errors` 탭에 표시되거나 다운로드 실패 메시지가 보이면, `/plugin marketplace update alps-writer` 를 실행한 뒤 `/reload-plugins` 로 다시 로드하세요.]{type="info"}
 
 ## 워크숍 환경 설정 (선택)
 

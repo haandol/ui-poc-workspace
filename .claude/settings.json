@@ -20,7 +20,6 @@
     ]
   },
   "enabledPlugins": {
-    "nx@nx-claude-plugins": true,
     "typescript-lsp@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
@@ -29,12 +28,6 @@
     "alps-writer@alps-writer": true
   },
   "extraKnownMarketplaces": {
-    "nx-claude-plugins": {
-      "source": {
-        "source": "github",
-        "repo": "nrwl/nx-ai-agents-config"
-      }
-    },
     "alps-writer": {
       "source": {
         "source": "github",
