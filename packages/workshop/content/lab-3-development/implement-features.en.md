@@ -3,58 +3,50 @@ title: 'Implement Features'
 weight: 20
 ---
 
-Implement the PRD's features one at a time. Don't try to build everything at once — go **feature by feature**.
+Write code by following the ADR you created in the previous step. Don't try to build everything at once — go **feature by feature**.
 
-## How to find the file name
+## Step 1. Implement against the ADR
 
-Use whichever method is easiest:
-
-- **Finder (Mac) / File Explorer (Windows)**: open `Desktop > ui-poc-workspace > docs > prd` and look for the `.alps.md` file.
-- **Ask Claude Code directly**: `List the files in docs/prd/.`
-- **Tab autocomplete**: type `@docs/prd/` and press Tab to autocomplete the file name.
-
-## Request a feature implementation
-
-In the 💬 Claude Code chat, ask in plain English. Type `@docs/prd/` and press **Tab** to pick the PDF file.
+In the 💬 Claude Code chat, enter the following (`f1` is the first feature you converted into an ADR):
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-Implement F1 from @docs/prd/XYZ.alps.md.
+/adr-impl f1
 :::
 
-Claude will:
+Claude will automatically:
 
-1. Read the F1 spec from your PRD
-2. **Show you a short "design memo" of what it plans to build, and ask you to confirm**
-3. Once confirmed, write the code and update the dev server
+1. Read the **Decision** in `docs/adr/f1/`
+2. Write code that follows the decision
+3. Reflect the changes in the dev server
 
-Reply "OK" or "go ahead" to confirm; otherwise describe the change in plain language — e.g., "move the button to the top." Check the result at `http://localhost:3000`.
+::alert[If you ask for an implementation without an ADR in place, the PreToolUse hook may warn you and block progress. Make sure you've completed [Convert the PRD into ADRs](./prd-to-adr) first.]{type="info"}
 
-::alert[The design memo is a "Decision" note. Just check that the Decision matches what you have in mind — you don't need to understand every section.]{type="info"}
+## Step 2. Check the result in the browser
+
+Open `http://localhost:3000` to inspect the result. If something looks off or you want to polish, request a tweak in plain language:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+Make the payment button bigger and use the primary color.
+:::
+
+For small touches — styling, copy, micro-positioning — you can edit the code directly. For **bigger changes** (adding/removing a feature, changing a flow, structural changes), see the next page: [Evolving the PoC](./evolve-poc).
+
+## Step 3. Move on to the next feature
+
+Once F1 is solid, go back to [Convert the PRD into ADRs](./prd-to-adr) to create the ADR for `f2`, then come back here and run `/adr-impl f2`. Repeat the cycle: **PRD → ADR → Implement → Next feature.**
 
 ## The iteration loop
 
-Build one feature at a time in a loop:
-
 ```
-1. Request a feature
-   └─ "Implement F1 from @docs/prd/XYZ.alps.md."
-
-2. Approve the design memo
-   └─ "OK" or request edits
-
-3. Check the result in the browser
-   └─ http://localhost:3000
-
-4. Feedback / edit requests
-   └─ "Change the button color to blue."
-
-5. Once you're happy, move to the next feature
-   └─ "Implement F2."
+1. /feature-to-adr fN     — Convert the feature into an ADR (design memo)
+2. Review and accept ADR  — Check the Decision and approve or edit
+3. /adr-impl fN           — Write code following the ADR
+4. Check the browser      — http://localhost:3000
+5. Feedback / small edits — Ask in plain language
+6. Move on                — Loop back with /feature-to-adr f(N+1)
 ```
 
-::alert[If you stay in the same conversation, you can skip the PRD path — `"Implement F2."` is enough; the previous PRD is reused.]{type="info"}
-
-::alert[**Shortcut** — once you're comfortable, you can call the same flow with slash commands: `/feature-to-adr f1` to draft the design memo, then `/adr-impl f1` to build it. See the [`alps-writer` plugin](https://github.com/haandol/alps-writer-mcp) docs for details.]{type="info"}
+::alert[If you stay in the same chat, context carries over — `/adr-impl f2` alone is enough.]{type="info"}
 
 ## Tips for edit requests
 

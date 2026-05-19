@@ -3,58 +3,50 @@ title: 'Feature 구현'
 weight: 20
 ---
 
-PRD의 Feature를 하나씩 구현합니다. 한 번에 모든 기능을 만들지 말고 **Feature 단위로 하나씩** 진행합니다.
+앞 단계에서 만든 ADR 을 따라 코드를 작성합니다. 한 번에 모든 기능을 만들지 말고 **Feature 단위로 하나씩** 진행합니다.
 
-## 파일명 확인 방법
+## Step 1. ADR 기반 구현 요청
 
-아래 중 편한 방법을 사용하세요:
-
-- **Finder(Mac) / 파일탐색기(Windows)**: `바탕화면 > ui-poc-workspace > docs > prd` 폴더를 열면 `.alps.md` 파일이 있습니다.
-- **Claude Code에서 직접 확인**: `docs/prd/ 에 있는 파일 목록을 보여줘`라고 물어보세요.
-- **Tab 자동완성**: `@docs/prd/`까지 입력 후 Tab 키를 누르면 파일명이 자동완성됩니다.
-
-## Feature 구현 요청
-
-💬 Claude Code 대화창에 평소 쓰던 말투로 요청합니다. `@docs/prd/`까지 입력 후 **Tab 키**로 PDF 파일을 선택하세요.
+💬 Claude Code 대화창에 입력합니다 (`f1` 은 앞에서 ADR 로 변환한 첫 Feature):
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
-@docs/prd/XYZ.alps.md 의 F1 구현해줘.
+/adr-impl f1
 :::
 
-Claude가 자동으로:
+Claude 가 자동으로:
 
-1. PRD에서 F1 명세를 읽습니다
-2. **"이렇게 만들겠다"는 짧은 설계 메모를 보여주고 확인을 요청**합니다
-3. 확인하면 코드를 작성하고 개발 서버에 반영합니다
+1. `docs/adr/f1/` 의 **Decision** 을 읽습니다
+2. ADR 에 정의된 결정대로 코드를 작성합니다
+3. 변경 사항을 개발 서버에 반영합니다
 
-내용이 맞으면 "OK" 또는 "그대로 진행해줘", 고치고 싶으면 "버튼 위치를 위로 올려줘" 처럼 자연어로 수정 요청합니다. 결과는 브라우저(`http://localhost:3000`)에서 바로 확인할 수 있습니다.
+::alert[ADR 이 없는 상태에서 구현을 요청하면 PreToolUse 훅이 경고를 띄우고 진행을 막을 수 있습니다. 먼저 [PRD 를 ADR 로 변환](./prd-to-adr) 을 진행해 두세요.]{type="info"}
 
-::alert[Claude가 보여주는 설계 메모는 "Decision(이렇게 만들겠다)" 부분만 빠르게 확인하면 충분합니다. 모든 항목을 이해하지 않아도 됩니다.]{type="info"}
+## Step 2. 브라우저에서 결과 확인
 
-## 반복 사이클
+브라우저(`http://localhost:3000`)에서 결과를 확인합니다. 의도와 다르거나 다듬고 싶은 부분이 있으면 자연어로 수정 요청합니다:
 
-Feature를 하나씩 완성해 나가는 반복 사이클입니다:
+:::code{showCopyAction=true showLineNumbers=false language=text}
+결제 버튼을 더 크게, 메인 색상으로 강조해줘.
+:::
+
+스타일·문구·미세 조정 같은 작은 수정은 코드만 바로 고쳐도 됩니다. **기능 추가/제거나 흐름 변경처럼 결정 자체가 바뀌는 큰 변경**이라면 다음 페이지([요구사항 변경에 대응하기](./evolve-poc))를 참고하세요.
+
+## Step 3. 다음 Feature 로 이동
+
+F1 이 만족스러우면 [PRD 를 ADR 로 변환](./prd-to-adr) 페이지로 돌아가 `f2` 의 ADR 을 만들고, 다시 이 페이지에서 `/adr-impl f2` 를 실행합니다. **PRD → ADR → 구현 → 다음 Feature** 의 사이클을 반복합니다.
+
+## 반복 사이클 요약
 
 ```
-1. Feature 구현 요청
-   └─ "@docs/prd/XYZ.alps.md 의 F1 구현해줘."
-
-2. 설계 메모 확인 및 승인
-   └─ "OK" 또는 수정 요청
-
-3. 브라우저에서 결과 확인
-   └─ http://localhost:3000
-
-4. 피드백 및 추가 수정 요청
-   └─ "버튼 색상을 파란색으로 바꿔줘"
-
-5. 만족하면 다음 Feature로 이동
-   └─ "F2 구현해줘"
+1. /feature-to-adr fN     — Feature 를 ADR (설계 메모) 로 변환
+2. ADR 검토 및 승인       — Decision 확인 후 OK 또는 수정 요청
+3. /adr-impl fN           — ADR 따라 코드 작성
+4. 브라우저에서 결과 확인  — http://localhost:3000
+5. 피드백 / 작은 수정      — 자연어로 요청
+6. 만족하면 다음 Feature   — /feature-to-adr f(N+1) 로 복귀
 ```
 
-::alert[같은 대화창에서 계속 작업 중이면 PRD 파일 경로 없이 `"F2 구현해줘"` 만 입력해도 됩니다. 이전에 읽었던 PRD를 그대로 사용합니다.]{type="info"}
-
-::alert[**더 빠른 방법** — 익숙해지면 슬래시 명령으로도 같은 흐름을 호출할 수 있습니다. `/feature-to-adr f1` 으로 설계 메모를 만들고, 확인 후 `/adr-impl f1` 으로 구현. 자세한 내용은 [`alps-writer` plugin](https://github.com/haandol/alps-writer-mcp) 문서를 참고하세요.]{type="info"}
+::alert[같은 대화창에서 계속 작업 중이면 컨텍스트가 유지되므로 `/adr-impl f2` 만 입력해도 충분합니다.]{type="info"}
 
 ## 수정 요청 팁
 

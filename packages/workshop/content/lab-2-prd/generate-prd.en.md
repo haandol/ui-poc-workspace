@@ -107,3 +107,5 @@ Summarize the Feature list in @docs/prd/XYZ.alps.md.
 :::
 
 ::alert[The file name varies by service name. Type `@docs/prd/` and press Tab to autocomplete.]{type="info"}
+
+Once the PRD is finalized, move on to the next lab. In Lab 3 you convert each PRD feature into an **ADR (design memo)** and then implement the code.

@@ -3,14 +3,15 @@ title: 'Lab 3: Build the UI PoC'
 weight: 40
 ---
 
-In this lab you take the PRD and turn it into a working web UI. Claude Code implements a Nuxt/Vue web app for you.
+In this lab you turn the PRD into a working web UI. We move feature by feature in **PRD → ADR → code** order, and the same cycle absorbs every change request that comes back from your demo.
 
 **What you'll do in this lab:**
 
-- Start the dev server
-- Implement each PRD feature one at a time ("Implement F1" is enough)
-- Inspect the result in the browser and iterate on feedback
+1. Start the dev server
+2. Convert each PRD feature into an ADR (design memo) — `/feature-to-adr fN`
+3. Implement the code that follows the ADR — `/adr-impl fN`
+4. Handle change requests after the demo — update the ADR for big changes, fix code directly for small ones, run `/adr-sync` when drift accumulates
 
 **Expected duration**: 100 minutes
 
-::alert[Before building each feature, Claude shows you a short "design memo" and asks you to confirm. If something looks off, just describe the change in plain language. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
+::alert[**ADR (Architecture Decision Record)** — a one-page design memo we write before each feature. Claude fills it in automatically, so there's no documentation overhead. It becomes the anchor that keeps the demo → feedback → change cycle clean. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
