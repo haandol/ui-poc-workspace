@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/haandol/alps-writer-mcp/main/templates/adr/mapping.schema.json",
+  "alpsDocument": "",
+  "categories": {}
+}

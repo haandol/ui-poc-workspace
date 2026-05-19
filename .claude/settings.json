@@ -23,13 +23,20 @@
     "context7@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "alps-writer@alps-writer": true
   },
   "extraKnownMarketplaces": {
     "nx-claude-plugins": {
       "source": {
         "source": "github",
         "repo": "nrwl/nx-ai-agents-config"
+      }
+    },
+    "alps-writer": {
+      "source": {
+        "source": "github",
+        "repo": "haandol/alps-writer-mcp"
       }
     }
   }

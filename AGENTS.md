@@ -64,56 +64,62 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 
 ## Architecture Decision Records
 
-`docs/adr/` — Creating or updating ADRs is mandatory for new features and major changes.
+`docs/adr/` — ADR creation/update is mandatory for new features and major changes. The repo uses the [`alps-writer`](https://github.com/haandol/alps-writer-mcp) Claude Code plugin to enforce the cycle (commands, hooks, skills).
 
-### ADR Workflow
-
-#### Before Implementation (Required)
-
-1. **Check existing ADRs** — Read the `docs/adr/README.md` index and check if a related ADR exists
-2. **Create or review ADR**
-   - If no related ADR exists → Create a new ADR based on `docs/adr/TEMPLATE.md` (status: `Proposed`)
-   - If a related ADR exists → Read it and verify the current implementation direction aligns
-3. **Scope implementation to ADR** — Follow the Decision described in the ADR
-
-#### After Implementation (Required)
-
-1. **Sync ADR** — If the **architectural decision itself** changed, update the ADR (change status to `Accepted`). Do NOT add implementation details (file paths, code snippets, field schemas) to ADRs — ADRs describe decisions and rationale only
-2. **Update README index** — Keep the `docs/adr/README.md` ADR list up to date
-3. **Cascade updates** — If changes affect other ADRs, update those as well
-4. **Add Mermaid diagrams** — When the ADR involves non-trivial flows (state machines, multi-component interactions, event sequences), include a Mermaid diagram to make the flow easy to understand at a glance
-
-#### ALPS PRD Feature → ADR Mandatory Workflow (MANDATORY)
-
-When implementing Features (F1, F2, …) defined in the ALPS PRD document, you **must** follow the protocol below.
+### Plugin Commands
 
 ```
-Review PRD Feature → Write ADR (Proposed) → User Confirmation → Start Implementation → Sync ADR (Accepted)
+ALPS Section 7 → /feature-to-adr fN → user confirms → /adr-impl fN → /adr-sync fN
 ```
 
-1. **Review PRD Feature** — Check the Feature ID and priority in ALPS PRD Section 6 (Requirements Summary), and read the User Story, User Flow, Technical Description, and Acceptance Criteria in Section 7 (Feature-Level Specification).
-2. **Write ADR (Required before implementation)**
-   - Create an ADR file under `docs/adr/`.
-   - Include the PRD Feature ID in the ADR title (e.g., `0001-f1-email-signup.md`).
-   - Specify PRD Feature references (Feature ID, priority) in the ADR Context.
-   - Record the implementation direction and technical decisions in the ADR Decision.
-   - Start with status `Proposed`.
-3. **User Confirmation** — Present the ADR content to the user and only begin code implementation after receiving confirmation.
-4. **Implementation** — Implement code following the direction decided in the ADR.
-5. **Sync ADR** — Once implementation is complete, change the ADR status to `Accepted` and update the ADR if the **architectural decision itself** changed. Do NOT add implementation details (file paths, code snippets, field schemas). Also update the `docs/adr/README.md` index.
+| Command                    | When to use                                                              |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `/feature-to-adr [fN]`     | After ALPS Section 7 is saved, convert one Feature into a `Proposed` ADR |
+| `/adr-impl <adr-or-fN>`    | Implement code that follows the ADR's Decision                           |
+| `/adr-sync [fN] [--quick]` | Verify code still matches the ADR; fix drift                             |
+| `/adr-rollup <fN>`         | Collapse an evolution chain into a single current-state ADR              |
 
-**Violation Prevention**: Feature code implementation (creating components, adding API endpoints, writing pages, etc.) cannot start without an ADR. If asked to implement a Feature that has no ADR, you must propose writing the ADR first.
+PreToolUse hook (`alps-writer` plugin) runs in **warn mode** for this workshop — it prints a stderr notice when an Edit/Write touches code that has a stale ADR, but never blocks. Instructors can flip to block mode by exporting `ALPS_ADR_ENFORCE=block` in their shell.
 
-#### When ADR is Not Required
+### Before Implementation (Required)
 
-The following changes can skip ADR creation/update:
+1. **Check the index** — Read `docs/adr/README.md` and `docs/adr/.mapping.json` to see if the Feature already has an ADR.
+2. **Create or review the ADR**
+   - No ADR yet → run `/feature-to-adr fN`. The plugin's `adr-manage` skill enforces the writing rules.
+   - ADR exists → read it and confirm the current implementation direction still aligns.
+3. **Scope to the ADR** — implement only what the Decision section describes.
 
-- Simple bug fixes (no architectural change)
+### After Implementation (Required)
+
+1. **Sync ADR** — if the **architectural decision itself** changed, update the ADR (status `Proposed` → `Accepted`). Do NOT add implementation details (file paths, code snippets, field schemas) — ADRs describe decisions and rationale only.
+2. **Run `/adr-sync fN`** — confirms the code and ADR still agree, updates the README one-liner and `lastSyncedAt` in the mapping.
+3. **Cascade updates** — if changes touch other ADRs, follow the Related links and update them.
+4. **Mermaid diagrams** — for non-trivial flows (state machines, multi-component interactions, event sequences), add a Mermaid diagram so the flow is graspable at a glance.
+
+### ALPS PRD Feature → ADR (MANDATORY)
+
+When implementing Features (F1, F2, …) defined in the ALPS PRD, follow this protocol:
+
+```
+Review PRD Feature → /feature-to-adr (Proposed) → user confirms → /adr-impl → /adr-sync (Accepted)
+```
+
+1. **Review PRD Feature** — read the Feature ID, priority, dependencies in PRD Section 6 (Requirements Summary) and the User Story, User Flow, Technical Description, Acceptance Criteria in Section 7 (Feature-Level Specification).
+2. **Write ADR (required before implementation)** — `/feature-to-adr fN` creates the file with the proper name (`XXXX-fN-kebab-title.md`), records PRD Feature references in Context, and seeds the mapping. Status starts as `Proposed`.
+3. **User confirmation** — present the ADR Decision to the user and start coding only after explicit approval.
+4. **Implementation** — `/adr-impl fN`. The hook surfaces the related ADR automatically; follow Decision strictly.
+5. **Sync ADR** — `/adr-sync fN`. Update Decision only if the architecture changed; flip Status to `Accepted`. Update `docs/adr/README.md` and `.mapping.json`.
+
+**Violation prevention**: Feature code implementation (creating components, adding API endpoints, writing pages, etc.) must not start without an ADR. If asked to implement a Feature that has no ADR, propose `/feature-to-adr fN` first.
+
+### When ADR is Not Required
+
+- Simple bug fixes with no architectural change
 - Style/formatting changes
-- Documentation typo fixes
-- Dependency patch version updates
+- Doc typo fixes
+- Dependency patch updates
 
-For directory structure, file naming, templates, and writing rules, refer to [`docs/adr/README.md`](./docs/adr/README.md).
+Directory structure, file naming, templates, and full writing rules: [`docs/adr/README.md`](./docs/adr/README.md).
 
 ## Documentation Maintenance
 

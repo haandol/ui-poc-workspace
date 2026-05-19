@@ -7,6 +7,17 @@ For project structure, tech stack, architecture, code style, and dev commands, r
 - [AGENTS.md](./AGENTS.md) - Project overview, package structure, ADRs, deployment
 - [packages/web/AGENTS.md](./packages/web/AGENTS.md) - Web frontend (features, conventions, design system)
 
+## Plugin: alps-writer
+
+이 워크숍은 [`alps-writer`](https://github.com/haandol/alps-writer-mcp) Claude Code plugin을 사용해 ALPS PRD → ADR → 코드 → 동기화 사이클을 강제한다. 핵심 명령:
+
+- `/feature-to-adr fN` — ALPS Section 7의 Feature를 ADR 초안으로 변환
+- `/adr-impl <adr-or-fN>` — ADR을 따라 구현 (PreToolUse hook이 stale ADR 경고)
+- `/adr-sync [fN]` — 코드와 ADR drift 검증·정정
+- `/adr-rollup fN` — 같은 Feature의 ADR 진화 체인을 단일 ADR로 통합
+
+매핑 파일은 `docs/adr/.mapping.json`. Hook은 워크숍 기본값 **warn-only**라서 차단하지 않으며, 강사용 데모로 차단을 보고 싶으면 셸에서 `ALPS_ADR_ENFORCE=block`을 export한 뒤 세션을 시작한다.
+
 ## Workshop Progress Tracking
 
 워크숍 진행 상태는 `.work-status` 저널과 Airtable 로 이중 기록된다. 일부는 hook 이 자동 처리하지만, **아래 마일스톤은 tool 신호로 잡히지 않으므로 Claude 가 직접 `workshop-status` skill 을 호출해야 한다.**
