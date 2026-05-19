@@ -8,9 +8,9 @@ In this lab you take the PRD and turn it into a working web UI. Claude Code impl
 **What you'll do in this lab:**
 
 - Start the dev server
-- Convert each PRD feature into an ADR and then code (`/feature-to-adr` → `/adr-impl`)
+- Implement each PRD feature one at a time ("Implement F1" is enough)
 - Inspect the result in the browser and iterate on feedback
 
 **Expected duration**: 100 minutes
 
-::alert[This lab uses the slash commands provided by the [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp). Each PRD feature is first turned into a short ADR (Architecture Decision Record) memo and then implemented in code following that decision. The commands are pre-installed in the workshop environment.]{type="info"}
+::alert[Before building each feature, Claude shows you a short "design memo" and asks you to confirm. If something looks off, just describe the change in plain language. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
