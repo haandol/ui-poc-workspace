@@ -17,7 +17,7 @@ weight: 40
 
 **이 랩에서 할 일:**
 
-1. 개발 서버 실행
+1. 개발 웹 서버 실행
 2. PRD 의 Feature 를 ADR (설계 메모) 로 변환 — `/feature-to-adr fN`
 3. ADR 을 따라 코드 작성 — `/adr-impl fN`
 4. 내부 리뷰·핸드오프 후 변경 요구 대응 — 큰 변경은 ADR 갱신 / 작은 변경은 코드만 / 누적되면 `/adr-sync`
