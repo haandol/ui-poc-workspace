@@ -3,26 +3,26 @@ title: 'Debug the UI'
 weight: 30
 ---
 
-When the screen doesn't look right, ask the AI in plain language and it will open the browser itself to diagnose and fix.
+When the screen doesn't look right, invoke the **`debug-ui` skill** and the AI opens the browser itself to diagnose and fix.
 
-## Ask the AI to look at the screen
+## How to invoke
 
-In the 💬 Claude Code chat:
+In the 💬 Claude Code chat, **prefix your prompt with `Use the debug-ui skill to ...`** so the AI explicitly takes the visual debugging path instead of guessing.
 
-| Situation             | Example prompt                                                 |
-| --------------------- | -------------------------------------------------------------- |
-| Check the screen      | "How does the screen look right now?"                          |
-| Broken-looking layout | "Check the page and fix what's broken."                        |
-| Console / network     | "Check if there are any browser errors and fix them."          |
-| PRD/ADR alignment     | "Visually compare the current page with PRD F1."               |
-| Mobile responsiveness | "How does it look on mobile?"                                  |
-| Click/input flow      | "Actually click the checkout button and tell me what happens." |
+| Situation             | Example prompt                                                                           |
+| --------------------- | ---------------------------------------------------------------------------------------- |
+| Check the screen      | "Use the debug-ui skill to check how the screen looks right now."                        |
+| Broken-looking layout | "Use the debug-ui skill to check the page and fix what's broken."                        |
+| Console / network     | "Use the debug-ui skill to check for browser errors and fix them."                       |
+| PRD/ADR alignment     | "Use the debug-ui skill to visually compare the current page with PRD F1."               |
+| Mobile responsiveness | "Use the debug-ui skill to check how it looks on mobile."                                |
+| Click/input flow      | "Use the debug-ui skill to actually click the checkout button and tell me what happens." |
 
-::alert[Short prompts like "take a look", "screenshot it", or "something looks weird — what's wrong?" are enough.]{type="info"}
+::alert[Once you've named the skill in the conversation, follow-ups like _"check this page too"_ or _"do the same for the next screen"_ stay in the same skill — no need to re-name it every time.]{type="info"}
 
 ## Pre-meeting / pre-handoff check — PRD/ADR alignment
 
-If you ask _"visually compare the current page with PRD F1"_, the AI returns a table like:
+If you ask _"Use the debug-ui skill to visually compare the current page with PRD F1"_, the AI returns a table like:
 
 ```
 | Item              | Expected (PRD/ADR) | Current screen | Result |
@@ -70,7 +70,7 @@ $env:PORT=3001; pnpm dev:web
 :::
 ::::
 
-Then open `http://localhost:3001` in your browser, and tell the AI once: _"debug on port 3001."_
+Then open `http://localhost:3001` in your browser, and tell the AI once: _"Run the debug-ui skill against port 3001."_
 
 ### AI says it can't open a browser
 
