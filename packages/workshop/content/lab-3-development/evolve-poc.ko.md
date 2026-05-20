@@ -11,7 +11,7 @@ PoC 를 내부 리뷰나 개발자 핸드오프 자리에 가지고 가면 **반
 
 ### 시나리오 A. 큰 변경 — ADR 먼저 갱신
 
-기능 추가/제거, 흐름 변경, 구조 변경처럼 **결정 자체가 바뀌는 경우** 입니다.
+기존 Feature 의 흐름·구조처럼 **결정 자체가 바뀌는 경우** 입니다.
 
 💬 예시 — 내부 리뷰 피드백: _"결제 옵션을 카드형이 아니라 드롭다운으로 바꿉시다."_
 
@@ -21,6 +21,22 @@ ADR 먼저 갱신해줘.
 :::
 
 Claude 가 `docs/adr/f2/0001-…md` 의 **Decision** 과 **Consequences** 를 갱신합니다. 그 다음 `/adr-impl f2` 로 코드까지 반영합니다.
+
+### 시나리오 A2. 새 기능 추가 — `/adr-new` 로 ADR 부터
+
+PRD 에 없던 **완전히 새로운 기능** 을 추가해야 할 때입니다 (예: _"여기에 쿠폰 적용 기능도 넣어주세요"_). 이때는 PRD 로 거슬러 올라가지 않고 **`/adr-new` 로 새 ADR 을 바로 작성** 합니다.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/adr-new 결제 화면에 쿠폰 코드 입력 기능 추가
+:::
+
+Claude 가 자동으로:
+
+1. 새 카테고리 (예: `coupon`) 와 ADR 파일 (`docs/adr/coupon/0001-…md`) 을 만듭니다
+2. **Decision, 대안 비교, Consequences** 를 채우고 사용자에게 승인을 요청합니다
+3. 승인 후 `/adr-impl coupon` 으로 코드까지 반영하면 됩니다
+
+::alert[`/adr-new` 는 PRD 가 정의하지 못한 즉흥적인 변경을 ADR 로 정식 등록하는 길입니다. 이렇게 등록된 새 결정도 다음 변경 사이클에서 동일하게 진화시킬 수 있습니다.]{type="info"}
 
 ### 시나리오 B. 작은 변경 — 코드만 빠르게
 
@@ -57,11 +73,13 @@ Claude 가 자동으로:
 ```mermaid
 flowchart TD
     Review([내부 리뷰 / 핸드오프]) --> FB[피드백]
-    FB --> Big{큰 변경?}
-    Big -- Yes --> A1[ADR 갱신]
-    A1 --> Impl["/adr-impl"]
+    FB --> Kind{어떤 변경?}
+    Kind -- 새 기능 추가 --> New["/adr-new"]
+    Kind -- 기존 결정 변경 --> A1[기존 ADR 갱신]
+    Kind -- 작은 수정 --> Code[코드만 수정]
+    New --> Impl["/adr-impl"]
+    A1 --> Impl
     Impl --> Test1[브라우저 테스트]
-    Big -- No --> Code[코드만 수정]
     Code --> Test2[브라우저 테스트]
     Test1 --> Drift{변경이 쌓였나?}
     Test2 --> Drift

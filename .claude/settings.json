@@ -1,9 +1,9 @@
 {
-  "permissions": {
-    "allow": []
-  },
   "env": {
     "ALPS_OUTPUT_DIR": "./docs/prd"
+  },
+  "permissions": {
+    "allow": []
   },
   "enabledMcpjsonServers": ["pdf-reader", "airtable", "asset-generator"],
   "hooks": {
@@ -32,7 +32,8 @@
       "source": {
         "source": "github",
         "repo": "haandol/alps-writer-mcp"
-      }
+      },
+      "autoUpdate": true
     }
   }
 }

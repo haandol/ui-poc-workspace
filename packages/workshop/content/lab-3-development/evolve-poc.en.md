@@ -11,7 +11,7 @@ The PoC you build in this lab is designed to **absorb those changes indefinitely
 
 ### Scenario A. Big change — update the ADR first
 
-Adding/removing a feature, changing a flow, restructuring — anything where **the decision itself changes**.
+Anything where **the decision itself changes** for an existing feature — flow, structure, or behavior.
 
 💬 Example — internal review feedback: _"Switch payment options from cards to a dropdown."_
 
@@ -21,6 +21,22 @@ Update the ADR first.
 :::
 
 Claude updates the **Decision** and **Consequences** in `docs/adr/f2/0001-…md`, then runs `/adr-impl f2` to reflect the change in code.
+
+### Scenario A2. Brand-new feature — start with `/adr-new`
+
+When the request is a **brand-new feature that didn't exist in the PRD** (e.g., _"also add a coupon code field on the checkout screen"_), don't backtrack to the PRD — author a fresh ADR directly with `/adr-new`.
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/adr-new add a coupon code input on the checkout screen
+:::
+
+Claude automatically:
+
+1. Creates a new category (e.g., `coupon`) and the ADR file (`docs/adr/coupon/0001-…md`)
+2. Fills in **Decision, Alternatives, Consequences** and asks for your approval
+3. Once approved, run `/adr-impl coupon` to push the change into code
+
+::alert[`/adr-new` is the path for ad-hoc changes the PRD never anticipated. Once registered as an ADR, the new decision evolves through the same change cycle as everything else.]{type="info"}
 
 ### Scenario B. Small change — fix code directly
 
@@ -57,11 +73,13 @@ Claude automatically:
 ```mermaid
 flowchart TD
     Review([Internal review / handoff]) --> FB[Feedback]
-    FB --> Big{Big change?}
-    Big -- Yes --> A1[Update ADR]
-    A1 --> Impl["/adr-impl"]
+    FB --> Kind{What kind of change?}
+    Kind -- New feature --> New["/adr-new"]
+    Kind -- Existing decision changes --> A1[Update existing ADR]
+    Kind -- Small touch-up --> Code[Edit code only]
+    New --> Impl["/adr-impl"]
+    A1 --> Impl
     Impl --> Test1[Test in browser]
-    Big -- No --> Code[Edit code only]
     Code --> Test2[Test in browser]
     Test1 --> Drift{Drift accumulated?}
     Test2 --> Drift

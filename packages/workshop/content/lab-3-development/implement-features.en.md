@@ -48,7 +48,7 @@ Once F1 is solid, run the next feature the same way:
 
 ADRs for every feature were already drafted by `/feature-to-adr`, so **you don't need to revisit the PRD → ADR step.** Just keep running `/adr-impl` for F1 → F2 → F3 …
 
-::alert[If you stay in the same chat, context carries over — `/adr-impl f2` alone is enough.]{type="info"}
+::alert[**Forgot which feature is still pending?** Run `/adr-impl` with no arguments — it lists every ADR still in `Proposed` (unimplemented) state and asks which one to build. You can pick one (`f1`) or several (`1,2` or `f1, f2`) at once.]{type="info"}
 
 ## The iteration loop
 
