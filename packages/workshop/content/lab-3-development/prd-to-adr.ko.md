@@ -5,11 +5,29 @@ weight: 15
 
 ## PRD 와 ADR 은 어떻게 다른가
 
-에이전트 기반 개발에서 가장 어려운 부분은 **비즈니스 요구사항을 코드로 정확히 변환** 하는 일입니다 (참고: [RFTCR Framework](https://haandol.github.io/2025/05/11/rftcr-framework-for-agentic-dev.html)). 그래서 요구사항 → 기능 → 코드 사이를 표준화된 추상화 단계로 잘게 끊어서 넘기는 것이 핵심이고, **PRD 와 ADR 은 그 변환 과정에서 서로 다른 추상화 단계를 담당** 합니다.
+에이전트 기반 개발에서 가장 어려운 부분은 **비즈니스 요구사항을 코드로 정확히 변환** 하는 일입니다. 그래서 요구사항 → 기능 → 코드 사이를 표준화된 추상화 단계로 잘게 끊어서 넘기는 것이 핵심이고, **PRD 와 ADR 은 그 변환 과정에서 서로 다른 추상화 단계를 담당** 합니다.
 
-![PRD 와 ADR 의 영역 구분 (출처: RFTCR Framework)](/static/images/lab-3/rftc-with-role.png)
+```mermaid
+flowchart LR
+    subgraph PO["기획자 (Product Owner) 영역"]
+        direction LR
+        Req[Requirement<br/>요구사항] --> Feat[Feature<br/>기능 명세]
+    end
+    subgraph Dev["개발자 영역 (AI 에이전트)"]
+        direction LR
+        ADR[ADR<br/>아키텍처 결정] --> Code[Code<br/>실제 구현]
+    end
+    Feat --> ADR
 
-- **PRD — 기획자(Product Owner) 영역**: _"무엇을 왜 만들 것인가"_ 를 비즈니스 언어로 정리한 요구사항 문서. Lab 2 에서 이미 작성했습니다.
+    classDef po fill:#fff3b0,stroke:#b58900,color:#5a3e00;
+    classDef dev fill:#fde2e4,stroke:#a83232,color:#5a1414;
+    classDef artifact fill:#ffffff,stroke:#666,color:#222;
+    class PO po
+    class Dev dev
+    class Req,Feat,ADR,Code artifact
+```
+
+- **PRD — 기획자(Product Owner) 영역**: _"무엇을 왜 만들 것인가"_ 를 비즈니스 언어로 정리한 요구사항 문서. Requirement → Feature 까지 다룹니다. Lab 2 에서 이미 작성했습니다.
 - **ADR (Architecture Decision Record) — 개발자 영역**: 그 기능을 만들 때 _"어떤 구조로 갈지, 왜 그 선택을 했는지"_ 를 남기는 **아키텍처 의사결정 기록**. 구현 디테일 (파일 경로, 코드 스니펫, 상수) 은 코드가 갖고 있고, ADR 에는 **결정의 근거 (WHY), 대안 비교, 그 결정의 영향 (Consequences)** 만 남깁니다.
 
 간단한 화면이라면 ADR 없이도 충분히 만들 수 있습니다. 하지만 **기능이 많아지고 프로젝트가 복잡해질수록 PRD 와 ADR 을 구분해서 관리** 하는 것이 필요합니다. 데모 후 변경 요구가 들어올 때 _"무엇을 만들기로 했는지 (PRD)"_ 와 _"왜 그렇게 결정했는지 (ADR)"_ 가 분리되어 있어야, 새 요구사항이 기존 결정을 어디까지 흔드는지 판단하고 같은 사이클로 계속 진화시킬 수 있기 때문입니다.

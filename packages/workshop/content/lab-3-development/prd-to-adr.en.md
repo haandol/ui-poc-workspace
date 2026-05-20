@@ -5,11 +5,29 @@ weight: 15
 
 ## How PRD and ADR differ
 
-The hardest part of agent-driven development is **translating business requirements into correct code** (see: [RFTCR Framework](https://haandol.github.io/2025/05/11/rftcr-framework-for-agentic-dev.html)). The trick is breaking that translation into standardized abstraction layers, and **PRD vs. ADR sit at different layers in that pipeline.**
+The hardest part of agent-driven development is **translating business requirements into correct code.** The trick is breaking that translation into standardized abstraction layers, and **PRD vs. ADR sit at different layers in that pipeline.**
 
-![PRD and ADR ownership boundaries (source: RFTCR Framework)](/static/images/lab-3/rftc-with-role.png)
+```mermaid
+flowchart LR
+    subgraph PO["Product Owner's territory"]
+        direction LR
+        Req[Requirement] --> Feat[Feature spec]
+    end
+    subgraph Dev["Developer's territory (AI agent)"]
+        direction LR
+        ADR[ADR<br/>Architecture decision] --> Code[Code<br/>Implementation]
+    end
+    Feat --> ADR
 
-- **PRD — owned by the Product Owner / planner**: _"what to build and why"_, written in business language. You already wrote one in Lab 2.
+    classDef po fill:#fff3b0,stroke:#b58900,color:#5a3e00;
+    classDef dev fill:#fde2e4,stroke:#a83232,color:#5a1414;
+    classDef artifact fill:#ffffff,stroke:#666,color:#222;
+    class PO po
+    class Dev dev
+    class Req,Feat,ADR,Code artifact
+```
+
+- **PRD — owned by the Product Owner / planner**: _"what to build and why"_, written in business language. Covers Requirement → Feature spec. You already wrote one in Lab 2.
 - **ADR (Architecture Decision Record) — owned by the developer side**: a record of _"what structure was chosen and why"_ when building each feature. Implementation details (file paths, snippets, constants) live in the code itself; the ADR captures only the **reasoning (WHY), the alternatives considered, and the consequences** of the decision.
 
 For a simple screen, you can get by without an ADR. But **as the feature count grows and the project gets more complex, separating PRD and ADR becomes essential.** When change requests come in after a demo, keeping _"what we agreed to build (PRD)"_ separate from _"why we made each decision (ADR)"_ lets you judge how far a new requirement reaches into existing decisions and keeps the cycle clean.
