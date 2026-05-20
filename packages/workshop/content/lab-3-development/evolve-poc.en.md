@@ -3,7 +3,7 @@ title: 'Evolving the PoC'
 weight: 25
 ---
 
-The moment you demo a PoC, **feedback is guaranteed**: "Move the button up", "Let's change the payment flow", "Drop this screen entirely and try a different journey." The requests never stop.
+The moment you take a PoC into an internal review or an engineering handoff, **feedback is guaranteed**: "Move the button up", "Let's change the payment flow", "Drop this screen entirely and try a different journey." The requests never stop.
 
 The PoC you build in this lab is designed to **absorb those changes indefinitely**. The key is treating the **ADR as the source of truth** for every decision.
 
@@ -13,7 +13,7 @@ The PoC you build in this lab is designed to **absorb those changes indefinitely
 
 Adding/removing a feature, changing a flow, restructuring — anything where **the decision itself changes**.
 
-💬 Example — customer feedback: _"Switch payment options from cards to a dropdown."_
+💬 Example — internal review feedback: _"Switch payment options from cards to a dropdown."_
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 We're switching payment options from cards to a dropdown.
@@ -56,7 +56,7 @@ Claude automatically:
 
 ```mermaid
 flowchart TD
-    Demo([Demo]) --> FB[Customer feedback]
+    Review([Internal review / handoff]) --> FB[Feedback]
     FB --> Big{Big change?}
     Big -- Yes --> A1[Update ADR]
     A1 --> Impl["/adr-impl"]
@@ -66,9 +66,9 @@ flowchart TD
     Test1 --> Drift{Drift accumulated?}
     Test2 --> Drift
     Drift -- Yes --> Sync["/adr-sync to realign"]
-    Drift -- No --> NextDemo([Next demo])
-    Sync --> NextDemo
-    NextDemo -.-> FB
+    Drift -- No --> Next([Next review])
+    Sync --> Next
+    Next -.-> FB
 ```
 
-**Customer requirements always change.** Follow this cycle and your PoC absorbs the next round of changes from a clean state every time — six months from the day you first built it, the flow is still the same.
+**Requirements always change.** Follow this cycle and your PoC absorbs the next round of changes from a clean state every time — six months from the day you first built it, the flow is still the same.

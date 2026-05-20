@@ -3,21 +3,11 @@ title: 'Debug the UI'
 weight: 30
 ---
 
-When the screen doesn't look right, ask the AI to **look at the actual browser instead of guessing** to diagnose and fix the issue. The project ships a `debug-ui` skill that drives the `chrome-devtools-mcp` plugin to do this end-to-end.
-
-## What the debug-ui skill does for you
-
-When the skill triggers, the AI automatically:
-
-1. **Grabs the page** — opens `localhost:3000` and waits until rendering settles
-2. **Captures a screenshot + accessibility snapshot** — both the visual and the structural view
-3. **Inspects console / network** — error messages, failed API calls
-4. **Reports the cause in one line, then fixes** — no guess-patches; the fix follows the actual signal
-5. **Re-captures after the fix** — confirms the change took effect, reports the result
+When the screen doesn't look right, ask the AI in plain language and it will open the browser itself to diagnose and fix.
 
 ## Ask the AI to look at the screen
 
-Just describe what you want in plain language and the skill will trigger.
+In the 💬 Claude Code chat:
 
 | Situation             | Example prompt                                                 |
 | --------------------- | -------------------------------------------------------------- |
@@ -28,16 +18,9 @@ Just describe what you want in plain language and the skill will trigger.
 | Mobile responsiveness | "How does it look on mobile?"                                  |
 | Click/input flow      | "Actually click the checkout button and tell me what happens." |
 
-::alert[Short prompts like "take a look", "screenshot it", or "something looks weird — what's wrong?" are enough. The skill handles the capture and diagnosis for you.]{type="info"}
+::alert[Short prompts like "take a look", "screenshot it", or "something looks weird — what's wrong?" are enough.]{type="info"}
 
-## Prerequisites
-
-Two things must be in place (both are already set up by the workshop):
-
-1. **Dev server is running** — you've started `pnpm dev:web` in a separate terminal tab. The AI will not start the dev server itself.
-2. **chrome-devtools plugin is connected** — under `/plugin` → Installed, `chrome-devtools-mcp` should be `✔ enabled`. If not, see [Verify MCP Servers](/getting-started/verify-mcp).
-
-## Why PRD/ADR alignment checks matter
+## Pre-meeting / pre-handoff check — PRD/ADR alignment
 
 If you ask _"visually compare the current page with PRD F1"_, the AI returns a table like:
 
@@ -49,7 +32,7 @@ If you ask _"visually compare the current page with PRD F1"_, the AI returns a t
 | Primary color     | #2563eb            | #1d4ed8        | ⚠️     |
 ```
 
-Running this once right before a demo prevents **walking into a demo without realizing a mismatch is on screen**.
+Run this once before an internal meeting or before handing off to engineering — it catches the **PRD-vs-screen mismatches that otherwise eat hours of follow-up alignment.**
 
 ## Common troubleshooting
 
@@ -89,6 +72,6 @@ $env:PORT=3001; pnpm dev:web
 
 Then open `http://localhost:3001` in your browser, and tell the AI once: _"debug on port 3001."_
 
-### Skill not triggering?
+### AI says it can't open a browser
 
 Make sure `chrome-devtools-mcp` shows `✔ enabled` under `/plugin` → Installed. If not, run `/reload-plugins` once.
