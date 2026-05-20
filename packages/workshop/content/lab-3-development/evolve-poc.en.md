@@ -3,9 +3,9 @@ title: 'Evolving the PoC'
 weight: 25
 ---
 
-The moment you take a PoC into an internal review or an engineering handoff, **feedback is guaranteed**: "Move the button up", "Let's change the payment flow", "Drop this screen entirely and try a different journey." The requests never stop.
+This whole workshop is built around **running the "plan → build → see it → re-plan" loop as fast as possible.** The instant an idea you've only had in your head shows up as a **working screen**, _"hmm, now that I see it, I'd actually do this differently"_ almost always follows — inside your own head, in an internal review, the moment before handing it to engineering.
 
-The PoC you build in this lab is designed to **absorb those changes indefinitely**. The key is treating the **ADR as the source of truth** for every decision.
+The PoC you build in this lab is designed to **absorb that constant re-planning, indefinitely.** The key is treating the **ADR as the source of truth** for every decision — update the ADR first whenever the plan shifts, then push it into code, and the PoC stays in a clean state for the next 100 changes.
 
 ## Types of changes and how to respond
 
@@ -72,7 +72,7 @@ Claude automatically:
 
 ```mermaid
 flowchart TD
-    Review([Internal review / handoff]) --> FB[Feedback]
+    Review([See the running result<br/>self / internal review / handoff]) --> FB[Plan-change urge]
     FB --> Kind{What kind of change?}
     Kind -- New feature --> New["/adr-new"]
     Kind -- Existing decision changes --> A1[Update existing ADR]
@@ -84,7 +84,7 @@ flowchart TD
     Test1 --> Drift{Drift accumulated?}
     Test2 --> Drift
     Drift -- Yes --> Sync["/adr-sync to realign"]
-    Drift -- No --> Next([Next review])
+    Drift -- No --> Next([Next look])
     Sync --> Next
     Next -.-> FB
 ```
