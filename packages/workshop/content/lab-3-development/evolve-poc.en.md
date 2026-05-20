@@ -54,6 +54,21 @@ Claude automatically:
 
 ## The infinite cycle of change
 
-![Change-request cycle](/static/images/lab-3/evolve-poc-cycle.svg)
+```mermaid
+flowchart TD
+    Demo([Demo]) --> FB[Customer feedback]
+    FB --> Big{Big change?}
+    Big -- Yes --> A1[Update ADR]
+    A1 --> Impl["/adr-impl"]
+    Impl --> Test1[Test in browser]
+    Big -- No --> Code[Edit code only]
+    Code --> Test2[Test in browser]
+    Test1 --> Drift{Drift accumulated?}
+    Test2 --> Drift
+    Drift -- Yes --> Sync["/adr-sync to realign"]
+    Drift -- No --> NextDemo([Next demo])
+    Sync --> NextDemo
+    NextDemo -.-> FB
+```
 
 **Customer requirements always change.** Follow this cycle and your PoC absorbs the next round of changes from a clean state every time — six months from the day you first built it, the flow is still the same.

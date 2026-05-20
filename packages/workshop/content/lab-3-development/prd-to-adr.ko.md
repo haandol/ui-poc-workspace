@@ -12,7 +12,21 @@ weight: 15
 
 ::alert[ADR 은 결국 **기술 의사결정 기록** 입니다. 비개발자는 직접 작성할 필요 없이, **개발에 능숙한 AI 에이전트에게 작성을 맡기고 그 결정에 따라 개발을 시키면** 됩니다. 이 페이지의 명령어 한 줄이면 ADR 작성·검토·승인까지 모두 처리됩니다.]{type="info"}
 
-![PRD · ADR · 코드 의 관계](/static/images/lab-3/prd-adr-code.svg)
+```mermaid
+flowchart LR
+    subgraph Planner["기획자 영역"]
+        PRD[("PRD<br/>무엇을 왜 만들까")]
+    end
+    subgraph Agent["AI 에이전트가 작성"]
+        ADR[("ADR<br/>왜 이렇게 결정했나<br/>대안 비교 / Consequences")]
+    end
+    subgraph Code["실제 코드"]
+        Impl[("코드<br/>구현 디테일<br/>파일·함수·상수")]
+    end
+    PRD -->|/feature-to-adr| ADR
+    ADR -->|/adr-impl| Impl
+    Impl -.->|/adr-sync| ADR
+```
 
 ## Step 1. 첫 Feature 를 ADR 로 변환
 

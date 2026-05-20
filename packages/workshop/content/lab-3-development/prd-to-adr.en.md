@@ -12,7 +12,21 @@ For a simple screen, you can get by without an ADR. But **as the feature count g
 
 ::alert[An ADR is ultimately a **technical decision record.** Non-developers don't need to write it themselves — **leave the authoring to an AI agent that knows development, then have it implement against those decisions.** The single command on this page handles authoring, review, and acceptance of the ADR end-to-end.]{type="info"}
 
-![PRD · ADR · code relationship](/static/images/lab-3/prd-adr-code.svg)
+```mermaid
+flowchart LR
+    subgraph Planner["Planner's territory"]
+        PRD[("PRD<br/>What & why to build")]
+    end
+    subgraph Agent["Authored by the AI agent"]
+        ADR[("ADR<br/>Why this decision<br/>Alternatives / Consequences")]
+    end
+    subgraph Code["Actual code"]
+        Impl[("Code<br/>Implementation details<br/>files · functions · constants")]
+    end
+    PRD -->|/feature-to-adr| ADR
+    ADR -->|/adr-impl| Impl
+    Impl -.->|/adr-sync| ADR
+```
 
 ## Step 1. Convert the first feature into an ADR
 

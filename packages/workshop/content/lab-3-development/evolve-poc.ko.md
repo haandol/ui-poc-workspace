@@ -54,6 +54,21 @@ Claude 가 자동으로:
 
 ## 정리: 변경의 무한 사이클
 
-![요구사항 변경 사이클](/static/images/lab-3/evolve-poc-cycle.svg)
+```mermaid
+flowchart TD
+    Demo([데모]) --> FB[고객 피드백]
+    FB --> Big{큰 변경?}
+    Big -- Yes --> A1[ADR 갱신]
+    A1 --> Impl["/adr-impl"]
+    Impl --> Test1[브라우저 테스트]
+    Big -- No --> Code[코드만 수정]
+    Code --> Test2[브라우저 테스트]
+    Test1 --> Drift{변경이 쌓였나?}
+    Test2 --> Drift
+    Drift -- Yes --> Sync["/adr-sync 로 정렬"]
+    Drift -- No --> NextDemo([다음 데모])
+    Sync --> NextDemo
+    NextDemo -.-> FB
+```
 
 **고객 요구사항은 언제든 바뀝니다.** 이 사이클을 따르면 PoC 는 매번 깨끗한 상태에서 다음 변경을 받을 수 있고, 처음 만든 그날부터 6 개월 뒤에도 동일한 흐름으로 진화시킬 수 있습니다.
