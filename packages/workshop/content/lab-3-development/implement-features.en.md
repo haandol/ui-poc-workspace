@@ -7,46 +7,58 @@ Write code by following the ADR you created in the previous step. Don't try to b
 
 ## Step 1. Implement against the ADR
 
-In the 💬 Claude Code chat, enter the following (`f1` is the first feature you converted into an ADR):
+In the 💬 Claude Code chat (`f1` is the first feature ID in your PRD):
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /adr-impl f1
 :::
 
-Claude will automatically:
+Claude proceeds in this flow:
 
-1. Read the **Decision** in `docs/adr/f1/`
-2. Write code that follows the decision
-3. Reflect the changes in the dev server
+1. **Reads the ADR** — pulls the Decision from `docs/adr/f1/`
+2. **Proposes a change plan** — shows a short _"here's what I'll build"_ plan and asks you to approve
+3. **Writes the code** — once approved, edits files; Hot Reload pushes changes to the browser automatically
 
-::alert[If you ask for an implementation without an ADR in place, the PreToolUse hook may warn you and block progress. Make sure you've completed [Convert the PRD into ADRs](./prd-to-adr) first.]{type="info"}
+## Step 2. Approve the change plan
 
-## Step 2. Check the result in the browser
+Confirm the plan matches your intent.
 
-Open `http://localhost:3000` to inspect the result. If something looks off or you want to polish, request a tweak in plain language:
+- Looks right → "OK" or "go ahead"
+- Off → reply in plain language (e.g., _"use a dropdown for the payment options instead of cards"_)
+
+::alert[Polishing the plan now is faster than coding and rewriting later. The most common non-developer mistake is _"let's just build it and see"_ — once code is in place, changing the flow means updating the ADR first, which costs more time.]{type="info"}
+
+## Step 3. Check the result in the browser
+
+Open `http://localhost:3000` to inspect the result. To polish, ask in plain language:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 Make the payment button bigger and use the primary color.
 :::
 
-For small touches — styling, copy, micro-positioning — you can edit the code directly. For **bigger changes** (adding/removing a feature, changing a flow, structural changes), see the next page: [Evolving the PoC](./evolve-poc).
+**Small touches** — styling, copy, micro-positioning — can be edited in code directly. For **bigger changes** (adding/removing a feature, changing a flow, structural changes), see [Evolving the PoC](./evolve-poc).
 
-## Step 3. Move on to the next feature
+## Step 4. Move on to the next feature
 
-Once F1 is solid, go back to [Convert the PRD into ADRs](./prd-to-adr) to create the ADR for `f2`, then come back here and run `/adr-impl f2`. Repeat the cycle: **PRD → ADR → Implement → Next feature.**
+Once F1 is solid, run the next feature the same way:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/adr-impl f2
+:::
+
+ADRs for every feature were already drafted by `/feature-to-adr`, so **you don't need to revisit the PRD → ADR step.** Just keep running `/adr-impl` for F1 → F2 → F3 …
+
+::alert[If you stay in the same chat, context carries over — `/adr-impl f2` alone is enough.]{type="info"}
 
 ## The iteration loop
 
 ```
-1. /feature-to-adr fN     — Convert the feature into an ADR (design memo)
-2. Review and accept ADR  — Check the Decision and approve or edit
-3. /adr-impl fN           — Write code following the ADR
-4. Check the browser      — http://localhost:3000
-5. Feedback / small edits — Ask in plain language
-6. Move on                — Loop back with /feature-to-adr f(N+1)
+1. /adr-impl fN         — read ADR, propose plan, write code
+2. Approve the plan     — "OK" or request edits
+3. Check the browser    — http://localhost:3000
+4. Feedback / small edits — Ask in plain language
+5. Next feature         — /adr-impl f(N+1)
 ```
-
-::alert[If you stay in the same chat, context carries over — `/adr-impl f2` alone is enough.]{type="info"}
 
 ## Tips for edit requests
 

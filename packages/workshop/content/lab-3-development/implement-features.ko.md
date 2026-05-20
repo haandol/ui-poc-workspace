@@ -7,46 +7,58 @@ weight: 20
 
 ## Step 1. ADR 기반 구현 요청
 
-💬 Claude Code 대화창에 입력합니다 (`f1` 은 앞에서 ADR 로 변환한 첫 Feature):
+💬 Claude Code 대화창에 입력합니다 (`f1` 은 PRD 의 첫 Feature ID):
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 /adr-impl f1
 :::
 
-Claude 가 자동으로:
+Claude 가 다음 흐름으로 진행합니다:
 
-1. `docs/adr/f1/` 의 **Decision** 을 읽습니다
-2. ADR 에 정의된 결정대로 코드를 작성합니다
-3. 변경 사항을 개발 웹 서버에 반영합니다
+1. **ADR 읽기** — `docs/adr/f1/` 의 Decision 을 확인합니다
+2. **변경 계획 제시** — _"이렇게 만들겠다"_ 는 짧은 계획을 보여주고 승인을 요청합니다
+3. **코드 작성** — 승인받은 계획대로 코드를 작성합니다 (Hot Reload 로 브라우저에 자동 반영)
 
-::alert[ADR 이 없는 상태에서 구현을 요청하면 PreToolUse 훅이 경고를 띄우고 진행을 막을 수 있습니다. 먼저 [PRD 를 ADR 로 변환](./prd-to-adr) 을 진행해 두세요.]{type="info"}
+## Step 2. 변경 계획 승인
 
-## Step 2. 브라우저에서 결과 확인
+Claude 가 보여주는 계획이 의도와 맞는지 확인합니다.
 
-브라우저(`http://localhost:3000`)에서 결과를 확인합니다. 의도와 다르거나 다듬고 싶은 부분이 있으면 자연어로 수정 요청합니다:
+- 맞으면 → "OK" 또는 "그대로 진행해줘"
+- 다르면 → 자연어로 수정 요청 (예: _"결제 버튼은 카드형 말고 드롭다운으로 해줘"_)
+
+::alert[계획 단계에서 충분히 다듬고 진행하는 편이 코드를 작성하고 다시 갈아엎는 것보다 빠릅니다. 비개발자가 가장 많이 하는 실수는 _"일단 만들고 보자"_ 인데, 만든 뒤에 흐름을 바꾸려면 ADR 부터 다시 갱신해야 해서 시간이 더 걸립니다.]{type="info"}
+
+## Step 3. 브라우저에서 결과 확인
+
+브라우저(`http://localhost:3000`)에서 결과를 확인합니다. 다듬고 싶은 부분이 있으면 자연어로 수정 요청합니다:
 
 :::code{showCopyAction=true showLineNumbers=false language=text}
 결제 버튼을 더 크게, 메인 색상으로 강조해줘.
 :::
 
-스타일·문구·미세 조정 같은 작은 수정은 코드만 바로 고쳐도 됩니다. **기능 추가/제거나 흐름 변경처럼 결정 자체가 바뀌는 큰 변경**이라면 다음 페이지([요구사항 변경에 대응하기](./evolve-poc))를 참고하세요.
+스타일·문구·미세 위치 같은 **작은 수정은 코드만 바로 고쳐도 됩니다.** 기능 추가/제거나 흐름 변경처럼 **결정 자체가 바뀌는 큰 변경** 이면 [요구사항 변경에 대응하기](./evolve-poc) 페이지를 참고하세요.
 
-## Step 3. 다음 Feature 로 이동
+## Step 4. 다음 Feature 로 이동
 
-F1 이 만족스러우면 [PRD 를 ADR 로 변환](./prd-to-adr) 페이지로 돌아가 `f2` 의 ADR 을 만들고, 다시 이 페이지에서 `/adr-impl f2` 를 실행합니다. **PRD → ADR → 구현 → 다음 Feature** 의 사이클을 반복합니다.
+F1 이 만족스러우면 다음 Feature 를 같은 방식으로 진행합니다:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/adr-impl f2
+:::
+
+`/feature-to-adr` 단계에서 모든 Feature 의 ADR 이 이미 만들어져 있으므로, **PRD → ADR 변환 단계를 다시 거칠 필요는 없습니다.** F1 → F2 → F3 … 순서로 `/adr-impl` 만 반복합니다.
+
+::alert[같은 대화창에서 계속 작업 중이면 컨텍스트가 유지되므로 `/adr-impl f2` 만 입력해도 충분합니다.]{type="info"}
 
 ## 반복 사이클 요약
 
 ```
-1. /feature-to-adr fN     — Feature 를 ADR (설계 메모) 로 변환
-2. ADR 검토 및 승인       — Decision 확인 후 OK 또는 수정 요청
-3. /adr-impl fN           — ADR 따라 코드 작성
-4. 브라우저에서 결과 확인  — http://localhost:3000
-5. 피드백 / 작은 수정      — 자연어로 요청
-6. 만족하면 다음 Feature   — /feature-to-adr f(N+1) 로 복귀
+1. /adr-impl fN          — ADR 따라 변경 계획 + 코드 작성
+2. 계획 승인             — "OK" 또는 자연어로 수정
+3. 브라우저 결과 확인    — http://localhost:3000
+4. 피드백 / 작은 수정    — 자연어로 요청
+5. 만족하면 다음 Feature — /adr-impl f(N+1)
 ```
-
-::alert[같은 대화창에서 계속 작업 중이면 컨텍스트가 유지되므로 `/adr-impl f2` 만 입력해도 충분합니다.]{type="info"}
 
 ## 수정 요청 팁
 
