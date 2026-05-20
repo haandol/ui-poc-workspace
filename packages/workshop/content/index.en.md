@@ -11,6 +11,16 @@ In this workshop you will use **Claude Code**, running on top of **Amazon Bedroc
 
 > **Key idea**: In this workshop you work with AI tools **as if you were having a conversation**. If anything is unclear along the way, just ask the AI.
 
+## Why a non-developer builds a UI PoC
+
+When a planner conveys intent only through docs and wireframes, _"where this button lives, how it actually looks, whether the flow feels natural"_ rarely lands cleanly. Developers end up asking "what did you mean here?", and planners only realize _"oh, that's not what I wanted"_ once they see something running. That back-and-forth is one of the biggest schedule drains on a project.
+
+The PoC you build in this workshop is **not a customer-facing demo** — it's an **internal communication tool**. When a non-developer brings a working screen into a review or a handoff meeting:
+
+- Intent travels as a **clickable screen** instead of text, so ambiguity disappears
+- Engineers review the **PoC alongside the ADR** instead of imagining what the PRD means, which cuts estimation time
+- The _"once we built it, it felt wrong"_ class of late discoveries gets caught **before engineering work begins**
+
 ### What will I learn?
 
 By completing this workshop you will learn how to:
