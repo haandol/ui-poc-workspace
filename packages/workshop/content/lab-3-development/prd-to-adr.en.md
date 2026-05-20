@@ -3,10 +3,16 @@ title: 'Convert the PRD into ADRs'
 weight: 15
 ---
 
-If the PRD is the big picture of "what to build", an **ADR (Architecture Decision Record)** is a **short design memo of "how to build it"** that we write right before each feature.
-We create one ADR per feature first, then write code against that ADR.
+**PRD vs. ADR**
 
-::alert[The term ADR may sound unfamiliar, but in practice it's just _"a one-page note that captures why and how we'll build this feature."_ The AI fills it in automatically, so there's no documentation overhead.]{type="info"}
+- **PRD** — a planner's view: **"what to build and why"** — the requirements
+- **ADR (Architecture Decision Record)** — a developer's view: **the architectural decisions made while building the feature** — what structure was chosen and why. Implementation details (file paths, code snippets, constants) live in the code itself; the ADR captures only the **reasoning (WHY), the alternatives considered, and the consequences** of the decision.
+
+For a simple screen, you can get by without an ADR. But **as the feature count grows and the project gets more complex, separating PRD and ADR becomes essential.** When change requests come in after a demo, keeping _"what we agreed to build (PRD)"_ separate from _"why we made each decision (ADR)"_ lets you judge how far a new requirement reaches into existing decisions and keeps the cycle clean.
+
+::alert[An ADR is ultimately a **technical decision record.** Non-developers don't need to write it themselves — **leave the authoring to an AI agent that knows development, then have it implement against those decisions.** The single command on this page handles authoring, review, and acceptance of the ADR end-to-end.]{type="info"}
+
+![PRD · ADR · code relationship](/static/images/lab-3/prd-adr-code.svg)
 
 ## Step 1. Convert the first feature into an ADR
 

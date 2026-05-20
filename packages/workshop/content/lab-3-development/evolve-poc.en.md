@@ -54,16 +54,6 @@ Claude automatically:
 
 ## The infinite cycle of change
 
-```
-Demo
-  ↓ customer feedback
-Big change?  ─Yes─→ Update ADR → /adr-impl → Test
-  ↓ No
-Small change → Fix code → Test
-  ↓
-Drift accumulated?  ─Yes─→ /adr-sync to realign ─┐
-  ↓ No                                            │
-Next demo ←─────────────────────────────────────┘
-```
+![Change-request cycle](/static/images/lab-3/evolve-poc-cycle.svg)
 
 **Customer requirements always change.** Follow this cycle and your PoC absorbs the next round of changes from a clean state every time — six months from the day you first built it, the flow is still the same.

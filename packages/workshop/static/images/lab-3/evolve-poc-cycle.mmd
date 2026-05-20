@@ -1,0 +1,21 @@
+flowchart TD
+    Demo([데모]) --> FB[고객 피드백]
+    FB --> Big{큰 변경?}
+    Big -- Yes --> A1[ADR 갱신]
+    A1 --> Impl["/adr-impl"]
+    Impl --> Test1[브라우저 테스트]
+    Big -- No --> Code[코드만 수정]
+    Code --> Test2[브라우저 테스트]
+    Test1 --> Drift{변경이 쌓였나?}
+    Test2 --> Drift
+    Drift -- Yes --> Sync["/adr-sync 로 정렬"]
+    Drift -- No --> NextDemo([다음 데모])
+    Sync --> NextDemo
+    NextDemo -.-> FB
+
+    classDef cmd fill:#e8f0fe,stroke:#4285f4,color:#1a237e;
+    classDef decision fill:#fff8e1,stroke:#f9a825,color:#5d4037;
+    classDef terminal fill:#e8f5e9,stroke:#43a047,color:#1b5e20;
+    class A1,Impl,Code,Sync cmd
+    class Big,Drift decision
+    class Demo,NextDemo terminal
