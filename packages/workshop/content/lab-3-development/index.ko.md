@@ -20,8 +20,8 @@ weight: 40
 1. 개발 서버 실행
 2. PRD 의 Feature 를 ADR (설계 메모) 로 변환 — `/feature-to-adr fN`
 3. ADR 을 따라 코드 작성 — `/adr-impl fN`
-4. 데모 후 변경 요구 대응 — 큰 변경은 ADR 갱신 / 작은 변경은 코드만 / 누적되면 `/adr-sync`
+4. 내부 리뷰·핸드오프 후 변경 요구 대응 — 큰 변경은 ADR 갱신 / 작은 변경은 코드만 / 누적되면 `/adr-sync`
 
 **예상 소요 시간**: 100 분
 
-::alert[**ADR (Architecture Decision Record)** — 각 Feature 를 만들기 전에 작성하는 한 페이지짜리 설계 메모입니다. Claude 가 자동으로 채워주므로 문서 작성 부담은 없고, 데모 → 피드백 → 변경 사이클을 관리하는 기준점이 됩니다. 이 흐름은 [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) 이 자동으로 처리합니다.]{type="info"}
+::alert[**ADR (Architecture Decision Record)** — 각 Feature 를 만들기 전에 작성하는 한 페이지짜리 설계 메모입니다. Claude 가 자동으로 채워주므로 문서 작성 부담은 없고, 내부 리뷰 → 피드백 → 변경 사이클을 관리하는 기준점이 됩니다. 이 흐름은 [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) 이 자동으로 처리합니다.]{type="info"}

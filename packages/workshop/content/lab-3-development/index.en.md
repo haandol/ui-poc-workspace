@@ -20,8 +20,8 @@ The PoC you build in this lab is **not a customer-facing demo** — it's an **in
 1. Start the dev server
 2. Convert each PRD feature into an ADR (design memo) — `/feature-to-adr fN`
 3. Implement the code that follows the ADR — `/adr-impl fN`
-4. Handle change requests after the demo — update the ADR for big changes, fix code directly for small ones, run `/adr-sync` when drift accumulates
+4. Handle change requests after each review or handoff — update the ADR for big changes, fix code directly for small ones, run `/adr-sync` when drift accumulates
 
 **Expected duration**: 100 minutes
 
-::alert[**ADR (Architecture Decision Record)** — a one-page design memo we write before each feature. Claude fills it in automatically, so there's no documentation overhead. It becomes the anchor that keeps the demo → feedback → change cycle clean. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
+::alert[**ADR (Architecture Decision Record)** — a one-page design memo we write before each feature. Claude fills it in automatically, so there's no documentation overhead. It becomes the anchor that keeps the review → feedback → change cycle clean. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
