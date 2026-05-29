@@ -14,4 +14,4 @@ In this lab you turn the PRD into a working web UI. We move feature by feature i
 
 **Expected duration**: 100 minutes
 
-::alert[**ADR (Architecture Decision Record)** — a one-page design memo we write before each feature. Claude fills it in automatically, so there's no documentation overhead. It becomes the anchor that keeps the review → feedback → change cycle clean. The [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) handles this flow automatically.]{type="info"}
+::alert[**ADR (Architecture Decision Record)** — a one-page design memo we write before each feature. Claude fills it in automatically, so there's no documentation overhead. It becomes the anchor that keeps the review → feedback → change cycle clean. The `adr-writer` plugin from the [`alps-writer` marketplace](https://github.com/haandol/alps-writer-plugins) handles this flow automatically.]{type="info"}

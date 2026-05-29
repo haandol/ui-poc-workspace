@@ -131,4 +131,4 @@ ADR 본문은 한국어로 작성합니다. 기술 용어, 코드 식별자, 영
 ## 참고
 
 - [ADR GitHub](https://adr.github.io/)
-- alps-writer plugin: https://github.com/haandol/alps-writer-mcp
+- alps-writer / adr-writer plugins: https://github.com/haandol/alps-writer-plugins

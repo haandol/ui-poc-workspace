@@ -38,6 +38,8 @@ weight: 30
 ──────────────────────────────────────────────────────
 ```
 
+::alert[`adr-writer` 플러그인은 슬래시 명령과 hook 으로만 동작하고 자체 MCP 서버가 없으므로, `/mcp` 목록에는 나타나지 않습니다. 설치 여부는 아래 `/plugin` 에서 확인합니다.]{type="info"}
+
 **프로젝트 MCP 서버** (`.mcp.json`):
 
 | MCP 서버        | 패키지                   | 용도                  |
@@ -69,25 +71,28 @@ weight: 30
       Project
   ❯ alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
+    adr-writer Plugin · alps-writer · ✔ enabled
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected
     context7 Plugin · claude-plugins-official · ✔ enabled
     └ context7 MCP · ✔ connected
-    frontend-design Plugin · claude-plugins-official · ✔ enabled
    ↓ more below
 ──────────────────────────────────────────────────────
 ```
 
+::alert[`alps-writer` 와 `adr-writer` 는 같은 마켓플레이스(`alps-writer`)에서 설치되는 **두 개의 독립 플러그인** 입니다. `alps-writer` 는 PRD 작성용 MCP 서버를 포함하고, `adr-writer` 는 MCP 서버 없이 ADR 슬래시 명령과 drift hook 만 제공합니다. `/feature-to-adr` 로 PRD Feature 를 ADR 로 넘기는 브릿지를 쓰려면 **두 플러그인이 모두 설치** 되어 있어야 합니다.]{type="info"}
+
 **플러그인** (`.claude/settings.json`):
 
-| 플러그인            | 용도                                                                                                                       |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| alps-writer         | PRD(ALPS) 문서 작성 + Feature를 ADR로 변환 후 코드로 구현하는 슬래시 명령 (`/feature-to-adr`, `/adr-impl`, `/adr-sync` 등) |
-| context7            | 라이브러리/프레임워크 최신 문서 조회                                                                                       |
-| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅                                                                                           |
-| frontend-design     | UI 컴포넌트/화면 설계 가이드                                                                                               |
+| 플러그인            | 용도                                                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| alps-writer         | PRD(ALPS) 문서 작성용 MCP 서버 + Feature를 ADR로 넘기는 슬래시 명령 (`/alps-init`, `/feature-to-adr`)         |
+| adr-writer          | ADR 작성·구현·동기화 슬래시 명령 (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) 과 ADR↔코드 drift hook |
+| context7            | 라이브러리/프레임워크 최신 문서 조회                                                                          |
+| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅                                                                              |
+| frontend-design     | UI 컴포넌트/화면 설계 가이드                                                                                  |
 
-::alert[`alps-writer` 플러그인이 `Errors` 탭에 표시되거나 다운로드 실패 메시지가 보이면, `/plugin marketplace update alps-writer` 를 실행한 뒤 `/reload-plugins` 로 다시 로드하세요.]{type="info"}
+::alert[`alps-writer` 나 `adr-writer` 가 `Errors` 탭에 표시되거나 다운로드 실패 메시지가 보이면, `/plugin marketplace update alps-writer` 를 실행한 뒤 `/reload-plugins` 로 다시 로드하세요. 두 플러그인은 같은 마켓플레이스에서 함께 업데이트됩니다.]{type="info"}
 
 ## 워크숍 환경 설정 (선택)
 

@@ -64,7 +64,7 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 
 ## Architecture Decision Records
 
-`docs/adr/` — ADR creation/update is mandatory for new features and major changes. The repo uses the [`alps-writer`](https://github.com/haandol/alps-writer-mcp) Claude Code plugin to enforce the cycle (commands, hooks, skills).
+`docs/adr/` — ADR creation/update is mandatory for new features and major changes. The repo installs two plugins from the [`alps-writer`](https://github.com/haandol/alps-writer-plugins) marketplace to enforce the cycle: **alps-writer** (PRD MCP server + `/alps-init`, `/feature-to-adr`) and **adr-writer** (ADR commands `/adr-new` `/adr-impl` `/adr-sync` `/adr-rollup` + drift hooks). The `/feature-to-adr` bridge delegates to adr-writer's `/adr-new`, so both must be installed.
 
 ### Plugin Commands
 
@@ -72,14 +72,15 @@ This monorepo has different toolchains per package. **The main agent acts as an 
 ALPS Section 7 → /feature-to-adr fN → user confirms → /adr-impl fN → /adr-sync fN
 ```
 
-| Command                    | When to use                                                              |
-| -------------------------- | ------------------------------------------------------------------------ |
-| `/feature-to-adr [fN]`     | After ALPS Section 7 is saved, convert one Feature into a `Proposed` ADR |
-| `/adr-impl <adr-or-fN>`    | Implement code that follows the ADR's Decision                           |
-| `/adr-sync [fN] [--quick]` | Verify code still matches the ADR; fix drift                             |
-| `/adr-rollup <fN>`         | Collapse an evolution chain into a single current-state ADR              |
+| Command                    | Plugin      | When to use                                                                                        |
+| -------------------------- | ----------- | -------------------------------------------------------------------------------------------------- |
+| `/feature-to-adr [fN]`     | alps-writer | After ALPS Section 7 is saved, convert one Feature into a `Proposed` ADR (delegates to `/adr-new`) |
+| `/adr-new <category>`      | adr-writer  | Author an ADR directly — the default path, no ALPS PRD required                                    |
+| `/adr-impl <adr-or-fN>`    | adr-writer  | Implement code that follows the ADR's Decision                                                     |
+| `/adr-sync [fN] [--quick]` | adr-writer  | Verify code still matches the ADR; fix drift                                                       |
+| `/adr-rollup <fN>`         | adr-writer  | Collapse an evolution chain into a single current-state ADR                                        |
 
-PreToolUse hook (`alps-writer` plugin) runs in **warn mode** for this workshop — it prints a stderr notice when an Edit/Write touches code that has a stale ADR, but never blocks. Instructors can flip to block mode by exporting `ALPS_ADR_ENFORCE=block` in their shell.
+PreToolUse hook (`adr-writer` plugin) runs in **warn mode** for this workshop — it prints a stderr notice when an Edit/Write touches code that has a stale ADR, but never blocks. Instructors can flip to block mode by exporting `ALPS_ADR_ENFORCE=block` in their shell.
 
 ### Before Implementation (Required)
 

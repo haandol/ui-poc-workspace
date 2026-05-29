@@ -38,6 +38,8 @@ You should see something like this:
 ──────────────────────────────────────────────────────
 ```
 
+::alert[The `adr-writer` plugin works purely through slash commands and hooks — it ships no MCP server of its own, so it does **not** appear in the `/mcp` list. Confirm it's installed via `/plugin` below.]{type="info"}
+
 **Project MCPs** (`.mcp.json`):
 
 | MCP server      | Package                  | Purpose                    |
@@ -69,25 +71,28 @@ When the plugin dialog opens, press the ⌨️ **right arrow key (`→`)** to sw
       Project
   ❯ alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
+    adr-writer Plugin · alps-writer · ✔ enabled
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected
     context7 Plugin · claude-plugins-official · ✔ enabled
     └ context7 MCP · ✔ connected
-    frontend-design Plugin · claude-plugins-official · ✔ enabled
    ↓ more below
 ──────────────────────────────────────────────────────
 ```
 
+::alert[`alps-writer` and `adr-writer` are **two independent plugins** installed from the same marketplace (`alps-writer`). `alps-writer` bundles the MCP server for PRD authoring; `adr-writer` ships the ADR slash commands and drift hooks with no MCP server. To use the `/feature-to-adr` bridge that hands a PRD feature to an ADR, **both plugins must be installed**.]{type="info"}
+
 **Plugins** (`.claude/settings.json`):
 
-| Plugin              | Purpose                                                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| alps-writer         | Author the PRD (ALPS) and turn its features into ADRs and code via slash commands (`/feature-to-adr`, `/adr-impl`, etc.) |
-| context7            | Fetch up-to-date library/framework docs                                                                                  |
-| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                                             |
-| frontend-design     | UI component/screen design guidance                                                                                      |
+| Plugin              | Purpose                                                                                                                    |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| alps-writer         | MCP server for authoring the PRD (ALPS) + the slash commands that hand features off (`/alps-init`, `/feature-to-adr`)      |
+| adr-writer          | ADR author/implement/sync slash commands (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) and the ADR↔code drift hook |
+| context7            | Fetch up-to-date library/framework docs                                                                                    |
+| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                                               |
+| frontend-design     | UI component/screen design guidance                                                                                        |
 
-::alert[If `alps-writer` shows up in the `Errors` tab or fails to download, run `/plugin marketplace update alps-writer` and then `/reload-plugins`.]{type="info"}
+::alert[If `alps-writer` or `adr-writer` shows up in the `Errors` tab or fails to download, run `/plugin marketplace update alps-writer` and then `/reload-plugins`. Both plugins update together from the same marketplace.]{type="info"}
 
 ## Workshop environment setup (optional)
 

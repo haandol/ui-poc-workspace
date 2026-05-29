@@ -80,7 +80,7 @@ claude
 
 Claude Code가 Section 1부터 **섹션별로 초안을 제시하고 확인을 요청**합니다. 내용을 읽고 **확인(또는 수정 요청)** 을 하면 다음 섹션으로 넘어갑니다. Section 6 (기능 목록) 까지 확정하세요.
 
-::alert[**더 빠른 방법** — 익숙해지면 첫 메시지를 `/alps-init` 으로 시작해도 됩니다. [`alps-writer` plugin](https://github.com/haandol/alps-writer-mcp)이 제공하는 슬래시 명령으로 같은 흐름을 더 짧게 시작합니다. 처음에는 자연어 그대로 충분합니다.]{type="info"}
+::alert[**더 빠른 방법** — 익숙해지면 첫 메시지를 `/alps-init` 으로 시작해도 됩니다. [`alps-writer` plugin](https://github.com/haandol/alps-writer-plugins)이 제공하는 슬래시 명령으로 같은 흐름을 더 짧게 시작합니다. 처음에는 자연어 그대로 충분합니다.]{type="info"}
 
 ## Step 4. PRD 작성 — Section 7~9 자동 생성
 

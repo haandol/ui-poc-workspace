@@ -179,14 +179,14 @@ function detectMilestone(payload) {
     if (hasDocsPath) return 'RESEARCH-DONE';
   }
 
-  if (toolName === 'mcp__alps-writer__save_alps_section') {
+  if (toolName === 'mcp__plugin_alps-writer_alps-writer__save_alps_section') {
     const section = Number(input.section ?? input.section_number ?? input.sectionNumber);
     if (section === 1) return 'PRD-START';
     if (section === 6) return 'PRD-FEATURES';
     if (section >= 2 && section <= 9) return `PRD-S${section}`;
   }
 
-  if (toolName === 'mcp__alps-writer__export_alps_markdown') {
+  if (toolName === 'mcp__plugin_alps-writer_alps-writer__export_alps_markdown') {
     return 'PRD-DONE';
   }
 

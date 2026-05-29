@@ -9,12 +9,18 @@ For project structure, tech stack, architecture, code style, and dev commands, r
 
 ## Plugin: alps-writer
 
-이 워크숍은 [`alps-writer`](https://github.com/haandol/alps-writer-mcp) Claude Code plugin을 사용해 ALPS PRD → ADR → 코드 → 동기화 사이클을 강제한다. 핵심 명령:
+이 워크숍은 [`alps-writer`](https://github.com/haandol/alps-writer-plugins) 마켓플레이스의 **두 플러그인** 을 프로젝트 스코프로 설치해 ALPS PRD → ADR → 코드 → 동기화 사이클을 강제한다.
 
-- `/feature-to-adr fN` — ALPS Section 7의 Feature를 ADR 초안으로 변환
-- `/adr-impl <adr-or-fN>` — ADR을 따라 구현 (PreToolUse hook이 stale ADR 경고)
-- `/adr-sync [fN]` — 코드와 ADR drift 검증·정정
-- `/adr-rollup fN` — 같은 Feature의 ADR 진화 체인을 단일 ADR로 통합
+- `alps-writer` — PRD(ALPS) 작성용 MCP 서버 + `/alps-init`, `/feature-to-adr`
+- `adr-writer` — ADR 사이클 슬래시 명령 + drift hook (MCP 서버 없음, ALPS 비의존 standalone)
+
+`/feature-to-adr` 브릿지는 PRD Feature 를 `/adr-new` 로 넘기므로 **두 플러그인 모두 설치** 되어 있어야 동작한다. 핵심 명령:
+
+- `/feature-to-adr fN` — (alps-writer) ALPS Section 7의 Feature를 ADR 초안으로 변환 (adr-writer 의 `/adr-new` 에 위임)
+- `/adr-new <category>` — (adr-writer) PRD 없이 ADR 을 직접 작성하는 기본 경로
+- `/adr-impl <adr-or-fN>` — (adr-writer) ADR을 따라 구현 (PreToolUse hook이 stale ADR 경고)
+- `/adr-sync [fN]` — (adr-writer) 코드와 ADR drift 검증·정정
+- `/adr-rollup fN` — (adr-writer) 한 논리적 결정의 ADR 진화 체인을 단일 ADR로 통합
 
 매핑 파일은 `docs/adr/.mapping.json`. Hook은 워크숍 기본값 **warn-only**라서 차단하지 않으며, 강사용 데모로 차단을 보고 싶으면 셸에서 `ALPS_ADR_ENFORCE=block`을 export한 뒤 세션을 시작한다.
 

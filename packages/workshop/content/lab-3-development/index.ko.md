@@ -14,4 +14,4 @@ weight: 40
 
 **예상 소요 시간**: 100 분
 
-::alert[**ADR (Architecture Decision Record)** — 각 Feature 를 만들기 전에 작성하는 한 페이지짜리 설계 메모입니다. Claude 가 자동으로 채워주므로 문서 작성 부담은 없고, 내부 리뷰 → 피드백 → 변경 사이클을 관리하는 기준점이 됩니다. 이 흐름은 [`alps-writer` Claude Code plugin](https://github.com/haandol/alps-writer-mcp) 이 자동으로 처리합니다.]{type="info"}
+::alert[**ADR (Architecture Decision Record)** — 각 Feature 를 만들기 전에 작성하는 한 페이지짜리 설계 메모입니다. Claude 가 자동으로 채워주므로 문서 작성 부담은 없고, 내부 리뷰 → 피드백 → 변경 사이클을 관리하는 기준점이 됩니다. 이 흐름은 [`alps-writer` 마켓플레이스](https://github.com/haandol/alps-writer-plugins)의 `adr-writer` 플러그인이 자동으로 처리합니다.]{type="info"}
