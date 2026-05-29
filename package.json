@@ -14,14 +14,6 @@
     "prepare": "husky"
   },
   "private": true,
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@swc/core",
-      "esbuild",
-      "nx"
-    ]
-  },
   "devDependencies": {
     "@nx/js": "22.7.2",
     "@swc-node/register": "1.11.1",
