@@ -26,6 +26,7 @@
     "frontend-design@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "alps-writer@alps-writer": true,
+    "alps-writer@adr-writer": true,
     "adr-writer@alps-writer": true
   },
   "extraKnownMarketplaces": {
