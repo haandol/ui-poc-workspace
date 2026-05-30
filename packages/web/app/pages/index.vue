@@ -195,7 +195,8 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <h2 class="text-3xl lg:text-4xl font-bold">Ready to start?</h2>
           <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            이 페이지는 기본 템플릿입니다. Claude Code에게 PRD를 기반으로 UI를 만들어달라고 요청하세요.
+            이 화면이 앱의 메인 진입점(<code>/</code>)입니다. Claude Code에게 PRD를 기반으로 UI를 만들어달라고 요청하면
+            이 페이지가 그대로 바뀝니다.
           </p>
           <div class="pt-4">
             <button class="btn-gradient text-lg px-8 py-4">Start Building</button>

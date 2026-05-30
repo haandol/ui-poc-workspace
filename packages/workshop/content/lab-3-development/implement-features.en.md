@@ -5,6 +5,8 @@ weight: 20
 
 Write code by following the ADR you created in the previous step. Don't try to build everything at once — go **feature by feature**.
 
+::alert[**Build the main screen at `/` (the root page).** That's the screen you saw when the dev server first started, it's the app's entry point, and it's the URL (`http://localhost:3000`) you'll share in the final demo. When you implement the first feature, this default screen is **overwritten** with your PoC — there's no need to create a separate route like `/dashboard`. (Only add a new route when you genuinely need a secondary screen that branches off the main flow, e.g. a detail or settings page.)]{type="info"}
+
 ## Step 1. Implement against the ADR
 
 In the 💬 Claude Code chat (`f1` is the first feature ID in your PRD):
@@ -72,17 +74,18 @@ The more specific your request, the better.
 
 ## Handy prompts
 
-| Situation             | Example prompt                                              |
-| --------------------- | ----------------------------------------------------------- |
-| Add a page            | "Create a dashboard page."                                  |
-| Edit the top menu     | "Add a logo and navigation to the top menu."                |
-| Add sample data       | "Create 10 sample users with name, email, and signup date." |
-| Change styles         | "Switch the whole app to dark mode."                        |
-| Add a chart           | "Show monthly revenue as a bar chart."                      |
-| Change layout         | "Use a sidebar on the left and main content on the right."  |
-| Fix an error          | "Fix this error: [paste the error message]"                 |
-| Feature review        | "Summarize the user scenarios for this feature."            |
-| Competitor comparison | "Compare the current screen to a similar competitor's."     |
+| Situation              | Example prompt                                                     |
+| ---------------------- | ------------------------------------------------------------------ |
+| Build the main screen  | "Build the main screen (`/`) as a dashboard."                      |
+| Add a secondary screen | "Add a detail page reachable from the main screen and link to it." |
+| Edit the top menu      | "Add a logo and navigation to the top menu."                       |
+| Add sample data        | "Create 10 sample users with name, email, and signup date."        |
+| Change styles          | "Switch the whole app to dark mode."                               |
+| Add a chart            | "Show monthly revenue as a bar chart."                             |
+| Change layout          | "Use a sidebar on the left and main content on the right."         |
+| Fix an error           | "Fix this error: [paste the error message]"                        |
+| Feature review         | "Summarize the user scenarios for this feature."                   |
+| Competitor comparison  | "Compare the current screen to a similar competitor's."            |
 
 ::alert[Feel free to ask the AI anything while you develop — e.g., "How does a user move through this screen?", "What key metrics should the dashboard show?", "How does this layout look on mobile?", "Can we present this feature in a card layout like competitor X?" etc.]{type="info"}
 
