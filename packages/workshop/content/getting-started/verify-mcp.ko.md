@@ -19,36 +19,30 @@ weight: 30
 /mcp
 :::
 
-아래와 같이 MCP 서버 목록이 표시되면 정상입니다:
+아래와 같이 **6개 MCP 서버 이름이 모두 보이면 정상**입니다:
 
 ```
-──────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
   Manage MCP servers
-  7 servers
+  6 servers
 
-    Project MCPs (.mcp.json)
-    airtable · ✔ connected
-    asset-generator · ✘ failed
-    pdf-reader · ✔ connected
+    Project MCPs
+  ❯ airtable · ✔ connected · 16 tools
+    asset-generator · ✔ connected · 1 tool
+    pdf-reader · ✔ connected · 1 tool
 
     Built-in MCPs (always available)
-    plugin:alps-writer:alps-writer · ✔ connected
-    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
-    plugin:context7:context7 · ✔ connected
-──────────────────────────────────────────────────────
+    plugin:alps-writer:alps-writer · ✔ connected · 11 tools
+    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected · 29 tools
+    plugin:context7:context7 · ✔ connected · 2 tools
 ```
 
-::alert[`adr-writer` 플러그인은 슬래시 명령과 hook 으로만 동작하고 자체 MCP 서버가 없으므로, `/mcp` 목록에는 나타나지 않습니다. 설치 여부는 아래 `/plugin` 에서 확인합니다.]{type="info"}
+이 중 아래 두 서버는 API Key 설정이 필요해서 처음에는 `✘ failed` 상태일 수 있습니다. 다음 **워크숍 환경 설정** 섹션에서 키를 등록하면 `✔ connected` 로 바뀝니다.
 
-**프로젝트 MCP 서버** (`.mcp.json`):
-
-| MCP 서버        | 패키지                   | 용도                  |
-| --------------- | ------------------------ | --------------------- |
-| pdf-reader      | `@sylphx/pdf-reader-mcp` | 딥리서치 PDF 읽기     |
-| asset-generator | (프로젝트 내장)          | 이미지 에셋 생성      |
-| airtable        | `airtable-mcp-server`    | 워크숍 진행 상태 추적 |
-
-::alert[`airtable`과 `asset-generator` 서버는 각각 API Key 설정 전까지 `failed` 상태입니다. 아래 섹션에서 키를 설정하면 `connected`로 변경됩니다.]{type="info"}
+| MCP 서버          | 용도                  |
+| ----------------- | --------------------- |
+| `airtable`        | 워크숍 진행 상태 추적 |
+| `asset-generator` | 이미지 에셋 생성      |
 
 ## 플러그인 설치 확인
 
@@ -58,41 +52,28 @@ weight: 30
 /plugin
 :::
 
-플러그인 다이얼로그가 열리면 ⌨️ **오른쪽 방향키(`→`)** 를 눌러 **Installed** 탭으로 이동합니다. 아래와 같이 `Project` 섹션 아래 모든 플러그인이 `✔ enabled` 상태로 표시되면 정상입니다:
+플러그인 다이얼로그가 열리면 ⌨️ **오른쪽 방향키(`→`)** 를 눌러 **Installed** 탭으로 이동합니다. 아래와 같이 `Project` 섹션 아래 **4개 플러그인이 모두 `✔ enabled`** 로 표시되면 정상입니다:
 
 ```
-──────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
   Plugins  Discover   Installed   Marketplaces   Errors
 
-  ╭──────────────────────────────────────────────────╮
-  │ ⌕ Search…                                        │
-  ╰──────────────────────────────────────────────────╯
-
       Project
-  ❯ alps-writer Plugin · alps-writer · ✔ enabled
+  ❯ adr-writer Plugin · alps-writer · ✔ enabled
+    alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
-    adr-writer Plugin · alps-writer · ✔ enabled
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected
     context7 Plugin · claude-plugins-official · ✔ enabled
     └ context7 MCP · ✔ connected
-   ↓ more below
-──────────────────────────────────────────────────────
 ```
 
-::alert[`alps-writer` 와 `adr-writer` 는 같은 마켓플레이스(`alps-writer`)에서 설치되는 **두 개의 독립 플러그인** 입니다. `alps-writer` 는 PRD 작성용 MCP 서버를 포함하고, `adr-writer` 는 MCP 서버 없이 ADR 슬래시 명령과 drift hook 만 제공합니다. `/feature-to-adr` 로 PRD Feature 를 ADR 로 넘기는 브릿지를 쓰려면 **두 플러그인이 모두 설치** 되어 있어야 합니다.]{type="info"}
-
-**플러그인** (`.claude/settings.json`):
-
-| 플러그인            | 용도                                                                                                          |
-| ------------------- | ------------------------------------------------------------------------------------------------------------- |
-| alps-writer         | PRD(ALPS) 문서 작성용 MCP 서버 + Feature를 ADR로 넘기는 슬래시 명령 (`/alps-init`, `/feature-to-adr`)         |
-| adr-writer          | ADR 작성·구현·동기화 슬래시 명령 (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) 과 ADR↔코드 drift hook |
-| context7            | 라이브러리/프레임워크 최신 문서 조회                                                                          |
-| chrome-devtools-mcp | 브라우저 스크린샷 캡처 및 디버깅                                                                              |
-| frontend-design     | UI 컴포넌트/화면 설계 가이드                                                                                  |
-
-::alert[`alps-writer` 나 `adr-writer` 가 `Errors` 탭에 표시되거나 다운로드 실패 메시지가 보이면, `/plugin marketplace update alps-writer` 를 실행한 뒤 `/reload-plugins` 로 다시 로드하세요. 두 플러그인은 같은 마켓플레이스에서 함께 업데이트됩니다.]{type="info"}
+| 플러그인              | 용도                                                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `alps-writer`         | PRD(ALPS) 문서 작성용 MCP 서버 + Feature를 ADR로 넘기는 슬래시 명령 (`/alps-init`, `/feature-to-adr`)         |
+| `adr-writer`          | ADR 작성·구현·동기화 슬래시 명령 (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) 과 ADR↔코드 drift hook |
+| `chrome-devtools-mcp` | 브라우저 스크린샷 캡처 및 디버깅                                                                              |
+| `context7`            | 라이브러리/프레임워크 최신 문서 조회                                                                          |
 
 ## 워크숍 환경 설정 (선택)
 
@@ -134,8 +115,6 @@ claude
 claude
 :::
 
-::alert[Windows 에서는 환경 변수가 반영되려면 Claude Code 를 반드시 재시작해야 합니다.]{type="info"}
-
 :::
 ::::
 
@@ -154,5 +133,3 @@ claude
 :::
 
 현재 환경 설정 상태가 출력되고 Airtable 에 레코드가 생성되면 연동이 완료된 것입니다.
-
-::alert[키가 없어도 워크숍 진행에는 문제가 없습니다. 이미지 생성 및 진행 상태 추적 기능만 비활성화됩니다.]{type="info"}

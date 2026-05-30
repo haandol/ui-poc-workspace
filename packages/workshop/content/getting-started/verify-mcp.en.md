@@ -19,36 +19,30 @@ Once loaded, enter the following in the 💬 Claude Code chat to check the MCP s
 /mcp
 :::
 
-You should see something like this:
+You're good as long as **all 6 MCP servers below appear in the list**:
 
 ```
-──────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
   Manage MCP servers
-  7 servers
+  6 servers
 
-    Project MCPs (.mcp.json)
-    airtable · ✔ connected
-    asset-generator · ✘ failed
-    pdf-reader · ✔ connected
+    Project MCPs
+  ❯ airtable · ✔ connected · 16 tools
+    asset-generator · ✔ connected · 1 tool
+    pdf-reader · ✔ connected · 1 tool
 
     Built-in MCPs (always available)
-    plugin:alps-writer:alps-writer · ✔ connected
-    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected
-    plugin:context7:context7 · ✔ connected
-──────────────────────────────────────────────────────
+    plugin:alps-writer:alps-writer · ✔ connected · 11 tools
+    plugin:chrome-devtools-mcp:chrome-devtools · ✔ connected · 29 tools
+    plugin:context7:context7 · ✔ connected · 2 tools
 ```
 
-::alert[The `adr-writer` plugin works purely through slash commands and hooks — it ships no MCP server of its own, so it does **not** appear in the `/mcp` list. Confirm it's installed via `/plugin` below.]{type="info"}
+The two servers below need an API key, so they may show `✘ failed` at first. They switch to `✔ connected` after you register the keys in the **Workshop environment setup** section below.
 
-**Project MCPs** (`.mcp.json`):
-
-| MCP server      | Package                  | Purpose                    |
-| --------------- | ------------------------ | -------------------------- |
-| pdf-reader      | `@sylphx/pdf-reader-mcp` | Read the deep-research PDF |
-| asset-generator | (bundled in project)     | Generate image assets      |
-| airtable        | `airtable-mcp-server`    | Track workshop progress    |
-
-::alert[The `airtable` and `asset-generator` servers remain in `failed` state until their API keys are configured. They switch to `connected` after you set the keys below.]{type="info"}
+| MCP server        | Purpose                 |
+| ----------------- | ----------------------- |
+| `airtable`        | Track workshop progress |
+| `asset-generator` | Generate image assets   |
 
 ## Verify plugin installation
 
@@ -58,41 +52,28 @@ In the 💬 Claude Code chat, enter the following to check plugin status:
 /plugin
 :::
 
-When the plugin dialog opens, press the ⌨️ **right arrow key (`→`)** to switch to the **Installed** tab. Setup is correct when every plugin under the `Project` section shows `✔ enabled`, like this:
+When the plugin dialog opens, press the ⌨️ **right arrow key (`→`)** to switch to the **Installed** tab. Setup is correct when **all 4 plugins** under the `Project` section show `✔ enabled`, like this:
 
 ```
-──────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
   Plugins  Discover   Installed   Marketplaces   Errors
 
-  ╭──────────────────────────────────────────────────╮
-  │ ⌕ Search…                                        │
-  ╰──────────────────────────────────────────────────╯
-
       Project
-  ❯ alps-writer Plugin · alps-writer · ✔ enabled
+  ❯ adr-writer Plugin · alps-writer · ✔ enabled
+    alps-writer Plugin · alps-writer · ✔ enabled
     └ alps-writer MCP · ✔ connected
-    adr-writer Plugin · alps-writer · ✔ enabled
     chrome-devtools-mcp Plugin · claude-plugins-official · ✔ enabled
     └ chrome-devtools MCP · ✔ connected
     context7 Plugin · claude-plugins-official · ✔ enabled
     └ context7 MCP · ✔ connected
-   ↓ more below
-──────────────────────────────────────────────────────
 ```
 
-::alert[`alps-writer` and `adr-writer` are **two independent plugins** installed from the same marketplace (`alps-writer`). `alps-writer` bundles the MCP server for PRD authoring; `adr-writer` ships the ADR slash commands and drift hooks with no MCP server. To use the `/feature-to-adr` bridge that hands a PRD feature to an ADR, **both plugins must be installed**.]{type="info"}
-
-**Plugins** (`.claude/settings.json`):
-
-| Plugin              | Purpose                                                                                                                    |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| alps-writer         | MCP server for authoring the PRD (ALPS) + the slash commands that hand features off (`/alps-init`, `/feature-to-adr`)      |
-| adr-writer          | ADR author/implement/sync slash commands (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) and the ADR↔code drift hook |
-| context7            | Fetch up-to-date library/framework docs                                                                                    |
-| chrome-devtools-mcp | Capture browser screenshots and debug the UI                                                                               |
-| frontend-design     | UI component/screen design guidance                                                                                        |
-
-::alert[If `alps-writer` or `adr-writer` shows up in the `Errors` tab or fails to download, run `/plugin marketplace update alps-writer` and then `/reload-plugins`. Both plugins update together from the same marketplace.]{type="info"}
+| Plugin                | Purpose                                                                                                                    |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `alps-writer`         | MCP server for authoring the PRD (ALPS) + the slash commands that hand features off (`/alps-init`, `/feature-to-adr`)      |
+| `adr-writer`          | ADR author/implement/sync slash commands (`/adr-new`, `/adr-impl`, `/adr-sync`, `/adr-rollup`) and the ADR↔code drift hook |
+| `chrome-devtools-mcp` | Capture browser screenshots and debug the UI                                                                               |
+| `context7`            | Fetch up-to-date library/framework docs                                                                                    |
 
 ## Workshop environment setup (optional)
 
@@ -134,8 +115,6 @@ In your 💻 terminal, quit Claude Code (`Ctrl+C` or `/exit`) and relaunch:
 claude
 :::
 
-::alert[On Windows, you must restart Claude Code for the new environment variables to take effect.]{type="info"}
-
 :::
 ::::
 
@@ -154,5 +133,3 @@ If `airtable` is connected, enter the following in the 💬 Claude Code chat to 
 :::
 
 If your current setup status is printed and a record is created in Airtable, the integration is working correctly.
-
-::alert[You can complete the workshop without these keys. Only the image generation and progress tracking features are disabled without them.]{type="info"}
