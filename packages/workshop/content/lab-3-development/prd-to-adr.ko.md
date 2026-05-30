@@ -3,6 +3,22 @@ title: 'PRD를 ADR로 변환'
 weight: 15
 ---
 
+## 모든 Feature 를 한 번에 ADR 로 변환
+
+💬 Claude Code 대화창에 인자 없이 입력합니다:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/feature-to-adr
+:::
+
+Claude 가 자동으로:
+
+1. PRD Section 7 의 **모든 Feature (F1, F2, F3, …)** 를 읽습니다
+2. Feature 별로 `docs/adr/<feature-id>/0001-…md` 파일을 일괄 생성합니다
+3. 각 ADR 에 **Decision (이렇게 만들겠다), 대안 비교, Consequences (영향)** 를 채웁니다
+
+::alert[ADR 파일은 `docs/adr/<feature-id>/` 에 저장됩니다. 궁금하면 Finder/파일탐색기로 직접 열어보거나 Claude 에게 _"f1 ADR 보여줘"_ 라고 해도 됩니다. 다만 **읽지 않아도 다음 단계로 진행하는 데 문제 없습니다** — 다음 페이지에서 `/adr-impl` 로 바로 구현으로 넘어갑니다.]{type="info"}
+
 ## PRD 와 ADR 은 어떻게 다른가
 
 에이전트 기반 개발에서 가장 어려운 부분은 **비즈니스 요구사항을 코드로 정확히 변환** 하는 일입니다. 그래서 요구사항 → 기능 → 코드 사이를 표준화된 추상화 단계로 잘게 끊어서 넘기는 것이 핵심이고, **PRD 와 ADR 은 그 변환 과정에서 서로 다른 추상화 단계를 담당** 합니다.
@@ -49,19 +65,3 @@ flowchart LR
     ADR -->|/adr-impl| Impl
     Impl -.->|/adr-sync| ADR
 ```
-
-## 모든 Feature 를 한 번에 ADR 로 변환
-
-💬 Claude Code 대화창에 인자 없이 입력합니다:
-
-:::code{showCopyAction=true showLineNumbers=false language=text}
-/feature-to-adr
-:::
-
-Claude 가 자동으로:
-
-1. PRD Section 7 의 **모든 Feature (F1, F2, F3, …)** 를 읽습니다
-2. Feature 별로 `docs/adr/<feature-id>/0001-…md` 파일을 일괄 생성합니다
-3. 각 ADR 에 **Decision (이렇게 만들겠다), 대안 비교, Consequences (영향)** 를 채웁니다
-
-::alert[ADR 파일은 `docs/adr/<feature-id>/` 에 저장됩니다. 궁금하면 Finder/파일탐색기로 직접 열어보거나 Claude 에게 _"f1 ADR 보여줘"_ 라고 해도 됩니다. 다만 **읽지 않아도 다음 단계로 진행하는 데 문제 없습니다** — 다음 페이지에서 `/adr-impl` 로 바로 구현으로 넘어갑니다.]{type="info"}

@@ -3,6 +3,22 @@ title: 'Convert the PRD into ADRs'
 weight: 15
 ---
 
+## Convert every feature into an ADR at once
+
+In the 💬 Claude Code chat, run the command without arguments:
+
+:::code{showCopyAction=true showLineNumbers=false language=text}
+/feature-to-adr
+:::
+
+Claude will automatically:
+
+1. Read **every feature (F1, F2, F3, …)** from PRD Section 7
+2. Generate `docs/adr/<feature-id>/0001-…md` for each one in batch
+3. Fill in **Decision, Alternatives, Consequences** for every ADR
+
+::alert[ADR files are saved under `docs/adr/<feature-id>/`. You can open them directly in Finder/File Explorer or ask Claude _"show me the f1 ADR"_ if curious. **You don't need to read them to proceed** — the next page jumps straight into `/adr-impl`.]{type="info"}
+
 ## How PRD and ADR differ
 
 The hardest part of agent-driven development is **translating business requirements into correct code.** The trick is breaking that translation into standardized abstraction layers, and **PRD vs. ADR sit at different layers in that pipeline.**
@@ -49,19 +65,3 @@ flowchart LR
     ADR -->|/adr-impl| Impl
     Impl -.->|/adr-sync| ADR
 ```
-
-## Convert every feature into an ADR at once
-
-In the 💬 Claude Code chat, run the command without arguments:
-
-:::code{showCopyAction=true showLineNumbers=false language=text}
-/feature-to-adr
-:::
-
-Claude will automatically:
-
-1. Read **every feature (F1, F2, F3, …)** from PRD Section 7
-2. Generate `docs/adr/<feature-id>/0001-…md` for each one in batch
-3. Fill in **Decision, Alternatives, Consequences** for every ADR
-
-::alert[ADR files are saved under `docs/adr/<feature-id>/`. You can open them directly in Finder/File Explorer or ask Claude _"show me the f1 ADR"_ if curious. **You don't need to read them to proceed** — the next page jumps straight into `/adr-impl`.]{type="info"}
