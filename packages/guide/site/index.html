@@ -379,7 +379,7 @@
     <div class="group">
       <div class="group-title">Part 3 · 키로와 친해지기</div>
       <a href="#warmup-intro">시작 전 안내</a>
-      <a href="#warmup-1">예제 1 — 이미지로 투두 만들기</a>
+      <a href="#warmup-1">예제 1 — 이미지로 워터 트래커 만들기</a>
       <a href="#warmup-2">예제 2 — 스타일 목업 고르기</a>
       <a href="#warmup-3">예제 3 — 저장 기능 추가</a>
       <a href="#warmup-4">예제 4 — 3D 게임으로</a>
@@ -434,7 +434,7 @@
         <ul>
           <li><a href="#qd-web">Part 1.</a> Amazon Quick에 가입 (웹 권장, 데스크톱 앱은 선택)</li>
           <li><a href="#kiro-install">Part 2.</a> 내 노트북에 Kiro IDE를 설치하고 로그인</li>
-          <li><a href="#warmup-intro">Part 3.</a> 투두리스트 하나를 4단계로 키워보며 키로와 친해지기 (감 잡기)</li>
+          <li><a href="#warmup-intro">Part 3.</a> 워터 트래커 하나를 4단계로 키워보며 키로와 친해지기 (감 잡기)</li>
           <li><a href="#tips-prompt">Part 4.</a> AI에게 잘 지시하는 법을 익혀 나만의 PoC 만들기 (당일 진행)</li>
         </ul>
       </div>
@@ -685,19 +685,19 @@
     <!-- ===== PART 3: 키로와 친해지기 ===== -->
     <section id="warmup-intro">
       <div class="eyebrow"><span>Part 3 · 키로와 친해지기</span></div>
-      <h2>투두리스트 하나를 점점 키워보기</h2>
+      <h2>워터 트래커 하나를 점점 키워보기</h2>
       <p class="lead">
-        본격적인 PoC를 만들기 전에, <strong>투두리스트(할 일 목록)</strong> 하나를 4단계에 걸쳐 점점 발전시켜 보며
+        본격적인 PoC를 만들기 전에, <strong>워터 트래커(물 마시기 기록)</strong> 하나를 4단계에 걸쳐 점점 발전시켜 보며
         Kiro와 대화하는 감을 잡아봅니다. 이미지 한 장으로 시작해서, 디자인을 바꾸고, 저장 기능을 더하고,
         마지막엔 3D 게임으로까지 키웁니다. 아래 프롬프트를 그대로 복사해 붙여넣으면 됩니다.
       </p>
 
       <div class="callout info">
         <p>예제는 <strong>1 → 2 → 3 → 4 순서대로</strong> 같은 프로젝트에 이어서 진행합니다. 하나 끝낼 때마다
-        브라우저를 새로고침해 결과를 눈으로 확인하세요. 같은 투두리스트가 단계마다 어떻게 변하는지 보는 것이 핵심입니다.</p>
+        브라우저를 새로고침해 결과를 눈으로 확인하세요. 같은 워터 트래커가 단계마다 어떻게 변하는지 보는 것이 핵심입니다.</p>
       </div>
       <div class="callout tip">
-        <p><strong>준비물.</strong> 예제 1에는 <em>미리 준비된 손그림 투두리스트 이미지</em>를 사용합니다(아래 예제 1에 첨부).
+        <p><strong>준비물.</strong> 예제 1에는 <em>미리 준비된 손그림 워터 트래커 이미지</em>를 사용합니다(아래 예제 1에 첨부).
         진행자가 안내한 이미지를 내려받아 두면 됩니다.</p>
       </div>
     </section>
@@ -705,30 +705,29 @@
     <section id="warmup-1">
       <div class="exercise">
         <div class="ex-head">
-          <span class="ex-num">1</span><span class="t">이미지를 보여주고 투두리스트 만들기</span>
+          <span class="ex-num">1</span><span class="t">이미지를 보여주고 워터 트래커 만들기</span>
           <span class="lvl">난이도 ●○○</span>
         </div>
         <div class="ex-body">
-          <p class="goal"><span class="k">목표</span>제공된 손그림 투두리스트 이미지를 업로드하고, 그것과 똑같이 동작하는 웹 페이지를 만듭니다.</p>
-          <p>이 실습에는 <strong>미리 준비된 손그림 투두리스트 이미지</strong>를 사용합니다. 아래 이미지를 내려받아
+          <p class="goal"><span class="k">목표</span>제공된 손그림 워터 트래커 이미지를 업로드하고, 그것과 똑같이 동작하는 웹 페이지를 만듭니다.</p>
+          <p>이 실습에는 <strong>미리 준비된 손그림 워터 트래커 이미지</strong>를 사용합니다. 아래 이미지를 내려받아
           (또는 진행자가 안내한 파일을) 준비하세요.</p>
           <figure class="shot">
             <div class="frame">
-              <div class="ph"><span class="label">그림 3-1 — 제공되는 손그림 원본</span>
-                <span class="hint">미리 준비된 투두리스트 스케치 (입력칸 · 목록 · 체크 · 삭제)</span></div>
+              <img src="guide-images/water-tracker.jpg" alt="손그림 워터 트래커 스케치 — drink! / Reset 버튼, 1/8 cups 표시, 진행 바, 물잔 8개 격자(첫 잔 채워짐)" />
             </div>
-            <figcaption>그림 3-1. 실습에 사용할 손그림 투두리스트 이미지입니다.</figcaption>
+            <figcaption>그림 3-1. 실습에 사용할 손그림 워터 트래커 이미지입니다.</figcaption>
           </figure>
           <p>이 손그림 이미지를 Kiro 대화창에 끌어다 놓거나, <code class="inline">Win + Shift + S</code>로 캡처해
           <code class="inline">Ctrl + V</code>로 붙여넣은 뒤 아래 프롬프트를 함께 보냅니다.</p>
           <div class="prompt">
-            <div class="head">이미지 → 동작하는 투두리스트</div>
+            <div class="head">이미지 → 동작하는 워터 트래커</div>
             <div class="body">
-              <p style="margin-top:0; font-size:13px; color:var(--ink-soft);">(대화창에 투두리스트 이미지를 붙여넣은 뒤, 아래 글을 함께 보냅니다)</p>
-              <div class="pq">방금 붙여넣은 이미지처럼 생긴 '할 일 목록(투두리스트)' 웹 페이지를 만들어줘.
-- 할 일을 입력하는 칸과 '추가' 버튼이 있어야 해
-- '추가'를 누르면 아래 목록에 그 할 일이 바로 나타나야 해
-- 각 할 일을 클릭하면 '완료'된 것처럼 줄이 그어지고, 옆의 '삭제' 버튼으로 지울 수 있어야 해
+              <p style="margin-top:0; font-size:13px; color:var(--ink-soft);">(대화창에 워터 트래커 이미지를 붙여넣은 뒤, 아래 글을 함께 보냅니다)</p>
+              <div class="pq">방금 붙여넣은 이미지처럼 생긴 '물 마시기 기록(워터 트래커)' 웹 페이지를 만들어줘.
+- 하루 목표를 8잔으로 두고, 물잔 8개를 격자로 보여줘
+- 'drink!' 버튼을 누르면 물잔이 하나씩 채워지고, 위에 '1/8 cups'처럼 현재 잔 수가 표시돼야 해
+- 채운 정도만큼 진행 바(progress bar)가 차오르고, 'Reset' 버튼으로 다시 0으로 되돌릴 수 있어야 해
 나는 비개발자라 코드는 신경 안 쓸게. 다 만들면 브라우저에서 어떻게 여는지 한국어로 알려줘.</div>
             </div>
           </div>
@@ -736,13 +735,13 @@
             <div class="frame">
               <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                 <span class="url">localhost</span></div>
-              <div class="ph"><span class="label">그림 3-2 — 첫 투두리스트</span>
-                <span class="hint">손그림을 참고해 만들어진 입력 · 추가 · 완료 · 삭제 화면</span></div>
+              <div class="ph"><span class="label">그림 3-2 — 첫 워터 트래커</span>
+                <span class="hint">손그림을 참고해 만들어진 물잔 격자 · drink! · 진행 바 · Reset 화면</span></div>
             </div>
-            <figcaption>그림 3-2. 손그림 한 장으로 동작하는 투두리스트가 만들어집니다.</figcaption>
+            <figcaption>그림 3-2. 손그림 한 장으로 동작하는 워터 트래커가 만들어집니다.</figcaption>
           </figure>
           <div class="callout tip">
-            <p><strong>왜 이미지부터?</strong> 말로 "투두리스트 만들어줘"라고 하는 것보다, 원하는 모습을 이미지로 보여주면
+            <p><strong>왜 이미지부터?</strong> 말로 "워터 트래커 만들어줘"라고 하는 것보다, 원하는 모습을 이미지로 보여주면
             Kiro가 레이아웃·색·구성을 훨씬 정확하게 잡아냅니다.</p>
           </div>
         </div>
@@ -762,13 +761,13 @@
           <div class="prompt">
             <div class="head">스타일 목업 4종 생성</div>
             <div class="body">
-              <div class="pq">지금 투두리스트의 디자인을 서로 다른 고급 브랜드 스타일 4가지로 만들어서 비교해보고 싶어.
+              <div class="pq">지금 워터 트래커의 디자인을 서로 다른 고급 브랜드 스타일 4가지로 만들어서 비교해보고 싶어.
 아래 4개 무드로 각각 다른 버전을 만들어줘. 한 화면에서 4개를 나란히 비교할 수 있게 보여주면 좋아:
 1) 샤넬 — 검정·흰색에 금색 포인트, 우아한 세리프 글씨, 넉넉한 여백
 2) 애플 — 깔끔한 미니멀, 부드러운 회색 톤, 둥근 모서리
 3) 에르메스 — 오렌지 포인트에 고급스러운 가죽 느낌
 4) 발렌시아가 — 과감한 흑백 대비, 큼직한 대문자 타이포
-기능(추가·완료·삭제)은 4개 모두 똑같이 두고, 보이는 분위기만 다르게 해줘.
+기능(물잔 채우기·진행 바·Reset)은 4개 모두 똑같이 두고, 보이는 분위기만 다르게 해줘.
 나는 비개발자라 코드는 신경 안 쓸게. 다 만들면 어떻게 비교해서 보는지 한국어로 알려줘.</div>
             </div>
           </div>
@@ -779,14 +778,14 @@
               <div class="ph"><span class="label">그림 3-3 — 스타일 목업 4종 비교</span>
                 <span class="hint">샤넬 · 애플 · 에르메스 · 발렌시아가 버전을 나란히 비교</span></div>
             </div>
-            <figcaption>그림 3-3. 같은 투두리스트를 4가지 브랜드 무드로 나란히 비교합니다.</figcaption>
+            <figcaption>그림 3-3. 같은 워터 트래커를 4가지 브랜드 무드로 나란히 비교합니다.</figcaption>
           </figure>
           <p>네 가지를 본 뒤, 마음에 드는 하나를 골라 그것으로 확정합니다.</p>
           <div class="prompt">
             <div class="head">마음에 드는 스타일 선택</div>
             <div class="body">
               <div class="pq">4개 중에서 [예: 2번 애플 스타일]이 제일 마음에 들어.
-그 스타일로 투두리스트를 확정하고, 나머지 3개는 정리해줘.
+그 스타일로 워터 트래커를 확정하고, 나머지 3개는 정리해줘.
 조금 아쉬운 부분이 있으면 [예: 글씨를 조금 더 크게] 정도만 다듬어줘.</div>
             </div>
           </div>
@@ -806,15 +805,15 @@
           <span class="lvl">난이도 ●●○</span>
         </div>
         <div class="ex-body">
-          <p class="goal"><span class="k">목표</span>브라우저를 닫았다 열어도 입력한 할 일이 그대로 남아 있게 합니다.</p>
-          <p>지금까지는 새로고침하면 할 일이 모두 사라집니다. 브라우저에 저장(localStorage)해서
+          <p class="goal"><span class="k">목표</span>브라우저를 닫았다 열어도 마신 잔 수가 그대로 남아 있게 합니다.</p>
+          <p>지금까지는 새로고침하면 마신 잔 수가 0으로 돌아갑니다. 브라우저에 저장(localStorage)해서
           <strong>영속성</strong>을 더해 봅니다.</p>
           <div class="prompt">
             <div class="head">localStorage로 저장</div>
             <div class="body">
-              <div class="pq">지금 투두리스트는 새로고침하면 입력한 할 일이 다 사라져.
-브라우저의 localStorage를 이용해서, 추가하거나 완료·삭제한 내용이 자동으로 저장되게 해줘.
-그래서 브라우저를 껐다 켜거나 새로고침해도 내가 적은 할 일이 그대로 남아 있어야 해.
+              <div class="pq">지금 워터 트래커는 새로고침하면 마신 잔 수가 0으로 돌아가버려.
+브라우저의 localStorage를 이용해서, 물잔을 채우거나 Reset한 내용이 자동으로 저장되게 해줘.
+그래서 브라우저를 껐다 켜거나 새로고침해도 내가 마신 잔 수가 그대로 남아 있어야 해.
 나는 비개발자라 어떻게 동작하는지 한 줄로 쉽게 설명도 해줘.</div>
             </div>
           </div>
@@ -823,13 +822,13 @@
               <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                 <span class="url">localhost</span></div>
               <div class="ph"><span class="label">그림 3-4 — 새로고침 후에도 유지</span>
-                <span class="hint">F5로 새로고침해도 할 일 목록이 그대로 남아 있음</span></div>
+                <span class="hint">F5로 새로고침해도 마신 잔 수가 그대로 남아 있음</span></div>
             </div>
             <figcaption>그림 3-4. 새로고침 전후를 비교하면 데이터가 사라지지 않는 것을 확인할 수 있습니다.</figcaption>
           </figure>
           <div class="callout info">
-            <p><strong>확인 방법.</strong> 할 일을 몇 개 추가한 뒤 <code class="inline">F5</code>(새로고침)를 눌러 보세요.
-            목록이 그대로 남아 있으면 저장 기능이 잘 동작하는 것입니다.</p>
+            <p><strong>확인 방법.</strong> 물잔을 몇 개 채운 뒤 <code class="inline">F5</code>(새로고침)를 눌러 보세요.
+            마신 잔 수가 그대로 남아 있으면 저장 기능이 잘 동작하는 것입니다.</p>
           </div>
         </div>
       </div>
@@ -842,14 +841,14 @@
           <span class="lvl">난이도 ●●●</span>
         </div>
         <div class="ex-body">
-          <p class="goal"><span class="k">목표</span>three.js를 이용해 투두리스트를 입체(3D)로 보여주고, 게임처럼 즐겁게 만듭니다.</p>
+          <p class="goal"><span class="k">목표</span>three.js를 이용해 워터 트래커를 입체(3D)로 보여주고, 게임처럼 즐겁게 만듭니다.</p>
           <div class="prompt">
             <div class="head">three.js 3D 게임화</div>
             <div class="body">
-              <div class="pq">이 투두리스트를 three.js를 이용해서 3D 게임처럼 바꿔줘.
-- 할 일 하나하나가 화면에 떠 있는 입체 블록(상자)으로 보이게 해줘
-- 할 일을 '완료'하면 그 블록이 반짝이며 사라지거나 부서지는 효과를 주고
-- 새 할 일을 추가하면 블록이 통통 튀며 나타나게 해줘
+              <div class="pq">이 워터 트래커를 three.js를 이용해서 3D 게임처럼 바꿔줘.
+- 물잔 하나하나가 화면에 떠 있는 입체 유리컵으로 보이게 해줘
+- 'drink!'로 한 잔을 채우면 그 컵에 파란 물이 찰랑이며 차오르는 효과를 주고
+- 8잔을 다 채우면 반짝이는 축하 효과(파티클이 터지는 느낌)를 보여줘
 필요한 three.js 라이브러리는 인터넷에서 불러오는 방식으로 알아서 넣어줘.
 나는 비개발자라 코드는 신경 안 쓸게. 다 만들면 어떻게 가지고 노는지 한국어로 알려줘.</div>
             </div>
@@ -858,18 +857,18 @@
             <div class="frame">
               <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                 <span class="url">localhost</span></div>
-              <div class="ph"><span class="label">그림 3-5 — 3D 투두 게임</span>
-                <span class="hint">할 일이 입체 블록으로 떠다니고, 완료하면 효과와 함께 사라짐</span></div>
+              <div class="ph"><span class="label">그림 3-5 — 3D 워터 트래커 게임</span>
+                <span class="hint">물잔이 입체 유리컵으로 떠다니고, 채우면 물이 찰랑이며 차오름</span></div>
             </div>
-            <figcaption>그림 3-5. 평범한 목록이 가지고 노는 3D 화면으로 변신합니다.</figcaption>
+            <figcaption>그림 3-5. 평범한 기록 화면이 가지고 노는 3D 화면으로 변신합니다.</figcaption>
           </figure>
           <div class="callout warn">
-            <p><strong>한 번에 안 되면.</strong> 3D는 한 번에 완벽하게 안 나올 수 있습니다. <em>"블록이 안 보여",
-            "완료 효과가 없어"</em>처럼 무엇이 부족한지 그대로 말하면 Kiro가 이어서 고쳐 줍니다. (자세한 요령은
+            <p><strong>한 번에 안 되면.</strong> 3D는 한 번에 완벽하게 안 나올 수 있습니다. <em>"컵이 안 보여",
+            "물이 차오르는 효과가 없어"</em>처럼 무엇이 부족한지 그대로 말하면 Kiro가 이어서 고쳐 줍니다. (자세한 요령은
             <a href="#tips-debug">Part 4 · 04 막혔을 때</a> 참고)</p>
           </div>
           <div class="callout ok">
-            <p>이미지 한 장으로 시작한 투두리스트가 <strong>스타일 변경 → 저장 → 3D 게임</strong>까지 발전했습니다.
+            <p>이미지 한 장으로 시작한 워터 트래커가 <strong>스타일 변경 → 저장 → 3D 게임</strong>까지 발전했습니다.
             이렇게 <strong>작게 시작해서 한 단계씩 키우는 것</strong>이 PoC의 핵심입니다. 이제 Part 4의 팁을 보며 나만의 PoC로 넘어갑시다.</p>
           </div>
         </div>
@@ -1078,7 +1077,7 @@
           <tr><td>☐</td><td>내 노트북에 Kiro IDE를 설치했다</td></tr>
           <tr><td>☐</td><td>Kiro에 로그인하고 테마·셸 통합 설정을 마쳤다</td></tr>
           <tr><td>☐</td><td>Kiro 대화창에 인사를 보냈더니 AI가 한국어로 답했다</td></tr>
-          <tr><td>☐</td><td>(선택) Part 3 '키로와 친해지기' 투두리스트 예제를 하나라도 직접 해봤다</td></tr>
+          <tr><td>☐</td><td>(선택) Part 3 '키로와 친해지기' 워터 트래커 예제를 하나라도 직접 해봤다</td></tr>
           <tr><td>☐</td><td>PoC로 만들어보고 싶은 서비스 아이디어를 한두 줄 메모해 두었다</td></tr>
         </tbody>
       </table>
