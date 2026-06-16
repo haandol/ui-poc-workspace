@@ -27,3 +27,6 @@ supportedArchitectures:
   cpu:
     - x64
     - arm64
+
+minimumReleaseAgeExclude:
+  - aws-cdk@2.1127.0

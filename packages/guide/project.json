@@ -1,0 +1,52 @@
+{
+  "name": "guide",
+  "projectType": "application",
+  "sourceRoot": "packages/guide",
+  "tags": ["type:app", "lang:typescript", "scope:infra"],
+  "targets": {
+    "synth": {
+      "command": "cdk synth",
+      "options": {
+        "cwd": "packages/guide"
+      }
+    },
+    "diff": {
+      "command": "cdk diff",
+      "options": {
+        "cwd": "packages/guide"
+      }
+    },
+    "deploy": {
+      "command": "cdk deploy",
+      "options": {
+        "cwd": "packages/guide"
+      }
+    },
+    "destroy": {
+      "command": "cdk destroy",
+      "options": {
+        "cwd": "packages/guide"
+      }
+    },
+    "lint": {
+      "command": "eslint .",
+      "options": {
+        "cwd": "packages/guide"
+      },
+      "cache": true
+    },
+    "format": {
+      "command": "prettier . --write",
+      "options": {
+        "cwd": "packages/guide"
+      }
+    },
+    "format:check": {
+      "command": "prettier . --check",
+      "options": {
+        "cwd": "packages/guide"
+      },
+      "cache": true
+    }
+  }
+}

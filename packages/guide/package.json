@@ -1,0 +1,31 @@
+{
+  "name": "@non-tech-ui-poc-workshop/guide",
+  "version": "0.1.0",
+  "description": "CDK app that hosts the workshop setup guide on S3 + CloudFront",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "guide": "./bin/guide.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "synth": "cdk synth",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy",
+    "destroy": "cdk destroy",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.259.0",
+    "constructs": "^10.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0",
+    "aws-cdk": "^2.1127.0",
+    "tsx": "^4.22.2",
+    "typescript": "~6.0.3"
+  }
+}
