@@ -65,14 +65,26 @@ echo "  • URL:     ${GUIDE_URL:-(출력 없음)}"
 echo "  • 소스:    $SITE_DIR"
 echo
 
+# 참여자가 실습용으로 내려받아야 하는 자산. 클릭 즉시 다운로드되도록
+# Content-Disposition: attachment 를 명시적으로 건다(브라우저별 download 속성
+# 처리 차이를 없애기 위함). 본문 삽화(fig-*.jpg)는 페이지에 보여야 하므로 제외한다.
+DOWNLOAD_ASSETS=("guide-images/water-tracker.jpg")
+
 SYNC_ARGS=(--delete)
 [[ $DRY_RUN -eq 1 ]] && SYNC_ARGS+=(--dryrun)
 
-echo "▶ S3 싱크${DRY_RUN:+ (dry-run)}..."
+DRY_LABEL=""
+[[ $DRY_RUN -eq 1 ]] && DRY_LABEL=" (dry-run)"
+
+echo "▶ S3 싱크${DRY_LABEL}..."
 # --delete: site/ 에서 지운 파일은 S3에서도 지워 정확히 미러링.
 # HTML은 항상 최신을 보도록 짧은 캐시, 이미지 등 정적 자산은 길게 캐시.
+# 다운로드 자산은 별도로(아래) 올리므로 여기서는 제외한다.
+ASSET_EXCLUDES=()
+for a in "${DOWNLOAD_ASSETS[@]}"; do ASSET_EXCLUDES+=(--exclude "$a"); done
+
 aws s3 sync "$SITE_DIR" "s3://$BUCKET" "${SYNC_ARGS[@]}" \
-  --exclude "*.html" \
+  --exclude "*.html" "${ASSET_EXCLUDES[@]}" \
   --cache-control "public,max-age=86400" \
   --region "$REGION"
 aws s3 sync "$SITE_DIR" "s3://$BUCKET" "${SYNC_ARGS[@]}" \
@@ -80,6 +92,21 @@ aws s3 sync "$SITE_DIR" "s3://$BUCKET" "${SYNC_ARGS[@]}" \
   --cache-control "public,max-age=60" \
   --content-type "text/html; charset=utf-8" \
   --region "$REGION"
+
+# 다운로드 자산: Content-Disposition: attachment 로 올려 클릭 즉시 저장되게 한다.
+for a in "${DOWNLOAD_ASSETS[@]}"; do
+  src="$SITE_DIR/$a"
+  [[ -f "$src" ]] || { echo "  ⚠ 다운로드 자산 없음, 건너뜀: $a"; continue; }
+  fname="$(basename "$a")"
+  if [[ $DRY_RUN -eq 1 ]]; then
+    echo "(dryrun) cp $a → s3://$BUCKET/$a  (Content-Disposition: attachment)"
+  else
+    aws s3 cp "$src" "s3://$BUCKET/$a" \
+      --cache-control "public,max-age=86400" \
+      --content-disposition "attachment; filename=\"$fname\"" \
+      --region "$REGION"
+  fi
+done
 
 if [[ $DRY_RUN -eq 1 ]]; then
   echo
