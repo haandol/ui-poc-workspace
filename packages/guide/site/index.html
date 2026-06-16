@@ -223,6 +223,33 @@
   }
   .shot .ph .hint { font-size: 13px; color: var(--ink-soft); position: relative; max-width: 460px; }
   .shot img { width: 100%; display: block; }
+
+  /* ---------- Downloadable figure (hover to reveal) ---------- */
+  .shot .frame.downloadable { position: relative; }
+  .shot .frame.downloadable .dl-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(24,24,24,0); /* fade in on hover */
+    opacity: 0; transition: background .18s, opacity .18s;
+    text-decoration: none; pointer-events: none;
+  }
+  .shot .frame.downloadable:hover .dl-overlay,
+  .shot .frame.downloadable:focus-within .dl-overlay {
+    background: rgba(24,24,24,.42); opacity: 1; pointer-events: auto;
+  }
+  .shot .frame.downloadable .dl-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #fff;
+    border: 2.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    padding: 10px 18px;
+    font-family: var(--display); font-weight: 800; font-size: 14px;
+    letter-spacing: .04em; text-transform: uppercase;
+    transform: translateY(6px); transition: transform .18s;
+  }
+  .shot .frame.downloadable:hover .dl-btn,
+  .shot .frame.downloadable:focus-within .dl-btn { transform: translateY(0); }
+  .shot .frame.downloadable .dl-btn:active { transform: translateY(2px); box-shadow: 2px 2px 0 var(--ink); }
+
   figure.shot figcaption {
     font-family: var(--display); font-style: italic; font-weight: 500; font-size: 13.5px;
     color: var(--ink-soft); margin-top: 11px;
@@ -713,10 +740,13 @@
           <p>이 실습에는 <strong>미리 준비된 손그림 워터 트래커 이미지</strong>를 사용합니다. 아래 이미지를 내려받아
           (또는 진행자가 안내한 파일을) 준비하세요.</p>
           <figure class="shot">
-            <div class="frame">
+            <div class="frame downloadable">
               <img src="guide-images/water-tracker.jpg" alt="손그림 워터 트래커 스케치 — drink! / Reset 버튼, 1/8 cups 표시, 진행 바, 물잔 8개 격자(첫 잔 채워짐)" />
+              <a class="dl-overlay" href="guide-images/water-tracker.jpg" download="water-tracker.jpg" aria-label="손그림 워터 트래커 이미지 다운로드">
+                <span class="dl-btn">↓ 이미지 다운로드</span>
+              </a>
             </div>
-            <figcaption>그림 3-1. 실습에 사용할 손그림 워터 트래커 이미지입니다.</figcaption>
+            <figcaption>그림 3-1. 실습에 사용할 손그림 워터 트래커 이미지입니다. <strong>이미지에 마우스를 올리면 다운로드 버튼</strong>이 나타납니다.</figcaption>
           </figure>
           <p>이 손그림 이미지를 Kiro 대화창에 끌어다 놓거나, <code class="inline">Win + Shift + S</code>로 캡처해
           <code class="inline">Ctrl + V</code>로 붙여넣은 뒤 아래 프롬프트를 함께 보냅니다.</p>
