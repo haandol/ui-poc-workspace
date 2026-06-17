@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>해커톤 Kiro 환경 준비 가이드 — 이벤트 계정 접속 &amp; Kiro IDE Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root {
+    --paper:   #eae7df;
+    --raised:  #ffffff;
+    --ink:     #181818;
+    --ink-soft:#4f4b43;
+    --ink-faint:#8b857a;
+    --accent:  #ff4d00;
+    --accent-deep:#c23a00;
+    --accent-soft:#ffe1d4;
+    --line:    #181818;
+    --line-soft:#c9c4b8;
+    --ok:      #2e7d4f;
+    --ok-soft: #dcefe2;
+    --sidebar-w: 296px;
+
+    --display: "Bricolage Grotesque", "Pretendard Variable", sans-serif;
+    --sans:    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.72;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* ---------- Masthead ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 26px; height: 64px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .topbar .mark {
+    font-family: var(--display); font-weight: 800; font-size: 13px;
+    letter-spacing: .12em; text-transform: uppercase;
+    background: var(--accent); color: #fff; padding: 4px 11px;
+  }
+  .topbar h1 {
+    font-family: var(--display); font-weight: 600; font-size: 16px; margin: 0;
+    letter-spacing: -.01em; color: var(--paper);
+  }
+  .topbar .home-link {
+    margin-left: auto; flex: 0 0 auto;
+    color: var(--paper); text-decoration: none;
+    border: 2px solid var(--paper); padding: 6px 12px;
+    font-family: var(--display); font-weight: 700; font-size: 12px;
+    text-transform: uppercase; letter-spacing: .08em;
+    transition: background .14s, color .14s;
+  }
+  .topbar .home-link:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .topbar .menu-btn {
+    display: none; margin-left: 12px;
+    background: transparent; border: 2px solid var(--paper);
+    color: var(--paper); padding: 6px 12px;
+    font-family: var(--display); font-weight: 700; font-size: 12px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+
+  .shell { display: flex; max-width: 1400px; margin: 0 auto; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: var(--sidebar-w); flex: 0 0 var(--sidebar-w);
+    border-right: 3px solid var(--ink);
+    height: calc(100vh - 64px); position: sticky; top: 64px;
+    overflow-y: auto; padding: 28px 0 80px; background: var(--paper);
+  }
+  .sidebar .group { padding: 0 24px; }
+  .sidebar .group-title {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: .16em; color: var(--accent-deep); font-weight: 700;
+    margin: 26px 0 8px; padding-bottom: 5px; border-bottom: 2px solid var(--ink);
+  }
+  .sidebar .group:first-child .group-title { margin-top: 0; }
+  .sidebar a {
+    display: block; color: var(--ink-soft); text-decoration: none;
+    padding: 5px 10px; font-size: 14px; line-height: 1.5;
+    border-left: 3px solid transparent; margin-left: -3px;
+    transition: color .14s, border-color .14s, background .14s;
+  }
+  .sidebar a:hover { color: var(--ink); }
+  .sidebar a.active {
+    color: var(--ink); border-left-color: var(--accent);
+    background: var(--accent-soft); font-weight: 700;
+  }
+
+  /* ---------- Content ---------- */
+  .content { flex: 1 1 auto; min-width: 0; padding: 56px 76px 140px; max-width: 900px; }
+  .content section { scroll-margin-top: 86px; }
+
+  .content h2 {
+    font-family: var(--display); font-weight: 800;
+    font-size: 46px; line-height: .98; letter-spacing: -.025em;
+    margin: 8px 0 20px;
+  }
+  .content h3 {
+    font-family: var(--display); font-weight: 800;
+    font-size: 25px; letter-spacing: -.01em; margin: 50px 0 14px;
+  }
+  .content h3::before { content: "§ "; color: var(--accent); }
+  .content h4 {
+    font-family: var(--display); font-weight: 700; font-size: 18px;
+    margin: 30px 0 8px; letter-spacing: -.005em;
+  }
+  .content p { margin: 13px 0; }
+  .content a { color: var(--accent-deep); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--accent-soft); }
+  .content a:hover { border-color: var(--accent); }
+  .lead { font-size: 18.5px; line-height: 1.62; color: var(--ink-soft); }
+  em { font-family: var(--display); font-style: italic; font-weight: 600; color: var(--accent-deep); }
+  strong { font-weight: 700; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 0;
+    font-family: var(--display); font-size: 12px; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .eyebrow span { background: var(--accent); color: #fff; padding: 4px 12px; }
+
+  /* ---------- Steps ---------- */
+  ol.steps { counter-reset: step; list-style: none; padding: 0; margin: 24px 0; }
+  ol.steps > li {
+    position: relative; padding: 0 0 30px 62px; margin: 0;
+  }
+  ol.steps > li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: -3px;
+    width: 40px; height: 40px;
+    background: var(--accent); color: #fff;
+    border: 2.5px solid var(--ink);
+    font-family: var(--display); font-weight: 800; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  ol.steps > li .step-title {
+    font-family: var(--display); font-weight: 700; font-size: 17px;
+    display: block; margin-bottom: 3px; letter-spacing: -.01em;
+  }
+  ol.steps p:first-of-type { margin-top: 6px; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    margin: 22px 0; padding: 15px 18px;
+    background: var(--raised);
+    border: 2.5px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    font-size: 14.5px;
+  }
+  .callout::before {
+    display: block; font-family: var(--display); font-size: 12px; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px;
+    color: var(--accent);
+  }
+  .callout p { margin: 4px 0; }
+  .callout p:first-of-type { margin-top: 0; }
+  .callout.info::before    { content: "Note"; color: var(--ink-soft); }
+  .callout.tip::before     { content: "Tip"; color: var(--accent); }
+  .callout.tip   { box-shadow: 5px 5px 0 var(--accent); }
+  .callout.warn::before    { content: "Caution"; color: var(--accent-deep); }
+  .callout.danger::before  { content: "Warning"; color: var(--accent-deep); }
+  .callout.ok    { background: var(--ok-soft); box-shadow: 5px 5px 0 var(--ok); }
+  .callout.ok::before      { content: "Ready"; color: var(--ok); }
+
+  /* ---------- Code ---------- */
+  .codeblock { position: relative; margin: 18px 0; }
+  .codeblock pre {
+    background: var(--ink); color: var(--paper);
+    padding: 16px 18px; overflow-x: auto; font-size: 13px; line-height: 1.6;
+    font-family: var(--mono); margin: 0; border: 2.5px solid var(--ink);
+  }
+  .codeblock .copy-btn {
+    position: absolute; top: 9px; right: 9px;
+    background: var(--accent); color: #fff;
+    border: 2px solid var(--ink); padding: 3px 11px;
+    font-family: var(--display); font-weight: 700; font-size: 10px;
+    letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+  }
+  .codeblock .copy-btn:hover { background: var(--accent-deep); }
+  code.inline {
+    background: var(--accent-soft); border: 1px solid var(--ink);
+    padding: 0 6px; font-size: 13px; font-family: var(--mono); color: var(--accent-deep);
+  }
+
+  /* ---------- Figure / screenshot ---------- */
+  figure.shot { margin: 24px 0; }
+  .shot .frame {
+    border: 2.5px solid var(--ink); overflow: hidden; background: var(--raised);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .shot .browserbar {
+    background: var(--ink); border-bottom: 2.5px solid var(--ink);
+    display: flex; align-items: center; gap: 7px; padding: 9px 13px;
+  }
+  .shot .browserbar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .shot .browserbar .dot:nth-child(2) { background: #ffd000; }
+  .shot .browserbar .dot:nth-child(3) { background: var(--paper); }
+  .shot .browserbar .url {
+    margin-left: 8px; background: var(--paper); color: var(--ink-soft);
+    font-family: var(--mono); font-size: 11px; padding: 3px 12px; flex: 1; max-width: 460px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .shot .ph {
+    aspect-ratio: 16 / 9; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px; text-align: center;
+    background: var(--raised); color: var(--ink-soft); padding: 24px; position: relative;
+  }
+  .shot .ph::before {
+    content: ""; position: absolute; inset: 14px;
+    border: 2px dashed var(--line-soft); pointer-events: none;
+  }
+  .shot .ph .label {
+    font-family: var(--display); font-size: 13px; font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent); position: relative;
+  }
+  .shot .ph .hint { font-size: 13px; color: var(--ink-soft); position: relative; max-width: 460px; }
+  .shot img { width: 100%; display: block; background: #fff; }
+  figure.shot figcaption {
+    font-family: var(--display); font-style: italic; font-weight: 500; font-size: 13.5px;
+    color: var(--ink-soft); margin-top: 11px;
+  }
+
+  /* ---------- Tables ---------- */
+  table { border-collapse: collapse; width: 100%; margin: 22px 0; font-size: 14.5px; }
+  thead th {
+    font-family: var(--display); font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .04em; color: var(--ink);
+    text-align: left; padding: 0 14px 8px; border-bottom: 3px solid var(--ink); vertical-align: bottom;
+  }
+  tbody td { padding: 11px 14px; border-bottom: 1.5px solid var(--line-soft); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  td code.inline { white-space: nowrap; }
+
+  .badge {
+    display: inline-block; font-family: var(--display); font-size: 10px; font-weight: 800;
+    letter-spacing: .06em; text-transform: uppercase; padding: 2px 9px;
+    border: 1.5px solid var(--ink); color: var(--ink); margin-left: 8px; vertical-align: middle;
+  }
+  .badge.good { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+
+  hr.sep { border: none; border-top: 3px solid var(--ink); margin: 60px 0; }
+
+  /* ---------- Inline TOC ---------- */
+  .toc-inline {
+    border: 2.5px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+    background: var(--raised); padding: 20px 24px; margin: 28px 0;
+  }
+  .toc-inline > strong {
+    font-family: var(--display); font-size: 12px; font-weight: 800; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent-deep); display: block; margin-bottom: 12px;
+  }
+  .toc-inline ul { margin: 0; padding: 0; list-style: none; }
+  .toc-inline li { margin: 8px 0; padding-left: 0; }
+  .toc-inline li a { border: none; }
+
+  /* ---------- Pills ---------- */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0; }
+  .pill {
+    background: var(--raised); border: 2.5px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    padding: 10px 16px; font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  /* ---------- Field list (값 기록용) ---------- */
+  .fields {
+    border: 2.5px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+    background: var(--raised); margin: 20px 0; overflow: hidden;
+  }
+  .fields .fhead {
+    padding: 9px 16px; background: var(--ink); color: var(--paper);
+    font-family: var(--display); font-size: 12px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .fields table { margin: 0; }
+  .fields tbody td { padding: 11px 16px; }
+  .fields tbody td:first-child { width: 38%; }
+  .fields code.inline { white-space: nowrap; }
+
+  /* ---------- Prompt card ---------- */
+  .prompt {
+    border: 2.5px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+    background: var(--raised); margin: 18px 0; overflow: hidden;
+  }
+  .prompt .head {
+    padding: 9px 16px; background: var(--ink); color: var(--paper);
+    font-family: var(--display); font-size: 12px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .prompt .head::before { content: "Prompt"; color: var(--accent); padding-right: 10px; border-right: 1px solid #555; }
+  .prompt .head .copy-btn {
+    margin-left: auto;
+    background: var(--accent); color: #fff;
+    border: 2px solid var(--paper); padding: 3px 11px;
+    font-family: var(--display); font-weight: 700; font-size: 10px;
+    letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+  }
+  .prompt .head .copy-btn:hover { background: #fff; color: var(--ink); }
+  .prompt .body { padding: 16px; }
+  .prompt .body > p:first-child { margin-top: 0; }
+  .prompt .pq {
+    font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--ink);
+    white-space: pre-wrap; padding-left: 16px; border-left: 3px solid var(--accent);
+  }
+
+  /* ---------- Page nav ---------- */
+  .pagenav { display: flex; justify-content: space-between; margin-top: 56px; gap: 16px; }
+  .pagenav a {
+    text-decoration: none; border: 2.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    background: var(--raised); padding: 16px 20px; color: var(--ink); flex: 1; transition: .14s;
+  }
+  .pagenav a:hover { box-shadow: 4px 4px 0 var(--accent); }
+  .pagenav a.next { text-align: right; }
+  .pagenav a .dir { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
+  .pagenav a .ttl { font-family: var(--display); font-weight: 700; font-size: 18px; display: block; margin-top: 4px; }
+  .pagenav a:hover .ttl { color: var(--accent-deep); }
+
+  @media (max-width: 940px) {
+    .sidebar { display: none; position: fixed; z-index: 40; box-shadow: 6px 0 0 var(--accent); }
+    .sidebar.open { display: block; }
+    .topbar .menu-btn { display: inline-block; }
+    .content { padding: 36px 22px 100px; }
+    .content h2 { font-size: 34px; }
+    .topbar h1 { font-size: 14px; }
+    .topbar .home-link { font-size: 0; padding: 6px 10px; }
+    .topbar .home-link::before { content: "←"; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="mark">Hackathon</span>
+  <h1>해커톤 Kiro 환경 준비 — 이벤트 계정 접속 &amp; Sign in</h1>
+  <a class="home-link" href="index.html">← 가이드 선택</a>
+  <button class="menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">목차</button>
+</header>
+
+<div class="shell">
+  <!-- ============ SIDEBAR ============ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="group">
+      <div class="group-title">시작하기</div>
+      <a href="#overview">해커톤 개요</a>
+      <a href="#prereq">사전 준비물 체크</a>
+    </div>
+    <div class="group">
+      <div class="group-title">Part 1 · 이벤트 계정 접속</div>
+      <a href="#ws-studio">Workshop Studio 접속</a>
+      <a href="#ws-login">이메일 OTP로 로그인</a>
+      <a href="#ws-join">접근 코드로 참여</a>
+    </div>
+    <div class="group">
+      <div class="group-title">Part 2 · Kiro IDE Sign in</div>
+      <a href="#ide-signin">IAM Identity Center로 시작</a>
+      <a href="#ide-browser">브라우저 로그인 &amp; 권한 승인</a>
+      <a href="#ide-chat">로그인 성공 확인</a>
+    </div>
+    <div class="group">
+      <div class="group-title">마무리</div>
+      <a href="#checklist">최종 체크리스트</a>
+    </div>
+  </nav>
+
+  <!-- ============ CONTENT ============ -->
+  <main class="content">
+
+    <!-- ===== OVERVIEW ===== -->
+    <section id="overview">
+      <div class="eyebrow"><span>Getting Started</span></div>
+      <h2>해커톤 Kiro 환경 준비</h2>
+      <p class="lead">
+        이 가이드는 <strong>해커톤</strong>에 참여하는 분을 위한 Kiro 환경 준비 안내입니다.
+        이벤트는 해커톤이지만, 계정과 실습 환경은 <strong>AWS가 제공하는 워크샵(Workshop Studio) 계정</strong>을 통해 설정합니다.
+        Workshop Studio 이벤트에 참여하고, 워크샵이 제공한 계정을 준비한 뒤,
+        설치된 <strong>Kiro IDE</strong>에 그 계정으로 <strong>Sign in(로그인)</strong>하는 전 과정을 화면과 함께 따라갑니다.
+      </p>
+      <div class="callout info">
+        <p><strong>Kiro IDE는 미리 설치되어 있어야 합니다.</strong> 이 가이드는 설치 이후의 이벤트 계정 접속·로그인 과정을 다룹니다.
+        설치가 필요하면 <a href="prep.html#kiro-what" target="_blank" rel="noopener">사전 준비 가이드의 Kiro IDE 설치</a>를 보고 먼저 설치하세요.</p>
+      </div>
+
+      <div class="callout info">
+        <p><strong>해커톤 참가자용 가이드입니다.</strong> 해커톤 환경은 <strong>AWS 워크샵(Workshop Studio)</strong>을 통해
+        제공되며, 이벤트 기간 동안 <strong>Kiro Pro 라이센스가 임시로 제공</strong>됩니다. 개인 실습자(별도 계정으로
+        직접 실습)는 흐름이 다르니 진행자의 안내를 확인하세요.</p>
+      </div>
+
+      <h3>전체 흐름 한눈에 보기</h3>
+      <div class="toc-inline">
+        <strong>2단계로 끝납니다</strong>
+        <ul>
+          <li><a href="#ws-studio">Part 1.</a> Workshop Studio 이벤트 계정 접속 (회사 이메일 OTP 로그인 + 이벤트 접근 코드)</li>
+          <li><a href="#ide-signin">Part 2.</a> Kiro IDE에서 워크샵 IAM Identity Center 계정으로 Sign in (Kiro Pro)</li>
+        </ul>
+      </div>
+
+      <div class="pill-row">
+        <span class="pill">Workshop Studio <span class="badge">이벤트 대시보드</span></span>
+        <span class="pill">Kiro IDE <span class="badge">AI 코딩 에이전트</span></span>
+        <span class="pill">IAM Identity Center <span class="badge">워크샵 계정</span></span>
+      </div>
+    </section>
+
+    <hr class="sep" />
+
+    <!-- ===== PREREQ ===== -->
+    <section id="prereq">
+      <h2>사전 준비물 체크</h2>
+      <p>시작하기 전에 아래 항목을 확인하세요.</p>
+      <table>
+        <thead><tr><th style="width:32%">항목</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>개인 노트북</td><td>Windows 10/11(64비트) 또는 macOS / Linux. <strong>Kiro IDE가 미리 설치</strong>되어 있어야 합니다 (설치 방법은 <a href="prep.html#kiro-what" target="_blank" rel="noopener">사전 준비 가이드</a> 참고).</td></tr>
+          <tr><td>안정적인 인터넷</td><td>이벤트 로그인, 계정 인증(브라우저), AI 모델 접근에 필요합니다.</td></tr>
+          <tr><td>회사 이메일</td><td>Workshop Studio 이벤트 로그인에 사용합니다. <strong>회사 이메일 도메인</strong>을 써야 하며(예: <code class="inline">tester@amazon.com</code>), <strong>Email OTP</strong> 방식으로 로그인합니다.</td></tr>
+          <tr><td>이벤트 접근 코드</td><td>현장 진행자가 알려주는 <strong>12자리 코드</strong>입니다. 이 코드로 해커톤 이벤트에 참여합니다.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <p><strong>Part 2 로그인에 필요한 값을 미리 알아두세요.</strong> Kiro IDE 로그인 시 IAM Identity Center의
+        <strong>Start URL</strong>(<code class="inline">https://xxx.awsapps.com/start</code> 형식), <strong>Region</strong>(예: <code class="inline">us-east-1</code>),
+        <strong>사용자 아이디(qdev)</strong>·<strong>비밀번호(OTP)</strong>가 필요합니다.
+        이 값들은 Part 1에서 이벤트 계정에 접속한 후 워크숍 화면의 <strong>Event outputs</strong>에서 모두 확인할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <hr class="sep" />
+
+    <!-- ===== PART 1: WORKSHOP STUDIO ===== -->
+    <section id="ws-studio">
+      <div class="eyebrow"><span>Part 1 · 이벤트 계정 접속</span></div>
+      <h2>Workshop Studio 이벤트 계정 접속</h2>
+      <p>
+        해커톤의 실습 환경과 미리 준비된 AWS 계정은 <strong>AWS Workshop Studio</strong>를 통해 제공됩니다.
+        Workshop Studio에 접속해 <strong>Email OTP</strong>로 로그인하고, 진행자가 준 <strong>이벤트 접근 코드</strong>로 참여합니다.
+      </p>
+
+      <h3 id="ws-studio-h">1단계 · Workshop Studio 접속</h3>
+      <p>웹 브라우저에서 아래 주소로 이동합니다.</p>
+      <div class="codeblock">
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+        <pre>https://catalog.us-east-1.prod.workshops.aws/join/</pre>
+      </div>
+    </section>
+
+    <section id="ws-login">
+      <h3>2단계 · 회사 이메일 OTP로 로그인</h3>
+      <div class="callout warn">
+        <p><strong>반드시 Email OTP(일회용 비밀번호) 방식으로 로그인하세요.</strong> Google 등 소셜 로그인이 아니라
+        <strong>이메일 + 일회용 비밀번호</strong>로 진행해야 합니다. AWS 가이드 이벤트에서는 <strong>Email OTP</strong>를 사용합니다.</p>
+        <p>그리고 이메일은 반드시 <strong>회사 이메일 도메인</strong>을 사용해야 합니다. (예: <code class="inline">tester@amazon.com</code>)
+        개인 이메일(gmail 등)이 아닌 회사 도메인 계정으로 로그인하세요.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-title">로그인 방법 선택 — Email OTP</span>
+          <p>선호하는 로그인 방법 중 <strong>Email OTP</strong>를 선택합니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.workshops.aws/join</span></div>
+              <img src="https://static.us-east-1.prod.workshops.aws/public/1d965463-62b5-46aa-951c-8994fda7b352/static/images/getting-started/sign-in.png" alt="Workshop Studio 로그인 — Email OTP 선택" loading="lazy" />
+            </div>
+            <figcaption>그림 1-1. 로그인 방법으로 <strong>Email OTP</strong>를 선택합니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">회사 이메일 입력 → Send passcode</span>
+          <p>회사 이메일 도메인 주소(예: <code class="inline">tester@amazon.com</code>)를 입력하고 <strong>Send passcode</strong>를 누릅니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.workshops.aws/join</span></div>
+              <img src="https://static.us-east-1.prod.workshops.aws/public/1d965463-62b5-46aa-951c-8994fda7b352/static/images/getting-started/enter-email.png" alt="이메일 입력 후 Send passcode" loading="lazy" />
+            </div>
+            <figcaption>그림 1-2. 회사 이메일을 입력하고 <strong>Send passcode</strong>를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">OTP 입력 → Sign in</span>
+          <p><em>“Verify your AWS Training and Certification”</em> 제목의 이메일로 전송된 <strong>일회용 비밀번호(OTP)</strong>를
+          입력하고 <strong>Sign in</strong>을 클릭합니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.workshops.aws/join</span></div>
+              <img src="https://static.us-east-1.prod.workshops.aws/public/1d965463-62b5-46aa-951c-8994fda7b352/static/images/getting-started/enter-otp.png" alt="OTP 입력 후 Sign in" loading="lazy" />
+            </div>
+            <figcaption>그림 1-3. 이메일로 받은 OTP를 입력하고 <strong>Sign in</strong>합니다.</figcaption>
+          </figure>
+        </li>
+      </ol>
+    </section>
+
+    <section id="ws-join">
+      <h3>3단계 · 이벤트 접근 코드로 참여</h3>
+      <ol class="steps">
+        <li>
+          <span class="step-title">Event access code 입력</span>
+          <p>이벤트 주최자(진행자)로부터 받은 <strong>12자리 Event access code</strong>를 입력하고 <strong>Next</strong>를 선택합니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.workshops.aws/join</span></div>
+              <img src="https://static.us-east-1.prod.workshops.aws/public/1d965463-62b5-46aa-951c-8994fda7b352/static/images/getting-started/enter-access-code.png" alt="12자리 이벤트 접근 코드 입력" loading="lazy" />
+            </div>
+            <figcaption>그림 1-4. 12자리 <strong>Event access code</strong>를 입력하고 Next를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">약관 동의 → Join Event</span>
+          <p>워크숍 주소로 접속하면 사용자 동의 화면이 나옵니다. <strong>“I agree with the Terms and Conditions”</strong>를 체크하고
+          우측 하단의 <strong>Join event</strong>를 누릅니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.workshops.aws/join</span></div>
+              <img src="guide-images/join-event-terms.png" alt="이용 약관 동의 후 우측 하단 Join event" loading="lazy" />
+            </div>
+            <figcaption>그림 1-5. 약관에 동의하고 우측 하단 <strong>Join event</strong>를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">IDC 정보 확인 (Event outputs)</span>
+          <p><strong>Join event</strong>를 누르면 이벤트 대시보드(워크숍 화면)로 이동합니다. 아래 주소에서 직접 열 수도 있습니다.</p>
+          <div class="codeblock">
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            <pre>https://catalog.us-east-1.prod.workshops.aws/event/dashboard/ko-KR</pre>
+          </div>
+          <p>화면을 아래로 스크롤하면 <strong>Event outputs</strong> 영역에 Kiro 로그인에 필요한 <strong>IDC 정보</strong>가 모두 들어 있습니다.
+          Part 2에서 사용하니 확인해 두세요.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.us-east-1.prod.workshops.aws/event/dashboard/ko-KR</span></div>
+              <img src="guide-images/workshop-output.png" alt="워크숍 Event outputs — IDC-passwordotp, IDC-region, IDC-sso-starturl, IDC-username 등" loading="lazy" />
+            </div>
+            <figcaption>그림 1-6. 이벤트 대시보드를 아래로 스크롤하면 나오는 <strong>Event outputs</strong>에서 IDC 정보를 확인합니다.</figcaption>
+          </figure>
+          <div class="fields">
+            <div class="fhead">Event outputs에서 확인할 IDC 정보</div>
+            <table>
+              <tbody>
+                <tr><td><code class="inline">IDC-sso-starturl</code></td><td>Kiro 로그인 시 입력할 <strong>Start URL</strong></td></tr>
+                <tr><td><code class="inline">IDC-region</code></td><td><strong>Region</strong> (예: <code class="inline">us-east-1</code>)</td></tr>
+                <tr><td><code class="inline">IDC-username</code></td><td>사용자 아이디 — <strong>qdev</strong></td></tr>
+                <tr><td><code class="inline">IDC-passwordotp</code></td><td>최초 로그인용 <strong>비밀번호(OTP)</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+      <div class="callout ok">
+        <p>여기까지 하면 <strong>이벤트 계정 접속 완료</strong>입니다. 확인한 IDC 정보로 Part 2에서 Kiro IDE에 로그인합니다.</p>
+      </div>
+    </section>
+
+    <hr class="sep" />
+
+    <!-- ===== PART 2: KIRO IDE SIGN IN ===== -->
+    <section id="ide-signin">
+      <div class="eyebrow"><span>Part 2 · Kiro IDE Sign in</span></div>
+      <h2>Kiro IDE에 Sign in 하기</h2>
+      <p>
+        이제 Kiro IDE를 열고, 워크샵이 제공한 <strong>IAM Identity Center 계정</strong>으로 로그인합니다.
+        워크샵에서는 임시 <strong>Kiro Pro 라이센스</strong>가 제공됩니다.
+        (Start URL·Region 등 IDC 로그인 정보는 Part 1의 <strong>Event outputs</strong>에서 확인한 값을 사용합니다.)
+      </p>
+
+      <h3 id="ide-signin-h">1단계 · IAM Identity Center로 시작</h3>
+      <ol class="steps">
+        <li>
+          <span class="step-title">Kiro IDE 실행 → Sign in</span>
+          <p>Kiro IDE를 열면 나오는 시작(환영) 화면에서 <strong>Sign in</strong> 버튼을 누릅니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/kiro-firstrun.jpg" alt="Kiro 첫 화면 — KIRO 로고와 Sign in 버튼" loading="lazy" />
+            </div>
+            <figcaption>그림 2-1. Kiro 시작 화면에서 <strong>Sign in</strong>을 누릅니다.</figcaption>
+          </figure>
+          <div class="callout info">
+            <p><strong>이미 다른 계정으로 로그인되어 있나요?</strong> 이 시작 화면은 로그아웃 상태에서만 나옵니다.
+            이미 로그인되어 있다면 먼저 <strong>로그아웃</strong>하면 이 화면이 나타납니다.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-title">로그인 방법 — Your organization 선택</span>
+          <p>“Choose a way to sign in/sign up” 화면이 나오면, 로그인 방법 중
+          <strong>맨 아래의 “Your organization”</strong>을 선택합니다.
+          (Internal · Google · GitHub · Builder ID가 아닙니다.)</p>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/kiro-choose-signin.jpg" alt="Choose a way to sign in/sign up — 맨 아래 Your organization 선택" loading="lazy" />
+            </div>
+            <figcaption>그림 2-2. 로그인 방법 중 맨 아래 <strong>Your organization</strong>을 선택합니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">Sign in via IAM Identity Center instead 선택</span>
+          <p>“Sign in with your organization” 화면이 나오면, 이메일을 입력하지 말고
+          입력창 아래의 보라색 글씨 <strong>“Sign in via IAM Identity Center instead”</strong>를 클릭합니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/signin-your-org.png" alt="Sign in with your organization — Sign in via IAM Identity Center instead 클릭" loading="lazy" />
+            </div>
+            <figcaption>그림 2-3. 아래 보라색 글씨 <strong>Sign in via IAM Identity Center instead</strong>를 클릭합니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">Start URL &amp; Region 입력 → Continue</span>
+          <p>Part 1의 Event outputs에서 확인한 <strong>Start URL(<code class="inline">IDC-sso-starturl</code>)</strong>과
+          <strong>Region(<code class="inline">IDC-region</code>)</strong>을 입력하고 <strong>Continue</strong>를 누릅니다.
+          Start URL은 <code class="inline">https://xxx.awsapps.com/start</code> 형식, Region은 <code class="inline">us-east-1</code>입니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/signin-idc.png" alt="Sign in with AWS IAM Identity Center — Start URL, Region 입력" loading="lazy" />
+            </div>
+            <figcaption>그림 2-4. IDC <strong>Start URL</strong>과 <strong>Region</strong>을 입력하고 Continue를 누릅니다.</figcaption>
+          </figure>
+        </li>
+      </ol>
+    </section>
+
+    <section id="ide-browser">
+      <h3>2단계 · 브라우저에서 계정 로그인 &amp; 권한 승인</h3>
+      <p>Continue를 누르면 웹 브라우저가 열리며 AWS 로그인 페이지로 이동합니다.</p>
+      <ol class="steps">
+        <li>
+          <span class="step-title">IDC 사용자 아이디 입력 → Next</span>
+          <p><strong>Username</strong>에 <code class="inline">qdev</code>를 입력하고 <strong>Next</strong>를 누릅니다. (사용자 아이디는 <code class="inline">qdev</code>로 고정입니다.)</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start</span></div>
+              <img src="guide-images/signin-username.png" alt="AWS Sign in — Username(qdev) 입력 후 Next" loading="lazy" />
+            </div>
+            <figcaption>그림 2-5. IDC 사용자 아이디를 입력하고 <strong>Next</strong>를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">IDC 비밀번호 입력 → Sign in</span>
+          <p><strong>Password</strong>에 Event outputs의 <strong>IDC 비밀번호(<code class="inline">IDC-passwordotp</code>)</strong>를 입력하고 <strong>Sign in</strong>을 누릅니다.</p>
+          <div class="callout warn">
+            <p>여기서 넣는 비밀번호는 <code class="inline">IDC-passwordotp</code>입니다. Event outputs 아래쪽의 code-server <strong>Password</strong>(VS Code 서버 접속용)와 헷갈리지 마세요.</p>
+          </div>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start</span></div>
+              <img src="guide-images/signin-password.png" alt="AWS Sign in — IDC 비밀번호 입력 후 Sign in" loading="lazy" />
+            </div>
+            <figcaption>그림 2-6. <strong>IDC 비밀번호</strong>를 입력하고 Sign in을 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">비밀번호 재설정 (Set new password)</span>
+          <p>비밀번호 재설정 화면이 나오면 새 비밀번호를 입력합니다. 우측의 <strong>4가지 조건이 모두 체크</strong>되어야
+          재설정이 완료됩니다.</p>
+          <div class="callout warn">
+            <p><strong>새 비밀번호 조건 (4가지 모두 충족):</strong></p>
+            <p>• 8–64자 &nbsp;• 대문자와 소문자 포함 &nbsp;• 숫자 포함 &nbsp;• 특수문자(symbol) 포함</p>
+          </div>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start</span></div>
+              <img src="guide-images/set-new-password.png" alt="Set new password — 우측 4가지 조건 모두 체크" loading="lazy" />
+            </div>
+            <figcaption>그림 2-7. 우측 4가지 조건이 모두 체크되면 <strong>Set new password</strong>를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">Allow access — 데이터 액세스 허용</span>
+          <p>“Allow Kiro IDE to access your data?” 화면에서 <strong>Allow access</strong>를 누릅니다.
+          그러면 “창을 닫아도 된다”는 화면이 나오고, Kiro IDE로 돌아가면 로그인이 완료되어 있습니다.</p>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start</span></div>
+              <img src="guide-images/allow-access.png" alt="Allow Kiro IDE to access your data — Allow access 클릭" loading="lazy" />
+            </div>
+            <figcaption>그림 2-8. <strong>Allow access</strong>를 눌러 데이터 액세스를 허용합니다.</figcaption>
+          </figure>
+        </li>
+      </ol>
+    </section>
+
+    <section id="ide-chat">
+      <h3>3단계 · 로그인 성공 확인</h3>
+      <p>Kiro IDE로 돌아오면 로그인이 완료되어 있습니다.
+      <strong>우측 하단에 <code class="inline">Kiro Pro 0 / 1000</code></strong> 이라고 표시되면 로그인 성공입니다.</p>
+      <div class="callout ok">
+        <p><strong>축하합니다!</strong> 우측 하단에 <code class="inline">Kiro Pro 0 / 1000</code>이 보이면 모든 환경 준비가 끝난 것입니다.</p>
+      </div>
+      <div class="callout warn">
+        <p>로그인이 안 되거나 표시가 보이지 않으면, Start URL·Region·IDC 아이디/비밀번호를 다시 확인하고,
+        Kiro IDE를 완전히 종료한 뒤 다시 실행해 보세요. 그래도 안 되면 진행자에게 화면을 보여주세요.</p>
+      </div>
+    </section>
+
+    <hr class="sep" />
+
+    <!-- ===== CHECKLIST ===== -->
+    <section id="checklist">
+      <h2>최종 체크리스트</h2>
+      <p>아래 항목이 모두 충족되면 해커톤을 시작할 준비가 끝난 것입니다.</p>
+      <table>
+        <thead><tr><th style="width:12%">완료</th><th>항목</th></tr></thead>
+        <tbody>
+          <tr><td>☐</td><td>Workshop Studio에 회사 이메일 + Email OTP로 로그인했다</td></tr>
+          <tr><td>☐</td><td>진행자가 알려준 12자리 이벤트 접근 코드로 이벤트에 참여(Join Event)했다</td></tr>
+          <tr><td>☐</td><td>Kiro IDE에서 Your organization → IAM Identity Center instead로 Start URL·Region을 입력했다</td></tr>
+          <tr><td>☐</td><td>브라우저에서 IDC 아이디·비밀번호로 로그인하고 비밀번호를 재설정한 뒤 Allow access 했다</td></tr>
+          <tr><td>☐</td><td>Kiro IDE 우측 하단에 <code class="inline">Kiro Pro 0 / 1000</code>이 표시된다</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout ok">
+        <p><strong>모두 체크되었나요?</strong> 환경 준비 완료입니다. 이제 해커톤 실습으로 넘어가세요.</p>
+      </div>
+
+      <div class="pagenav">
+        <a href="#overview"><span class="dir">↑ 처음으로</span><span class="ttl">해커톤 개요</span></a>
+        <a class="next" href="#ide-signin"><span class="dir">다시 보기 →</span><span class="ttl">Kiro IDE Sign in</span></a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function copyCode(btn) {
+    const code = btn.parentElement.querySelector('pre').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const old = btn.innerText; btn.innerText = '복사됨';
+      setTimeout(() => btn.innerText = old, 1500);
+    });
+  }
+
+  // 모든 프롬프트 카드 헤더에 '복사' 버튼 자동 삽입
+  document.querySelectorAll('.prompt').forEach(card => {
+    const head = card.querySelector('.head');
+    const pq = card.querySelector('.pq');
+    if (!head || !pq || head.querySelector('.copy-btn')) return;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.type = 'button';
+    btn.textContent = '복사';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(pq.innerText.trim()).then(() => {
+        btn.textContent = '복사됨';
+        setTimeout(() => btn.textContent = '복사', 1500);
+      });
+    });
+    head.appendChild(btn);
+  });
+
+  const links = Array.from(document.querySelectorAll('.sidebar a'));
+  const map = {};
+  links.forEach(a => { const id = a.getAttribute('href').slice(1); const el = document.getElementById(id); if (el) map[id] = a; });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const a = map[e.target.id]; if (a) a.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+
+  document.querySelectorAll('.sidebar a').forEach(a =>
+    a.addEventListener('click', () => document.querySelector('.sidebar').classList.remove('open')));
+</script>
+</body>
+</html>

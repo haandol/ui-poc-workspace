@@ -9,9 +9,14 @@ packages/guide
 ├── bin/guide.ts          # CDK 엔트리포인트
 ├── lib/guide-stack.ts    # S3(비공개) + CloudFront(OAC) + BucketDeployment
 └── site/                 # 배포되는 정적 자산
-    ├── index.html        # = workshop-setup-guide.html
+    ├── index.html        # 가이드 선택 랜딩(두 가이드로 분기)
+    ├── prep.html         # 사전 교육 가이드(Amazon Quick·Kiro 설치·PoC 팁)
+    ├── event-access.html # 해커톤 당일 가이드(이벤트 계정 접속·Kiro IDE Sign in)
     └── guide-images/     # 가이드 이미지(상대경로로 참조)
 ```
+
+`index.html` 은 두 가이드(`prep.html`, `event-access.html`)로 들어가는 선택 화면입니다.
+각 가이드 상단의 "← 가이드 선택" 링크로 다시 랜딩으로 돌아올 수 있습니다.
 
 S3 버킷은 비공개로 두고 CloudFront Origin Access Control(OAC)로만 접근을 허용합니다.
 콘텐츠를 바꾸려면 `site/` 안의 파일을 수정한 뒤 다시 배포하면 됩니다 — 배포 시 CloudFront 캐시가 자동으로 무효화됩니다.
