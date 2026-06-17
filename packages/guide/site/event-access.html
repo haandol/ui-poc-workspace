@@ -389,7 +389,7 @@
       <h2>해커톤 Kiro 환경 준비</h2>
       <p class="lead">
         이 가이드는 <strong>해커톤</strong>에 참여하는 분을 위한 Kiro 환경 준비 안내입니다.
-        이벤트는 해커톤이지만, 계정과 실습 환경은 <strong>AWS가 제공하는 워크샵(Workshop Studio) 계정</strong>을 통해 설정합니다.
+        계정과 실습 환경은 <strong>AWS가 제공하는 워크샵(Workshop Studio) 계정</strong>을 통해 설정합니다.
         Workshop Studio 이벤트에 참여하고, 워크샵이 제공한 계정을 준비한 뒤,
         설치된 <strong>Kiro IDE</strong>에 그 계정으로 <strong>Sign in(로그인)</strong>하는 전 과정을 화면과 함께 따라갑니다.
       </p>
@@ -435,13 +435,6 @@
           <tr><td>이벤트 접근 코드</td><td>현장 진행자가 알려주는 <strong>12자리 코드</strong>입니다. 이 코드로 해커톤 이벤트에 참여합니다.</td></tr>
         </tbody>
       </table>
-
-      <div class="callout tip">
-        <p><strong>Part 2 로그인에 필요한 값을 미리 알아두세요.</strong> Kiro IDE 로그인 시 IAM Identity Center의
-        <strong>Start URL</strong>(<code class="inline">https://xxx.awsapps.com/start</code> 형식), <strong>Region</strong>(예: <code class="inline">us-east-1</code>),
-        <strong>사용자 아이디(qdev)</strong>·<strong>비밀번호(OTP)</strong>가 필요합니다.
-        이 값들은 Part 1에서 이벤트 계정에 접속한 후 워크숍 화면의 <strong>Event outputs</strong>에서 모두 확인할 수 있습니다.</p>
-      </div>
     </section>
 
     <hr class="sep" />
@@ -647,7 +640,7 @@
       <ol class="steps">
         <li>
           <span class="step-title">IDC 사용자 아이디 입력 → Next</span>
-          <p><strong>Username</strong>에 <code class="inline">qdev</code>를 입력하고 <strong>Next</strong>를 누릅니다. (사용자 아이디는 <code class="inline">qdev</code>로 고정입니다.)</p>
+          <p><strong>Username</strong>에 Event outputs의 <strong>사용자 아이디(<code class="inline">IDC-username</code>)</strong>를 입력하고 <strong>Next</strong>를 누릅니다. (값은 <code class="inline">qdev</code>입니다.)</p>
           <figure class="shot">
             <div class="frame">
               <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
