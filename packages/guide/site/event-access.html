@@ -375,6 +375,13 @@
       <a href="#ide-chat">로그인 성공 확인</a>
     </div>
     <div class="group">
+      <div class="group-title">Part 3 · (옵션) VS Code + Kiro CLI</div>
+      <a href="#cli-codeserver">미리 준비된 VS Code 접속</a>
+      <a href="#cli-login">Kiro CLI 디바이스 로그인</a>
+      <a href="#cli-browser">브라우저에서 인증 승인</a>
+      <a href="#cli-run">Kiro CLI 실행</a>
+    </div>
+    <div class="group">
       <div class="group-title">마무리</div>
       <a href="#checklist">최종 체크리스트</a>
     </div>
@@ -406,11 +413,18 @@
 
       <h3>전체 흐름 한눈에 보기</h3>
       <div class="toc-inline">
-        <strong>2단계로 끝납니다</strong>
+        <strong>기본 2단계 + 옵션 1단계</strong>
         <ul>
           <li><a href="#ws-studio">Part 1.</a> Workshop Studio 이벤트 계정 접속 (회사 이메일 OTP 로그인 + 이벤트 접근 코드)</li>
           <li><a href="#ide-signin">Part 2.</a> Kiro IDE에서 워크샵 IAM Identity Center 계정으로 Sign in (Kiro Pro)</li>
+          <li><a href="#cli-codeserver">Part 3. (옵션)</a> 로컬 Kiro IDE 대신, 미리 준비된 <strong>VS Code 서버(code-server)</strong>에 접속해 <strong>Kiro CLI</strong>로 로그인</li>
         </ul>
+      </div>
+
+      <div class="callout info">
+        <p><strong>Part 3는 옵션입니다.</strong> 로컬에 Kiro IDE를 설치하기 어렵거나(사내 정책·OS 제약 등) 진행자가 안내한 경우,
+        Part 2 대신 <strong>이벤트에 미리 준비된 VS Code 서버</strong>에 접속해 터미널에서 <strong>Kiro CLI</strong>로 로그인하는 경로를 쓸 수 있습니다.
+        Part 2(로컬 Kiro IDE)와 Part 3(VS Code + Kiro CLI) 중 <strong>하나만</strong> 진행하면 됩니다.</p>
       </div>
 
       <div class="pill-row">
@@ -431,8 +445,8 @@
         <tbody>
           <tr><td>개인 노트북</td><td>Windows 10/11(64비트) 또는 macOS / Linux. <strong>Kiro IDE가 미리 설치</strong>되어 있어야 합니다 (설치 방법은 <a href="prep.html#kiro-what" target="_blank" rel="noopener">사전 준비 가이드</a> 참고).</td></tr>
           <tr><td>안정적인 인터넷</td><td>이벤트 로그인, 계정 인증(브라우저), AI 모델 접근에 필요합니다.</td></tr>
-          <tr><td>회사 이메일</td><td>Workshop Studio 이벤트 로그인에 사용합니다. <strong>회사 이메일 도메인</strong>을 써야 하며(예: <code class="inline">tester@amazon.com</code>), <strong>Email OTP</strong> 방식으로 로그인합니다.</td></tr>
-          <tr><td>이벤트 접근 코드</td><td>현장 진행자가 알려주는 <strong>12자리 코드</strong>입니다. 이 코드로 해커톤 이벤트에 참여합니다.</td></tr>
+          <tr><td>회사 이메일</td><td>Workshop Studio 이벤트 로그인에 사용합니다. <strong>반드시 회사 이메일 주소</strong>를 써야 하며(예: <code class="inline">tester@amazon.com</code>), 개인 이메일(gmail 등)은 사용할 수 없습니다. <strong>Email OTP</strong> 방식으로 로그인합니다.</td></tr>
+          <tr><td>이벤트 접근 코드</td><td>이 해커톤의 접근 코드입니다. 이 코드로 해커톤 이벤트에 참여합니다. (코드 값은 Part 1 · 3단계에 있습니다.)</td></tr>
         </tbody>
       </table>
     </section>
@@ -445,7 +459,8 @@
       <h2>Workshop Studio 이벤트 계정 접속</h2>
       <p>
         해커톤의 실습 환경과 미리 준비된 AWS 계정은 <strong>AWS Workshop Studio</strong>를 통해 제공됩니다.
-        Workshop Studio에 접속해 <strong>Email OTP</strong>로 로그인하고, 진행자가 준 <strong>이벤트 접근 코드</strong>로 참여합니다.
+        Workshop Studio에 접속해 <strong>회사 이메일</strong> + <strong>Email OTP</strong>로 로그인하고,
+        <strong>이벤트 접근 코드</strong>로 참여합니다.
       </p>
 
       <h3 id="ws-studio-h">1단계 · Workshop Studio 접속</h3>
@@ -461,7 +476,7 @@
       <div class="callout warn">
         <p><strong>반드시 Email OTP(일회용 비밀번호) 방식으로 로그인하세요.</strong> Google 등 소셜 로그인이 아니라
         <strong>이메일 + 일회용 비밀번호</strong>로 진행해야 합니다. AWS 가이드 이벤트에서는 <strong>Email OTP</strong>를 사용합니다.</p>
-        <p>그리고 이메일은 반드시 <strong>회사 이메일 도메인</strong>을 사용해야 합니다. (예: <code class="inline">tester@amazon.com</code>)
+        <p>그리고 이메일은 <strong>반드시 회사 이메일 주소</strong>를 사용해야 합니다. (예: <code class="inline">tester@amazon.com</code>)
         개인 이메일(gmail 등)이 아닌 회사 도메인 계정으로 로그인하세요.</p>
       </div>
       <ol class="steps">
@@ -510,14 +525,18 @@
       <ol class="steps">
         <li>
           <span class="step-title">Event access code 입력</span>
-          <p>이벤트 주최자(진행자)로부터 받은 <strong>12자리 Event access code</strong>를 입력하고 <strong>Next</strong>를 선택합니다.</p>
+          <p>아래 <strong>Event access code</strong>를 입력하고 <strong>Next</strong>를 선택합니다.</p>
+          <div class="codeblock">
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            <pre>626e-0f90a3-0d</pre>
+          </div>
           <figure class="shot">
             <div class="frame">
               <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                 <span class="url">catalog.workshops.aws/join</span></div>
               <img src="https://static.us-east-1.prod.workshops.aws/public/1d965463-62b5-46aa-951c-8994fda7b352/static/images/getting-started/enter-access-code.png" alt="12자리 이벤트 접근 코드 입력" loading="lazy" />
             </div>
-            <figcaption>그림 1-4. 12자리 <strong>Event access code</strong>를 입력하고 Next를 누릅니다.</figcaption>
+            <figcaption>그림 1-4. <strong>Event access code</strong>를 입력하고 Next를 누릅니다.</figcaption>
           </figure>
         </li>
         <li>
@@ -713,6 +732,225 @@
 
     <hr class="sep" />
 
+    <!-- ===== PART 3 (OPTION): VS CODE SERVER + KIRO CLI ===== -->
+    <section id="cli-codeserver">
+      <div class="eyebrow"><span>Part 3 · 옵션 — VS Code + Kiro CLI</span></div>
+      <h2>(옵션) VS Code 서버에서 Kiro CLI로 로그인</h2>
+      <p>
+        로컬에 Kiro IDE를 설치하는 대신, 이벤트에 <strong>미리 준비된 VS Code 서버(code-server)</strong>에 브라우저로 접속해
+        터미널에서 <strong>Kiro CLI</strong>로 로그인하는 경로입니다. 별도 설치 없이 바로 실습 환경을 쓸 수 있습니다.
+      </p>
+      <div class="callout info">
+        <p><strong>이 파트는 Part 2의 대체 경로입니다.</strong> Part 2(로컬 Kiro IDE Sign in)를 이미 마쳤다면 Part 3는 건너뛰어도 됩니다.
+        진행자가 VS Code 서버 경로를 안내한 경우에만 이 파트를 따라가세요.</p>
+      </div>
+
+      <h3 id="cli-codeserver-h">1단계 · 미리 준비된 VS Code 서버 접속</h3>
+      <p>
+        Part 1의 <strong>Event outputs</strong> 맨 아래쪽에는 IDC 정보와 별도로 <strong>code-server(VS Code 서버) 접속 정보</strong>가 있습니다.
+        <code class="inline">URL</code>(Code-server URL)과 <code class="inline">Password</code>(Code-server Password) 두 값을 사용합니다.
+      </p>
+      <ol class="steps">
+        <li>
+          <span class="step-title">Event outputs에서 VS Code 서버 URL · Password 확인</span>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">catalog.us-east-1.prod.workshops.aws/event/dashboard/ko-KR</span></div>
+              <img src="guide-images/p3-codeserver-outputs.png" alt="Event outputs — code-editor 스택의 URL, Password 항목" loading="lazy" />
+            </div>
+            <figcaption>그림 3-1. Event outputs 아래쪽 <strong>code-editor</strong> 스택의 <code class="inline">URL</code>과 <code class="inline">Password</code>를 확인합니다.</figcaption>
+          </figure>
+          <p>이벤트 대시보드를 아래로 스크롤해 <strong>Stack name이 <code class="inline">code-editor</code></strong>인 두 항목을 찾습니다.
+          <code class="inline">URL</code>은 VS Code 서버 접속 주소(<code class="inline">https://xxxx.cloudfront.net/?folder=/workshop</code> 형식),
+          <code class="inline">Password</code>는 그 서버의 접속 비밀번호입니다.</p>
+          <div class="fields">
+            <div class="fhead">Event outputs에서 확인할 VS Code 서버 정보</div>
+            <table>
+              <tbody>
+                <tr><td><code class="inline">URL</code> (code-editor)</td><td>VS Code 서버 <strong>접속 주소</strong> — 브라우저로 엽니다</td></tr>
+                <tr><td><code class="inline">Password</code> (code-editor)</td><td>VS Code 서버 <strong>로그인 비밀번호</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn">
+            <p>여기서 쓰는 <code class="inline">Password</code>는 <strong>VS Code 서버(code-server) 접속용</strong>입니다.
+            Part 2에서 쓰던 IDC 로그인 비밀번호(<code class="inline">IDC-passwordotp</code>)와 헷갈리지 마세요.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-title">VS Code 서버 URL 접속 → Password 입력</span>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">xxxx.cloudfront.net/?folder=/workshop</span></div>
+              <img src="guide-images/p3-codeserver-login.png" alt="Welcome to code-server — PASSWORD 입력 후 SUBMIT" loading="lazy" />
+            </div>
+            <figcaption>그림 3-2. <em>Welcome to code-server</em> 화면에서 Event outputs의 <strong>Password</strong>를 입력하고 <strong>SUBMIT</strong>을 누릅니다.</figcaption>
+          </figure>
+          <p>확인한 <code class="inline">URL</code>을 브라우저 주소창에 붙여넣어 엽니다. <em>“Welcome to code-server”</em> 로그인 화면이 나오면
+          <code class="inline">Password</code> 값을 입력하고 <strong>SUBMIT</strong>을 누릅니다.</p>
+        </li>
+        <li>
+          <span class="step-title">VS Code(웹) 화면 진입 → 터미널 열기</span>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">xxxx.cloudfront.net/?folder=/workshop</span></div>
+              <img src="guide-images/p3-codeserver-ide.png" alt="브라우저에서 열린 VS Code 서버 — 하단 TERMINAL 패널" loading="lazy" />
+            </div>
+            <figcaption>그림 3-3. 브라우저에 VS Code가 열립니다. 하단 <strong>TERMINAL</strong> 패널에서 명령을 입력합니다.</figcaption>
+          </figure>
+          <p>로그인하면 브라우저 안에서 VS Code 화면이 열립니다. 하단의 <strong>TERMINAL</strong> 탭(없으면 상단 메뉴
+          <code class="inline">Terminal → New Terminal</code>)을 열어 명령을 입력할 준비를 합니다.
+          프롬프트가 <code class="inline">participant:/workshop$</code> 형태로 보이면 정상입니다.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="cli-login">
+      <h3>2단계 · Kiro CLI 디바이스 플로우 로그인</h3>
+      <p>터미널에서 아래 명령으로 디바이스 플로우(브라우저 인증) 로그인을 시작합니다.
+      로그인 정보는 Part 1의 <strong>Event outputs</strong>에서 확인한 <strong>IDC 값</strong>(Start URL · Region)을 그대로 씁니다.</p>
+      <div class="codeblock">
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+        <pre>kiro-cli login --use-device-flow</pre>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-title">로그인 명령 입력</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-login-cmd.png" alt="터미널에 kiro-cli login --use-device-flow 입력" loading="lazy" />
+            </div>
+            <figcaption>그림 3-4. 터미널에 <code class="inline">kiro-cli login --use-device-flow</code>를 입력하고 Enter를 누릅니다.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <span class="step-title">로그인 방법 — Use with Your Organization 선택</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-select-method.png" alt="Select login method — Use with Your Organization 선택" loading="lazy" />
+            </div>
+            <figcaption>그림 3-5. <strong>Select login method</strong>에서 화살표 키로 <strong>Use with Your Organization</strong>을 골라 Enter를 누릅니다.</figcaption>
+          </figure>
+          <p><code class="inline">↑ ↓</code> 화살표 키로 <strong>Use with Your Organization</strong>을 선택합니다.
+          (Builder ID · Google · GitHub가 아닙니다.)</p>
+        </li>
+        <li>
+          <span class="step-title">Start URL 입력</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-start-url.png" alt="Enter Start URL — IDC-sso-starturl 입력" loading="lazy" />
+            </div>
+            <figcaption>그림 3-6. <strong>Enter Start URL</strong>에 IDC Start URL을 입력합니다.</figcaption>
+          </figure>
+          <p>Part 1의 <code class="inline">IDC-sso-starturl</code> 값(<code class="inline">https://xxxx.awsapps.com/start</code> 형식)을 입력하고 Enter를 누릅니다.</p>
+        </li>
+        <li>
+          <span class="step-title">Region 입력</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-region.png" alt="Enter Region — us-east-1 입력" loading="lazy" />
+            </div>
+            <figcaption>그림 3-7. <strong>Enter Region</strong>에 <code class="inline">us-east-1</code>(<code class="inline">IDC-region</code> 값)을 입력합니다.</figcaption>
+          </figure>
+          <p>Part 1의 <code class="inline">IDC-region</code> 값(예: <code class="inline">us-east-1</code>)을 입력하고 Enter를 누릅니다.</p>
+        </li>
+        <li>
+          <span class="step-title">디바이스 코드 &amp; 인증 URL 확인</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-code.png" alt="Confirm the following code — Code 와 device URL, Logging in..." loading="lazy" />
+            </div>
+            <figcaption>그림 3-8. 터미널에 <strong>Code</strong>(예: <code class="inline">JXPK-MXWM</code>)와 인증 <strong>URL</strong>이 표시되고 <em>Logging in...</em> 상태가 됩니다.</figcaption>
+          </figure>
+          <p>터미널에 <strong>Code</strong>와 <strong>Open this URL</strong> 주소가 나옵니다. 이 코드와 URL을 다음 단계 브라우저 인증에 사용합니다.
+          터미널은 <em>Logging in...</em> 상태로 인증을 기다리니 그대로 두세요.</p>
+          <div class="callout tip">
+            <p>표시된 <strong>URL</strong>에는 코드가 이미 포함되어 있습니다(<code class="inline">...?user_code=XXXX-XXXX</code>).
+            URL을 그대로 새 브라우저 탭에 붙여넣으면 코드가 자동 입력됩니다.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="cli-browser">
+      <h3>3단계 · 브라우저에서 코드 확인 &amp; 액세스 허용</h3>
+      <p>터미널에 표시된 <strong>URL</strong>을 새 브라우저 탭에서 엽니다. (이미 IDC 로그인이 되어 있지 않으면
+      먼저 <code class="inline">IDC-username</code> · 비밀번호로 로그인하라는 화면이 나올 수 있습니다 — Part 2와 동일한 IDC 계정입니다.)</p>
+      <ol class="steps">
+        <li>
+          <span class="step-title">Authorization requested — 코드 일치 확인</span>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start/#/device</span></div>
+              <img src="guide-images/p3-cli-authorize.png" alt="Authorization requested — 터미널 코드와 일치하는지 확인 후 Confirm and continue" loading="lazy" />
+            </div>
+            <figcaption>그림 3-9. 화면의 코드가 터미널의 <strong>Code</strong>와 같은지 확인하고 <strong>Confirm and continue</strong>를 누릅니다.</figcaption>
+          </figure>
+          <p><em>Authorization requested</em> 화면의 코드가 터미널에 나온 <strong>Code</strong>와 일치하는지 확인한 뒤
+          <strong>Confirm and continue</strong>를 누릅니다.</p>
+        </li>
+        <li>
+          <span class="step-title">Allow Kiro CLI to access your data — Allow access</span>
+          <figure class="shot">
+            <div class="frame">
+              <div class="browserbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="url">awsapps.com/start/#/device</span></div>
+              <img src="guide-images/p3-cli-allow.png" alt="Allow Kiro CLI to access your data — Allow access 클릭" loading="lazy" />
+            </div>
+            <figcaption>그림 3-10. <em>Allow Kiro CLI to access your data?</em> 화면에서 <strong>Allow access</strong>를 누릅니다.</figcaption>
+          </figure>
+          <p><strong>Allow access</strong>를 누르면 인증이 끝납니다. 브라우저 탭은 닫아도 되고, 터미널로 돌아갑니다.</p>
+        </li>
+        <li>
+          <span class="step-title">터미널에서 로그인 성공 확인</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-success.png" alt="터미널 — Device authorized, Logged in successfully" loading="lazy" />
+            </div>
+            <figcaption>그림 3-11. 터미널에 <strong>Device authorized</strong>에 이어 <strong>Logged in successfully</strong>가 표시되면 로그인 완료입니다.</figcaption>
+          </figure>
+          <p>터미널로 돌아오면 <code class="inline">Device authorized</code> → <code class="inline">Logged in successfully</code> 메시지가 차례로 나오고
+          다시 <code class="inline">participant:/workshop$</code> 프롬프트로 돌아옵니다.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="cli-run">
+      <h3>4단계 · Kiro CLI 실행</h3>
+      <p>로그인이 끝났으면 인증을 마치고 <strong>Kiro CLI</strong>를 다시 실행해 대화형 화면으로 진입합니다.</p>
+      <div class="codeblock">
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+        <pre>kiro-cli</pre>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-title">kiro-cli 실행 → 대화 화면 진입</span>
+          <figure class="shot">
+            <div class="frame">
+              <img src="guide-images/p3-cli-kiro-run.png" alt="kiro-cli 실행 — KIRO 아트와 'Ask a question or describe a task' 프롬프트" loading="lazy" />
+            </div>
+            <figcaption>그림 3-12. <code class="inline">kiro-cli</code>를 실행하면 KIRO 로고와 <em>Ask a question or describe a task</em> 입력창이 나타납니다.</figcaption>
+          </figure>
+          <p>터미널에 <code class="inline">kiro-cli</code>를 입력해 실행합니다. <strong>KIRO</strong> 로고와 함께
+          <em>Ask a question or describe a task</em> 입력창이 보이면 준비 완료입니다. 여기에 한국어로 작업을 설명하면 됩니다.</p>
+        </li>
+      </ol>
+      <div class="callout ok">
+        <p><strong>완료!</strong> VS Code 서버 터미널에서 Kiro CLI 대화 화면이 떴다면, 로컬 Kiro IDE 없이도 해커톤 실습을 시작할 수 있습니다.</p>
+      </div>
+      <div class="callout info">
+        <p><strong>로그인이 안 되나요?</strong> Start URL·Region 값을 Event outputs와 다시 대조하고,
+        브라우저에서 <strong>Confirm and continue</strong>·<strong>Allow access</strong>를 모두 눌렀는지 확인하세요.
+        다시 시도하려면 <code class="inline">kiro-cli logout</code> 후 <code class="inline">kiro-cli login --use-device-flow</code>를 반복합니다.</p>
+      </div>
+    </section>
+
+    <hr class="sep" />
+
     <!-- ===== CHECKLIST ===== -->
     <section id="checklist">
       <h2>최종 체크리스트</h2>
@@ -728,13 +966,26 @@
         </tbody>
       </table>
 
+      <div class="callout info">
+        <p><strong>Part 3(옵션 · VS Code + Kiro CLI)로 진행한 경우</strong>에는 위 Part 2 항목 대신 아래를 확인하세요.</p>
+      </div>
+      <table>
+        <thead><tr><th style="width:12%">완료</th><th>항목 (Part 3 · 옵션)</th></tr></thead>
+        <tbody>
+          <tr><td>☐</td><td>Event outputs의 <code class="inline">URL</code>·<code class="inline">Password</code>로 VS Code 서버(code-server)에 접속했다</td></tr>
+          <tr><td>☐</td><td>터미널에서 <code class="inline">kiro-cli login --use-device-flow</code>로 Your Organization · Start URL · Region을 입력했다</td></tr>
+          <tr><td>☐</td><td>브라우저에서 코드를 확인하고 Confirm and continue · Allow access 했다 (<code class="inline">Logged in successfully</code> 확인)</td></tr>
+          <tr><td>☐</td><td><code class="inline">kiro-cli</code> 실행 시 KIRO 대화 화면(<em>Ask a question or describe a task</em>)이 뜬다</td></tr>
+        </tbody>
+      </table>
+
       <div class="callout ok">
         <p><strong>모두 체크되었나요?</strong> 환경 준비 완료입니다. 이제 해커톤 실습으로 넘어가세요.</p>
       </div>
 
       <div class="pagenav">
         <a href="#overview"><span class="dir">↑ 처음으로</span><span class="ttl">해커톤 개요</span></a>
-        <a class="next" href="#ide-signin"><span class="dir">다시 보기 →</span><span class="ttl">Kiro IDE Sign in</span></a>
+        <a class="next" href="#cli-codeserver"><span class="dir">옵션 보기 →</span><span class="ttl">VS Code + Kiro CLI</span></a>
       </div>
     </section>
 
