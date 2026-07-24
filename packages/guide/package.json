@@ -19,7 +19,7 @@
     "format:check": "prettier . --check"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.259.0",
+    "aws-cdk-lib": "^2.260.0",
     "constructs": "^10.4.2"
   },
   "devDependencies": {
